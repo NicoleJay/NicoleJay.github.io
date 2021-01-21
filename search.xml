@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>一些废话</title>
+    <url>/2021/01/20/%E4%B8%80%E4%BA%9B%E5%BA%9F%E8%AF%9D/</url>
+    <content><![CDATA[<p>欢迎来到我的个人博客！下面要说一些废话，可以忽略hhh</p>
+<a id="more"></a>
+
+<p>放假了终于把写博客的事提上日程了，之前本科时候心血来潮用学生优惠租过一台服务器搭博客，结果自从搭上后没几天就没怎么问津过了。。。然后就就就到期了，真是浪费资源啊。这次决定重新开始写博客记录记录平时学习过程，我就是只菜菜鸟，博客里的内容仅代表个人理解，有理解不到位、不正确的地方还请多多指教哈~</p>
+<p>立个flag，这次我一定经常来，哈哈哈</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
     <title>关于Web App的个人理解</title>
     <url>/2021/01/20/%E5%85%B3%E4%BA%8EWeb-App%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<h1 id="App的类型"><a href="#App的类型" class="headerlink" title="App的类型"></a>App的类型</h1><p>App主要分为三类，分别是Native App（原生应用程序）、Web App（Web应用程序）、Hybrid App（混合型应用程序）</p>
@@ -45,19 +58,6 @@
       </categories>
   </entry>
   <entry>
-    <title>一些废话</title>
-    <url>/2021/01/20/%E4%B8%80%E4%BA%9B%E5%BA%9F%E8%AF%9D/</url>
-    <content><![CDATA[<p>欢迎来到我的个人博客！下面要说一些废话，可以忽略hhh</p>
-<a id="more"></a>
-
-<p>放假了终于把写博客的事提上日程了，之前本科时候心血来潮用学生优惠租过一台服务器搭博客，结果自从搭上后没几天就没怎么问津过了。。。然后就就就到期了，真是浪费资源啊。这次决定重新开始写博客记录记录平时学习过程，我就是只菜菜鸟，博客里的内容仅代表个人理解，有理解不到位、不正确的地方还请多多指教哈~</p>
-<p>立个flag，这次我一定经常来，哈哈哈</p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-  </entry>
-  <entry>
     <title>关于前端框架React的个人理解</title>
     <url>/2021/01/21/%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6React%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><p>一个Web App的开发主要包括前端和后端两部分，在Web App运行时用户在浏览器端发生点击、输入、表单提交等事件，发生这些交互事件时浏览器端向后端发送http请求，后端服务器接收到前端发来的请求以及数据后执行相应脚本对用户请求进行处理，必要时向数据库查询或<a id="more"></a>更新数据，服务器再将处理结果生成HTML页面返回至浏览器进行渲染。在这个过程中，浏览器端的显示以及事务处理属于前端部分，而服务器端和数据库的程序开发属于后端部分。</p>
@@ -80,7 +80,7 @@
 <br />
 其中Vue、React、Angular是当前较主流的三个前端框架，此外还有Twitter推出的Bootstrap，饿了么团队推出的基于Vue的桌面端前端框架Element UI和移动端前端框架Mint UI，京东团队推出的可适配微信小程序的Taro UI前端框架，腾讯出品的QMUI，以及基于Vue的UI组件库iview和基于React的UI组件库Antd Design等。
 
-]]></content>
+<h1 id="未完待续…"><a href="#未完待续…" class="headerlink" title="未完待续…"></a>未完待续…</h1>]]></content>
       <categories>
         <category>前端</category>
       </categories>
