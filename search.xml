@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>关于Web App的个人理解</title>
+    <url>/2021/01/20/%E5%85%B3%E4%BA%8EWeb-App%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="App的类型"><a href="#App的类型" class="headerlink" title="App的类型"></a>App的类型</h1><p>App主要分为三类，分别是Native App（原生应用程序）、Web App（Web应用程序）、Hybrid App（混合型应用程序）</p>
+<a id="more"></a>
+
+<br />
+
+<p><img src="http://i1.fuimg.com/732494/5bb17bdcd9035a1c.png" alt="Alt text"></p>
+<br />
+
+<ul>
+<li><p><strong>Native App</strong></p>
+<p>  原生App是运行在设备操作系统上的应用程序，例如安装在电脑、手机上的各种软件。</p>
+<p>  对于不同的操作系统（如Windows、IOS、安卓等）需要使用不同的语言进行独立开发，这使得它的开发速度较慢、开发成本较高。同时，对于不同操作系统的App进行独立维护，这增加了维护总成本。并且原生App要发布上线、供用户下载使用前需要经过一系列的审核流程，因此从开发到上线还需要一定的时间。</p>
+<p>  但是原生App一般将资源放置在用户的设备本地，因此用户获取资源更加便捷。并且原生App可调用的终端硬件设备，如麦克风、摄像头等，从而实现更丰富的功能。交互性、用户体验度最好。</p>
+</li>
+<li><p><strong>Web App</strong></p>
+<p>  Web App是运行在浏览器上的应用程序，是一个轻量级App。只需打开浏览器并输入相应网址即可访问。</p>
+<p>  由于Web App不依赖于操作系统，因此对于不同的操作系统而言无需单独开发一套应用程序，通过一次开发，即可让不同设备的用户访问到该应用程序，开发时只需考虑浏览器的兼容问题，使得开发效率提高，开发成本降低。从而只需专注在一套代码程序的优化和维护上，也大大降低了维护成本。<br>  其资源一般存储在云端，使得用户可以实时访问到最新数据。并且用户可最快获取最新功能或版本。  </p>
+</li>
+</ul>
+<pre><code>Web App也可调用终端的硬件设备，但其可调用的硬件设备功能相较于原生App来说受到一些限制。</code></pre>
+<ul>
+<li><p><strong>Hybrid App</strong></p>
+<p>  混合型App是一个相当于在原生程序中伪造了浏览器，并运行Web App的半原生应用程序，运行在操作系统上。</p>
+<p>  其资源可放置在本地或云端。交互性和用户体验度次于原生App。</p>
+</li>
+</ul>
+<h1 id="Web-App工作过程"><a href="#Web-App工作过程" class="headerlink" title="Web App工作过程"></a>Web App工作过程</h1><p>Web APP是B/S架构的软件，其运行主要涉及的终端设备、客户终端的浏览器以及服务器。用户访问App，并获取相应返回数据的过程如下图所示：</p>
+<br />
+
+<p><img src="http://i1.fuimg.com/732494/1dfcbe01c95202ae.png" alt="Alt text"></p>
+<br />
+
+<p>①访问网址：用户在终端浏览器中栏输入URL路径向相应的服务器请求页面</p>
+<p>②连接过程：Web服务器与浏览器间建立连接</p>
+<p>③请求过程：浏览器用http协议描述，并封装为TCP/IP数据包寻址，发送http请求</p>
+<p>④应答过程：服务器接收和分析http请求，按照用户请求内容执行相应处理，生成返回的HTML页面，并将结果打包成HTTP响应</p>
+<p>⑤显示输出：浏览器在客户端屏幕上渲染服务器处理后返回的HTML页面</p>
+<p>⑥关闭连接：Web服务器和浏览器间断开连接</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>关于前端框架React的个人理解</title>
+    <url>/2021/01/21/%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6React%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><p>一个Web App的开发主要包括前端和后端两部分，在Web App运行时用户在浏览器端发生点击、输入、表单提交等事件，发生这些交互事件时浏览器端向后端发送http请求，后端服务器接收到前端发来的请求以及数据后执行相应脚本对用户请求进行处理，必要时向数据库查询或<a id="more"></a>更新数据，服务器再将处理结果生成HTML页面返回至浏览器进行渲染。在这个过程中，浏览器端的显示以及事务处理属于前端部分，而服务器端和数据库的程序开发属于后端部分。</p>
+<br />
+
+<p><img src="http://i2.tiimg.com/732494/7c10ab7f948a4e9f.png" alt="Alt text"></p>
+<br />
+
+<p>前端即网站前台部分，运行在PC端，移动端等浏览器上展现给用户浏览的网页。[来自百度百科]进行前端开发需要掌握的基本知识包括HTML、CSS、JavaScript。</p>
+<ul>
+<li><p>HTML：超文本标记语言 （Hyper Text Markup Language）——页面结构、内容<br>负责定义页面的组成，例如标题、段落、图片、链接等。</p>
+</li>
+<li><p>CSS：级联样式表（Cascading Style Sheet）——样式<br>负责定义页面各组成部分的布局和样式，例如所处位置、大小、颜色等。</p>
+</li>
+<li><p>JavaScript：面向对象的客户端脚本语言——控制HTML中的各元素、处理事务逻辑<br>负责处理用户的鼠标点击、滑动所触发的事件的部分事务逻辑，部分事务逻辑可由后端处理。</p>
+</li>
+</ul>
+<h1 id="前端框架"><a href="#前端框架" class="headerlink" title="前端框架"></a>前端框架</h1><p>可以通过自行创建HTML文件、定义CSS、编写JS来搭建前端，但这样的开发效率较低，且代码杂乱、冗余，难以维护。因此大家都倾向于利用前端框架搭建前端，在前端框架中页面需要重复使用的部分可封装为组件，从而能方便地引用，且各个组件定义自己的js逻辑和样式，使得各部分代码清晰明了且整洁。<br>通过使用前端框架，程序猿可更专注于网页内容的开发，而数据缓存、数据安全校验等由框架来实现。<br>此外，虽然各前端框架的内部实现机制不同，但相比原生态的前端页面开发而言，前端框架在实现机制上进行了性能优化来提高网页速度。<br>而且在前端框架中有许多已封装好的第三方组件可直接调用，使开发效率提升、页面更加美观。<br>如今前端框架层出不穷，下图展示了部分较为流行的前端框架：</p>
+<br />
+
+<p><img src="http://i2.tiimg.com/732494/f30c38ee8633645f.png" alt="Alt text"></p>
+<br />
+
+<p>其中Vue、React、Angular是当前较主流的三个前端框架，此外还有Twitter推出的Bootstrap，饿了么团队推出的基于Vue的桌面端前端框架Element UI和移动端前端框架Mint UI，京东团队推出的可适配微信小程序的Taro UI前端框架，腾讯出品的QMUI，以及基于Vue的UI组件库iview和基于React的UI组件库Antd Design等。</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>一些废话</title>
+    <url>/2021/01/20/%E4%B8%80%E4%BA%9B%E5%BA%9F%E8%AF%9D/</url>
+    <content><![CDATA[<p>欢迎来到我的个人博客！下面要说一些废话，可以忽略hhh</p>
+<a id="more"></a>
+
+<p>放假了终于把写博客的事提上日程了，之前本科时候心血来潮用学生优惠租过一台服务器搭博客，结果自从搭上后没几天就没怎么问津过了。。。然后就就就到期了，真是浪费资源啊。这次决定重新开始写博客记录记录平时学习过程，我就是只菜菜鸟，博客里的内容仅代表个人理解，有理解不到位、不正确的地方还请多多指教哈~</p>
+<p>立个flag，这次我一定经常来，哈哈哈</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+</search>
