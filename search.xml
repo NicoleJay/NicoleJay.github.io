@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>一些废话</title>
+    <url>/2021/01/20/%E4%B8%80%E4%BA%9B%E5%BA%9F%E8%AF%9D/</url>
+    <content><![CDATA[<p>欢迎来到我的个人博客！下面要说一些废话，可以忽略hhh</p>
+<a id="more"></a>
+
+<p>放假了终于把写博客的事提上日程了，之前本科时候心血来潮用学生优惠租过一台服务器搭博客，结果自从搭上后没几天就没怎么问津过了。。。然后就就就到期了，真是浪费资源啊。这次决定重新开始写博客记录记录平时学习过程，我就是只菜菜鸟，博客里的内容仅代表个人理解，有理解不到位、不正确的地方还请多多指教哈~</p>
+<p>立个flag，这次我一定经常来，哈哈哈</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
     <title>关于Web App的个人理解</title>
     <url>/2021/01/20/%E5%85%B3%E4%BA%8EWeb-App%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<h1 id="App的类型"><a href="#App的类型" class="headerlink" title="App的类型"></a>App的类型</h1><p>App主要分为三类，分别是Native App（原生应用程序）、Web App（Web应用程序）、Hybrid App（混合型应用程序）</p>
@@ -74,19 +87,6 @@
 ]]></content>
       <categories>
         <category>前端</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>一些废话</title>
-    <url>/2021/01/20/%E4%B8%80%E4%BA%9B%E5%BA%9F%E8%AF%9D/</url>
-    <content><![CDATA[<p>欢迎来到我的个人博客！下面要说一些废话，可以忽略hhh</p>
-<a id="more"></a>
-
-<p>放假了终于把写博客的事提上日程了，之前本科时候心血来潮用学生优惠租过一台服务器搭博客，结果自从搭上后没几天就没怎么问津过了。。。然后就就就到期了，真是浪费资源啊。这次决定重新开始写博客记录记录平时学习过程，我就是只菜菜鸟，博客里的内容仅代表个人理解，有理解不到位、不正确的地方还请多多指教哈~</p>
-<p>立个flag，这次我一定经常来，哈哈哈</p>
-]]></content>
-      <categories>
-        <category>其他</category>
       </categories>
   </entry>
 </search>
