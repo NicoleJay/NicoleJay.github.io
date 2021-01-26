@@ -94,29 +94,21 @@
 <p>每个脚本都需要解析器，即构建一个运行时环境，而nodejs就是为js脚本提供一个运行时环境。对于JavaScript，在前端html中的js是由浏览器进行解析，主要是对DOM的操作，而nodejs解析的js脚本主要是对磁盘文件等进行操作，搭建起一个服务。</p>
 <p>webpack是一个模块管理工具，将项目各文件进行打包，在项目部署时可通过直接调用打包后生成的资源文件，方便快捷。</p>
 <h1 id="一、安装Nodejs"><a href="#一、安装Nodejs" class="headerlink" title="一、安装Nodejs"></a>一、安装Nodejs</h1><p>在<a href="https://nodejs.org/zh-cn/">官网</a>根据自己的系统选择对应版本进行下载</p>
-<center>![Alt text](http://i2.tiimg.com/732494/7ad8f648f607a3d7.png)</center>
-
+<p><img src="http://i2.tiimg.com/732494/7ad8f648f607a3d7.png" alt="Alt text"></p>
 <p>下载完成后开始安装，可自定义所要安装的位置，其他选项按照默认即可。<br>打开命令行，输入 <code>node -v</code> 并回车，查看是否安装成功，若出现nodejs版本表示已成功安装。</p>
-<center>![Alt text](http://i2.tiimg.com/732494/9fb44ca493882d40.png)</center>
-
-
+<p><img src="http://i2.tiimg.com/732494/9fb44ca493882d40.png" alt="Alt text"></p>
 <h1 id="二、npm初始化"><a href="#二、npm初始化" class="headerlink" title="二、npm初始化"></a>二、npm初始化</h1><p>npm是包管理器，在开发过程中，通过 <code>npm install 包名称</code> 命令安装所需的包，即可使用别人已写好的模块，省去下载源码解压安装等繁琐步骤。npm包管理器集成在nodejs中，当上一步nodejs安装成功后，在命令行输入 <code>npm -v</code> ，显示npm的版本号，表示npm也已成功安装。</p>
-<center>![Alt text](http://i2.tiimg.com/732494/63fa2b52376e5796.png)</center>
-
+<p><img src="http://i2.tiimg.com/732494/63fa2b52376e5796.png" alt="Alt text"></p>
 <p>新建一个React项目的文件夹（这里我命名为test），打开命令行，进入该文件夹，使用命令 <code>npm init</code> 初始化项目，初始化过程中可按提示输入项目名称、版本、描述、入口文件、启动命令等信息，也可选择一路回车。</p>
-<center>![Alt text](http://i2.tiimg.com/732494/795ddb9bb46e6dcb.png)</center>
-
+<p><img src="http://i2.tiimg.com/732494/795ddb9bb46e6dcb.png" alt="Alt text"></p>
 <p>此时会在该文件夹下生成一个package.json文件，该文件中记录的是刚才项目初始化时所输入的项目相关信息。</p>
-<center>![Alt text](http://i2.tiimg.com/732494/6ad3db867a45dbe5.png)</center>
-
+<p><img src="http://i2.tiimg.com/732494/6ad3db867a45dbe5.png" alt="Alt text"></p>
 <h1 id="三、安装Webpack"><a href="#三、安装Webpack" class="headerlink" title="三、安装Webpack"></a>三、安装Webpack</h1><p>在项目文件夹下使用命令 <code>npm install webpack webpack-cli webpack-dev-server --save-dev</code> 安装webpack和webpack-dev-sever。</p>
 <p>其中webpack负责打包工作，方便文件管理，把所有静态文件打包成一个bundle.js资源文件，当项目部署时只需项目入口文件和打包好的bundle.js文件即可。最新版本的webpack需要搭配webpack-cli使用，要编译成功还必须安装webpage-cli。</p>
 <p>安装webpack-dev-server包是为了方便在本地实时预览页面，是一个小型的nodejs Express服务器，为静态文件提供web服务，实现热加载，即当更改并保存前端代码后，webpack自动编译，并在浏览器中自动刷新显示最新页面，从而实时预览更改后的页面状态。webpack-dev-sever在本地开发时非常方便，在项目部署到服务器后的生产环境中不需要用到，因此在安装命令中使用–save-dev表示把包安装在dev节点上。</p>
-<center>![Alt text](http://i1.fuimg.com/732494/c30ed6a062746dc5.png)</center>
-
+<p><img src="http://i1.fuimg.com/732494/c30ed6a062746dc5.png" alt="Alt text"></p>
 <p>安装完成后，在项目文件夹下生成node_modules文件夹和package-lock.json文件，其中node_modules文件夹中存放的就是项目开发过程中安装的各种模块。</p>
-<center>![Alt text](http://i1.fuimg.com/732494/b64ec9a171069fa2.png)</center>
-
+<p><img src="http://i1.fuimg.com/732494/b64ec9a171069fa2.png" alt="Alt text"></p>
 <p>在项目文件夹下手动创建一个webpack.config.js文件，在该文件中配置项目的入口文件、打包后的文件存放位置等信息。配置如下：</p>
 <pre><code>var path = require(&quot;path&quot;);
 var webpack = require(&#39;webpack&#39;);
@@ -147,12 +139,10 @@ module.exports = &#123;
 &#125;;</code></pre>
 <h1 id="四、安装React"><a href="#四、安装React" class="headerlink" title="四、安装React"></a>四、安装React</h1><p>在项目文件夹下使用命令 <code>npm install react react-dom --save-dev</code> 命令安装react和react-dom模块。</p>
 <p>其中react模块时react的核心库，react-dom模块提供关于DOM的相关操作，将react的虚拟DOM进行编译更新DOM。</p>
-<center>![Alt text](http://i1.fuimg.com/732494/e8e18dcdb6deed26.png)</center>
-
+<p><img src="http://i1.fuimg.com/732494/e8e18dcdb6deed26.png" alt="Alt text"></p>
 <p>由于在react中支持JSX格式代码，即可以在js中直接写html标签，因此在react中各组件文件以js或jsx后缀都可以，若要把jsx文件转为js文件需要安装jsx-loader包。此外，要把react框架中编写的代码使用webpack打包后还需要使用babel包对其进行编译，</p>
 <p>因此使用命令 <code>npm install jsx-loader babel-core babel-loader babel-preset-es2015 babel-preset-react --save-dev</code> 安装所需这些包，babel-core是babel的核心库，babel-preset-react可把react的语法转换为ES5规范。</p>
-<center>![Alt text](http://i1.fuimg.com/732494/658d87ca99f7e057.png)</center>
-
+<p><img src="http://i1.fuimg.com/732494/658d87ca99f7e057.png" alt="Alt text"></p>
 <p>在webpack.config.js文件中添加如下配置:</p>
 <pre><code>module: &#123;
   loaders: [
@@ -170,8 +160,7 @@ module.exports = &#123;
   ]
 &#125;,</code></pre>
 <p>安装好这些包后查看package.json文件中的“devDependencies”一项记录了在dev节点安装的所有模块。</p>
-<center>![Alt text](http://i1.fuimg.com/732494/fb1814fa247e1c2c.png)</center>
-
+<p><img src="http://i1.fuimg.com/732494/fb1814fa247e1c2c.png" alt="Alt text"></p>
 <p>打开package.json文件，修改“scripts”节点，在该节点中可自定义不同命令，并为不同命令赋予含义。在该节点中添加</p>
 <pre><code>&quot;build&quot;: &quot;webpack --config webpack.config.js&quot;,
 &quot;start&quot;: &quot;webpack-dev-server --inline&quot;</code></pre>
@@ -190,51 +179,38 @@ module.exports = &#123;
 &lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;
 &lt;/html&gt;</code></pre>
 <p>新建src文件夹，并在该文件夹下新建main.js文件作为前端文件入口。可自定义入口文件位置，只需与webpack.config.js文件中的设置一致即可。</p>
-<center>![Alt text](http://i2.tiimg.com/732494/bd9ac6e147f810b2.png)</center>
-
+<p><img src="http://i2.tiimg.com/732494/bd9ac6e147f810b2.png" alt="Alt text"></p>
 <p>在main.js文件中编写如下代码：</p>
 <pre><code>import React from &#39;react&#39;;  //引入react核心库
 import ReactDOM from &#39;react-dom&#39;;   //引入react-dom
 
 ReactDOM.render(&lt;h1&gt;Hello World!&lt;/h1&gt;, document.getElementById(&#39;page&#39;)); //定义所要渲染的内容</code></pre>
 <p>在项目文件夹目录下打开命令行，使用命令npm run build打包文件，此时会出现如下报错</p>
-<center>![Alt text](http://i1.fuimg.com/732494/b29962f22b1019b2.png)</center>
-
+<p><img src="http://i1.fuimg.com/732494/b29962f22b1019b2.png" alt="Alt text"></p>
 <p>在packge.json文件中可以看到安装的webpack和webpack-cli版本</p>
-<center>![Alt text](http://i1.fuimg.com/732494/fb28c881a7c20765.png)</center>
-
+<p><img src="http://i1.fuimg.com/732494/fb28c881a7c20765.png" alt="Alt text"></p>
 <p>因此报错原因是在webpack 4以后的版本中将webpack本身和webpack-cli分开来更好地管理它们，而在webpack 3中，两者在同一个包中，所以可以通过降级来解决。</p>
 <p>首先使用 <code>npm uninstall webpack webpack-cli</code> 命令将原先安装的webapck和webpack-cli包移除，再使用 <code>npm install webpack@3.8.0 webpack-cli@3.3.12 --save-dev</code></p>
-<center>![Alt text](http://i2.tiimg.com/732494/f1f07a9157054b23.png)</center>
-
+<p><img src="http://i2.tiimg.com/732494/f1f07a9157054b23.png" alt="Alt text"></p>
 <p>再次使用 <code>npm run build</code> 命令，此时又会出现如下报错</p>
-<center>![Alt text](http://i2.tiimg.com/732494/8e1f7b24bc65c405.png)</center>
-
+<p><img src="http://i2.tiimg.com/732494/8e1f7b24bc65c405.png" alt="Alt text"></p>
 <p>原因是babel-loader的版本不匹配，若想用babel-core 6的版本需要使用babel-loader 7的版本，而通过查看package.json文件可以看到安装的babel-core版本为6.26.3，而babel-loader的版本为8.2.2，同样可以通过给babel-loader降级来解决。</p>
-<center>![Alt text](http://i2.tiimg.com/732494/b0ff860abe2a03e5.png)</center>
-
+<p><img src="http://i2.tiimg.com/732494/b0ff860abe2a03e5.png" alt="Alt text"></p>
 <p>使用 <code>npm uninstall babel-loader</code> 移除原先安装的babel-loader，再使用 <code>npm install babel-loader@7.1.5 --save-dev</code> 重新安装</p>
-<center>![Alt text](http://i2.tiimg.com/732494/f01fc438d4c87401.png)</center>
-
+<p><img src="http://i2.tiimg.com/732494/f01fc438d4c87401.png" alt="Alt text"></p>
 <p>此时再执行 <code>npm run build</code> ，成功编译打包</p>
-<center>![Alt text](http://i2.tiimg.com/732494/4da962b877d9fa5e.png)</center>
-
+<p><img src="http://i2.tiimg.com/732494/4da962b877d9fa5e.png" alt="Alt text"></p>
 <p>在build目录下生成打包后的bundle.js文件</p>
-<center>![Alt text](http://i2.tiimg.com/732494/a5b0aa844b1eb485.png)</center>
-
+<p><img src="http://i2.tiimg.com/732494/a5b0aa844b1eb485.png" alt="Alt text"></p>
 <p>使用命令 <code>npm run start</code> 启动服务，此时又会出现如下报错</p>
-<center>![Alt text](http://i2.tiimg.com/732494/83e9b57eebfaf73c.png)</center>
-
+<p><img src="http://i2.tiimg.com/732494/83e9b57eebfaf73c.png" alt="Alt text"></p>
 <p>因为之前对webpack和webpack-cli进行降级后，最新版的webpack-dev-server与它们不匹配了，同样需要对webpack-dev-server进行降级。</p>
 <p>使用 <code>npm uninstall webpack-dev-server</code> 移除原先安装的babel-loader，再使用 <code>npm install webpack-dev-server@2.9.7 --save-dev</code> 重新安装</p>
-<center>![Alt text](http://i1.fuimg.com/732494/f7a73ace8939c6f0.png)</center>
-
+<p><img src="http://i1.fuimg.com/732494/f7a73ace8939c6f0.png" alt="Alt text"></p>
 <p>使用命令 <code>npm run start</code> 启动服务</p>
-<center>![Alt text](http://i1.fuimg.com/732494/b4aa7e296fa26f41.png)</center>
-
+<p><img src="http://i1.fuimg.com/732494/b4aa7e296fa26f41.png" alt="Alt text"></p>
 <p>打开浏览器，输入 <code>127.0.0.1:5000/build</code> 进行查看</p>
-<center>![Alt text](http://i1.fuimg.com/732494/4c2929147616ee2b.png)</center>
-
+<p><img src="http://i1.fuimg.com/732494/4c2929147616ee2b.png" alt="Alt text"></p>
 <p>如上图所示浏览器成功渲染页面，至此完成react项目的搭建。</p>
 ]]></content>
       <categories>
