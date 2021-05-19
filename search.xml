@@ -21,7 +21,7 @@
 
 <br />
 
-<p><img src="http://i1.fuimg.com/732494/5bb17bdcd9035a1c.png" alt="Alt text"></p>
+<p><img src="https://raw.githubusercontent.com/NicoleJay/BlogImages/main/2021/01/20/1.png" alt="Alt text"></p>
 <br />
 
 <ul>
@@ -43,7 +43,7 @@
 <h1 id="Web-App工作过程"><a href="#Web-App工作过程" class="headerlink" title="Web App工作过程"></a>Web App工作过程</h1><p>Web APP是B/S架构的软件，其运行主要涉及的终端设备、客户终端的浏览器以及服务器。用户访问App，并获取相应返回数据的过程如下图所示：</p>
 <br />
 
-<p><img src="http://i1.fuimg.com/732494/1dfcbe01c95202ae.png" alt="Alt text"></p>
+<p><img src="https://github.com/NicoleJay/BlogImages/blob/main/2021/01/20/2.png" alt="Alt text"></p>
 <br />
 
 <p>①访问网址：用户在终端浏览器中栏输入URL路径向相应的服务器请求页面</p>
