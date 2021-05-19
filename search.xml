@@ -19,10 +19,10 @@
     <content><![CDATA[<h1 id="App的类型"><a href="#App的类型" class="headerlink" title="App的类型"></a>App的类型</h1><p>App主要分为三类，分别是Native App（原生应用程序）、Web App（Web应用程序）、Hybrid App（混合型应用程序）</p>
 <a id="more"></a>
 
-<br />
+<br>
 
-<p><img src="https://raw.githubusercontent.com/NicoleJay/BlogImages/main/2021/01/20/1.png" alt="Alt text"></p>
-<br />
+<p><img src="/2021/01/20/%E5%85%B3%E4%BA%8EWeb-App%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/1.png" alt="App的类型"></p>
+<br>
 
 <ul>
 <li><p><strong>Native App</strong></p>
@@ -41,10 +41,10 @@
 </li>
 </ul>
 <h1 id="Web-App工作过程"><a href="#Web-App工作过程" class="headerlink" title="Web App工作过程"></a>Web App工作过程</h1><p>Web APP是B/S架构的软件，其运行主要涉及的终端设备、客户终端的浏览器以及服务器。用户访问App，并获取相应返回数据的过程如下图所示：</p>
-<br />
+<br>
 
-<p><img src="https://github.com/NicoleJay/BlogImages/blob/main/2021/01/20/2.png" alt="Alt text"></p>
-<br />
+<p><img src="/2021/01/20/%E5%85%B3%E4%BA%8EWeb-App%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/2.png" alt="Web App工作过程"></p>
+<br>
 
 <p>①访问网址：用户在终端浏览器中栏输入URL路径向相应的服务器请求页面</p>
 <p>②连接过程：Web服务器与浏览器间建立连接</p>
