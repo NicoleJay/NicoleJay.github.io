@@ -217,4 +217,45 @@ ReactDOM.render(&lt;h1&gt;Hello World!&lt;/h1&gt;, document.getElementById(&#39;
         <category>前端</category>
       </categories>
   </entry>
+  <entry>
+    <title>前端小方法杂记</title>
+    <url>/2021/05/21/%E5%89%8D%E7%AB%AF%E5%B0%8F%E6%96%B9%E6%B3%95%E6%9D%82%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="一、HTML与CSS"><a href="#一、HTML与CSS" class="headerlink" title="一、HTML与CSS"></a>一、HTML与CSS</h1><h2 id="关于居中"><a href="#关于居中" class="headerlink" title="关于居中"></a>关于居中</h2><p><strong>问题1：</strong><code>&lt;div&gt;</code>子元素在父元素中垂直居中</p>
+<a id="more"></a>
+
+<p><strong>方法一：</strong>子元素设置<code>display:inline-block;vertical-align:middle;</code></p>
+<p><strong>方法二：</strong>父元素设置<code>display:flex;</code>搭配子元素<code>align-self:center;</code></p>
+<p><strong>方法三：</strong>父元素设置<code>display:table;</code>搭配子元素<code>display: table-cell;vertical-align: middle;</code></p>
+<p><strong>问题2：</strong>在没有设置<code>&lt;div&gt;</code>宽度时的水平居中</p>
+<p><strong>方法：</strong>CSS3支持使用<code>width:-moz-fit-content;  width:fit-content;  margin:0 auto;</code>实现水平居中，且仅谷歌与火狐浏览器支持</p>
+<h2 id="关于刷新"><a href="#关于刷新" class="headerlink" title="关于刷新"></a>关于刷新</h2><p><strong>问题：</strong>点击<code>&lt;a&gt;</code>标签后页面总会自动刷新</p>
+<p><strong>方法：</strong>可添加属性<code>href=&quot;javascript:;&quot;</code>阻止页面刷新</p>
+<h2 id="关于大小、高度不一"><a href="#关于大小、高度不一" class="headerlink" title="关于大小、高度不一"></a>关于大小、高度不一</h2><p><strong>问题1：</strong><code>&lt;input&gt;</code>标签中 text 类型和 submit 类型设置相同的高度，显示出来却不同</p>
+<p><strong>原因：</strong>因为text类型的<code>&lt;input&gt;</code>标签显示的宽度和高度包含 border</p>
+<p><strong>方法：</strong>可在 submit 类型的<code>&lt;input&gt;</code>标签中设置<code>box-sizing: content-box;</code></p>
+<p><strong>问题2：</strong>当在子元素中使用<code>display:inline-block</code>使多个子元素并排时，各子元素高度不一</p>
+<p><strong>方法：</strong>可在子元素中添加<code>letter-spacing: 0;vertical-align: top;</code>来解决</p>
+<h2 id="关于元素样式作用对象"><a href="#关于元素样式作用对象" class="headerlink" title="关于元素样式作用对象"></a>关于元素样式作用对象</h2><p><strong>问题：</strong><code>&lt;div&gt;</code>子元素设置 margin 后会作用于父元素</p>
+<p><strong>方法一：</strong>对父元素添加<code>overflow: hidden;</code></p>
+<p><strong>方法二：</strong>给父元素增加透明边框<code>border: 1px solid transparent;</code>或<code>border-top: 1px solid transparent;</code></p>
+<p><strong>方法三：</strong>为父元素设置<code>padding</code></p>
+<h2 id="关于样式"><a href="#关于样式" class="headerlink" title="关于样式"></a>关于样式</h2><p><strong>问题：</strong>去除<code>&lt;button&gt;</code>一些默认样式</p>
+<p><strong>方法：</strong>去除边框<code>border:none;</code>&nbsp;&nbsp;&nbsp;去除点击时的边框<code>outline: none;</code></p>
+<h1 id="二、JS"><a href="#二、JS" class="headerlink" title="二、JS"></a>二、JS</h1><h2 id="关于多个重叠-lt-div-gt-的点击"><a href="#关于多个重叠-lt-div-gt-的点击" class="headerlink" title="关于多个重叠&lt;div&gt;的点击"></a>关于多个重叠<code>&lt;div&gt;</code>的点击</h2><p><strong>问题1：</strong>上层<code>&lt;div&gt;</code>遮挡下层<code>&lt;div&gt;</code>后，点击重叠部分无法触发下层<code>&lt;div&gt;</code>的函数</p>
+<p><strong>方法：</strong>可通过<code>pointer-events:none;</code>解决</p>
+<p><strong>问题2：</strong>点击子<code>&lt;div&gt;</code>不触发父<code>&lt;div&gt;</code>的函数</p>
+<p><strong>方法：</strong>在子<code>&lt;div&gt;</code>点击时阻止冒泡事件，即在函数中添加<code>event.stopPropagation()</code></p>
+<h2 id="关于-lt-input-gt-值不变"><a href="#关于-lt-input-gt-值不变" class="headerlink" title="关于&lt;input&gt;值不变"></a>关于<code>&lt;input&gt;</code>值不变</h2><p><strong>问题：</strong>修改<code>&lt;input&gt;</code>的输入内容，获取到的值不变</p>
+<p><strong>方法：</strong><code>&lt;input&gt;</code>标签可通过 value 属性设置默认值，若要可修改需要添加<code>onChange</code>监听函数才行</p>
+<h1 id="三、针对React"><a href="#三、针对React" class="headerlink" title="三、针对React"></a>三、针对React</h1><h2 id="关于背景"><a href="#关于背景" class="headerlink" title="关于背景"></a>关于背景</h2><p><strong>问题：</strong>react 中给<code>&lt;div&gt;</code>添加背景图片时背景图片过大</p>
+<p><strong>方法：</strong>可设置<code>webkitBackgroundSize: &#39;100% 100%&#39;</code></p>
+<h2 id="关于带参数的函数"><a href="#关于带参数的函数" class="headerlink" title="关于带参数的函数"></a>关于带参数的函数</h2><p><strong>问题：</strong>react 中定义带参数的函数</p>
+<p><strong>方法：</strong>在标签的 onClick 属性中使用<code>this.函数名.bind(this,参数)</code>，</p>
+<p>在 constructor() 构造器中使用<code>this.函数名=this.函数名.bind(this)</code>，</p>
+<p>在定义函数时参数为 (参数名,event)</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
 </search>
