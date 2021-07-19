@@ -259,21 +259,6 @@ ReactDOM.render(&lt;h1&gt;Hello World!&lt;/h1&gt;, document.getElementById(&#39;
       </categories>
   </entry>
   <entry>
-    <title>深度学习包的使用杂记</title>
-    <url>/2021/07/12/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8C%85%E7%9A%84%E4%BD%BF%E7%94%A8%E6%9D%82%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="一、Numpy"><a href="#一、Numpy" class="headerlink" title="一、Numpy"></a>一、Numpy</h1><h2 id="向量、矩阵点乘与叉乘"><a href="#向量、矩阵点乘与叉乘" class="headerlink" title="向量、矩阵点乘与叉乘"></a>向量、矩阵点乘与叉乘</h2><h3 id="点乘：内积、数量积，两向量若垂直点积为0，-a-b-cos-theta"><a href="#点乘：内积、数量积，两向量若垂直点积为0，-a-b-cos-theta" class="headerlink" title="点乘：内积、数量积，两向量若垂直点积为0，|a||b|cos(theta)"></a>点乘：内积、数量积，两向量若垂直点积为0，|a||b|cos(theta)</h3><p>向量：<code>np.dot</code>——相同位置元素相乘后求和——结果是标量，<code>*</code>——相同位置元素相乘——结果与原向量大小相同</p>
-<a id="more"></a>
-
-<p>矩阵：<code>*</code>或<code>np.multiply</code>——相同位置元素相乘——结果是矩阵，与原矩阵大小相同</p>
-<h3 id="叉乘：向量积、外积，两向量若平行叉积为0，-a-b-sin-theta"><a href="#叉乘：向量积、外积，两向量若平行叉积为0，-a-b-sin-theta" class="headerlink" title="叉乘：向量积、外积，两向量若平行叉积为0，|a||b|sin(theta)"></a>叉乘：向量积、外积，两向量若平行叉积为0，|a||b|sin(theta)</h3><p>向量：<code>np.cross</code>——二维平面向量叉乘结果的长度为组成的四边形面积，多维向量叉乘得到法向量</p>
-<p>矩阵：<code>np.dot</code>——矩阵1每行与矩阵2每列相乘</p>
-]]></content>
-      <categories>
-        <category>Python</category>
-        <category>深度学习</category>
-      </categories>
-  </entry>
-  <entry>
     <title>服务器的配置和使用</title>
     <url>/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<p>深度学习环境配置包括 <strong>显卡驱动 + anaconda + cuda + cudnn + pytorch/tensorflow（GPU版）</strong></p>
@@ -286,25 +271,30 @@ ReactDOM.render(&lt;h1&gt;Hello World!&lt;/h1&gt;, document.getElementById(&#39;
 <p><strong>tensorflow和gcc、cuda版本有关</strong>，在<a href="https://www.tensorflow.org/install/source#tested_build_configurations">这里</a>可查看它们的版本关系</p>
 <p>因为实验室的服务器已经有同学在使用所以基本环境都已装好，只需在anaconda中创建一个新的虚拟环境安装pytorch/tensorflow即可，这样更方便更安全，避免和其他同学的环境产生冲突。所以这里也只记录了在显卡驱动、anaconda、cuda、cudnn都已装好的服务器中，第一次使用前所需要做的准备。</p>
 <p>（由于笔记本使用win10系统，实验室台式机使用Linux系统，所以文中图片可能会出现两种系统下的截图，但两种系统下的方法是一样的）。在Windows系统中使用xshell远程连接服务器，Linux系统在终端或VsCode中可远程连接服务器。</p>
-<h1 id="一、了解服务器基本信息"><a href="#一、了解服务器基本信息" class="headerlink" title="一、了解服务器基本信息"></a>一、了解服务器基本信息</h1><p>1、硬盘大小及剩余容量 <code>df -lh</code></p>
-<p>2、显卡信息 <code>lspci | grep -i nvidia</code> 或 <code>lspci | grep -i vga</code></p>
-<p>3、显卡驱动 <code>nvidia-smi</code></p>
+<h1 id="一、了解服务器基本信息"><a href="#一、了解服务器基本信息" class="headerlink" title="一、了解服务器基本信息"></a>一、了解服务器基本信息</h1><h2 id="1、硬盘大小及剩余容量"><a href="#1、硬盘大小及剩余容量" class="headerlink" title="1、硬盘大小及剩余容量"></a>1、硬盘大小及剩余容量</h2><p><code>df -lh</code></p>
+<h2 id="2、显卡信息"><a href="#2、显卡信息" class="headerlink" title="2、显卡信息"></a>2、显卡信息</h2><p><code>lspci | grep -i nvidia</code> 或 <code>lspci | grep -i vga</code></p>
+<h2 id="3、显卡驱动"><a href="#3、显卡驱动" class="headerlink" title="3、显卡驱动"></a>3、显卡驱动</h2><p><code>nvidia-smi</code></p>
 <p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/nvidia-smi.png" alt="nvidia-smi"></p>
-<p>4、查看cuda版本 <code>nvcc -V</code></p>
+<h2 id="4、查看cuda版本"><a href="#4、查看cuda版本" class="headerlink" title="4、查看cuda版本"></a>4、查看cuda版本</h2><p><code>nvcc -V</code></p>
 <p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/nvcc.png" alt="nvcc"></p>
-<p>5、查看gcc版本 <code>gcc -v</code></p>
-<h1 id="二、在Anaconda中创建个人环境"><a href="#二、在Anaconda中创建个人环境" class="headerlink" title="二、在Anaconda中创建个人环境"></a>二、在Anaconda中创建个人环境</h1><p>1、创建新环境 <code>conda create -n xwj_pytorch python=3.6</code></p>
-<p>2、进入环境 <code>conda activate xwj_pytorch</code></p>
+<h2 id="5、查看cudnn版本"><a href="#5、查看cudnn版本" class="headerlink" title="5、查看cudnn版本"></a>5、查看cudnn版本</h2><p><code>cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2</code></p>
+<h2 id="6、查看gcc版本"><a href="#6、查看gcc版本" class="headerlink" title="6、查看gcc版本"></a>6、查看gcc版本</h2><p><code>gcc -v</code></p>
+<h1 id="二、在Anaconda中创建个人环境"><a href="#二、在Anaconda中创建个人环境" class="headerlink" title="二、在Anaconda中创建个人环境"></a>二、在Anaconda中创建个人环境</h1><h2 id="1、创建新环境"><a href="#1、创建新环境" class="headerlink" title="1、创建新环境"></a>1、创建新环境</h2><p><code>conda create -n xwj_pytorch python=3.6</code></p>
+<h2 id="2、进入环境"><a href="#2、进入环境" class="headerlink" title="2、进入环境"></a>2、进入环境</h2><p><code>conda activate xwj_pytorch</code></p>
 <p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/activate.png" alt="activate"></p>
-<p>3、在虚拟环境中安装pytorch</p>
-<p>在<a href="https://pytorch.org/get-started/previous-versions/">官网</a>查找对应cuda的pytorch版本</p>
+<h2 id="3、在虚拟环境中安装pytorch"><a href="#3、在虚拟环境中安装pytorch" class="headerlink" title="3、在虚拟环境中安装pytorch"></a>3、在虚拟环境中安装pytorch</h2><p>在<a href="https://pytorch.org/get-started/previous-versions/">官网</a>查找对应cuda的pytorch版本</p>
 <p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/pytorch.png" alt="pytorch"></p>
 <p>复制命令在终端执行，即可完成安装</p>
 <p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/installpytorch.png" alt="installpytorch"></p>
 <p>进入虚拟环境中的python，检查pytorch是否安装成功是否可用</p>
 <p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/checkpytorch.png" alt="checkpytorch"></p>
-<p>4、安装tensorflow</p>
-<p>查看gcc版本 <code>gcc -v</code></p>
+<p>pytorch中可通过如下代码查看可用显卡的数量和信息</p>
+<pre><code>import torch
+print([torch.cuda.get_device_properties(i) for i in range(torch.cuda.device_count())])</code></pre>
+<p>pytorch中设置可用显卡</p>
+<pre><code>import os
+os.environ[&quot;CUDA_VISIBLE_DEVICES&quot;] = &#39;0,1&#39;</code></pre>
+<h2 id="4、安装tensorflow"><a href="#4、安装tensorflow" class="headerlink" title="4、安装tensorflow"></a>4、安装tensorflow</h2><p>查看gcc版本 <code>gcc -v</code></p>
 <p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/gcc.png" alt="gcc"></p>
 <p>在<a href="https://www.tensorflow.org/install/source#tested_build_configurations">tensorflow官网</a>查看版本匹配</p>
 <p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/tfversion.png" alt="tfversion"></p>
@@ -389,6 +379,21 @@ ReactDOM.render(&lt;h1&gt;Hello World!&lt;/h1&gt;, document.getElementById(&#39;
 <p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/sftpjson.png" alt="sftpjson"></p>
 <h3 id="（3）上传"><a href="#（3）上传" class="headerlink" title="（3）上传"></a>（3）上传</h3><p>输入 <code>ctrl+shift+p</code>打开输入框输入 <code>SFTP:Upload Project</code>，然后选择要上传的项目文件夹，再输入服务器密码即可</p>
 <p>然后可在xshell登录服务器或在vscode中连接登录服务器打开文件夹，进入虚拟环境，运行代码</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+        <category>深度学习</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>深度学习包的使用杂记</title>
+    <url>/2021/07/12/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8C%85%E7%9A%84%E4%BD%BF%E7%94%A8%E6%9D%82%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="一、Numpy"><a href="#一、Numpy" class="headerlink" title="一、Numpy"></a>一、Numpy</h1><h2 id="向量、矩阵点乘与叉乘"><a href="#向量、矩阵点乘与叉乘" class="headerlink" title="向量、矩阵点乘与叉乘"></a>向量、矩阵点乘与叉乘</h2><h3 id="点乘：内积、数量积，两向量若垂直点积为0，-a-b-cos-theta"><a href="#点乘：内积、数量积，两向量若垂直点积为0，-a-b-cos-theta" class="headerlink" title="点乘：内积、数量积，两向量若垂直点积为0，|a||b|cos(theta)"></a>点乘：内积、数量积，两向量若垂直点积为0，|a||b|cos(theta)</h3><p>向量：<code>np.dot</code>——相同位置元素相乘后求和——结果是标量，<code>*</code>——相同位置元素相乘——结果与原向量大小相同</p>
+<a id="more"></a>
+
+<p>矩阵：<code>*</code>或<code>np.multiply</code>——相同位置元素相乘——结果是矩阵，与原矩阵大小相同</p>
+<h3 id="叉乘：向量积、外积，两向量若平行叉积为0，-a-b-sin-theta"><a href="#叉乘：向量积、外积，两向量若平行叉积为0，-a-b-sin-theta" class="headerlink" title="叉乘：向量积、外积，两向量若平行叉积为0，|a||b|sin(theta)"></a>叉乘：向量积、外积，两向量若平行叉积为0，|a||b|sin(theta)</h3><p>向量：<code>np.cross</code>——二维平面向量叉乘结果的长度为组成的四边形面积，多维向量叉乘得到法向量</p>
+<p>矩阵：<code>np.dot</code>——矩阵1每行与矩阵2每列相乘</p>
 ]]></content>
       <categories>
         <category>Python</category>
