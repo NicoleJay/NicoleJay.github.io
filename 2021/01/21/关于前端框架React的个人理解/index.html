@@ -14,7 +14,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
@@ -23,17 +23,17 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"nicolejay.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="前端一个Web App的开发主要包括前端和后端两部分，在Web App运行时用户在浏览器端发生点击、输入、表单提交等事件，发生这些交互事件时浏览器端向后端发送http请求，后端服务器接收到前端发来的请求以及数据后执行相应脚本对用户请求进行处理，必要时向数据库查询或">
+<meta name="description" content="前端一个Web App的开发主要包括前端和后端两部分，在Web App运行时用户在浏览器端发生点击、输入、表单提交等事件，发生这些交互事件时浏览器端向后端发送http请求，后端服务器接收到前端发来的请求以及数据后执行相应脚本对用户请求进行处理，必要时向数据库查询或更新数据，服务器再将处理结果生成">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于前端框架React的个人理解">
 <meta property="og:url" content="http://nicolejay.github.io/2021/01/21/%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6React%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/index.html">
 <meta property="og:site_name" content="X 的笔记">
-<meta property="og:description" content="前端一个Web App的开发主要包括前端和后端两部分，在Web App运行时用户在浏览器端发生点击、输入、表单提交等事件，发生这些交互事件时浏览器端向后端发送http请求，后端服务器接收到前端发来的请求以及数据后执行相应脚本对用户请求进行处理，必要时向数据库查询或">
+<meta property="og:description" content="前端一个Web App的开发主要包括前端和后端两部分，在Web App运行时用户在浏览器端发生点击、输入、表单提交等事件，发生这些交互事件时浏览器端向后端发送http请求，后端服务器接收到前端发来的请求以及数据后执行相应脚本对用户请求进行处理，必要时向数据库查询或更新数据，服务器再将处理结果生成">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://nicolejay.github.io/2021/01/21/%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6React%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/1.png">
 <meta property="og:image" content="http://nicolejay.github.io/2021/01/21/%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6React%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/2.png">
 <meta property="article:published_time" content="2021-01-21T10:26:40.000Z">
-<meta property="article:modified_time" content="2021-05-19T12:52:32.629Z">
+<meta property="article:modified_time" content="2021-07-03T14:46:51.162Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://nicolejay.github.io/2021/01/21/%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6React%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/1.png">
@@ -204,14 +204,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
@@ -301,7 +301,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><p>一个Web App的开发主要包括前端和后端两部分，在Web App运行时用户在浏览器端发生点击、输入、表单提交等事件，发生这些交互事件时浏览器端向后端发送http请求，后端服务器接收到前端发来的请求以及数据后执行相应脚本对用户请求进行处理，必要时向数据库查询或<a id="more"></a>更新数据，服务器再将处理结果生成HTML页面返回至浏览器进行渲染。在这个过程中，浏览器端的显示以及事务处理属于前端部分，而服务器端和数据库的程序开发属于后端部分。</p>
+        <h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><p>一个Web App的开发主要包括前端和后端两部分，在Web App运行时用户在浏览器端发生点击、输入、表单提交等事件，发生这些交互事件时浏览器端向后端发送http请求，后端服务器接收到前端发来的请求以及数据后执行相应脚本对用户请求进行处理，必要时向数据库查询或更新数据，服务器再将处理结果生成<a id="more"></a>HTML页面返回至浏览器进行渲染。在这个过程中，浏览器端的显示以及事务处理属于前端部分，而服务器端和数据库的程序开发属于后端部分。</p>
 <br>
 
 <p><img src="/2021/01/21/%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6React%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/1.png" alt="前后端"></p>

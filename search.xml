@@ -60,7 +60,7 @@
   <entry>
     <title>关于前端框架React的个人理解</title>
     <url>/2021/01/21/%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6React%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><p>一个Web App的开发主要包括前端和后端两部分，在Web App运行时用户在浏览器端发生点击、输入、表单提交等事件，发生这些交互事件时浏览器端向后端发送http请求，后端服务器接收到前端发来的请求以及数据后执行相应脚本对用户请求进行处理，必要时向数据库查询或<a id="more"></a>更新数据，服务器再将处理结果生成HTML页面返回至浏览器进行渲染。在这个过程中，浏览器端的显示以及事务处理属于前端部分，而服务器端和数据库的程序开发属于后端部分。</p>
+    <content><![CDATA[<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><p>一个Web App的开发主要包括前端和后端两部分，在Web App运行时用户在浏览器端发生点击、输入、表单提交等事件，发生这些交互事件时浏览器端向后端发送http请求，后端服务器接收到前端发来的请求以及数据后执行相应脚本对用户请求进行处理，必要时向数据库查询或更新数据，服务器再将处理结果生成<a id="more"></a>HTML页面返回至浏览器进行渲染。在这个过程中，浏览器端的显示以及事务处理属于前端部分，而服务器端和数据库的程序开发属于后端部分。</p>
 <br>
 
 <p><img src="/2021/01/21/%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6React%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/1.png" alt="前后端"></p>
@@ -81,6 +81,47 @@
 其中Vue、React、Angular是当前较主流的三个前端框架，此外还有Twitter推出的Bootstrap，饿了么团队推出的基于Vue的桌面端前端框架Element UI和移动端前端框架Mint UI，京东团队推出的可适配微信小程序的Taro UI前端框架，腾讯出品的QMUI，以及基于Vue的UI组件库iview和基于React的UI组件库Antd Design等。
 
 <h1 id="未完待续…"><a href="#未完待续…" class="headerlink" title="未完待续…"></a>未完待续…</h1>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>前端小方法杂记</title>
+    <url>/2021/05/21/%E5%89%8D%E7%AB%AF%E5%B0%8F%E6%96%B9%E6%B3%95%E6%9D%82%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="一、HTML与CSS"><a href="#一、HTML与CSS" class="headerlink" title="一、HTML与CSS"></a>一、HTML与CSS</h1><h2 id="关于居中"><a href="#关于居中" class="headerlink" title="关于居中"></a>关于居中</h2><p><strong>问题1：</strong><code>&lt;div&gt;</code>子元素在父元素中垂直居中</p>
+<a id="more"></a>
+
+<p><strong>方法一：</strong>子元素设置<code>display:inline-block;vertical-align:middle;</code></p>
+<p><strong>方法二：</strong>父元素设置<code>display:flex;</code>搭配子元素<code>align-self:center;</code></p>
+<p><strong>方法三：</strong>父元素设置<code>display:table;</code>搭配子元素<code>display: table-cell;vertical-align: middle;</code></p>
+<p><strong>问题2：</strong>在没有设置<code>&lt;div&gt;</code>宽度时的水平居中</p>
+<p><strong>方法：</strong>CSS3支持使用<code>width:-moz-fit-content;  width:fit-content;  margin:0 auto;</code>实现水平居中，且仅谷歌与火狐浏览器支持</p>
+<h2 id="关于刷新"><a href="#关于刷新" class="headerlink" title="关于刷新"></a>关于刷新</h2><p><strong>问题：</strong>点击<code>&lt;a&gt;</code>标签后页面总会自动刷新</p>
+<p><strong>方法：</strong>可添加属性<code>href=&quot;javascript:;&quot;</code>阻止页面刷新</p>
+<h2 id="关于大小、高度不一"><a href="#关于大小、高度不一" class="headerlink" title="关于大小、高度不一"></a>关于大小、高度不一</h2><p><strong>问题1：</strong><code>&lt;input&gt;</code>标签中 text 类型和 submit 类型设置相同的高度，显示出来却不同</p>
+<p><strong>原因：</strong>因为text类型的<code>&lt;input&gt;</code>标签显示的宽度和高度包含 border</p>
+<p><strong>方法：</strong>可在 submit 类型的<code>&lt;input&gt;</code>标签中设置<code>box-sizing: content-box;</code></p>
+<p><strong>问题2：</strong>当在子元素中使用<code>display:inline-block</code>使多个子元素并排时，各子元素高度不一</p>
+<p><strong>方法：</strong>可在子元素中添加<code>letter-spacing: 0;vertical-align: top;</code>来解决</p>
+<h2 id="关于元素样式作用对象"><a href="#关于元素样式作用对象" class="headerlink" title="关于元素样式作用对象"></a>关于元素样式作用对象</h2><p><strong>问题：</strong><code>&lt;div&gt;</code>子元素设置 margin 后会作用于父元素</p>
+<p><strong>方法一：</strong>对父元素添加<code>overflow: hidden;</code></p>
+<p><strong>方法二：</strong>给父元素增加透明边框<code>border: 1px solid transparent;</code>或<code>border-top: 1px solid transparent;</code></p>
+<p><strong>方法三：</strong>为父元素设置<code>padding</code></p>
+<h2 id="关于样式"><a href="#关于样式" class="headerlink" title="关于样式"></a>关于样式</h2><p><strong>问题：</strong>去除<code>&lt;button&gt;</code>一些默认样式</p>
+<p><strong>方法：</strong>去除边框<code>border:none;</code>&nbsp;&nbsp;&nbsp;去除点击时的边框<code>outline: none;</code></p>
+<h1 id="二、JS"><a href="#二、JS" class="headerlink" title="二、JS"></a>二、JS</h1><h2 id="关于多个重叠-lt-div-gt-的点击"><a href="#关于多个重叠-lt-div-gt-的点击" class="headerlink" title="关于多个重叠&lt;div&gt;的点击"></a>关于多个重叠<code>&lt;div&gt;</code>的点击</h2><p><strong>问题1：</strong>上层<code>&lt;div&gt;</code>遮挡下层<code>&lt;div&gt;</code>后，点击重叠部分无法触发下层<code>&lt;div&gt;</code>的函数</p>
+<p><strong>方法：</strong>可通过<code>pointer-events:none;</code>解决</p>
+<p><strong>问题2：</strong>点击子<code>&lt;div&gt;</code>不触发父<code>&lt;div&gt;</code>的函数</p>
+<p><strong>方法：</strong>在子<code>&lt;div&gt;</code>点击时阻止冒泡事件，即在函数中添加<code>event.stopPropagation()</code></p>
+<h2 id="关于-lt-input-gt-值不变"><a href="#关于-lt-input-gt-值不变" class="headerlink" title="关于&lt;input&gt;值不变"></a>关于<code>&lt;input&gt;</code>值不变</h2><p><strong>问题：</strong>修改<code>&lt;input&gt;</code>的输入内容，获取到的值不变</p>
+<p><strong>方法：</strong><code>&lt;input&gt;</code>标签可通过 value 属性设置默认值，若要可修改需要添加<code>onChange</code>监听函数才行</p>
+<h1 id="三、针对React"><a href="#三、针对React" class="headerlink" title="三、针对React"></a>三、针对React</h1><h2 id="关于背景"><a href="#关于背景" class="headerlink" title="关于背景"></a>关于背景</h2><p><strong>问题：</strong>react 中给<code>&lt;div&gt;</code>添加背景图片时背景图片过大</p>
+<p><strong>方法：</strong>可设置<code>webkitBackgroundSize: &#39;100% 100%&#39;</code></p>
+<h2 id="关于带参数的函数"><a href="#关于带参数的函数" class="headerlink" title="关于带参数的函数"></a>关于带参数的函数</h2><p><strong>问题：</strong>react 中定义带参数的函数</p>
+<p><strong>方法：</strong>在标签的 onClick 属性中使用<code>this.函数名.bind(this,参数)</code>，</p>
+<p>在 constructor() 构造器中使用<code>this.函数名=this.函数名.bind(this)</code>，</p>
+<p>在定义函数时参数为 (参数名,event)</p>
+]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -218,44 +259,140 @@ ReactDOM.render(&lt;h1&gt;Hello World!&lt;/h1&gt;, document.getElementById(&#39;
       </categories>
   </entry>
   <entry>
-    <title>前端小方法杂记</title>
-    <url>/2021/05/21/%E5%89%8D%E7%AB%AF%E5%B0%8F%E6%96%B9%E6%B3%95%E6%9D%82%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="一、HTML与CSS"><a href="#一、HTML与CSS" class="headerlink" title="一、HTML与CSS"></a>一、HTML与CSS</h1><h2 id="关于居中"><a href="#关于居中" class="headerlink" title="关于居中"></a>关于居中</h2><p><strong>问题1：</strong><code>&lt;div&gt;</code>子元素在父元素中垂直居中</p>
+    <title>深度学习包的使用杂记</title>
+    <url>/2021/07/12/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8C%85%E7%9A%84%E4%BD%BF%E7%94%A8%E6%9D%82%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="一、Numpy"><a href="#一、Numpy" class="headerlink" title="一、Numpy"></a>一、Numpy</h1><h2 id="向量、矩阵点乘与叉乘"><a href="#向量、矩阵点乘与叉乘" class="headerlink" title="向量、矩阵点乘与叉乘"></a>向量、矩阵点乘与叉乘</h2><h3 id="点乘：内积、数量积，两向量若垂直点积为0，-a-b-cos-theta"><a href="#点乘：内积、数量积，两向量若垂直点积为0，-a-b-cos-theta" class="headerlink" title="点乘：内积、数量积，两向量若垂直点积为0，|a||b|cos(theta)"></a>点乘：内积、数量积，两向量若垂直点积为0，|a||b|cos(theta)</h3><p>向量：<code>np.dot</code>——相同位置元素相乘后求和——结果是标量，<code>*</code>——相同位置元素相乘——结果与原向量大小相同</p>
 <a id="more"></a>
 
-<p><strong>方法一：</strong>子元素设置<code>display:inline-block;vertical-align:middle;</code></p>
-<p><strong>方法二：</strong>父元素设置<code>display:flex;</code>搭配子元素<code>align-self:center;</code></p>
-<p><strong>方法三：</strong>父元素设置<code>display:table;</code>搭配子元素<code>display: table-cell;vertical-align: middle;</code></p>
-<p><strong>问题2：</strong>在没有设置<code>&lt;div&gt;</code>宽度时的水平居中</p>
-<p><strong>方法：</strong>CSS3支持使用<code>width:-moz-fit-content;  width:fit-content;  margin:0 auto;</code>实现水平居中，且仅谷歌与火狐浏览器支持</p>
-<h2 id="关于刷新"><a href="#关于刷新" class="headerlink" title="关于刷新"></a>关于刷新</h2><p><strong>问题：</strong>点击<code>&lt;a&gt;</code>标签后页面总会自动刷新</p>
-<p><strong>方法：</strong>可添加属性<code>href=&quot;javascript:;&quot;</code>阻止页面刷新</p>
-<h2 id="关于大小、高度不一"><a href="#关于大小、高度不一" class="headerlink" title="关于大小、高度不一"></a>关于大小、高度不一</h2><p><strong>问题1：</strong><code>&lt;input&gt;</code>标签中 text 类型和 submit 类型设置相同的高度，显示出来却不同</p>
-<p><strong>原因：</strong>因为text类型的<code>&lt;input&gt;</code>标签显示的宽度和高度包含 border</p>
-<p><strong>方法：</strong>可在 submit 类型的<code>&lt;input&gt;</code>标签中设置<code>box-sizing: content-box;</code></p>
-<p><strong>问题2：</strong>当在子元素中使用<code>display:inline-block</code>使多个子元素并排时，各子元素高度不一</p>
-<p><strong>方法：</strong>可在子元素中添加<code>letter-spacing: 0;vertical-align: top;</code>来解决</p>
-<h2 id="关于元素样式作用对象"><a href="#关于元素样式作用对象" class="headerlink" title="关于元素样式作用对象"></a>关于元素样式作用对象</h2><p><strong>问题：</strong><code>&lt;div&gt;</code>子元素设置 margin 后会作用于父元素</p>
-<p><strong>方法一：</strong>对父元素添加<code>overflow: hidden;</code></p>
-<p><strong>方法二：</strong>给父元素增加透明边框<code>border: 1px solid transparent;</code>或<code>border-top: 1px solid transparent;</code></p>
-<p><strong>方法三：</strong>为父元素设置<code>padding</code></p>
-<h2 id="关于样式"><a href="#关于样式" class="headerlink" title="关于样式"></a>关于样式</h2><p><strong>问题：</strong>去除<code>&lt;button&gt;</code>一些默认样式</p>
-<p><strong>方法：</strong>去除边框<code>border:none;</code>&nbsp;&nbsp;&nbsp;去除点击时的边框<code>outline: none;</code></p>
-<h1 id="二、JS"><a href="#二、JS" class="headerlink" title="二、JS"></a>二、JS</h1><h2 id="关于多个重叠-lt-div-gt-的点击"><a href="#关于多个重叠-lt-div-gt-的点击" class="headerlink" title="关于多个重叠&lt;div&gt;的点击"></a>关于多个重叠<code>&lt;div&gt;</code>的点击</h2><p><strong>问题1：</strong>上层<code>&lt;div&gt;</code>遮挡下层<code>&lt;div&gt;</code>后，点击重叠部分无法触发下层<code>&lt;div&gt;</code>的函数</p>
-<p><strong>方法：</strong>可通过<code>pointer-events:none;</code>解决</p>
-<p><strong>问题2：</strong>点击子<code>&lt;div&gt;</code>不触发父<code>&lt;div&gt;</code>的函数</p>
-<p><strong>方法：</strong>在子<code>&lt;div&gt;</code>点击时阻止冒泡事件，即在函数中添加<code>event.stopPropagation()</code></p>
-<h2 id="关于-lt-input-gt-值不变"><a href="#关于-lt-input-gt-值不变" class="headerlink" title="关于&lt;input&gt;值不变"></a>关于<code>&lt;input&gt;</code>值不变</h2><p><strong>问题：</strong>修改<code>&lt;input&gt;</code>的输入内容，获取到的值不变</p>
-<p><strong>方法：</strong><code>&lt;input&gt;</code>标签可通过 value 属性设置默认值，若要可修改需要添加<code>onChange</code>监听函数才行</p>
-<h1 id="三、针对React"><a href="#三、针对React" class="headerlink" title="三、针对React"></a>三、针对React</h1><h2 id="关于背景"><a href="#关于背景" class="headerlink" title="关于背景"></a>关于背景</h2><p><strong>问题：</strong>react 中给<code>&lt;div&gt;</code>添加背景图片时背景图片过大</p>
-<p><strong>方法：</strong>可设置<code>webkitBackgroundSize: &#39;100% 100%&#39;</code></p>
-<h2 id="关于带参数的函数"><a href="#关于带参数的函数" class="headerlink" title="关于带参数的函数"></a>关于带参数的函数</h2><p><strong>问题：</strong>react 中定义带参数的函数</p>
-<p><strong>方法：</strong>在标签的 onClick 属性中使用<code>this.函数名.bind(this,参数)</code>，</p>
-<p>在 constructor() 构造器中使用<code>this.函数名=this.函数名.bind(this)</code>，</p>
-<p>在定义函数时参数为 (参数名,event)</p>
+<p>矩阵：<code>*</code>或<code>np.multiply</code>——相同位置元素相乘——结果是矩阵，与原矩阵大小相同</p>
+<h3 id="叉乘：向量积、外积，两向量若平行叉积为0，-a-b-sin-theta"><a href="#叉乘：向量积、外积，两向量若平行叉积为0，-a-b-sin-theta" class="headerlink" title="叉乘：向量积、外积，两向量若平行叉积为0，|a||b|sin(theta)"></a>叉乘：向量积、外积，两向量若平行叉积为0，|a||b|sin(theta)</h3><p>向量：<code>np.cross</code>——二维平面向量叉乘结果的长度为组成的四边形面积，多维向量叉乘得到法向量</p>
+<p>矩阵：<code>np.dot</code>——矩阵1每行与矩阵2每列相乘</p>
 ]]></content>
       <categories>
-        <category>前端</category>
+        <category>Python</category>
+        <category>深度学习</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>服务器的配置和使用</title>
+    <url>/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>深度学习环境配置包括 <strong>显卡驱动 + anaconda + cuda + cudnn + pytorch/tensorflow（GPU版）</strong></p>
+<a id="more"></a>
+
+<p>它们之间的关系如下：</p>
+<p><strong>cuda版本与显卡驱动有关</strong>，在<a href="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html">这里</a>可查看二者的版本关系</p>
+<p><strong>cudnn与cuda版本有关</strong>，在<a href="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html">这里</a>可查看二者的版本关系</p>
+<p><strong>pytorch与cuda版本有关</strong>，在<a href="https://pytorch.org/get-started/previous-versions/">这里</a>可查看二者的版本关系</p>
+<p><strong>tensorflow和gcc、cuda版本有关</strong>，在<a href="https://www.tensorflow.org/install/source#tested_build_configurations">这里</a>可查看它们的版本关系</p>
+<p>因为实验室的服务器已经有同学在使用所以基本环境都已装好，只需在anaconda中创建一个新的虚拟环境安装pytorch/tensorflow即可，这样更方便更安全，避免和其他同学的环境产生冲突。所以这里也只记录了在显卡驱动、anaconda、cuda、cudnn都已装好的服务器中，第一次使用前所需要做的准备。</p>
+<p>（由于笔记本使用win10系统，实验室台式机使用Linux系统，所以文中图片可能会出现两种系统下的截图，但两种系统下的方法是一样的）。在Windows系统中使用xshell远程连接服务器，Linux系统在终端或VsCode中可远程连接服务器。</p>
+<h1 id="一、了解服务器基本信息"><a href="#一、了解服务器基本信息" class="headerlink" title="一、了解服务器基本信息"></a>一、了解服务器基本信息</h1><p>1、硬盘大小及剩余容量 <code>df -lh</code></p>
+<p>2、显卡信息 <code>lspci | grep -i nvidia</code> 或 <code>lspci | grep -i vga</code></p>
+<p>3、显卡驱动 <code>nvidia-smi</code></p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/nvidia-smi.png" alt="nvidia-smi"></p>
+<p>4、查看cuda版本 <code>nvcc -V</code></p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/nvcc.png" alt="nvcc"></p>
+<p>5、查看gcc版本 <code>gcc -v</code></p>
+<h1 id="二、在Anaconda中创建个人环境"><a href="#二、在Anaconda中创建个人环境" class="headerlink" title="二、在Anaconda中创建个人环境"></a>二、在Anaconda中创建个人环境</h1><p>1、创建新环境 <code>conda create -n xwj_pytorch python=3.6</code></p>
+<p>2、进入环境 <code>conda activate xwj_pytorch</code></p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/activate.png" alt="activate"></p>
+<p>3、在虚拟环境中安装pytorch</p>
+<p>在<a href="https://pytorch.org/get-started/previous-versions/">官网</a>查找对应cuda的pytorch版本</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/pytorch.png" alt="pytorch"></p>
+<p>复制命令在终端执行，即可完成安装</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/installpytorch.png" alt="installpytorch"></p>
+<p>进入虚拟环境中的python，检查pytorch是否安装成功是否可用</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/checkpytorch.png" alt="checkpytorch"></p>
+<p>4、安装tensorflow</p>
+<p>查看gcc版本 <code>gcc -v</code></p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/gcc.png" alt="gcc"></p>
+<p>在<a href="https://www.tensorflow.org/install/source#tested_build_configurations">tensorflow官网</a>查看版本匹配</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/tfversion.png" alt="tfversion"></p>
+<p>为了避免和其他环境中的模块版本产生冲突，可按照1、2步骤重新创建一个新的虚拟环境，并进入该虚拟环境</p>
+<p>创建环境 <code>conda create -n xwj_tensorflow python=3.6</code></p>
+<p>进入环境 <code>conda activate xwj_tensorflow</code></p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/activatetf.png" alt="activatetf"></p>
+<p>安装GPU版tensorflow <code>conda install tensorflow-gpu==2.0.0</code></p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/installtf.png" alt="installtf"></p>
+<p>参照3中的方法进入虚拟环境的python，检查tensorflow是否安装成功，是否可用</p>
+<h1 id="三、VsCode的使用"><a href="#三、VsCode的使用" class="headerlink" title="三、VsCode的使用"></a>三、VsCode的使用</h1><p>可以使用Pycharm或Vscode作为本地的python代码编辑器。因为还要远程连接服务器，而Pycharm中只有pro版有此功能，虽然可以使用学生身份申请免费使用pro版，但是为了方便这里直接用vscode。下面列出了使用vscode时遇到的一些问题。</p>
+<h2 id="1、在vscode中使用anaconda环境里的python解释器无效"><a href="#1、在vscode中使用anaconda环境里的python解释器无效" class="headerlink" title="1、在vscode中使用anaconda环境里的python解释器无效"></a>1、在vscode中使用anaconda环境里的python解释器无效</h2><p>vscode中可点击左下角选择python解释器。在确保已前面步骤都正确，但是选择anaconda中已安装好的pytorch虚拟环境里的python解释器后，运行代码时仍出现如下报错 </p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/nomodule.png" alt="nomodule"></p>
+<p><strong>解决：</strong>在setting.json文件中注释掉原来的 <code>python.pythonPath</code>，添加如下代码，其中第七项 <code>“python”</code> 更改为anaconda中虚拟环境里python的路径</p>
+<pre><code>&#123;
+    // &quot;python.pythonPath&quot;: &quot;/home/lab406/anaconda3/envs/pytorch/bin/python&quot;
+    &quot;code-runner.executorMap&quot;: &#123;
+        &quot;javascript&quot;: &quot;node&quot;,
+        &quot;java&quot;: &quot;cd $dir &amp;&amp; javac $fileName &amp;&amp; java $fileNameWithoutExt&quot;,
+        &quot;c&quot;: &quot;cd $dir &amp;&amp; gcc $fileName -o $fileNameWithoutExt &amp;&amp; $dir$fileNameWithoutExt&quot;,
+        &quot;cpp&quot;: &quot;cd $dir &amp;&amp; g++ $fileName -o $fileNameWithoutExt &amp;&amp; $dir$fileNameWithoutExt&quot;,
+        &quot;objective-c&quot;: &quot;cd $dir &amp;&amp; gcc -framework Cocoa $fileName -o $fileNameWithoutExt &amp;&amp; $dir$fileNameWithoutExt&quot;,
+        &quot;php&quot;: &quot;php&quot;,
+        &quot;python&quot;: &quot;~/anaconda3/envs/pytorch/bin/python&quot;,
+        &quot;perl&quot;: &quot;perl&quot;,
+        &quot;perl6&quot;: &quot;perl6&quot;,
+        &quot;ruby&quot;: &quot;ruby&quot;,
+        &quot;go&quot;: &quot;go run&quot;,
+        &quot;lua&quot;: &quot;lua&quot;,
+        &quot;groovy&quot;: &quot;groovy&quot;,
+        &quot;powershell&quot;: &quot;powershell -ExecutionPolicy ByPass -File&quot;,
+        &quot;bat&quot;: &quot;cmd /c&quot;,
+        &quot;shellscript&quot;: &quot;bash&quot;,
+        &quot;fsharp&quot;: &quot;fsi&quot;,
+        &quot;csharp&quot;: &quot;scriptcs&quot;,
+        &quot;vbscript&quot;: &quot;cscript //Nologo&quot;,
+        &quot;typescript&quot;: &quot;ts-node&quot;,
+        &quot;coffeescript&quot;: &quot;coffee&quot;,
+        &quot;scala&quot;: &quot;scala&quot;,
+        &quot;swift&quot;: &quot;swift&quot;,
+        &quot;julia&quot;: &quot;julia&quot;,
+        &quot;crystal&quot;: &quot;crystal&quot;,
+        &quot;ocaml&quot;: &quot;ocaml&quot;,
+        &quot;r&quot;: &quot;Rscript&quot;,
+        &quot;applescript&quot;: &quot;osascript&quot;,
+        &quot;clojure&quot;: &quot;lein exec&quot;,
+        &quot;haxe&quot;: &quot;haxe --cwd $dirWithoutTrailingSlash --run $fileNameWithoutExt&quot;,
+        &quot;rust&quot;: &quot;cd $dir &amp;&amp; rustc $fileName &amp;&amp; $dir$fileNameWithoutExt&quot;,
+        &quot;racket&quot;: &quot;racket&quot;,
+        &quot;scheme&quot;: &quot;csi -script&quot;,
+        &quot;ahk&quot;: &quot;autohotkey&quot;,
+        &quot;autoit&quot;: &quot;autoit3&quot;,
+        &quot;dart&quot;: &quot;dart&quot;,
+        &quot;pascal&quot;: &quot;cd $dir &amp;&amp; fpc $fileName &amp;&amp; $dir$fileNameWithoutExt&quot;,
+        &quot;d&quot;: &quot;cd $dir &amp;&amp; dmd $fileName &amp;&amp; $dir$fileNameWithoutExt&quot;,
+        &quot;haskell&quot;: &quot;runhaskell&quot;,
+        &quot;nim&quot;: &quot;nim compile --verbosity:0 --hints:off --run&quot;,
+        &quot;lisp&quot;: &quot;sbcl --script&quot;,
+        &quot;kit&quot;: &quot;kitc --run&quot;,
+        &quot;v&quot;: &quot;v run&quot;,
+        &quot;sass&quot;: &quot;sass --style expanded&quot;,
+        &quot;scss&quot;: &quot;scss --style expanded&quot;
+    &#125;,
+    &quot;code-runner.runInTerminal&quot;: false
+&#125;</code></pre>
+<p>保存后再次运行如下代码</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/checkvscode.png" alt="checkvscode"></p>
+<p>可正常使用了（若依然无法使用则重新启动VsCode即可）</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/vscodenormal.png" alt="vscodenormal"></p>
+<h2 id="2、在vscode中远程连接服务器"><a href="#2、在vscode中远程连接服务器" class="headerlink" title="2、在vscode中远程连接服务器"></a>2、在vscode中远程连接服务器</h2><p>首先在vscode中安装 Remote - SSH 插件</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/remotessh.png" alt="remotessh"></p>
+<p>点击Configure图标，选择ssh配置</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/configssh.png" alt="configssh"></p>
+<p>输入主机名称（自定义）、主机IP、用户名、端口号（可选）</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/sshinfo.png" alt="sshinfo"></p>
+<p>点击该主机名，右键可选择在当前窗口或新窗口连接服务器</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/connecthost.png" alt="connecthost"></p>
+<p>然后输入密码登录服务器</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/hostpassword.png" alt="hostpassword"></p>
+<h2 id="3、同步本地代码到服务器"><a href="#3、同步本地代码到服务器" class="headerlink" title="3、同步本地代码到服务器"></a>3、同步本地代码到服务器</h2><h3 id="（1）安装SFTP插件"><a href="#（1）安装SFTP插件" class="headerlink" title="（1）安装SFTP插件"></a>（1）安装SFTP插件</h3><p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/sftp.png" alt="sftp"></p>
+<h3 id="（2）配置"><a href="#（2）配置" class="headerlink" title="（2）配置"></a>（2）配置</h3><p>输入 <code>ctrl+shift+p</code>打开输入框输入 <code>SFTP:Config</code>，此时会在 .vscode 目录下生成 sftp.json 文件，配置主机名称、IP、协议、端口、用户名、远程同步地址、本地保存时是否同步上传到服务器（不包括重命名和删除操作）、上传时忽略的文件 </p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/sftpjson.png" alt="sftpjson"></p>
+<h3 id="（3）上传"><a href="#（3）上传" class="headerlink" title="（3）上传"></a>（3）上传</h3><p>输入 <code>ctrl+shift+p</code>打开输入框输入 <code>SFTP:Upload Project</code>，然后选择要上传的项目文件夹，再输入服务器密码即可</p>
+<p>然后可在xshell登录服务器或在vscode中连接登录服务器打开文件夹，进入虚拟环境，运行代码</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+        <category>深度学习</category>
       </categories>
   </entry>
 </search>
