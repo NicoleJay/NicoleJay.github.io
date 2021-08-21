@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hexo博客</title>
+    <url>/2021/08/05/Hexo%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<p>进入hexo安装的根目录</p>
+<a id="more"></a>
+
+<p><strong>新建博客：</strong><code>hexo n “博客名字”</code></p>
+<p><strong>本地查看：</strong><code>hexo s</code></p>
+<p><strong>清除缓存：</strong><code>hexo clean</code></p>
+<p><strong>博客生成：</strong><code>hexo g</code></p>
+<p><strong>部署到github：</strong><code>hexo d</code></p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>MySQL数据库的安装和配置</title>
+    <url>/2021/08/05/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="下载MySQL安装包"><a href="#下载MySQL安装包" class="headerlink" title="下载MySQL安装包"></a>下载MySQL安装包</h1><p>进入<a href="https://dev.mysql.com/downloads/">官网</a>，选择 <code>MySQL Community Server</code>，再选择下载.zip压缩包。若选择下载 <code>MYSQL Installer for Windows</code> 则是得到一个.msi文件</p>
+<a id="more"></a>
+
+<p>点击 <code>No thanks, just start my download.</code> 开始下载，下载完成后解压zip压缩包</p>
+<p>将解压后 bin 文件夹所在的路径添加到电脑环境变量的系统变量中</p>
+<p><img src="/2021/08/05/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/systemvariable.png" alt="添加系统变量"></p>
+<h1 id="配置MySQL"><a href="#配置MySQL" class="headerlink" title="配置MySQL"></a>配置MySQL</h1><p>在解压后的 <code>mysql-5.7.26-winx64</code> 文件夹中新建 <code>my.ini</code> 文件，文件中贴入如下代码</p>
+<pre><code>[client]
+port=3306
+default-character-set=utf8
+[mysql]
+default-character-set=utf8
+[mysqld] 
+#设置3306端口 
+port = 3306 
+# 设置mysql的安装目录 
+basedir=D:\MySQL\mysql-5.7.26-winx64
+# 设置mysql数据库的数据的存放目录 
+datadir=D:\MySQL\mysql-5.7.26-winx64\data
+# 允许最大连接数 
+max_connections=200 
+# 服务端使用的字符集默认为8比特编码的latin1字符集 
+character-set-server=utf8 
+# 创建新表时将使用的默认存储引擎 
+default-storage-engine=INNODB</code></pre>
+<p><strong>初始化配置：</strong>使用命令 <code>mysqld --initialize --console</code> 初始化 mysql ，此时会根据配置生成 mysql 数据库的数据的存放目录</p>
+<p><strong>安装mysql：</strong>使用命令 <code>mysqld -install</code> 安装 mysql</p>
+<h1 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h1><p><strong>以管理员身份运行</strong></p>
+<p><strong>启动 mysql 服务器：</strong><code>net start mysql</code></p>
+<p><img src="/2021/08/05/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/startmysql.png" alt="启动 mysql 服务器"></p>
+<p><strong>登录 mysql 服务器：</strong>在安装 mysql 的 bin 目录下输入 <code>mysql -u root -p</code> 回车并输入密码（其中root是指用户名，可以是其他用户名，-p是指使用密码）</p>
+<p><strong>停止 mysql 服务：</strong><code>net stop mysql</code></p>
+<p><strong>忘记或修改密码：</strong></p>
+<p>首先输入 <code>mysql -u root</code> 不使用密码登录 mysql</p>
+<p>输入 <code>set password for 用户名@localhost = password(&#39;新密码&#39;);</code> 修改密码</p>
+<p>输入 <code>exit</code> 或 <code>quit</code> 退出 mysql</p>
+<p>使用 <code>mysql -u root -p</code> 回车并输入密码重新登录 mysql 即可</p>
+<p><img src="/2021/08/05/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/resetpwd.png" alt="修改密码"></p>
+<h1 id="MySQL可视化工具"><a href="#MySQL可视化工具" class="headerlink" title="MySQL可视化工具"></a>MySQL可视化工具</h1><p>可以使用 <strong>Navicat for MySQL</strong> 作为 MySQL 的可视化工具</p>
+<p>点击 <code>连接</code> ，或 <code>文件-&gt;新建连接</code> ，取个连接名，输入密码后点击连接测试，弹出连接成功字样然后点击确定即可</p>
+<p><img src="/2021/08/05/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/connect.png" alt="Navicat连接"></p>
+<p>一个连接下可以添加多个数据库，双击数据库即可看到数据库下的表，如下图所示，这里是之前已添加过多个数据库</p>
+<p><img src="/2021/08/05/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/db.png" alt="Navicat可视化"></p>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Vue3+Django+MySQL搭建项目</title>
+    <url>/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/</url>
+    <content><![CDATA[<h1 id="一、创建Django项目"><a href="#一、创建Django项目" class="headerlink" title="一、创建Django项目"></a>一、创建Django项目</h1><a id="more"></a>
+
+<h2 id="1-1-安装Django"><a href="#1-1-安装Django" class="headerlink" title="1.1 安装Django"></a>1.1 安装Django</h2><p>在 pycharm 中新建一个项目，确保该项目所使用的 python 解释器已安装 django。若没有则安装 django</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/installdjango.png" alt="installdjango"></p>
+<p>若没有使用 IDE 可以通过 <code>pip install dijango</code> 进行安装</p>
+<p>在终端输入 <code>django-admin</code>，出现如下输出则安装成功</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/django-admin.png" alt="django-admin"></p>
+<h2 id="1-2-创建Django项目"><a href="#1-2-创建Django项目" class="headerlink" title="1.2 创建Django项目"></a>1.2 创建Django项目</h2><p>选择一个文件夹位置作为根目录，创建一个新项目 <code>django-admin startproject 项目名</code><br>会生成如下目录结构</p>
+<pre><code>-根目录
+ --django项目
+  ---django项目同名文件夹
+  ---manage.py</code></pre>
+<p>这里我把 项目同名文件夹 和 manage.py 都移到根目录下，这一步不是必须的，看个人习惯。新的目录结构如下</p>
+<pre><code>-根目录
+ --django项目
+ --manage.py</code></pre>
+<p><strong>提示：下面的所有操作是基于新目录结构下的操作</strong></p>
+<h2 id="1-3-启动Django项目"><a href="#1-3-启动Django项目" class="headerlink" title="1.3 启动Django项目"></a>1.3 启动Django项目</h2><p>在 manage.py 文件所在目录下使用 <code>python manage.py runserver</code> 运行</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/runserver.png" alt="runserver"></p>
+<p>在浏览器中打开相应网址 <a href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a> （一般默认在8000端口）出现如下页面，则 django 项目启动成功</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/8000-1.png" alt="8000-1"></p>
+<h1 id="二、创建Vue项目"><a href="#二、创建Vue项目" class="headerlink" title="二、创建Vue项目"></a>二、创建Vue项目</h1><p>搭建vue项目需要nodejs+npm+vue</p>
+<h2 id="2-1-安装-nodejs-npm"><a href="#2-1-安装-nodejs-npm" class="headerlink" title="2.1 安装 nodejs+npm"></a>2.1 安装 nodejs+npm</h2><p>可参考<a href="https://www.beingjay.com/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/">前面的博客</a>安装 nodejs</p>
+<p>安装后使用命令 <code>node -v</code> 检查 nodejs 是否安装成功</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/node-v.png" alt="node-v"></p>
+<p>使用 <code>npm -v</code> 查看 npm 版本</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/npm-v.png" alt="npm-v"></p>
+<h2 id="2-2-安装Vue"><a href="#2-2-安装Vue" class="headerlink" title="2.2 安装Vue"></a>2.2 安装Vue</h2><p>在终端使用 <code>npm install vue-cli -g</code> 或 <code>npm install @vue/cli -g</code> 全局安装vue</p>
+<p>其中第一条命令安装的是3.0以前的版本，第二条命令是安装3.0以后的最新版本。或使用 <code>npm install @vue/cli@x.x.x -g</code> 安装指定版本</p>
+<p>（可使用命令 <code>npm uninstall vue-cli -g</code> 卸载已安装的vue）</p>
+<p>全局安装Vue后，使用命令 <code>vue --version</code> 或 <code>vue -V</code> 查看版本从而检查是否安装成功</p>
+<h2 id="2-3-创建一个Vue项目"><a href="#2-3-创建一个Vue项目" class="headerlink" title="2.3 创建一个Vue项目"></a>2.3 创建一个Vue项目</h2><p><strong>在manage.py同级目录下</strong>，对于Vue3.0以后的版本使用命令 <code>vue create 项目名</code> 来创建一个新的vue项目</p>
+<p>创建时会出现如下三个选项，分别是默认的vue2相关依赖、vue3相关依赖、手动选择相关依赖</p>
+<pre><code>Default （[Vue 2] babel，eslint）
+Default （[Vue 3]）（[Vue 3] babel，eslint）
+Manually select features</code></pre>
+<p>可按需求自行选择，（若不太懂可以选择 Default（Vue 3） 安装），也可选择第三项自定义安装所需依赖，我的选择如下，</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/vue_manually.png" alt="vue_manually"></p>
+<p>Babel是负责编译、Router负责路由管理、VueX负责状态存储和数据流通、Linter/Formatter负责对语法和代码格式进行检查</p>
+<p>其他选项根据提示也进行按需选择</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/vue_setting.png" alt="vue_setting"></p>
+<p>此时目录结构已变为</p>
+<pre><code>-根目录
+ --django项目
+ --manage.py
+ --vue项目</code></pre>
+<h2 id="2-4-Vue项目启动"><a href="#2-4-Vue项目启动" class="headerlink" title="2.4 Vue项目启动"></a>2.4 Vue项目启动</h2><p>创建好后需要进入Vue项目文件夹，在Vue项目根目录下使用 <code>npm run serve</code> 启动项目</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/runserve.png" alt="runserve"></p>
+<h2 id="2-5-浏览器查看"><a href="#2-5-浏览器查看" class="headerlink" title="2.5 浏览器查看"></a>2.5 浏览器查看</h2><h3 id="2-5-1-PC端"><a href="#2-5-1-PC端" class="headerlink" title="2.5.1 PC端"></a>2.5.1 PC端</h3><p>在本机浏览器中输入 Local 或 Network 中的网址可查看（一般默认在8080端口）</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/8080.png" alt="8080"></p>
+<h3 id="2-5-2-移动端"><a href="#2-5-2-移动端" class="headerlink" title="2.5.2 移动端"></a>2.5.2 移动端</h3><p>在手机上输入 Network 的网址也可进行查看，前提是手机与运行项目的主机在同一局域网内。</p>
+<p>若不在一个局域网内，则现在终端使用命令 <code>ipconfig</code> 查看主机地址，然后通过 IP 访问</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/ipconfig.png" alt="ipconfig"></p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/8080-mobile.png" alt="8080-mobile"></p>
+<h1 id="三、安装MySQL"><a href="#三、安装MySQL" class="headerlink" title="三、安装MySQL"></a>三、安装MySQL</h1><p>可参考<a href="https://www.beingjay.com/2021/08/05/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/">前面的博客</a>安装 MySQL</p>
+<h1 id="四、Vue-Django连接"><a href="#四、Vue-Django连接" class="headerlink" title="四、Vue+Django连接"></a>四、Vue+Django连接</h1><h2 id="4-1-Vue配置"><a href="#4-1-Vue配置" class="headerlink" title="4.1 Vue配置"></a>4.1 Vue配置</h2><p>由于Vue3在打包项目后生成的 dist 文件夹中不会生成 static 子文件夹，而 django 项目查找静态资源时只会查找 static 文件夹，因此在Vue项目目录下新建一个 <strong>vue.config.js</strong> 文件，文件中添加如下代码</p>
+<pre><code>module.exports = &#123;
+    // 输出目录
+    assetsDir: &#39;static&#39;,
+&#125;;</code></pre>
+<p>这样在使用 <code>npm run build</code> 进行项目打包时生成的 dist 文件夹下包含 static 文件夹，静态资源都存放在 static 文件夹中</p>
+<h2 id="4-2-Django配置"><a href="#4-2-Django配置" class="headerlink" title="4.2 Django配置"></a>4.2 Django配置</h2><h3 id="（1）前端资源路径配置"><a href="#（1）前端资源路径配置" class="headerlink" title="（1）前端资源路径配置"></a>（1）前端资源路径配置</h3><p>在 django项目-&gt;settings.py 文件里的 DIRS 一项中添加打包后的Vue项目所在路径，这里是 <code>&#39;vue项目名/dist&#39;</code>,</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/templates.png" alt="templates"></p>
+<h3 id="（2）前端入口文件路径配置"><a href="#（2）前端入口文件路径配置" class="headerlink" title="（2）前端入口文件路径配置"></a>（2）前端入口文件路径配置</h3><p>在 django项目-&gt;url.py 文件中添加Vue项目入口文件 index.html 作为后端启动页</p>
+<pre><code>from django.contrib import admin
+from django.urls import path
+from django.views.generic import TemplateView
+
+urlpatterns = [
+    path(&#39;admin/&#39;, admin.site.urls),
+    path(&#39;&#39;, TemplateView.as_view(template_name=&quot;index.html&quot;)),  #添加入口文件
+]</code></pre>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/urlpatterns.png" alt="urlpatterns"></p>
+<h3 id="（3）静态资源路径配置"><a href="#（3）静态资源路径配置" class="headerlink" title="（3）静态资源路径配置"></a>（3）静态资源路径配置</h3><p>同样是在 setting.py 文件中添加静态资源引用地址</p>
+<pre><code>FRONTEND_ROOT = &#39;vue项目名/dist&#39;
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, FRONTEND_ROOT),
+    os.path.join(BASE_DIR, FRONTEND_ROOT + &#39;/static/&#39;),
+)</code></pre>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/staticfiles.png" alt="staticfiles"></p>
+<h2 id="4-3-运行"><a href="#4-3-运行" class="headerlink" title="4.3 运行"></a>4.3 运行</h2><p>同时运行 Vue 项目（非必须，但前提是vue项目以打包生成dist文件夹）和 django 项目，在浏览器<a href="http://127.0.0.1:8000/%E8%B7%AF%E5%BE%84%E4%B8%8B%E7%9C%8B%E5%88%B0%E5%A6%82%E4%B8%8B%E9%A1%B5%E9%9D%A2%EF%BC%88%E5%8D%B3django%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%90%AF%E5%8A%A8%E9%A1%B5%E4%B8%AD%E6%98%BE%E7%A4%BAVue%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%89%EF%BC%8C%E6%AD%A4%E6%97%B6vue%E9%A1%B9%E7%9B%AE%E5%92%8Cdjango%E9%A1%B9%E7%9B%AE%E5%85%B3%E8%81%94%E6%88%90%E5%8A%9F">http://127.0.0.1:8000/路径下看到如下页面（即django项目的启动页中显示Vue项目的内容），此时vue项目和django项目关联成功</a></p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/8000-2.png" alt="8000-2"></p>
+<p>单独 vue 项目默认会运行在 8080 端口下，单独 django 项目默认会运行在 8000 端口下，当 django 项目和 vue 项目没有关联之前，运行 django 项目时会在 8000 端口看到 django 项目的默认页面，当关联后，vue项目打包后，此时运行 django 项目会在 8000 端口看到 vue 项目的页面</p>
+<h1 id="五、Django-MySQL连接"><a href="#五、Django-MySQL连接" class="headerlink" title="五、Django+MySQL连接"></a>五、Django+MySQL连接</h1><h2 id="5-1-创建项目数据库"><a href="#5-1-创建项目数据库" class="headerlink" title="5.1 创建项目数据库"></a>5.1 创建项目数据库</h2><p>首先以管理员身份运行终端，输入 <code>net start mysql</code> 启动 mysql 服务器</p>
+<p>并在 mysql 安装的 bin 目录下输入 <code>mysql -u root -p</code> 并回车后输入密码来登录 mysql 服务器</p>
+<p>并使用 SQL 语句创建一个数据库 <code>create database 数据库名称 default charset=utf8;</code> </p>
+<p>使用 <code>show databases;</code> 命令查看是否成功创建</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/database.png" alt="database"></p>
+<h2 id="5-2-Django配置"><a href="#5-2-Django配置" class="headerlink" title="5.2 Django配置"></a>5.2 Django配置</h2><h3 id="（1）安装所需依赖"><a href="#（1）安装所需依赖" class="headerlink" title="（1）安装所需依赖"></a>（1）安装所需依赖</h3><p>在 django 项目所用的 python 解释器中安装 pymysql 驱动</p>
+<h3 id="（2）配置数据库连接信息"><a href="#（2）配置数据库连接信息" class="headerlink" title="（2）配置数据库连接信息"></a>（2）配置数据库连接信息</h3><p>在 django项目-&gt;setting.py 文件中的 DATABASES 一项更换为如下配置</p>
+<pre><code>&#39;default&#39;:
+&#123;
+    &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;,  # 数据库引擎
+    &#39;NAME&#39;: &#39;ssm&#39;,  # 数据库名称
+    &#39;HOST&#39;: &#39;127.0.0.1&#39;, # 数据库地址，本机 ip 地址 127.0.0.1
+    &#39;PORT&#39;: 3306,  # 端口
+    &#39;USER&#39;: &#39;root&#39;,  # 数据库用户名
+    &#39;PASSWORD&#39;: &#39;xxxxx&#39;,  # 数据库密码
+&#125;</code></pre>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/databases.png" alt="databases"></p>
+<p>在 django项目-&gt;<strong>init</strong>.py 文件中添加如下代码</p>
+<pre><code>import pymysql
+pymysql.install_as_MySQLdb()</code></pre>
+<h3 id="（3）创建一个app"><a href="#（3）创建一个app" class="headerlink" title="（3）创建一个app"></a>（3）创建一个app</h3><p>Django 规定，如果要使用模型，必须要创建一个 app，使用命令 <code>django-admin startapp app名称</code> 进行创建</p>
+<p>然后在 django项目-&gt;setting.py 文件里的 INSTALLED_APPS 一项中添加app名称</p>
+<p>此时目录结构已变为</p>
+<pre><code>-根目录
+ --django项目
+ --manage.py
+ --vue项目
+ --项目app</code></pre>
+<p>在 app 里的 models.py 文件中可以类的形式表示数据库中的表，然后在终端运行 <code>python manage.py makemigrations app名称</code> 和 <code>python manage.py migrate app名称</code> 让 Django 知道模型有一些变更，并创建表结构</p>
+<h3 id="（4）-Django中操作数据库"><a href="#（4）-Django中操作数据库" class="headerlink" title="（4） Django中操作数据库"></a>（4） Django中操作数据库</h3><p>接着可以在django项目下添加py文件（如testdb.py）进行数据库操作，并在 django项目-&gt;urls.py 文件里 urlpatterns 中添加接口路径和文件</p>
+<p>如 <code>path(&#39;test/&#39;, testdb.testdb)</code> ，第一个 testdb 指 testdb.py 文件，第二个 testdb 指 testdb.py 文件中的 testdb 函数</p>
+<h1 id="六、遇到的一些问题"><a href="#六、遇到的一些问题" class="headerlink" title="六、遇到的一些问题"></a>六、遇到的一些问题</h1><h2 id="6-1-跨域问题"><a href="#6-1-跨域问题" class="headerlink" title="6.1 跨域问题"></a>6.1 跨域问题</h2><p>在前端向后端发送请求时会发生如下报错</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98.png" alt="跨域问题"></p>
+<p><strong>解决：</strong></p>
+<p>在后端python虚拟环境中安装 django-cors-headers 依赖</p>
+<p>在 django项目-&gt;setting.py 文件中 MIDDLEWARE 配置里<br>在’django.contrib.sessions.middleware.SessionMiddleware’,<br>和’django.middleware.common.CommonMiddleware’,<br>中间添加’corsheaders.middleware.CorsMiddleware’,</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/middleware.png" alt="middleware"></p>
+<p>同样是在 django项目-&gt;setting.py 文件里，在 INSTALLED_APPS 一项中添加 <code>&#39;corsheaders&#39;,</code> </p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/installedapps.png" alt="installedapps"></p>
+<p>并在 django项目-&gt;settings.py 文件中添加 <code>CORS_ORIGIN_ALLOW_ALL = True</code> </p>
+<h2 id="6-2-403报错"><a href="#6-2-403报错" class="headerlink" title="6.2 403报错"></a>6.2 403报错</h2><p>前端向后端发送post请求后出现403错误</p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/403.png" alt="403"></p>
+<p><img src="/2021/08/21/Vue3-Django-MySQL%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/CSRF.png" alt="CSRF"></p>
+<p>CSRF是为了防止跨站请求伪造</p>
+<p><strong>解决：</strong></p>
+<p>可以引入 <code>from django.views.decorators.csrf import csrf_exempt</code> ，并在函数前添加 <code>@csrf_exempt</code> </p>
+<p>或在 django项目-&gt;settings.py 文件中 MIDDLEWARE 一项里注释掉’django.middleware.csrf.CsrfViewMiddleware’</p>
+<p>第一种方法对某一接口起作用，而第二种方法针对全局有效</p>
+]]></content>
+      <categories>
+        <category>项目</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>一些废话</title>
+    <url>/2021/01/20/%E4%B8%80%E4%BA%9B%E5%BA%9F%E8%AF%9D/</url>
+    <content><![CDATA[<p>欢迎来到我的个人博客！下面要说一些废话，可以忽略hhh</p>
+<a id="more"></a>
+
+<p>放假了终于把写博客的事提上日程了，之前本科时候心血来潮用学生优惠租过一台服务器搭博客，结果自从搭上后没几天就没怎么问津过了。。。然后就就就到期了，真是浪费资源啊。这次决定重新开始写博客记录记录平时学习过程，我就是只菜菜鸟，博客里的内容仅代表个人理解，有理解不到位、不正确的地方还请多多指教哈~</p>
+<p>立个flag，这次我一定经常来，哈哈哈</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>关于Web App的个人理解</title>
+    <url>/2021/01/20/%E5%85%B3%E4%BA%8EWeb-App%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="App的类型"><a href="#App的类型" class="headerlink" title="App的类型"></a>App的类型</h1><p>App主要分为三类，分别是Native App（原生应用程序）、Web App（Web应用程序）、Hybrid App（混合型应用程序）</p>
+<a id="more"></a>
+
+<br>
+
+<p><img src="/2021/01/20/%E5%85%B3%E4%BA%8EWeb-App%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/1.png" alt="App的类型"></p>
+<br>
+
+<ul>
+<li><p><strong>Native App</strong></p>
+<p>  原生App是运行在设备操作系统上的应用程序，例如安装在电脑、手机上的各种软件。</p>
+<p>  对于不同的操作系统（如Windows、IOS、安卓等）需要使用不同的语言进行独立开发，这使得它的开发速度较慢、开发成本较高。同时，对于不同操作系统的App进行独立维护，这增加了维护总成本。并且原生App要发布上线、供用户下载使用前需要经过一系列的审核流程，因此从开发到上线还需要一定的时间。</p>
+<p>  但是原生App一般将资源放置在用户的设备本地，因此用户获取资源更加便捷。并且原生App可调用的终端硬件设备，如麦克风、摄像头等，从而实现更丰富的功能。交互性、用户体验度最好。</p>
+</li>
+<li><p><strong>Web App</strong></p>
+<p>  Web App是运行在浏览器上的应用程序，是一个轻量级App。只需打开浏览器并输入相应网址即可访问。</p>
+<p>  由于Web App不依赖于操作系统，因此对于不同的操作系统而言无需单独开发一套应用程序，通过一次开发，即可让不同设备的用户访问到该应用程序，开发时只需考虑浏览器的兼容问题，使得开发效率提高，开发成本降低。从而只需专注在一套代码程序的优化和维护上，也大大降低了维护成本。<br>  其资源一般存储在云端，使得用户可以实时访问到最新数据。并且用户可最快获取最新功能或版本。  </p>
+<p>  Web App也可调用终端的硬件设备，但其可调用的硬件设备功能相较于原生App来说受到一些限制。</p>
+</li>
+<li><p><strong>Hybrid App</strong></p>
+<p>  混合型App是一个相当于在原生程序中伪造了浏览器，并运行Web App的半原生应用程序，运行在操作系统上。</p>
+<p>  其资源可放置在本地或云端。交互性和用户体验度次于原生App。</p>
+</li>
+</ul>
+<h1 id="Web-App工作过程"><a href="#Web-App工作过程" class="headerlink" title="Web App工作过程"></a>Web App工作过程</h1><p>Web APP是B/S架构的软件，其运行主要涉及的终端设备、客户终端的浏览器以及服务器。用户访问App，并获取相应返回数据的过程如下图所示：</p>
+<br>
+
+<p><img src="/2021/01/20/%E5%85%B3%E4%BA%8EWeb-App%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/2.png" alt="Web App工作过程"></p>
+<br>
+
+<p>①访问网址：用户在终端浏览器中栏输入URL路径向相应的服务器请求页面</p>
+<p>②连接过程：Web服务器与浏览器间建立连接</p>
+<p>③请求过程：浏览器用http协议描述，并封装为TCP/IP数据包寻址，发送http请求</p>
+<p>④应答过程：服务器接收和分析http请求，按照用户请求内容执行相应处理，生成返回的HTML页面，并将结果打包成HTTP响应</p>
+<p>⑤显示输出：浏览器在客户端屏幕上渲染服务器处理后返回的HTML页面</p>
+<p>⑥关闭连接：Web服务器和浏览器间断开连接</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>关于前端框架React的个人理解</title>
+    <url>/2021/01/21/%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6React%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><p>一个Web App的开发主要包括前端和后端两部分，在Web App运行时用户在浏览器端发生点击、输入、表单提交等事件，发生这些交互事件时浏览器端向后端发送http请求，后端服务器接收到前端发来的请求以及数据后执行相应脚本对用户请求进行处理，必要时向数据库查询或更新数据，服务器再将处理结果生成<a id="more"></a>HTML页面返回至浏览器进行渲染。在这个过程中，浏览器端的显示以及事务处理属于前端部分，而服务器端和数据库的程序开发属于后端部分。</p>
+<br>
+
+<p><img src="/2021/01/21/%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6React%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/1.png" alt="前后端"></p>
+<br>
+
+<p>前端即网站前台部分，运行在PC端，移动端等浏览器上展现给用户浏览的网页。[来自百度百科]进行前端开发需要掌握的基本知识包括HTML、CSS、JavaScript。</p>
+<ul>
+<li><p>HTML：超文本标记语言 （Hyper Text Markup Language）——页面结构、内容<br>负责定义页面的组成，例如标题、段落、图片、链接等。</p>
+</li>
+<li><p>CSS：级联样式表（Cascading Style Sheet）——样式<br>负责定义页面各组成部分的布局和样式，例如所处位置、大小、颜色等。</p>
+</li>
+<li><p>JavaScript：面向对象的客户端脚本语言——控制HTML中的各元素、处理事务逻辑<br>负责处理用户的鼠标点击、滑动所触发的事件的部分事务逻辑，部分事务逻辑可由后端处理。</p>
+</li>
+</ul>
+<h1 id="前端框架"><a href="#前端框架" class="headerlink" title="前端框架"></a>前端框架</h1><p>可以通过自行创建HTML文件、定义CSS、编写JS来搭建前端，但这样的开发效率较低，且代码杂乱、冗余，难以维护。因此大家都倾向于利用前端框架搭建前端，在前端框架中页面需要重复使用的部分可封装为组件，从而能方便地引用，且各个组件定义自己的js逻辑和样式，使得各部分代码清晰明了且整洁。<br>通过使用前端框架，程序猿可更专注于网页内容的开发，而数据缓存、数据安全校验等由框架来实现。<br>此外，虽然各前端框架的内部实现机制不同，但相比原生态的前端页面开发而言，前端框架在实现机制上进行了性能优化来提高网页速度。<br>而且在前端框架中有许多已封装好的第三方组件可直接调用，使开发效率提升、页面更加美观。<br>如今前端框架层出不穷，下图展示了部分较为流行的前端框架：<br><br></p>
+<p><img src="/2021/01/21/%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6React%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/2.png" alt="前端框架"></p>
+<br>
+其中Vue、React、Angular是当前较主流的三个前端框架，此外还有Twitter推出的Bootstrap，饿了么团队推出的基于Vue的桌面端前端框架Element UI和移动端前端框架Mint UI，京东团队推出的可适配微信小程序的Taro UI前端框架，腾讯出品的QMUI，以及基于Vue的UI组件库iview和基于React的UI组件库Antd Design等。
+
+<h1 id="未完待续…"><a href="#未完待续…" class="headerlink" title="未完待续…"></a>未完待续…</h1>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>前端小方法杂记</title>
+    <url>/2021/05/21/%E5%89%8D%E7%AB%AF%E5%B0%8F%E6%96%B9%E6%B3%95%E6%9D%82%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="一、HTML与CSS"><a href="#一、HTML与CSS" class="headerlink" title="一、HTML与CSS"></a>一、HTML与CSS</h1><h2 id="关于居中"><a href="#关于居中" class="headerlink" title="关于居中"></a>关于居中</h2><p><strong>问题1：</strong><code>&lt;div&gt;</code>子元素在父元素中垂直居中</p>
+<a id="more"></a>
+
+<p><strong>方法一：</strong>子元素设置<code>display:inline-block;vertical-align:middle;</code></p>
+<p><strong>方法二：</strong>父元素设置<code>display:flex;</code>搭配子元素<code>align-self:center;</code></p>
+<p><strong>方法三：</strong>父元素设置<code>display:table;</code>搭配子元素<code>display: table-cell;vertical-align: middle;</code></p>
+<p><strong>问题2：</strong>在没有设置<code>&lt;div&gt;</code>宽度时的水平居中</p>
+<p><strong>方法：</strong>CSS3支持使用<code>width:-moz-fit-content;  width:fit-content;  margin:0 auto;</code>实现水平居中，且仅谷歌与火狐浏览器支持</p>
+<h2 id="关于刷新"><a href="#关于刷新" class="headerlink" title="关于刷新"></a>关于刷新</h2><p><strong>问题：</strong>点击<code>&lt;a&gt;</code>标签后页面总会自动刷新</p>
+<p><strong>方法：</strong>可添加属性<code>href=&quot;javascript:;&quot;</code>阻止页面刷新</p>
+<h2 id="关于大小、高度不一"><a href="#关于大小、高度不一" class="headerlink" title="关于大小、高度不一"></a>关于大小、高度不一</h2><p><strong>问题1：</strong><code>&lt;input&gt;</code>标签中 text 类型和 submit 类型设置相同的高度，显示出来却不同</p>
+<p><strong>原因：</strong>因为text类型的<code>&lt;input&gt;</code>标签显示的宽度和高度包含 border</p>
+<p><strong>方法：</strong>可在 submit 类型的<code>&lt;input&gt;</code>标签中设置<code>box-sizing: content-box;</code></p>
+<p><strong>问题2：</strong>当在子元素中使用<code>display:inline-block</code>使多个子元素并排时，各子元素高度不一</p>
+<p><strong>方法：</strong>可在子元素中添加<code>letter-spacing: 0;vertical-align: top;</code>来解决</p>
+<h2 id="关于元素样式作用对象"><a href="#关于元素样式作用对象" class="headerlink" title="关于元素样式作用对象"></a>关于元素样式作用对象</h2><p><strong>问题：</strong><code>&lt;div&gt;</code>子元素设置 margin 后会作用于父元素</p>
+<p><strong>方法一：</strong>对父元素添加<code>overflow: hidden;</code></p>
+<p><strong>方法二：</strong>给父元素增加透明边框<code>border: 1px solid transparent;</code>或<code>border-top: 1px solid transparent;</code></p>
+<p><strong>方法三：</strong>为父元素设置<code>padding</code></p>
+<h2 id="关于样式"><a href="#关于样式" class="headerlink" title="关于样式"></a>关于样式</h2><p><strong>问题：</strong>去除<code>&lt;button&gt;</code>一些默认样式</p>
+<p><strong>方法：</strong>去除边框<code>border:none;</code>&nbsp;&nbsp;&nbsp;去除点击时的边框<code>outline: none;</code></p>
+<h1 id="二、JS"><a href="#二、JS" class="headerlink" title="二、JS"></a>二、JS</h1><h2 id="关于多个重叠-lt-div-gt-的点击"><a href="#关于多个重叠-lt-div-gt-的点击" class="headerlink" title="关于多个重叠&lt;div&gt;的点击"></a>关于多个重叠<code>&lt;div&gt;</code>的点击</h2><p><strong>问题1：</strong>上层<code>&lt;div&gt;</code>遮挡下层<code>&lt;div&gt;</code>后，点击重叠部分无法触发下层<code>&lt;div&gt;</code>的函数</p>
+<p><strong>方法：</strong>可通过<code>pointer-events:none;</code>解决</p>
+<p><strong>问题2：</strong>点击子<code>&lt;div&gt;</code>不触发父<code>&lt;div&gt;</code>的函数</p>
+<p><strong>方法：</strong>在子<code>&lt;div&gt;</code>点击时阻止冒泡事件，即在函数中添加<code>event.stopPropagation()</code></p>
+<h2 id="关于-lt-input-gt-值不变"><a href="#关于-lt-input-gt-值不变" class="headerlink" title="关于&lt;input&gt;值不变"></a>关于<code>&lt;input&gt;</code>值不变</h2><p><strong>问题：</strong>修改<code>&lt;input&gt;</code>的输入内容，获取到的值不变</p>
+<p><strong>方法：</strong><code>&lt;input&gt;</code>标签可通过 value 属性设置默认值，若要可修改需要添加<code>onChange</code>监听函数才行</p>
+<h1 id="三、针对React"><a href="#三、针对React" class="headerlink" title="三、针对React"></a>三、针对React</h1><h2 id="关于背景"><a href="#关于背景" class="headerlink" title="关于背景"></a>关于背景</h2><p><strong>问题：</strong>react 中给<code>&lt;div&gt;</code>添加背景图片时背景图片过大</p>
+<p><strong>方法：</strong>可设置<code>webkitBackgroundSize: &#39;100% 100%&#39;</code></p>
+<h2 id="关于带参数的函数"><a href="#关于带参数的函数" class="headerlink" title="关于带参数的函数"></a>关于带参数的函数</h2><p><strong>问题：</strong>react 中定义带参数的函数</p>
+<p><strong>方法：</strong>在标签的 onClick 属性中使用<code>this.函数名.bind(this,参数)</code>，</p>
+<p>在 constructor() 构造器中使用<code>this.函数名=this.函数名.bind(this)</code>，</p>
+<p>在定义函数时参数为 (参数名,event)</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>安装构建并运行React项目</title>
+    <url>/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/</url>
+    <content><![CDATA[<p>构建一个React项目需要安装Nodejs、Webpack以及React相关包。</p>
+<a id="more"></a>
+
+<p>每个脚本都需要解析器，即构建一个运行时环境，而nodejs就是为js脚本提供一个运行时环境。对于JavaScript，在前端html中的js是由浏览器进行解析，主要是对DOM的操作，而nodejs解析的js脚本主要是对磁盘文件等进行操作，搭建起一个服务。</p>
+<p>webpack是一个模块管理工具，将项目各文件进行打包，在项目部署时可通过直接调用打包后生成的资源文件，方便快捷。</p>
+<h1 id="一、安装Nodejs"><a href="#一、安装Nodejs" class="headerlink" title="一、安装Nodejs"></a>一、安装Nodejs</h1><p>在<a href="https://nodejs.org/zh-cn/">官网</a>根据自己的系统选择对应版本进行下载</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/nodejs.png" alt="nodejs"></p>
+<p>下载完成后开始安装，可自定义所要安装的位置，其他选项按照默认即可。<br>打开命令行，输入 <code>node -v</code> 并回车，查看是否安装成功，若出现nodejs版本表示已成功安装。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/node-v.png" alt="node-v"></p>
+<h1 id="二、npm初始化"><a href="#二、npm初始化" class="headerlink" title="二、npm初始化"></a>二、npm初始化</h1><p>npm是包管理器，在开发过程中，通过 <code>npm install 包名称</code> 命令安装所需的包，即可使用别人已写好的模块，省去下载源码解压安装等繁琐步骤。npm包管理器集成在nodejs中，当上一步nodejs安装成功后，在命令行输入 <code>npm -v</code> ，显示npm的版本号，表示npm也已成功安装。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/npm-v.png" alt="npm-v"></p>
+<p>新建一个React项目的文件夹（这里我命名为test），打开命令行，进入该文件夹，使用命令 <code>npm init</code> 初始化项目，初始化过程中可按提示输入项目名称、版本、描述、入口文件、启动命令等信息，也可选择一路回车。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/npminit.png" alt="npm init"></p>
+<p>此时会在该文件夹下生成一个package.json文件，该文件中记录的是刚才项目初始化时所输入的项目相关信息。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/packagejson.png" alt="packagejson"></p>
+<h1 id="三、安装Webpack"><a href="#三、安装Webpack" class="headerlink" title="三、安装Webpack"></a>三、安装Webpack</h1><p>在项目文件夹下使用命令 <code>npm install webpack webpack-cli webpack-dev-server --save-dev</code> 安装webpack和webpack-dev-sever。</p>
+<p>其中webpack负责打包工作，方便文件管理，把所有静态文件打包成一个bundle.js资源文件，当项目部署时只需项目入口文件和打包好的bundle.js文件即可。最新版本的webpack需要搭配webpack-cli使用，要编译成功还必须安装webpage-cli。</p>
+<p>安装webpack-dev-server包是为了方便在本地实时预览页面，是一个小型的nodejs Express服务器，为静态文件提供web服务，实现热加载，即当更改并保存前端代码后，webpack自动编译，并在浏览器中自动刷新显示最新页面，从而实时预览更改后的页面状态。webpack-dev-sever在本地开发时非常方便，在项目部署到服务器后的生产环境中不需要用到，因此在安装命令中使用–save-dev表示把包安装在dev节点上。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/installwebpack.png" alt="installwebpack"></p>
+<p>安装完成后，在项目文件夹下生成node_modules文件夹和package-lock.json文件，其中node_modules文件夹中存放的就是项目开发过程中安装的各种模块。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/packagelockjson.png" alt="package-lock.json"></p>
+<p>在项目文件夹下手动创建一个webpack.config.js文件，在该文件中配置项目的入口文件、打包后的文件存放位置等信息。配置如下：</p>
+<pre><code>var path = require(&quot;path&quot;);
+var webpack = require(&#39;webpack&#39;);
+module.exports = &#123;
+    entry: &#123; app: [&#39;./src/main.js&#39;] &#125;,  //前端入口文件
+    output: &#123;
+    path: path.resolve(__dirname, &quot;./build&quot;), //打包后文件的存放位置
+    publicPath: &quot;/build/&quot;,   //打包后访问资源时加的路径前缀
+    filename: &quot;bundle.js&quot;    //打包生成的文件名
+    &#125;,
+    resolve: &#123;
+    extensions: [&#39;*&#39;,&#39;.js&#39;,&#39;.jsx&#39;]  //当代码中引入模块时若找不到指定文件，则添加这些后缀
+    &#125;,  
+    devServer: &#123;
+    historyApiFallback: true,
+    host:&#39;0.0.0.0&#39;,
+    hot: true,
+    inline: true,
+    progress: true,
+    port:5000
+    &#125;,
+    plugins: [
+    new webpack.DefinePlugin(&#123;
+      &#39;process.env.NODE.ENV&#39;:&quot;development&quot;
+    &#125;),
+    new webpack.HotModuleReplacementPlugin()
+    ]
+&#125;;</code></pre>
+<h1 id="四、安装React"><a href="#四、安装React" class="headerlink" title="四、安装React"></a>四、安装React</h1><p>在项目文件夹下使用命令 <code>npm install react react-dom --save-dev</code> 命令安装react和react-dom模块。</p>
+<p>其中react模块时react的核心库，react-dom模块提供关于DOM的相关操作，将react的虚拟DOM进行编译更新DOM。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/installreact.png" alt="install react"></p>
+<p>由于在react中支持JSX格式代码，即可以在js中直接写html标签，因此在react中各组件文件以js或jsx后缀都可以，若要把jsx文件转为js文件需要安装jsx-loader包。此外，要把react框架中编写的代码使用webpack打包后还需要使用babel包对其进行编译，</p>
+<p>因此使用命令 <code>npm install jsx-loader babel-core babel-loader babel-preset-es2015 babel-preset-react --save-dev</code> 安装所需这些包，babel-core是babel的核心库，babel-preset-react可把react的语法转换为ES5规范。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/installbabel.png" alt="install babel"></p>
+<p>在webpack.config.js文件中添加如下配置:</p>
+<pre><code>module: &#123;
+  loaders: [
+    &#123;test:/\.jsx$/, loaders:[&#39;jsx?harmony&#39;]&#125;
+  ],
+   loaders:[
+    &#123;
+      test: /\.jsx?$/,
+      loader: &#39;babel-loader&#39;,
+      include: path.resolve(__dirname),
+      query: &#123;
+        presets: [&#39;es2015&#39;, &#39;react&#39;]
+      &#125;
+    &#125;,
+  ]
+&#125;,</code></pre>
+<p>安装好这些包后查看package.json文件中的“devDependencies”一项记录了在dev节点安装的所有模块。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/packagejson1.png" alt="package.json"></p>
+<p>打开package.json文件，修改“scripts”节点，在该节点中可自定义不同命令，并为不同命令赋予含义。在该节点中添加</p>
+<pre><code>&quot;build&quot;: &quot;webpack --config webpack.config.js&quot;,
+&quot;start&quot;: &quot;webpack-dev-server --inline&quot;</code></pre>
+<p>表示使用npm run build命令时将依据webpack.config.js文件中的配置对项目进行编译打包。使用npm run start命令时将启动nodejs小型服务器，开启本地预览。</p>
+<h1 id="五、测试react项目"><a href="#五、测试react项目" class="headerlink" title="五、测试react项目"></a>五、测试react项目</h1><p>新建build文件夹，并在该文件夹下新建main.js文件index.html作为页面入口。在index.html文件中编写如下代码：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes&quot; /&gt;
+    &lt;title&gt;test&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;page&quot;&gt;&lt;/div&gt;    
+&lt;/body&gt;
+&lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/html&gt;</code></pre>
+<p>新建src文件夹，并在该文件夹下新建main.js文件作为前端文件入口。可自定义入口文件位置，只需与webpack.config.js文件中的设置一致即可。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/mainjsposition.png" alt="main.js position"></p>
+<p>在main.js文件中编写如下代码：</p>
+<pre><code>import React from &#39;react&#39;;  //引入react核心库
+import ReactDOM from &#39;react-dom&#39;;   //引入react-dom
+
+ReactDOM.render(&lt;h1&gt;Hello World!&lt;/h1&gt;, document.getElementById(&#39;page&#39;)); //定义所要渲染的内容</code></pre>
+<p>在项目文件夹目录下打开命令行，使用命令npm run build打包文件，此时会出现如下报错</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/webpackversionerror.png" alt="webpack version error"></p>
+<p>在packge.json文件中可以看到安装的webpack和webpack-cli版本</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/webpackversion.png" alt="webpack version"></p>
+<p>因此报错原因是在webpack 4以后的版本中将webpack本身和webpack-cli分开来更好地管理它们，而在webpack 3中，两者在同一个包中，所以可以通过降级来解决。</p>
+<p>首先使用 <code>npm uninstall webpack webpack-cli</code> 命令将原先安装的webapck和webpack-cli包移除，再使用 <code>npm install webpack@3.8.0 webpack-cli@3.3.12 --save-dev</code></p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/newwebpackversion.png" alt="new webpack version"></p>
+<p>再次使用 <code>npm run build</code> 命令，此时又会出现如下报错</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/babelversionerror.png" alt="babel version error"></p>
+<p>原因是babel-loader的版本不匹配，若想用babel-core 6的版本需要使用babel-loader 7的版本，而通过查看package.json文件可以看到安装的babel-core版本为6.26.3，而babel-loader的版本为8.2.2，同样可以通过给babel-loader降级来解决。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/babelversion.png" alt="babel version"></p>
+<p>使用 <code>npm uninstall babel-loader</code> 移除原先安装的babel-loader，再使用 <code>npm install babel-loader@7.1.5 --save-dev</code> 重新安装</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/newbabelversion.png" alt="new babel version"></p>
+<p>此时再执行 <code>npm run build</code> ，成功编译打包</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/runbuild.png" alt="npm run build"></p>
+<p>在build目录下生成打包后的bundle.js文件</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/bundle.png" alt="bundle"></p>
+<p>使用命令 <code>npm run start</code> 启动服务，此时又会出现如下报错</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/devservererror.png" alt="devserver error"></p>
+<p>因为之前对webpack和webpack-cli进行降级后，最新版的webpack-dev-server与它们不匹配了，同样需要对webpack-dev-server进行降级。</p>
+<p>使用 <code>npm uninstall webpack-dev-server</code> 移除原先安装的babel-loader，再使用 <code>npm install webpack-dev-server@2.9.7 --save-dev</code> 重新安装</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/newdevserverversion.png" alt="new devserver version"></p>
+<p>使用命令 <code>npm run start</code> 启动服务</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/runstart.png" alt="npm run start"></p>
+<p>打开浏览器，输入 <code>127.0.0.1:5000/build</code> 进行查看</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/html.png" alt="html"></p>
+<p>如上图所示浏览器成功渲染页面，至此完成react项目的搭建。</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>服务器的配置和使用</title>
+    <url>/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>深度学习环境配置包括 <strong>显卡驱动 + anaconda + cuda + cudnn + pytorch/tensorflow（GPU版）</strong></p>
+<a id="more"></a>
+
+<p>它们之间的关系如下：</p>
+<p><strong>cuda版本与显卡驱动有关</strong>，在<a href="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html">这里</a>可查看二者的版本关系</p>
+<p><strong>cudnn与cuda版本有关</strong>，在<a href="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html">这里</a>可查看二者的版本关系</p>
+<p><strong>pytorch与cuda版本有关</strong>，在<a href="https://pytorch.org/get-started/previous-versions/">这里</a>可查看二者的版本关系</p>
+<p><strong>tensorflow和gcc、cuda版本有关</strong>，在<a href="https://www.tensorflow.org/install/source#tested_build_configurations">这里</a>可查看它们的版本关系</p>
+<p>因为实验室的服务器已经有同学在使用所以基本环境都已装好，只需在anaconda中创建一个新的虚拟环境安装pytorch/tensorflow即可，这样更方便更安全，避免和其他同学的环境产生冲突。所以这里也只记录了在显卡驱动、anaconda、cuda、cudnn都已装好的服务器中，第一次使用前所需要做的准备。</p>
+<p>（由于笔记本使用win10系统，实验室台式机使用Linux系统，所以文中图片可能会出现两种系统下的截图，但两种系统下的方法是一样的）。在Windows系统中使用xshell远程连接服务器，Linux系统在终端或VsCode中可远程连接服务器。</p>
+<h1 id="一、了解服务器基本信息"><a href="#一、了解服务器基本信息" class="headerlink" title="一、了解服务器基本信息"></a>一、了解服务器基本信息</h1><h2 id="1、硬盘大小及剩余容量"><a href="#1、硬盘大小及剩余容量" class="headerlink" title="1、硬盘大小及剩余容量"></a>1、硬盘大小及剩余容量</h2><p><code>df -lh</code></p>
+<h2 id="2、显卡信息"><a href="#2、显卡信息" class="headerlink" title="2、显卡信息"></a>2、显卡信息</h2><p><code>lspci | grep -i nvidia</code> 或 <code>lspci | grep -i vga</code></p>
+<h2 id="3、显卡驱动"><a href="#3、显卡驱动" class="headerlink" title="3、显卡驱动"></a>3、显卡驱动</h2><p><code>nvidia-smi</code></p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/nvidia-smi.png" alt="nvidia-smi"></p>
+<h2 id="4、查看cuda版本"><a href="#4、查看cuda版本" class="headerlink" title="4、查看cuda版本"></a>4、查看cuda版本</h2><p><code>nvcc -V</code></p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/nvcc.png" alt="nvcc"></p>
+<h2 id="5、查看cudnn版本"><a href="#5、查看cudnn版本" class="headerlink" title="5、查看cudnn版本"></a>5、查看cudnn版本</h2><p><code>cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2</code></p>
+<h2 id="6、查看gcc版本"><a href="#6、查看gcc版本" class="headerlink" title="6、查看gcc版本"></a>6、查看gcc版本</h2><p><code>gcc -v</code></p>
+<h1 id="二、在Anaconda中创建个人环境"><a href="#二、在Anaconda中创建个人环境" class="headerlink" title="二、在Anaconda中创建个人环境"></a>二、在Anaconda中创建个人环境</h1><h2 id="1、创建新环境"><a href="#1、创建新环境" class="headerlink" title="1、创建新环境"></a>1、创建新环境</h2><p><code>conda create -n xwj_pytorch python=3.6</code></p>
+<h2 id="2、进入环境"><a href="#2、进入环境" class="headerlink" title="2、进入环境"></a>2、进入环境</h2><p><code>conda activate xwj_pytorch</code></p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/activate.png" alt="activate"></p>
+<h2 id="3、在虚拟环境中安装pytorch"><a href="#3、在虚拟环境中安装pytorch" class="headerlink" title="3、在虚拟环境中安装pytorch"></a>3、在虚拟环境中安装pytorch</h2><p>在<a href="https://pytorch.org/get-started/previous-versions/">官网</a>查找对应cuda的pytorch版本</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/pytorch.png" alt="pytorch"></p>
+<p>复制命令在终端执行，即可完成安装</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/installpytorch.png" alt="installpytorch"></p>
+<p>进入虚拟环境中的python，检查pytorch是否安装成功是否可用</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/checkpytorch.png" alt="checkpytorch"></p>
+<p>pytorch中可通过如下代码查看可用显卡的数量和信息</p>
+<pre><code>import torch
+print([torch.cuda.get_device_properties(i) for i in range(torch.cuda.device_count())])</code></pre>
+<p>pytorch中设置可用显卡</p>
+<pre><code>import os
+os.environ[&quot;CUDA_VISIBLE_DEVICES&quot;] = &#39;0,1&#39;</code></pre>
+<h2 id="4、安装tensorflow"><a href="#4、安装tensorflow" class="headerlink" title="4、安装tensorflow"></a>4、安装tensorflow</h2><p>查看gcc版本 <code>gcc -v</code></p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/gcc.png" alt="gcc"></p>
+<p>在<a href="https://www.tensorflow.org/install/source#tested_build_configurations">tensorflow官网</a>查看版本匹配</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/tfversion.png" alt="tfversion"></p>
+<p>为了避免和其他环境中的模块版本产生冲突，可按照1、2步骤重新创建一个新的虚拟环境，并进入该虚拟环境</p>
+<p>创建环境 <code>conda create -n xwj_tensorflow python=3.6</code></p>
+<p>进入环境 <code>conda activate xwj_tensorflow</code></p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/activatetf.png" alt="activatetf"></p>
+<p>安装GPU版tensorflow <code>conda install tensorflow-gpu==2.0.0</code></p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/installtf.png" alt="installtf"></p>
+<p>参照3中的方法进入虚拟环境的python，检查tensorflow是否安装成功，是否可用</p>
+<h1 id="三、VsCode的使用"><a href="#三、VsCode的使用" class="headerlink" title="三、VsCode的使用"></a>三、VsCode的使用</h1><p>可以使用Pycharm或Vscode作为本地的python代码编辑器。因为还要远程连接服务器，而Pycharm中只有pro版有此功能，虽然可以使用学生身份申请免费使用pro版，但是为了方便这里直接用vscode。下面列出了使用vscode时遇到的一些问题。</p>
+<h2 id="1、在vscode中使用anaconda环境里的python解释器无效"><a href="#1、在vscode中使用anaconda环境里的python解释器无效" class="headerlink" title="1、在vscode中使用anaconda环境里的python解释器无效"></a>1、在vscode中使用anaconda环境里的python解释器无效</h2><p>vscode中可点击左下角选择python解释器。在确保已前面步骤都正确，但是选择anaconda中已安装好的pytorch虚拟环境里的python解释器后，运行代码时仍出现如下报错 </p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/nomodule.png" alt="nomodule"></p>
+<p><strong>解决：</strong>在setting.json文件中注释掉原来的 <code>python.pythonPath</code>，添加如下代码，其中第七项 <code>“python”</code> 更改为anaconda中虚拟环境里python的路径</p>
+<pre><code>&#123;
+    // &quot;python.pythonPath&quot;: &quot;/home/lab406/anaconda3/envs/pytorch/bin/python&quot;
+    &quot;code-runner.executorMap&quot;: &#123;
+        &quot;javascript&quot;: &quot;node&quot;,
+        &quot;java&quot;: &quot;cd $dir &amp;&amp; javac $fileName &amp;&amp; java $fileNameWithoutExt&quot;,
+        &quot;c&quot;: &quot;cd $dir &amp;&amp; gcc $fileName -o $fileNameWithoutExt &amp;&amp; $dir$fileNameWithoutExt&quot;,
+        &quot;cpp&quot;: &quot;cd $dir &amp;&amp; g++ $fileName -o $fileNameWithoutExt &amp;&amp; $dir$fileNameWithoutExt&quot;,
+        &quot;objective-c&quot;: &quot;cd $dir &amp;&amp; gcc -framework Cocoa $fileName -o $fileNameWithoutExt &amp;&amp; $dir$fileNameWithoutExt&quot;,
+        &quot;php&quot;: &quot;php&quot;,
+        &quot;python&quot;: &quot;~/anaconda3/envs/pytorch/bin/python&quot;,
+        &quot;perl&quot;: &quot;perl&quot;,
+        &quot;perl6&quot;: &quot;perl6&quot;,
+        &quot;ruby&quot;: &quot;ruby&quot;,
+        &quot;go&quot;: &quot;go run&quot;,
+        &quot;lua&quot;: &quot;lua&quot;,
+        &quot;groovy&quot;: &quot;groovy&quot;,
+        &quot;powershell&quot;: &quot;powershell -ExecutionPolicy ByPass -File&quot;,
+        &quot;bat&quot;: &quot;cmd /c&quot;,
+        &quot;shellscript&quot;: &quot;bash&quot;,
+        &quot;fsharp&quot;: &quot;fsi&quot;,
+        &quot;csharp&quot;: &quot;scriptcs&quot;,
+        &quot;vbscript&quot;: &quot;cscript //Nologo&quot;,
+        &quot;typescript&quot;: &quot;ts-node&quot;,
+        &quot;coffeescript&quot;: &quot;coffee&quot;,
+        &quot;scala&quot;: &quot;scala&quot;,
+        &quot;swift&quot;: &quot;swift&quot;,
+        &quot;julia&quot;: &quot;julia&quot;,
+        &quot;crystal&quot;: &quot;crystal&quot;,
+        &quot;ocaml&quot;: &quot;ocaml&quot;,
+        &quot;r&quot;: &quot;Rscript&quot;,
+        &quot;applescript&quot;: &quot;osascript&quot;,
+        &quot;clojure&quot;: &quot;lein exec&quot;,
+        &quot;haxe&quot;: &quot;haxe --cwd $dirWithoutTrailingSlash --run $fileNameWithoutExt&quot;,
+        &quot;rust&quot;: &quot;cd $dir &amp;&amp; rustc $fileName &amp;&amp; $dir$fileNameWithoutExt&quot;,
+        &quot;racket&quot;: &quot;racket&quot;,
+        &quot;scheme&quot;: &quot;csi -script&quot;,
+        &quot;ahk&quot;: &quot;autohotkey&quot;,
+        &quot;autoit&quot;: &quot;autoit3&quot;,
+        &quot;dart&quot;: &quot;dart&quot;,
+        &quot;pascal&quot;: &quot;cd $dir &amp;&amp; fpc $fileName &amp;&amp; $dir$fileNameWithoutExt&quot;,
+        &quot;d&quot;: &quot;cd $dir &amp;&amp; dmd $fileName &amp;&amp; $dir$fileNameWithoutExt&quot;,
+        &quot;haskell&quot;: &quot;runhaskell&quot;,
+        &quot;nim&quot;: &quot;nim compile --verbosity:0 --hints:off --run&quot;,
+        &quot;lisp&quot;: &quot;sbcl --script&quot;,
+        &quot;kit&quot;: &quot;kitc --run&quot;,
+        &quot;v&quot;: &quot;v run&quot;,
+        &quot;sass&quot;: &quot;sass --style expanded&quot;,
+        &quot;scss&quot;: &quot;scss --style expanded&quot;
+    &#125;,
+    &quot;code-runner.runInTerminal&quot;: false
+&#125;</code></pre>
+<p>保存后再次运行如下代码</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/checkvscode.png" alt="checkvscode"></p>
+<p>可正常使用了（若依然无法使用则重新启动VsCode即可）</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/vscodenormal.png" alt="vscodenormal"></p>
+<h2 id="2、在vscode中远程连接服务器"><a href="#2、在vscode中远程连接服务器" class="headerlink" title="2、在vscode中远程连接服务器"></a>2、在vscode中远程连接服务器</h2><p>首先在vscode中安装 Remote - SSH 插件</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/remotessh.png" alt="remotessh"></p>
+<p>点击Configure图标，选择ssh配置</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/configssh.png" alt="configssh"></p>
+<p>输入主机名称（自定义）、主机IP、用户名、端口号（可选）</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/sshinfo.png" alt="sshinfo"></p>
+<p>点击该主机名，右键可选择在当前窗口或新窗口连接服务器</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/connecthost.png" alt="connecthost"></p>
+<p>然后输入密码登录服务器</p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/hostpassword.png" alt="hostpassword"></p>
+<h2 id="3、同步本地代码到服务器"><a href="#3、同步本地代码到服务器" class="headerlink" title="3、同步本地代码到服务器"></a>3、同步本地代码到服务器</h2><h3 id="（1）安装SFTP插件"><a href="#（1）安装SFTP插件" class="headerlink" title="（1）安装SFTP插件"></a>（1）安装SFTP插件</h3><p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/sftp.png" alt="sftp"></p>
+<h3 id="（2）配置"><a href="#（2）配置" class="headerlink" title="（2）配置"></a>（2）配置</h3><p>输入 <code>ctrl+shift+p</code>打开输入框输入 <code>SFTP:Config</code>，此时会在 .vscode 目录下生成 sftp.json 文件，配置主机名称、IP、协议、端口、用户名、远程同步地址、本地保存时是否同步上传到服务器（不包括重命名和删除操作）、上传时忽略的文件 </p>
+<p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/sftpjson.png" alt="sftpjson"></p>
+<h3 id="（3）上传"><a href="#（3）上传" class="headerlink" title="（3）上传"></a>（3）上传</h3><p>输入 <code>ctrl+shift+p</code>打开输入框输入 <code>SFTP:Upload Project</code>，然后选择要上传的项目文件夹，再输入服务器密码即可</p>
+<p>然后可在xshell登录服务器或在vscode中连接登录服务器打开文件夹，进入虚拟环境，运行代码</p>
+<h2 id="4、在vscode中使用python导入不同级目录下的文件时报错ModuleNotFoundError-No-module-named-‘xxx’"><a href="#4、在vscode中使用python导入不同级目录下的文件时报错ModuleNotFoundError-No-module-named-‘xxx’" class="headerlink" title="4、在vscode中使用python导入不同级目录下的文件时报错ModuleNotFoundError: No module named ‘xxx’"></a>4、在vscode中使用python导入不同级目录下的文件时报错ModuleNotFoundError: No module named ‘xxx’</h2><p>假设文件目录为</p>
+<pre><code>-project
+  --dir1
+    ---file1.py
+  --dir2
+    ---file2.py</code></pre>
+<p>在file2.py中使用<code>from dir1.file1 import xxx</code>导入file1.py里定义的变量或函数时出现报错 ModuleNotFoundError: No module named ‘dir1’</p>
+<p><strong>解决：</strong>在import之前将文件目录所在路径添加到搜索路径中</p>
+<pre><code>import os
+import sys 
+sys.path.insert(0,os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from dir1.file1 import xxx</code></pre>
+<p>这里是把项目 project 的绝对路径插入搜索路径中的第一个位置</p>
+<p>其中<code>os.path.abspath(__file__)</code>表示 file2.py 所在的绝对路径</p>
+<p><code>os.path.dirname(os.path.abspath(__file__))</code>为 dir2 目录的绝对路径</p>
+<p><code>os.path.dirname(os.path.dirname(os.path.abspath(__file__))))</code>为项目 project 的绝对路径</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+        <category>深度学习</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>深度学习包的使用杂记</title>
+    <url>/2021/07/12/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8C%85%E7%9A%84%E4%BD%BF%E7%94%A8%E6%9D%82%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="一、Numpy"><a href="#一、Numpy" class="headerlink" title="一、Numpy"></a>一、Numpy</h1><h2 id="向量、矩阵点乘与叉乘"><a href="#向量、矩阵点乘与叉乘" class="headerlink" title="向量、矩阵点乘与叉乘"></a>向量、矩阵点乘与叉乘</h2><h3 id="点乘：内积、数量积，两向量若垂直点积为0，-a-b-cos-theta"><a href="#点乘：内积、数量积，两向量若垂直点积为0，-a-b-cos-theta" class="headerlink" title="点乘：内积、数量积，两向量若垂直点积为0，|a||b|cos(theta)"></a>点乘：内积、数量积，两向量若垂直点积为0，|a||b|cos(theta)</h3><p>向量：<code>np.dot</code>——相同位置元素相乘后求和——结果是标量，<code>*</code>——相同位置元素相乘——结果与原向量大小相同</p>
+<a id="more"></a>
+
+<p>矩阵：<code>*</code>或<code>np.multiply</code>——相同位置元素相乘——结果是矩阵，与原矩阵大小相同</p>
+<h3 id="叉乘：向量积、外积，两向量若平行叉积为0，-a-b-sin-theta"><a href="#叉乘：向量积、外积，两向量若平行叉积为0，-a-b-sin-theta" class="headerlink" title="叉乘：向量积、外积，两向量若平行叉积为0，|a||b|sin(theta)"></a>叉乘：向量积、外积，两向量若平行叉积为0，|a||b|sin(theta)</h3><p>向量：<code>np.cross</code>——二维平面向量叉乘结果的长度为组成的四边形面积，多维向量叉乘得到法向量</p>
+<p>矩阵：<code>np.dot</code>——矩阵1每行与矩阵2每列相乘</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+        <category>深度学习</category>
+      </categories>
+  </entry>
+</search>

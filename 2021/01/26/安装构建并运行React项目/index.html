@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nicolejay.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="构建一个React项目需要安装Nodejs、Webpack以及React相关包。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装构建并运行React项目">
+<meta property="og:url" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/index.html">
+<meta property="og:site_name" content="X 的笔记">
+<meta property="og:description" content="构建一个React项目需要安装Nodejs、Webpack以及React相关包。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/nodejs.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/node-v.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/npm-v.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/npminit.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/packagejson.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/installwebpack.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/packagelockjson.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/installreact.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/installbabel.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/packagejson1.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/mainjsposition.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/webpackversionerror.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/webpackversion.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/newwebpackversion.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/babelversionerror.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/babelversion.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/newbabelversion.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/runbuild.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/bundle.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/devservererror.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/newdevserverversion.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/runstart.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/html.png">
+<meta property="article:published_time" content="2021-01-26T10:25:03.000Z">
+<meta property="article:modified_time" content="2021-05-19T13:38:03.905Z">
+<meta property="article:author" content="NicoleJay">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/nodejs.png">
+
+
+<link rel="canonical" href="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>安装构建并运行React项目 | X 的笔记</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+  <a target="_blank" rel="noopener" href="https://github.com/NicoleJay" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">X 的笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85Nodejs"><span class="nav-number">1.</span> <span class="nav-text">一、安装Nodejs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81npm%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">二、npm初始化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85Webpack"><span class="nav-number">3.</span> <span class="nav-text">三、安装Webpack</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%89%E8%A3%85React"><span class="nav-number">4.</span> <span class="nav-text">四、安装React</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%B5%8B%E8%AF%95react%E9%A1%B9%E7%9B%AE"><span class="nav-number">5.</span> <span class="nav-text">五、测试react项目</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="NicoleJay"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">NicoleJay</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/NicoleJay" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NicoleJay" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://nicolejay.github.io/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="NicoleJay">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X 的笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          安装构建并运行React项目
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-26 18:25:03" itemprop="dateCreated datePublished" datetime="2021-01-26T18:25:03+08:00">2021-01-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>构建一个React项目需要安装Nodejs、Webpack以及React相关包。</p>
+<a id="more"></a>
+
+<p>每个脚本都需要解析器，即构建一个运行时环境，而nodejs就是为js脚本提供一个运行时环境。对于JavaScript，在前端html中的js是由浏览器进行解析，主要是对DOM的操作，而nodejs解析的js脚本主要是对磁盘文件等进行操作，搭建起一个服务。</p>
+<p>webpack是一个模块管理工具，将项目各文件进行打包，在项目部署时可通过直接调用打包后生成的资源文件，方便快捷。</p>
+<h1 id="一、安装Nodejs"><a href="#一、安装Nodejs" class="headerlink" title="一、安装Nodejs"></a>一、安装Nodejs</h1><p>在<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">官网</a>根据自己的系统选择对应版本进行下载</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/nodejs.png" alt="nodejs"></p>
+<p>下载完成后开始安装，可自定义所要安装的位置，其他选项按照默认即可。<br>打开命令行，输入 <code>node -v</code> 并回车，查看是否安装成功，若出现nodejs版本表示已成功安装。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/node-v.png" alt="node-v"></p>
+<h1 id="二、npm初始化"><a href="#二、npm初始化" class="headerlink" title="二、npm初始化"></a>二、npm初始化</h1><p>npm是包管理器，在开发过程中，通过 <code>npm install 包名称</code> 命令安装所需的包，即可使用别人已写好的模块，省去下载源码解压安装等繁琐步骤。npm包管理器集成在nodejs中，当上一步nodejs安装成功后，在命令行输入 <code>npm -v</code> ，显示npm的版本号，表示npm也已成功安装。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/npm-v.png" alt="npm-v"></p>
+<p>新建一个React项目的文件夹（这里我命名为test），打开命令行，进入该文件夹，使用命令 <code>npm init</code> 初始化项目，初始化过程中可按提示输入项目名称、版本、描述、入口文件、启动命令等信息，也可选择一路回车。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/npminit.png" alt="npm init"></p>
+<p>此时会在该文件夹下生成一个package.json文件，该文件中记录的是刚才项目初始化时所输入的项目相关信息。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/packagejson.png" alt="packagejson"></p>
+<h1 id="三、安装Webpack"><a href="#三、安装Webpack" class="headerlink" title="三、安装Webpack"></a>三、安装Webpack</h1><p>在项目文件夹下使用命令 <code>npm install webpack webpack-cli webpack-dev-server --save-dev</code> 安装webpack和webpack-dev-sever。</p>
+<p>其中webpack负责打包工作，方便文件管理，把所有静态文件打包成一个bundle.js资源文件，当项目部署时只需项目入口文件和打包好的bundle.js文件即可。最新版本的webpack需要搭配webpack-cli使用，要编译成功还必须安装webpage-cli。</p>
+<p>安装webpack-dev-server包是为了方便在本地实时预览页面，是一个小型的nodejs Express服务器，为静态文件提供web服务，实现热加载，即当更改并保存前端代码后，webpack自动编译，并在浏览器中自动刷新显示最新页面，从而实时预览更改后的页面状态。webpack-dev-sever在本地开发时非常方便，在项目部署到服务器后的生产环境中不需要用到，因此在安装命令中使用–save-dev表示把包安装在dev节点上。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/installwebpack.png" alt="installwebpack"></p>
+<p>安装完成后，在项目文件夹下生成node_modules文件夹和package-lock.json文件，其中node_modules文件夹中存放的就是项目开发过程中安装的各种模块。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/packagelockjson.png" alt="package-lock.json"></p>
+<p>在项目文件夹下手动创建一个webpack.config.js文件，在该文件中配置项目的入口文件、打包后的文件存放位置等信息。配置如下：</p>
+<pre><code>var path = require(&quot;path&quot;);
+var webpack = require(&#39;webpack&#39;);
+module.exports = &#123;
+    entry: &#123; app: [&#39;./src/main.js&#39;] &#125;,  //前端入口文件
+    output: &#123;
+    path: path.resolve(__dirname, &quot;./build&quot;), //打包后文件的存放位置
+    publicPath: &quot;/build/&quot;,   //打包后访问资源时加的路径前缀
+    filename: &quot;bundle.js&quot;    //打包生成的文件名
+    &#125;,
+    resolve: &#123;
+    extensions: [&#39;*&#39;,&#39;.js&#39;,&#39;.jsx&#39;]  //当代码中引入模块时若找不到指定文件，则添加这些后缀
+    &#125;,  
+    devServer: &#123;
+    historyApiFallback: true,
+    host:&#39;0.0.0.0&#39;,
+    hot: true,
+    inline: true,
+    progress: true,
+    port:5000
+    &#125;,
+    plugins: [
+    new webpack.DefinePlugin(&#123;
+      &#39;process.env.NODE.ENV&#39;:&quot;development&quot;
+    &#125;),
+    new webpack.HotModuleReplacementPlugin()
+    ]
+&#125;;</code></pre>
+<h1 id="四、安装React"><a href="#四、安装React" class="headerlink" title="四、安装React"></a>四、安装React</h1><p>在项目文件夹下使用命令 <code>npm install react react-dom --save-dev</code> 命令安装react和react-dom模块。</p>
+<p>其中react模块时react的核心库，react-dom模块提供关于DOM的相关操作，将react的虚拟DOM进行编译更新DOM。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/installreact.png" alt="install react"></p>
+<p>由于在react中支持JSX格式代码，即可以在js中直接写html标签，因此在react中各组件文件以js或jsx后缀都可以，若要把jsx文件转为js文件需要安装jsx-loader包。此外，要把react框架中编写的代码使用webpack打包后还需要使用babel包对其进行编译，</p>
+<p>因此使用命令 <code>npm install jsx-loader babel-core babel-loader babel-preset-es2015 babel-preset-react --save-dev</code> 安装所需这些包，babel-core是babel的核心库，babel-preset-react可把react的语法转换为ES5规范。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/installbabel.png" alt="install babel"></p>
+<p>在webpack.config.js文件中添加如下配置:</p>
+<pre><code>module: &#123;
+  loaders: [
+    &#123;test:/\.jsx$/, loaders:[&#39;jsx?harmony&#39;]&#125;
+  ],
+   loaders:[
+    &#123;
+      test: /\.jsx?$/,
+      loader: &#39;babel-loader&#39;,
+      include: path.resolve(__dirname),
+      query: &#123;
+        presets: [&#39;es2015&#39;, &#39;react&#39;]
+      &#125;
+    &#125;,
+  ]
+&#125;,</code></pre>
+<p>安装好这些包后查看package.json文件中的“devDependencies”一项记录了在dev节点安装的所有模块。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/packagejson1.png" alt="package.json"></p>
+<p>打开package.json文件，修改“scripts”节点，在该节点中可自定义不同命令，并为不同命令赋予含义。在该节点中添加</p>
+<pre><code>&quot;build&quot;: &quot;webpack --config webpack.config.js&quot;,
+&quot;start&quot;: &quot;webpack-dev-server --inline&quot;</code></pre>
+<p>表示使用npm run build命令时将依据webpack.config.js文件中的配置对项目进行编译打包。使用npm run start命令时将启动nodejs小型服务器，开启本地预览。</p>
+<h1 id="五、测试react项目"><a href="#五、测试react项目" class="headerlink" title="五、测试react项目"></a>五、测试react项目</h1><p>新建build文件夹，并在该文件夹下新建main.js文件index.html作为页面入口。在index.html文件中编写如下代码：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes&quot; /&gt;
+    &lt;title&gt;test&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;page&quot;&gt;&lt;/div&gt;    
+&lt;/body&gt;
+&lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/html&gt;</code></pre>
+<p>新建src文件夹，并在该文件夹下新建main.js文件作为前端文件入口。可自定义入口文件位置，只需与webpack.config.js文件中的设置一致即可。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/mainjsposition.png" alt="main.js position"></p>
+<p>在main.js文件中编写如下代码：</p>
+<pre><code>import React from &#39;react&#39;;  //引入react核心库
+import ReactDOM from &#39;react-dom&#39;;   //引入react-dom
+
+ReactDOM.render(&lt;h1&gt;Hello World!&lt;/h1&gt;, document.getElementById(&#39;page&#39;)); //定义所要渲染的内容</code></pre>
+<p>在项目文件夹目录下打开命令行，使用命令npm run build打包文件，此时会出现如下报错</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/webpackversionerror.png" alt="webpack version error"></p>
+<p>在packge.json文件中可以看到安装的webpack和webpack-cli版本</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/webpackversion.png" alt="webpack version"></p>
+<p>因此报错原因是在webpack 4以后的版本中将webpack本身和webpack-cli分开来更好地管理它们，而在webpack 3中，两者在同一个包中，所以可以通过降级来解决。</p>
+<p>首先使用 <code>npm uninstall webpack webpack-cli</code> 命令将原先安装的webapck和webpack-cli包移除，再使用 <code>npm install webpack@3.8.0 webpack-cli@3.3.12 --save-dev</code></p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/newwebpackversion.png" alt="new webpack version"></p>
+<p>再次使用 <code>npm run build</code> 命令，此时又会出现如下报错</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/babelversionerror.png" alt="babel version error"></p>
+<p>原因是babel-loader的版本不匹配，若想用babel-core 6的版本需要使用babel-loader 7的版本，而通过查看package.json文件可以看到安装的babel-core版本为6.26.3，而babel-loader的版本为8.2.2，同样可以通过给babel-loader降级来解决。</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/babelversion.png" alt="babel version"></p>
+<p>使用 <code>npm uninstall babel-loader</code> 移除原先安装的babel-loader，再使用 <code>npm install babel-loader@7.1.5 --save-dev</code> 重新安装</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/newbabelversion.png" alt="new babel version"></p>
+<p>此时再执行 <code>npm run build</code> ，成功编译打包</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/runbuild.png" alt="npm run build"></p>
+<p>在build目录下生成打包后的bundle.js文件</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/bundle.png" alt="bundle"></p>
+<p>使用命令 <code>npm run start</code> 启动服务，此时又会出现如下报错</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/devservererror.png" alt="devserver error"></p>
+<p>因为之前对webpack和webpack-cli进行降级后，最新版的webpack-dev-server与它们不匹配了，同样需要对webpack-dev-server进行降级。</p>
+<p>使用 <code>npm uninstall webpack-dev-server</code> 移除原先安装的babel-loader，再使用 <code>npm install webpack-dev-server@2.9.7 --save-dev</code> 重新安装</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/newdevserverversion.png" alt="new devserver version"></p>
+<p>使用命令 <code>npm run start</code> 启动服务</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/runstart.png" alt="npm run start"></p>
+<p>打开浏览器，输入 <code>127.0.0.1:5000/build</code> 进行查看</p>
+<p><img src="/2021/01/26/%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8CReact%E9%A1%B9%E7%9B%AE/html.png" alt="html"></p>
+<p>如上图所示浏览器成功渲染页面，至此完成react项目的搭建。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/21/%E5%85%B3%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6React%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/" rel="prev" title="关于前端框架React的个人理解">
+                  <i class="fa fa-chevron-left"></i> 关于前端框架React的个人理解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/21/%E5%89%8D%E7%AB%AF%E5%B0%8F%E6%96%B9%E6%B3%95%E6%9D%82%E8%AE%B0/" rel="next" title="前端小方法杂记">
+                  前端小方法杂记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NicoleJay</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
