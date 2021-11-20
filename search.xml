@@ -776,4 +776,94 @@ from dir1.file1 import xxx</code></pre>
         <category>深度学习</category>
       </categories>
   </entry>
+  <entry>
+    <title>Ubuntu系统下搭建深度学习环境</title>
+    <url>/2021/10/10/Ubuntu%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<p>重装了系统又要重新搭建深度学习环境包括安装 显卡驱动 + anaconda + cuda + cudnn + pytorch/tensorflow（GPU版）</p>
+<a id="more"></a>
+
+<h1 id="安装显卡驱动"><a href="#安装显卡驱动" class="headerlink" title="安装显卡驱动"></a>安装显卡驱动</h1><p>查看主机上是否有显卡 <code>lspci | grep -i nvidia</code></p>
+<p><img src="/2021/10/10/Ubuntu%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83/nvidia.png" alt="nvidia"></p>
+<p>在<a href="https://www.nvidia.cn/Download/index.aspx?lang=cn">NVIDIA官网</a>上选择与电脑显卡相匹配的驱动并下载</p>
+<p><img src="/2021/10/10/Ubuntu%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83/nvidiadriver.png" alt="nvidiadriver"></p>
+<p><strong>禁用自带的驱动</strong></p>
+<p>在禁用前查看自带驱动 <code>lsmod | grep nouveau</code></p>
+<p><img src="/2021/10/10/Ubuntu%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83/lsmod.png" alt="lsmod"></p>
+<p>打开文件 <code>sudo gedit /etc/modprobe.d/blacklist.conf</code></p>
+<p>在文件末尾添加如下内容并保存后退出</p>
+<pre><code>blacklist nouveau
+options nouveau modeset=0</code></pre>
+<p>更新修改 <code>sudo update-initramfs -u</code>，并重启电脑</p>
+<p>禁用后查看驱动 <code>lsmod | grep nouveau</code> 将不会有任何信息</p>
+<p>安装ligntdm <code>sudo apt install -y lightdm</code></p>
+<p>关闭系统图形化界面 <code>sudo service lightdm stop</code>，若未能关闭则重启在登录界面按“ctrl+alt+F1”</p>
+<p>查看是否安装gcc <code>gcc --version</code></p>
+<p>若未安装则先安装 gcc <code>sudo apt install gcc</code>，再安装 make <code>sudo apt install make</code>，否则安装驱动时会报错</p>
+<p>cd 进入存放下载的驱动文件位置</p>
+<p>给驱动文件赋予权限 <code>sudo chmod a+x 驱动文件名</code></p>
+<p>安装驱动 <code>sudo ./驱动文件名 -no-x-check -no-nouveau-check -no-opengl-files</code></p>
+<p>安装时会遇到如下选择</p>
+<pre><code>“Install NVDIA‘s 32-bit compatibility libraries？”
+————可选择“No”
+
+“Would you like to run the nvidia-xconfigutility to automatically update your x configuration so that the NVIDIA x driver will be used when you restart x? Any pre-existing x confile will be backed up.”
+————选择“Yes”</code></pre>
+<p>查看显卡驱动是否安装成功 <code>nvidia-smi</code></p>
+<p>安装完成后重新打开系统图像界面  <code>sudo service lightdm start</code></p>
+<p>重启电脑 <code>sudo reboot</code></p>
+<h1 id="安装-CUDA"><a href="#安装-CUDA" class="headerlink" title="安装 CUDA"></a>安装 CUDA</h1><p>根据<a href="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html">CUDA 与显卡驱动版本间的关系</a> ，在<a href="https://developer.nvidia.com/cuda-toolkit-archive">NVIDIA DEVELOPER网站</a>上选择相应 CUDA 版本进行下载，这里我选择 CUDA 10.2</p>
+<p>由于安装最新驱动 470.74，和 gcc 9.3.0</p>
+<p><img src="/2021/10/10/Ubuntu%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83/gcc9.png" alt="gcc9"></p>
+<p>而根据<a href="https://docs.nvidia.com/cuda/archive/10.2/cuda-installation-guide-linux/index.html">CUDA 10.2的Versioned Online Documentation-Installation Guide Linux</a>中的表格可以看到与 CUDA 10.2匹配的 gcc 版本为7.x.x，而后续安装 tensorflow 时 2.0.0 以上版本匹配的 gcc 版本为7.3.1，所以需要对 gcc 进行降级，并安装 g++ 7</p>
+<pre><code>sudo apt-get install gcc-7 g++-7
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 9
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 1
+sudo update-alternatives --display gcc</code></pre>
+<p><img src="/2021/10/10/Ubuntu%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83/gcc7.png" alt="gcc7"></p>
+<p>可以看到 gcc 9的优先级为1，gcc 7的优先级为9</p>
+<p>如果系统已安装 g++，同样也要设置 g++ 7为更高的优先级（把上述后三条命令中“gcc”改为“g++”即可）</p>
+<p>在<a href="https://developer.nvidia.com/cuda-toolkit-archive">NVIDIA DEVELOPER网站</a>上根据自己的系统选择相应 CUDA 版本进行下载，虽然我的 Ubuntu 系统为20.04，这里只要选择 18.04 即可，按照网页下方给的命令进行下载和安装</p>
+<p><img src="/2021/10/10/Ubuntu%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83/cudadownload.png" alt="cudadownload"></p>
+<p>安装时会遇到如下选择</p>
+<pre><code>“Do you accept the above EULA?”
+————输入 accept
+
+“CUDA Installer”
+————回车去掉“Driver”前的“X”，再选择“Install”回车</code></pre>
+<p>配置环境 CUDA 变量</p>
+<p>打开环境变量配置文件 <code>gedit ~/.bashrc</code></p>
+<p>在该文件末尾添加如下内容后保存并退出</p>
+<pre><code>export PATH=/usr/local/cuda-前两位版本号/bin$&#123;PATH:+:$&#123;PATH&#125;&#125;
+export LD_LIBRARY_PATH=/usr/local/cuda-前两位版本号/lib64$&#123;LD_LIBRARY_PATH:+:$&#123;LD_LIBRARY_PATH&#125;&#125;</code></pre>
+<p>更新生效配置 <code>source ~/.bashrc</code></p>
+<p>此时输入 <code>nvcc -V</code> 可以看到输出对应 CUDA 版本，表示安装成功</p>
+<p><img src="/2021/10/10/Ubuntu%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83/nvcc.png" alt="nvcc"></p>
+<h1 id="安装-cuDNN"><a href="#安装-cuDNN" class="headerlink" title="安装 cuDNN"></a>安装 cuDNN</h1><p>在<a href="https://developer.nvidia.com/rdp/cudnn-archive">官网</a>下载与 CUDA 版本匹配的 cuDNN，选择其中的“cuDNN Library for Linux”下载</p>
+<p>解压压缩包 <code>tar -xzvf 压缩包</code></p>
+<p>拷贝文件</p>
+<pre><code>sudo cp cuda/include/cudnn.h /usr/local/cuda/include/
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/</code></pre>
+<p>文件权限授权</p>
+<pre><code>sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*</code></pre>
+<p>接着测试，进入“/home/NVIDIA_CUDA-版本号_Samples”，执行 <code>make</code> 进行编译</p>
+<p>进入“/home/NVIDIA_CUDA-版本号_Samples/1_Utilities/deviceQuery”执行 <code>./deviceQuer</code>，看到“Result = PASS”结果即为成功</p>
+<p>进入“/home/NVIDIA_CUDA-版本号_Samples/1_Utilities/bandwidthTest”执行 <code>./bandwidthTest</code>，看到“Result = PASS”结果即为成功</p>
+<h1 id="安装-Anaconda"><a href="#安装-Anaconda" class="headerlink" title="安装 Anaconda"></a>安装 Anaconda</h1><p>在<a href="https://www.anaconda.com/products/individual#download-section">官网</a>或<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/?C=M&O=D">清华大学开源软件镜像站</a>下载 .sh 安装脚本</p>
+<p>执行该 .sh 安装脚本 <code>bash Anaconda3-2021.05-Linux-x86_64.sh</code></p>
+<p>安装时会出现“Do you wish the installer to initialize Anaconda3 by running conda init？”，选择“yes”将会自动添加环境变量配置</p>
+<p>并输入 <code>source ~/.bashrc</code> 更新配置使其生效</p>
+<h1 id="安装-Pytorch、tensorflow"><a href="#安装-Pytorch、tensorflow" class="headerlink" title="安装 Pytorch、tensorflow"></a>安装 Pytorch、tensorflow</h1><p>根据我的<a href="https://beingjay.com/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/#more">这篇博客</a>在 anaconda 中创建个人环境并安装即可</p>
+<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p><strong>问题1：</strong>如果安装 CUDA 时一次没有成功，第二次安装会报如下错误</p>
+<p><img src="/2021/10/10/Ubuntu%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83/cudainstallfailed.png" alt="cudainstallfailed"></p>
+<p><strong>解决：</strong>将官方给的安装命令 <code>sudo sh cuda_10.2.89_440.33.01_linux.run</code> 更改为 <code>sudo sh cuda_10.2.89_440.33.01_linux.run ----librarypath=/usr/local/cuda-10.2</code></p>
+<p><strong>问题2：</strong>在安装完 cuDNN 后进行测试时，执行 <code>make</code> 进行编译可能会出现如下错误，这是由于CUDA 10.2 toolkit中包含的cudaNvSci sample需要一个新的NvStreams开发包，目前为还未发布</p>
+<p><img src="/2021/10/10/Ubuntu%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83/cudnnmakeerror.png" alt="cudnnmakeerror"></p>
+<p><strong>解决：</strong>换用 <code>make -k</code> 忽略该错误进行编译</p>
+<h1 id="卸载-Anaconda-的方法（做个记录）"><a href="#卸载-Anaconda-的方法（做个记录）" class="headerlink" title="卸载 Anaconda 的方法（做个记录）"></a>卸载 Anaconda 的方法（做个记录）</h1><p>删除“anaconda3”文件夹，并删除“~/.bashrc”环境变量配置文件末尾的 anaconda 路径配置</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+        <category>深度学习</category>
+      </categories>
+  </entry>
 </search>
