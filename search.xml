@@ -52,23 +52,35 @@
     <url>/2021/11/19/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="廖雪峰的-JavaScript-教程笔记"><a href="#廖雪峰的-JavaScript-教程笔记" class="headerlink" title="廖雪峰的 JavaScript 教程笔记"></a>廖雪峰的 JavaScript 教程笔记</h1><a id="more"></a>
 
-<p>只有JavaScript能跨平台、跨浏览器驱动网页，与用户交互</p>
+<h2 id="一些背景知识"><a href="#一些背景知识" class="headerlink" title="一些背景知识"></a>一些背景知识</h2><p>只有JavaScript能跨平台、跨浏览器驱动网页，与用户交互</p>
 <p>Node.js把JavaScript引入到了服务器端</p>
-<p>JavaScript（对ECMAScript标准的一种实现）又称ECMAScript（一种语言标准）、ES6（ECMAScript 6）</p>
+<p>JavaScript（对ECMAScript标准的一种实现）又称ECMAScript（一种语言标准）、ES6（ECMAScript 6）、ES2015（ECMAScript 2015）</p>
+<p>Babel 是 JavaScript 转译器（也称源代码编译器），将使用了 ECMAScript 语言特性的 JavaScript 转换为只使用广泛支持的 ES5（ECMAScript 2009） 特性的等价代码。如Node.js使用的是 CommonJS 模块的 require 语法，之前不支持 import（不支持原生的ES6模块），则要用 babel 转译 js 模块为 CommonJS 模块</p>
+<p>Webpack、Browserify 等打包工具主要是将 ES6 代码转译为 ES5 的 js 文件生成传统的代码包</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>1、原始数据类型：数、字符串、布尔值、Symbol（ES6）、null、undefined</p>
+<p>2、派生数据类型：对象（如：函数、数组、正则表达式）</p>
 <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>JavaScript严格区分大小写</p>
 <p>JavaScript不区分整数和浮点数，统一用Number表示</p>
 <p><strong>== 和 === 的区别</strong>：== 会自动转换数据类型再比较，有时会得到奇怪的结果；=== 不会自动转换数据类型，若数据类型不一致，返回false，若一致，再比较。（JavaScript的设计缺陷，一般使用 === ）</p>
+<p>在 == 比较中，遇到比较的一方有数，则全部自动 toNumber(x) 转为数后比较，其中 toNumber(包含字母字符串) -&gt; NaN，toNumber(undefined) -&gt; NaN，toNumber(null) -&gt; +0；</p>
+<p>若比较的一方中有布尔值，则布尔值先被 toNumber(x) 转为数；</p>
+<p>若比较的一方中有对象，则对象会被 toPrimitive(x) 转为字符串或数</p>
+<p>在 === 比较中，类型相同则正常比较（除 NaN 外），类型不同则为 false，不同对象比较也为 false</p>
 <pre><code>//判断是否为NaN
 NaN === NaN; // false
 isNaN(NaN); // true（唯一判断NaN的方法）
 
+null == undefined; //true
+
 //浮点数比较
 1 / 3 === (1 - 2 / 3); // false（因为计算机无法精确表示无限循环小数，浮点数运算时会产生误差）
 Math.abs(1 / 3 - (1 - 2 / 3)) &lt; 0.0000001; // true（只能计算浮点数之差的绝对值是否小于某阈值来比较两浮点数是否相等）</code></pre>
-<p><strong>null 和 undefined：</strong>null 为空值，undefined 为未定义，一般用 null，undefined仅在判断函数参数是否传递的情况下有用</p>
+<p><strong>null 和 undefined：</strong>null 为空值，undefined 为未定义，一般用 null，undefined 仅在判断函数参数是否传递的情况下有用</p>
 <p>JavaScript的一个数组中可以包含多种类型</p>
-<p>JavaScript是变量本身类型不固定的动态语言，而静态语言在定义变量时必须指定变量类型，如Java</p>
-<p><strong>变量是否用 var 声明：</strong>通过 var 声明的变量作用域为该变量被申明的函数体内。如果一个变量没有通过var申明就被使用，则该变量自动被申明为全局变量，这导致不同js文件中未通过 var 声明的同名变量间会相互影响（JavaScript设计缺陷）————解决：在代码第一行写上 <code>&#39;use strict&#39;;</code> 启用strict模式,在strict模式下运行的JavaScript代码，强制通过 var 声明变量，使用未通过 var 声明的变量会报错</p>
+<p>JavaScript是变量本身类型不固定的动态语言，而静态语言（强类型语言）在定义变量时必须指定变量类型，如Java</p>
+<p><strong>变量是否用 var 声明：</strong>通过 var 声明的变量作用域为该变量被申明的函数体内。如果一个变量没有通过 var 申明就被使用，则该变量自动被申明为全局变量，这导致不同js文件中未通过 var 声明的同名变量间会相互影响（JavaScript设计缺陷）————解决：在代码第一行写上 <code>&#39;use strict&#39;;</code> 启用strict模式,在strict模式下运行的JavaScript代码，强制通过 var 声明变量，使用未通过 var 声明的变量会报错</p>
+<p><strong>let 和 var：</strong>在同一作用域内重复声明变量，let会报错，var不会报错</p>
+<p><strong>const：</strong>const声明的变量是只读变量，若对 const 声明的变量重新用 let 或 var 声明会报错。且对于非对象类型（如数、布尔值、字符串）不可改变其值，但对于 const 声明的对象可改变其属性值，但不可对对象整体重新赋值（即变量本身的引用（内存中的引用地址）不可改）。</p>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p><strong>引号：</strong>字符串中包含单引号、双引号前面加转义符 <code>\</code> ，多行字符串用用 <code>\n</code> 表示（较早）或用反引号 `` （ES6）</p>
 <p><strong>模板字符串：</strong>用反引号括起来，其中用 <code>$&#123;变量名&#125;</code> 来表示相应值（ES6）</p>
 <p><strong>索引：</strong>字符串可以像数组一样通过索引取值，但不可通过索引赋值</p>
@@ -84,16 +96,80 @@ slice() 或 slice(开始索引，结束索引)     //返回指定索引区间元
 push(元素1,元素2,...)     //在末尾添加元素，可加多个
 pop()     //返回并删除末尾元素，空数组 pop 不报错，返回 undefined
 unshift(元素1,元素2,...)     //在头部添加元素，可加多个
-shift()     //返回并删除头部元素，空数组 pop 不报错，返回 undefined
+shift()     //返回并删除头部元素
 sort()     //排序，直接改变原数组，arr.sort()
 reverse()     //倒序，直接改变原数组，arr.reverse()
 splice(删除和添加的开始索引, 删除个数, 添加元素1, 添加元素2, ...)     //删除和添加元素
 concat()     //连接数组，返回新数组，arr1.concat(arr2)
 join(用于连接的字符)     //数组连成字符串</code></pre>
-<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>特殊属性名声明时用 <code>&#39;&#39;</code> 括起来，访问它时不用 <code>对象.属性</code>，而用 <code>对象[&#39;属性&#39;]</code></p>
+<p><strong>展开运算符：</strong>在ES5中可用 <code>apply()</code> 把数组转为参数，ES6中可直接用 <code>...数组名</code></p>
+<p>JavaScript 中数组是可修改对象，若添加元素，它就会动态增长</p>
+<p>JavaScript 只支持一维数组，不支持矩阵，可通过数组嵌套数组来实现矩阵</p>
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>ES5创建</p>
+<pre><code>function 类名(变量1,...,变量n)&#123;
+    this.属性1=变量1
+    this.属性n=变量n
+&#125;
+类名.prototype.方法名 = function()&#123;xxxxx&#125;</code></pre>
+<p>ES6创建</p>
+<pre><code>class 类名&#123;
+    constructor(变量1,...,变量n)&#123;
+        this.属性1=变量1
+        this.属性n=变量n
+    &#125;
+    方法名()&#123;xxxxx&#125;
+&#125;</code></pre>
+<p>继承</p>
+<pre><code>class 子类名 extends 父类 &#123;
+    constructor(变量1,...,变量n)&#123;
+        super(变量1,...,变量n-1)  //调用父类构造函数
+        this.属性n=变量n
+    &#125;
+    方法名()&#123;xxxxx&#125;
+&#125;</code></pre>
+<p>js 的面向对象编程还是基于原型实现的，ES6的类是基于原型语法的语法糖</p>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>对象是类的实例</p>
+<p>特殊属性名声明时用 <code>&#39;&#39;</code> 括起来，访问它时不用 <code>对象.属性</code>，而用 <code>对象[&#39;属性&#39;]</code></p>
 <p>访问不存在的属性返回 undefined</p>
 <p>删除属性 <code>delete 对象.属性</code> 或 ``</p>
-<p><a href="https://dev.mysql.com/downloads/">官网</a><br><img src="/2021/11/19/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/systemvariable.png" alt="添加系统变量"></p>
+<h2 id="真假值"><a href="#真假值" class="headerlink" title="真假值"></a>真假值</h2><p>null、undefined、false、+0、-0、NaN、空字符串、不存在的对象属性为假，其余正常变量（如：1、-1）或对象（如：new String(‘’)、new Boolean(false)）为真</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>箭头函数可省略关键字 function，若函数体只有一行还可省略 {} 和 return（ES6）</p>
+<p>函数的参数可设置默认值（ES6）</p>
+<p>函数中有一个内置对象 <code>arguments</code>（数组），包含函数被调用时传入的参数</p>
+<p>可用展开运算符代替 arguments 来表示剩余参数，如 <code>function a(x,y,...剩余参数整体的名字)</code></p>
+<h2 id="ES6-新特性"><a href="#ES6-新特性" class="headerlink" title="ES6 新特性"></a>ES6 新特性</h2><p>1、用 let 和 const 声明变量替代 var，作用域行为</p>
+<p>2、模板字面量</p>
+<p>3、解构：（1）一次初始化多个变量 <code>let &#123;x,y&#125;=&#123;&#39;a&#39;,&#39;b&#39;&#125;</code>（2）互换值 <code>[x,y]=[y,x]</code>（3）属性简写（给属性同名变量赋值后即可表示对象）</p>
+<p>4、展开运算符：（1）数组展开（2）表示剩余函数参数</p>
+<p>5、箭头函数</p>
+<p>6、函数可设置参数默认值</p>
+<p>7、类</p>
+<p>8、模块：使用 <code>export &#123;函数1，变量1，函数n&#125;</code> 导出，<code>import &#123;函数1，变量1，函数n&#125; from 文件</code> 导入</p>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p>1、相比于放在 <head> 标签里或使用 include 语句，在关闭 </head><body> 标签前引入 js 代码使得浏览器在加载脚本前解析和显示 HTML，有利于提升页面性能</body></p>
+<p>2、在类中声明函数时，可使用 prototype 方法来节约内存和降低实例化的开销。因为在类中声明函数时若通过 <code>类.prototype.方法 = function () &#123;xxxxx&#125;</code> 则函数只会被创建一次并在所有实例中共享；而通过在类定义里声明函数，则每个实例都会创建一个函数副本</p>
+<h2 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h2><p>TypeScript 是开源的、渐进式包含类型的 JavaScript 超集，它为 JavaScript 变量提供类型支持，TypeScript 会被编译为简单的 JavaScript 代码。虽然 TypeScript 在编译时会进行类型和错误检查，但错误不会阻止编译器生成 JavaScript 代码</p>
+<p><strong>定义变量</strong></p>
+<pre><code>let a: tring = &#39;x&#39;
+let a: number = 10
+let a: boolean</code></pre>
+<p><strong>接口</strong></p>
+<p>第一种：自定义一种数据类型</p>
+<p>第二种：与面向对象编程相关</p>
+<pre><code>interface 接口 &#123;
+    函数1(参数): 类型
+&#125;
+class 类 implements 接口 &#123;
+    变量: 类型
+    函数1(参数): 类型&#123;xxx&#125;
+&#125;</code></pre>
+<p><strong>泛型</strong>：指定函数的参数类型</p>
+<pre><code>interface 接口 &lt;参数类型&gt; &#123;
+    函数1(参数): 类型
+&#125;
+class 类 implements 接口 &#123;
+    变量: 类型
+    函数1(参数:参数类型): 类型&#123;xxx&#125;
+&#125;</code></pre>
 ]]></content>
       <categories>
         <category>前端</category>
@@ -737,7 +813,13 @@ os.environ[&quot;CUDA_VISIBLE_DEVICES&quot;] = &#39;0,1&#39;</code></pre>
 <h2 id="3、同步本地代码到服务器"><a href="#3、同步本地代码到服务器" class="headerlink" title="3、同步本地代码到服务器"></a>3、同步本地代码到服务器</h2><h3 id="（1）安装SFTP插件"><a href="#（1）安装SFTP插件" class="headerlink" title="（1）安装SFTP插件"></a>（1）安装SFTP插件</h3><p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/sftp.png" alt="sftp"></p>
 <h3 id="（2）配置"><a href="#（2）配置" class="headerlink" title="（2）配置"></a>（2）配置</h3><p>输入 <code>ctrl+shift+p</code>打开输入框输入 <code>SFTP:Config</code>，此时会在 .vscode 目录下生成 sftp.json 文件，配置主机名称、IP、协议、端口、用户名、远程同步地址、本地保存时是否同步上传到服务器（不包括重命名和删除操作）、上传时忽略的文件 </p>
 <p><img src="/2021/07/02/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/sftpjson.png" alt="sftpjson"></p>
-<h3 id="（3）上传"><a href="#（3）上传" class="headerlink" title="（3）上传"></a>（3）上传</h3><p>输入 <code>ctrl+shift+p</code>打开输入框输入 <code>SFTP:Upload Project</code>，然后选择要上传的项目文件夹，再输入服务器密码即可</p>
+<h3 id="（3）上传"><a href="#（3）上传" class="headerlink" title="（3）上传"></a>（3）上传</h3><h4 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h4><p>输入 <code>ctrl+shift+p</code>打开输入框输入 <code>SFTP:Upload Project</code>，然后选择要上传的项目文件夹，再输入服务器密码即可</p>
+<h4 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h4><p>在命令行中</p>
+<p>上传文件夹 <code>scp -r xxx/xxx/文件夹/ 用户名@IP地址:/home/xxx/存放文件夹的目录</code></p>
+<p>上传文件夹中所有文件 <code>scp xxx/xxx/文件夹/* 用户名@IP地址:/home/xxx/存放文件的目录</code></p>
+<p>上传文件 <code>scp 文件1 文件2 文件n 用户名@IP地址:/home/xxx/存放文件的目录</code></p>
+<p><strong>遇到的问题：</strong>在上传时，若遇到服务器文件夹为 root 用户创建则无法写入，会出现 “Permission denied, please try again”错误。</p>
+<p><strong>解决：</strong>在服务器上为文件夹授权， <code>chmod 777 由root创建的文件夹</code></p>
 <p>然后可在xshell登录服务器或在vscode中连接登录服务器打开文件夹，进入虚拟环境，运行代码</p>
 <h2 id="4、在vscode中使用python导入不同级目录下的文件时报错ModuleNotFoundError-No-module-named-‘xxx’"><a href="#4、在vscode中使用python导入不同级目录下的文件时报错ModuleNotFoundError-No-module-named-‘xxx’" class="headerlink" title="4、在vscode中使用python导入不同级目录下的文件时报错ModuleNotFoundError: No module named ‘xxx’"></a>4、在vscode中使用python导入不同级目录下的文件时报错ModuleNotFoundError: No module named ‘xxx’</h2><p>假设文件目录为</p>
 <pre><code>-project
@@ -865,5 +947,2007 @@ sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/</code></pre>
         <category>Python</category>
         <category>深度学习</category>
       </categories>
+  </entry>
+  <entry>
+    <title>JavaScript学习笔记1</title>
+    <url>/2021/12/17/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/</url>
+    <content><![CDATA[<p>JavaScript 在1995年由网景公司发明，1996年生成 ECMAScript 标准，不同浏览器对该标准的实现不同，如 FireFox 使用 SpiderMonkey 引擎，Chrome 使用 v8 引擎（Nodejs也是）</p>
+<a id="more"></a>
+
+<h1 id="一、JavaScript组成"><a href="#一、JavaScript组成" class="headerlink" title="一、JavaScript组成"></a>一、JavaScript组成</h1><h2 id="1、JS的组成"><a href="#1、JS的组成" class="headerlink" title="1、JS的组成"></a>1、JS的组成</h2><p>JavaScript 包含三部分：ECMAScript（标准）+ DOM（文档对象模型）+BOM（浏览器对象模型）</p>
+<h2 id="2、JS的特点"><a href="#2、JS的特点" class="headerlink" title="2、JS的特点"></a>2、JS的特点</h2><p>（1）解释型语言，无需编译</p>
+<p>（2）类似 C 和 Java 的语法结构</p>
+<p>（3）动态语言</p>
+<p>（4）基于原型的面向对象</p>
+<p>注意：JS 中严格区分大小写</p>
+<h2 id="3、在网页中使用-JS"><a href="#3、在网页中使用-JS" class="headerlink" title="3、在网页中使用 JS"></a>3、在网页中使用 JS</h2><p>（1）可将 JS 代码编写到标签的 <code>onclick</code> 属性中，如 <code>&lt;button onclick=&quot;alert(&quot;xxxx&quot;);&quot;&gt;按钮&lt;/button&gt;</code></p>
+<p>（2）可将 JS 代码写在超链接的 <code>href</code> 属性中，点击超链接时会执行 JS 代码，如 <code>&lt;a href=&quot;javascript:alert(&quot;xxxx&quot;);&quot;&gt;超链接&lt;/a&gt;</code></p>
+<p>（3）通过 <code>&lt;script&gt;</code> 标签中写 JS 代码， 如<code>&lt;script type=&quot;text/javascript&quot;&gt;alert(&quot;xxxx&quot;);&lt;/script&gt;</code></p>
+<p>（4）通过 <code>&lt;script&gt;</code> 标签引入外部 JS 文件，<code>&lt;script type=&quot;text/javascript&quot; src=&quot;./xxx.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>注意1：第一、二种方法把 JS 写在标签的书中属于结构与行为耦合，不方便维护，而把 JS 写到外部文件中可在不页面同时引用，也可利用到浏览器的缓存机制</p>
+<p>注意2：一个 <code>&lt;script&gt;</code> 标签一旦用于引入外部文件，就不能在其中编写 JS 代码了，即使写了浏览器也会忽略，但若再创建一个 <code>&lt;script&gt;</code> 标签其中的内部 JS 代码可执行</p>
+<h1 id="二、语法"><a href="#二、语法" class="headerlink" title="二、语法"></a>二、语法</h1><h2 id="1、输出与输入"><a href="#1、输出与输入" class="headerlink" title="1、输出与输入"></a>1、输出与输入</h2><p>alert(“xxxxxx”);  //控制浏览器弹出警告框</p>
+<p>document.write(“xxxx”);  //向 body 中输出内容，当要换行时不能用 document.write(“xxxx”+”\n”); 而要用 document.write(“xxxx”+”<br>“); </p>
+<p>console.log(“xxx”);   //向控制台输出内容</p>
+<p>prompt(“提示文字”);   //用户可输入字符串，用户输入内容会以 String 类型作为函数返回值返回</p>
+<p>通过类型转换 +prompt(“提示文字”); 会把字符串转为 Number，可用于输入数字</p>
+<h2 id="2、字面量和变量"><a href="#2、字面量和变量" class="headerlink" title="2、字面量和变量"></a>2、字面量和变量</h2><h3 id="（1）字面量"><a href="#（1）字面量" class="headerlink" title="（1）字面量"></a>（1）字面量</h3><p>字面量是一些不可改变的值，字面量都是可直接使用的（但一般不会直接使用，而是通过变量）</p>
+<h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><pre><code>字面量类型（数据类型）六种：
+    String     字符串
+    Number     数值
+    Boolean    布尔值
+    Null       空值，专门用来表示一个为空的对象，typeof 检查一个 null 值会返回 object
+    Undefined  未定义，typeof 检查一个 null 值会返回 undefined
+    Object     对象
+其中 String、Number、Boolean、Null、Undefined 是基本数据类型，Object 属于引用数据类型</code></pre>
+<p>可利用 <code>typeof 变量名</code>来查看变量的数据类型，它会将变量的类型以字符串形式返回</p>
+<h4 id="特殊值"><a href="#特殊值" class="headerlink" title="特殊值"></a>特殊值</h4><pre><code>Number.MAX_VALUE  数字的最大值，若数字超过最大值，会返回
+Number.MIN_VALUE  最小的正值，大于 0 的最小值
+Infinity   表示正无穷
+Infinity   正无穷，也属于数字类型
+-Infinity  负无穷
+NaN        表示 Not A Number，也属于数字类型</code></pre>
+<p>在 JS 中整数运算基本可保证精确，但浮点数运算可能得到不精确结果，因此不要用 JS 进行对精确度要求较高的运算</p>
+<h4 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h4><h6 id="1-转换为字符串-String"><a href="#1-转换为字符串-String" class="headerlink" title="1. 转换为字符串 String"></a>1. 转换为字符串 String</h6><p><strong>方式一：</strong>调用 <code>变量.toString()</code>，该方法不会影响原变量，会将转换的结果返回，且 <strong>null 和 undefined 没有 toString() 方法</strong>，若调用会报错</p>
+<p><strong>方式二：</strong>调用 <code>String(变量)</code> 函数，该方法不会影响原变量，会将转换的结果返回，且<strong>该方式对 null 和 undefined 有效</strong></p>
+<p><strong>方式三：</strong>隐式类型转换，将任意数据类型 + 一个 <code>&quot;&quot;</code>，隐式类型转换由浏览器自动完成，实际上它也是调用 <code>String()</code> 函数</p>
+<h6 id="2-转换为数字-Number"><a href="#2-转换为数字-Number" class="headerlink" title="2. 转换为数字 Number"></a>2. 转换为数字 Number</h6><p><strong>方式一：</strong>使用 <code>Number(变量)</code> 函数，该方法不会影响原变量，会将转换的结果返回</p>
+<p>— 若字符串中有非数字内容则转为 NaN，若字符串为空串或是全为空格的字符串会转为 0</p>
+<p>— 对于布尔值，true 转为 1，false 转为 0</p>
+<p>— null 会转为 0</p>
+<p>— undefined 会转为 NaN</p>
+<p><strong>方式二：</strong>针对字符串</p>
+<p><code>parseInt(变量,进制)</code>可将字符串中的有效整数内容取出并转为 Number，第二个参数可不写，如 “123px” 会转为 123，“123a567” 会转为 123</p>
+<p><code>parseFloat(变量)</code>可将字符串中的有效小数内容取出并转为 Number，如 “123.456.789px” 会转为 123.456</p>
+<p>若对非 String 使用 <code>parseInt()</code> 或 <code>parseFloat()</code>会先将其转为 String 然后再操作</p>
+<p><strong>方式三：</strong>隐式类型转换，可通过一个值 <code>-0</code> 或 <code>*1</code> 或 <code>/1</code> 来将其转为 Number，隐式类型转换由浏览器自动完成，实际上它也是调用 <code>Number()</code> 函数</p>
+<p><strong>方式四：</strong>隐式类型转换，将任意数据类型使用 <code>+</code> 来将其转换为 Number，隐式类型转换由浏览器自动完成，实际上它也是调用 <code>Number()</code> 函数</p>
+<h6 id="3-转换为布尔-Boolean"><a href="#3-转换为布尔-Boolean" class="headerlink" title="3. 转换为布尔 Boolean"></a>3. 转换为布尔 Boolean</h6><p><strong>方式一：</strong>调用 <code>Boolean(变量)</code> 函数，该方法不会影响原变量，会将转换的结果返回</p>
+<p><strong>方式二：</strong>隐式类型转换，可通过为任意数据类型取两次反来将其转为 Number，隐式类型转换由浏览器自动完成，实际上它也是调用 <code>Boolean()</code> 函数</p>
+<p>对于数字 —&gt; 布尔，除了 0 和 NaN，其余都是 true</p>
+<p>对于字符串 —&gt; 布尔，除了空串，其余都是 true</p>
+<p>null 和 undefined 都会转为 false</p>
+<p>对象也会转换为 true</p>
+<h4 id="其他进制数字"><a href="#其他进制数字" class="headerlink" title="其他进制数字"></a>其他进制数字</h4><p>JS 中十六进制数字需以 <code>0x</code> 开头，八进制数字需以 <code>0</code> 开头，二进制需以 <code>0b</code> 开头（二进制表示方法浏览器兼容性不好）</p>
+<p>注意 <code>a=070</code> 表示八进制，而字符串 <code>a=&quot;070&quot;</code> 转为数字时有些浏览器会当八进制，有些会当十进制转换，可在 <code>parseInt(变量,进制)</code> 中传递进制参数来解决</p>
+<h3 id="（2）变量"><a href="#（2）变量" class="headerlink" title="（2）变量"></a>（2）变量</h3><p>变量可用来保存和描述字面量，且变量值可任意改变</p>
+<h2 id="3、标识符"><a href="#3、标识符" class="headerlink" title="3、标识符"></a>3、标识符</h2><p>所有可自主命名的都是标识符，如变量名、函数名、属性名</p>
+<p>规则：（1）可含有字母、数字、_、$</p>
+<p>（2）不能以数字开头</p>
+<p>（3）不能是 JS 中的关键字或保留字，如下图</p>
+<p><img src="/2021/12/17/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E5%85%B3%E9%94%AE%E5%AD%97%E5%92%8C%E4%BF%9D%E7%95%99%E5%AD%97.png" alt="关键字和保留字"></p>
+<p>（4）一般都采用驼峰命名法：首字母小写，每个单词开头字母大写，其余字母小写</p>
+<p>除了（4），其他都是强制要求</p>
+<p><strong>注意：JS 底层保存标识符时是采用 Unicode 编码，所以理论上所有 utf-8 中含有的内容都可以作为标识符</strong></p>
+<h2 id="4、运算符"><a href="#4、运算符" class="headerlink" title="4、运算符"></a>4、运算符</h2><h3 id="（1）二元运算符"><a href="#（1）二元运算符" class="headerlink" title="（1）二元运算符 + - * /"></a>（1）二元运算符 + - * /</h3><p>当对非 Number 类型的值进行运算时，会先将这些值转换为 Number 再运算（除了 Number 和字符串做<strong>加法</strong>以外），Number 和 字符串做减法/乘法等都是转换为 Number</p>
+<p>任何值和 NaN 做运算结果都为 NaN</p>
+<p>若对两个字符串作假发，则会把两个字符串拼接为一个字符串</p>
+<p>任何值和字符串做加法，都会先转换为字符串，然后再和字符串作拼串操作（可用于 String 强制类型转换）</p>
+<p>注意<br>    result = 1 + 2 + “3”;   //结果是“33”<br>    result = “1” + 2 + 3;   //结果是“123”</p>
+<p>任何值做 - * / 都会自动转换为 Number（可用于 Number 强制类型转换）</p>
+<h3 id="（2）一元运算符"><a href="#（2）一元运算符" class="headerlink" title="（2）一元运算符"></a>（2）一元运算符</h3><p><code>+</code> 正号不会对数字产生影响，<code>-</code> 负号可以对数字取反</p>
+<p>对于非 Number 类型的值，会将其先转换为 Number 再运算（可用于 Number 强制类型转换）</p>
+<pre><code>result = 1 + &quot;2&quot; + 3;   //结果是“123”
+result = 1 + +&quot;2&quot; + 3;   //结果是6</code></pre>
+<p>自增/减分为两种：后++（a++）或后–（a–）和前++（++a）或前–（–a），两种值不同</p>
+<p>— <code>a++</code>和<code>a--</code>的值等于原变量的值（自增/减前的值）</p>
+<p>— <code>++a</code>和<code>--a</code>的值等于原变量新值（自增/减后的值）</p>
+<pre><code>var a = 20;
+console.log(a++ + ++a + a);  //结果为 20 + 22 + 22
+var b = 20;
+b = b++;   //结果为 20，因为 b++ 的值为 20</code></pre>
+<h3 id="（3）条件（三元）运算符"><a href="#（3）条件（三元）运算符" class="headerlink" title="（3）条件（三元）运算符"></a>（3）条件（三元）运算符</h3><p>语法 <code>条件表达式 ? 语句1 : 语句2;</code>，若条件表达式是非布尔值，则会将其转换为布尔值再比较</p>
+<h3 id="（4）逻辑运算符"><a href="#（4）逻辑运算符" class="headerlink" title="（4）逻辑运算符"></a>（4）逻辑运算符</h3><p><code>!</code> 对非布尔值进行运算都会将其转换为布尔值，然后再取反（可用于 Boolean 强制类型转换）</p>
+<p>JS 中的 “与&amp;&amp;” 属于短路的 “与”，（即若第一个值为 false 则不会再检查第二个）</p>
+<p>JS 中的 “或||” 属于短路的 “或”，（即若第一个值为 true 则不会再检查第二个）</p>
+<p>对于非布尔值进行与或运算都会将其转换为布尔值，并返回转换前的值</p>
+<p>与运算：若两个值都为 true，则返回后面的值，若两个值中有 false，则返回靠前的 false（即若第一个值为 true 则必然返回第二个值，若第一个值为 false 则直接返回第一个值）</p>
+<p>或运算：若两个值都为 false，则返回后面的值，若两个值中有 true，则返回靠前的 true（即若第一个值为 false 则必然返回第二个值，若第一个值为 true 则直接返回第一个值）</p>
+<h3 id="（5）关系运算符"><a href="#（5）关系运算符" class="headerlink" title="（5）关系运算符"></a>（5）关系运算符</h3><p>对于非数值进行 &gt; &gt;= &lt; &lt;= 比较时，会将其转换为数字然后再比较</p>
+<p>若比较符号两侧都是字符串时不会将其转换为数字，而会分别比较字符串中字符的 Unicode 编码，比较字符编码时是一位一位比较，若两位一样则比较下一位，否则直接返回比较结果（可利用该特性对英文进行排序，比较中文没有意义）</p>
+<p>在比较两个字符串型的数字时，一定要转型，转型后比较的就是数字大小，否则会一位一位比较字符串编码</p>
+<p>任何值和 NaN 做任何比较都是 false</p>
+<pre><code>1 &gt; true     //false
+1 &gt;= true     //true
+10 &gt; null     //true
+10 &gt; &quot;hello&quot;  //false 相当于比较 10 &gt; NaN</code></pre>
+<h3 id="（6）相等运算符"><a href="#（6）相等运算符" class="headerlink" title="（6）相等运算符"></a>（6）相等运算符</h3><p>当使用 <code>==</code> 或 <code>!=</code> 比较时若值的类型不同，则会自动进行类型转换，将其转换为相同类型后再比较</p>
+<p>undefined 衍生自 null，所以这两个值做相等判断时会返回 true</p>
+<p>NaN 不和任何值相等，包括它本身，通过 <code>isNaN()</code> 函数判断一个值是否是 NaN</p>
+<pre><code>&quot;1&quot; == 1      //true，转为 Number 比较
+true == &quot;1&quot;   //true，二者都转为 Number
+null == 0     //false 注意
+undefined == null  //true
+Nan == Nan    //false</code></pre>
+<p><code>===</code> 全等，和 <code>==</code> 类似，但它们不会做自动类型转换，若两个值类型不同，直接返回 false；<code>!==</code> 不全等，和 <code>!=</code> 类似，但它们不会做自动类型转换，若两个值类型不同，直接返回 true</p>
+<pre><code>undefined === null  //false</code></pre>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title=",运算符"></a>,运算符</h3><p>使用 <code>,</code> 可同时声明多个变量并赋值，如<code>var a=1,b=2,c=3</code></p>
+<h2 id="5、运算符优先级"><a href="#5、运算符优先级" class="headerlink" title="5、运算符优先级"></a>5、运算符优先级</h2><p>运算符优先如下图，越靠上优先级越高</p>
+<p><img src="/2021/12/17/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7.png" alt="运算符优先级"></p>
+<h2 id="6、代码块"><a href="#6、代码块" class="headerlink" title="6、代码块"></a>6、代码块</h2><p>JS 中可使用 <code>&#123;&#125;</code> 为语句分组，同一个 <code>&#123;&#125;</code> 中的语句称为一个代码块，要么都执行，要么都不执行</p>
+<p>JS 中的代码块只有分组的作用，没有其他用途，代码块内部的内容在外部是完全可见的</p>
+<p>代码块后不用写 <code>;</code></p>
+<h2 id="7、流程控制语句"><a href="#7、流程控制语句" class="headerlink" title="7、流程控制语句"></a>7、流程控制语句</h2><p>语句分类：条件判断语句、条件分支语句、循环语句</p>
+<p>switch…case 语句中的条件判断是采用全等</p>
+<p>for 循环中 <code>()</code> 内三个部分都可以省略，也可以写在外部，若在 for 循环中不写任何表达式，只写两个 <code>;</code> 是个死循环，慎用</p>
+<p>可为循环语句创建一个 label，来标识当前循环，用法为 <code>标签名:循环语句</code>，使用 break 或 continue 语句时，可在 break 或 continue 后跟着一个 label，此时 break 将会结束指定的循环，或 continue 将会跳过当前的指定循环，而不是最近的循环</p>
+<pre><code>outer:
+for(var i=0;i&lt;5;i++)&#123;
+    语句...
+    for(var j=0;j&lt;5;j++)&#123;
+        break outer;  //此时 break 结束的是外层循环
+    &#125;
+&#125;</code></pre>
+<h2 id="8、对象"><a href="#8、对象" class="headerlink" title="8、对象"></a>8、对象</h2><p>基本数据类型创建的变量都是独立的，不饿能成为一个整体</p>
+<p>对象不是基本数据类型，而是引用数据类型，是复合数据类型</p>
+<p>除了基本数据类型外一切都是对象，网页中看到的所有都是对象</p>
+<h3 id="（1）对象的分类"><a href="#（1）对象的分类" class="headerlink" title="（1）对象的分类"></a>（1）对象的分类</h3><p><strong>内建对象</strong></p>
+<p>由 ES 标准中定义的对象，在任何的 ES 的实现中都可以使用，如 Math、String、Number、Boolean、Function、Object 等</p>
+<p><strong>宿主对象</strong></p>
+<p>由 JS 的运行环境提供的对象，主要指由浏览器提供的对象，如 BOM、DOM，这是两组对象，由许多对象组成，如 console、document 都是由浏览器创建提供的，是宿主对象</p>
+<p><strong>自定义对象</strong></p>
+<p>由开发人员自己创建的对象</p>
+<h3 id="（2）创建对象"><a href="#（2）创建对象" class="headerlink" title="（2）创建对象"></a>（2）创建对象</h3><p>使用 <code>new</code> 关键字调用的函数，是构造函数constructor，构造函数是专门用来创建对象的函数</p>
+<p>使用 <code>typeof</code> 检查一个对象时，会返回 object</p>
+<h4 id="使用工厂方法创建对象"><a href="#使用工厂方法创建对象" class="headerlink" title="使用工厂方法创建对象"></a>使用工厂方法创建对象</h4><pre><code>function createPerson(name,age,gender)&#123;
+    var obj = new Object();
+    obj.name = name;
+    obj.age = age;
+    obj.gender = gender;
+    obj.sayName = function()&#123;
+        alert(this.name);
+    &#125;
+    return obj;
+&#125;
+var obj1 = createPerson(&quot;xxx&quot;,18,&quot;男&quot;); </code></pre>
+<h4 id="创建构造函数来创建对象"><a href="#创建构造函数来创建对象" class="headerlink" title="创建构造函数来创建对象"></a>创建构造函数来创建对象</h4><p>使用同一个构造函数创建的对象称为一类对象，也将一个构造函数称为一个类，将通过构造函数创建的对象称为该类的实例</p>
+<p>使用 <code>instanceof</code> 可检查一个对象是否是一个类的实例，<code>对象 instanceof 构造函数</code> 返回布尔值，所有对象都是 Object 的后代，所以任何对象和 Object 做 instanceof 检查时都会返回 true</p>
+<p>构造函数就是一个普通函数，不同的是构造函数习惯上首字母大写。</p>
+<p><strong>构造函数和普通函数的区别：</strong>普通函数直接调用，而构造函数需要使用 new 关键字调用</p>
+<p><strong>构造函数执行流程：</strong></p>
+<ol>
+<li><p>立刻创建一个新的对象</p>
+</li>
+<li><p>将新建的对象设置为函数中的 this，在构造函数中可以使用 this 来引用新建的对象</p>
+</li>
+<li><p>逐行执行函数中的代码</p>
+</li>
+<li><p>将新建的对象作为返回值返回 </p>
+<p> function Person(name,age,gender){</p>
+<pre><code> this.name = name;
+ this.age = age;
+ this.gender = gender;
+ this.sayName = function()&#123;
+     alert(this.name);
+ &#125;</code></pre>
+<p> }<br> var per = new Person(“xxx”,18,”男”); </p>
+</li>
+</ol>
+<p><strong>构造函数的方法定义</strong></p>
+<p>在构造函数内部创建的方法，每执行一次构造函数就会创建一个新的相同方法，所有实例的该方法都是唯一的，这没有必要，所以可使所有对象共享同一个方法</p>
+<p>方式一：将方法定义到全局作用域中</p>
+<p>但是将函数定义到全局作用域中会污染了全局作用域的命名空间，并且也很不安全，容易被另一个程序猿覆盖</p>
+<p>方式二：使用原型对象</p>
+<h4 id="对象操作"><a href="#对象操作" class="headerlink" title="对象操作"></a>对象操作</h4><p><code>var 对象名 = new Object();</code> 或 <code>var 对象名 = &#123;&quot;属性名1&quot;:属性值,属性名n:属性值&#125;;</code> 创建对象，第二种方式的对象也叫对象字面量，对象字面量的属性名可加引号也可不加，但若使用一些特殊名字时必须加引号</p>
+<p><code>对象.属性名 = 属性值;</code> 向对象添加属性，对象的属性名不强制要求遵守标识符的规范，但尽量按照标识符的规范</p>
+<p><code>对象[&quot;属性名&quot;] = 属性值;</code> 向对象添加属性，对于使用特殊的属性名时，不能采用 <code>.</code> 的方式操作</p>
+<p><code>对象.属性名;</code> 读取对象中的属性，若读取对象中没有的属性不会报错，而会返回 undefined</p>
+<p><code>对象[&quot;属性名&quot;]</code> 读取对象中的属性，这种方式更灵活，因为 <code>[]</code> 中可以传变量，而 <code>.</code> 的方式操作属性会需要准确的属性名。此外，对于使用 <code>对象[&quot;属性名&quot;] = 属性值;</code> 赋值的属性只能用这种方式读取属性</p>
+<p><code>对象.属性名 = 新值;</code> 修改对象的属性值</p>
+<p><code>delete 对象.属性名;</code> 删除对象的属性</p>
+<p><code>&quot;属性名&quot; in 对象</code> 检查对象或其原型中是否含有某属性</p>
+<p><code>对象实例.hasOwnProperty(&quot;属性名&quot;)</code> 检查对象自身是否含有某属性</p>
+<p>枚举对象的属性</p>
+<pre><code>for(var 变量 in 对象)&#123;xxx&#125;
+对象中有几个属性循环体就会执行几次，其中每次执行时就把对象中的一个属性名赋值给变量</code></pre>
+<p>JS 对象的属性值可以是任意的数据类型，甚至也可以是一个对象（如函数）</p>
+<p>若函数作为一个对象的属性，则称该函数是这个对象的方法，调用该函数称为调用对象的方法</p>
+<h2 id="9、基本数据类型和引用数据类型"><a href="#9、基本数据类型和引用数据类型" class="headerlink" title="9、基本数据类型和引用数据类型"></a>9、基本数据类型和引用数据类型</h2><p>JS 中的变量都是保存到栈内存中，基本数据类型直接在栈内存中存储，值与值之间是独立存在，修改一个变量不会影响其他的变量</p>
+<p>对象是保存在堆内存中的，每创建一个新的对象，就会在堆内存中开辟出一个新空间，而变量保存的是对象的内存地址（对象的引用），若两个变量保存的是同一个对象引用，当通过一个变量修改该对象属性时，另一个也会受到影响</p>
+<p><img src="/2021/12/17/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png" alt="基本数据类型和引用数据类型"></p>
+<p>但是当两个变量表示同一个对象时，把其中一个变量值设为 null 后另一个变量依然指向对象不会受到影响</p>
+<p><img src="/2021/12/17/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B1.png" alt="基本数据类型和引用数据类型1"></p>
+<p>当比较两个基本数据类型时就是比较它们的值，而比较两个引用数据类型时比较的是内存地址，即使两个对象内容一样，但地址不同依然会返回 false</p>
+<p><img src="/2021/12/17/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B2.png" alt="基本数据类型和引用数据类型2"></p>
+<h2 id="10、函数"><a href="#10、函数" class="headerlink" title="10、函数"></a>10、函数</h2><p>函数也是一个对象，是一个具有功能的对象，使用 <code>typeof</code> 检查一个函数对象时会返回 function</p>
+<p><code>var 变量名 = new Function();</code> 使用构造函数创建函数对象，可将要封装的代码以字符串的形式传递给构造函数，如 <code>var fun = new Function(&quot;console.log(&#39;hello world&#39;)&quot;);</code>，但开发中很少使用构造函数来创建一个函数对象</p>
+<p><code>function 函数名([形参1,形参2,...,形参n])&#123;&#125;</code> 使用函数声明创建一个函数</p>
+<p><code>var 函数名 = function([形参1,形参2,...,形参n])&#123;&#125;</code> 使用函数表达式创建函数，相当于声明一个匿名函数并赋值给变量</p>
+<p><code>函数对象();</code> 调用函数</p>
+<p><code>(function([形参1,形参n])&#123;xxx&#125;)([形参1,形参n])</code> 匿名函数定义完立即被调用，这种函数称为立即执行函数，立即执行函数往往只会执行一次</p>
+<p>函数声明中的形参相当于在函数内部声明了相应变量</p>
+<p><strong>调用函数时解析器不会检查实参的类型</strong>，所以要注意是否有可能会接收到非法参数，若有可能则需要对参数进行类型检查</p>
+<p><strong>调用函数时解析器不会检查实参的数量</strong>，多余的参数不会被赋值，若实参的数量少于形参的数量，则没有对应实参的形参将是 undefined</p>
+<p>函数中的参数可以是另一个函数，当实参中的函数是 <code>函数名()</code> 表示调用函数，使用的是函数的返回值，当实参中的函数是 <code>函数名</code> 表示函数对象，相当于直接使用函数对象</p>
+<p>若函数的 return 可以返回任意类型的值，若 return 语句后不跟任何值或不写 return 语句，相当于返回 undefined</p>
+<h1 id="三、作用域"><a href="#三、作用域" class="headerlink" title="三、作用域"></a>三、作用域</h1><p>JS 中有两种作用域：全局作用域、函数作用域</p>
+<h2 id="1、全局作用域"><a href="#1、全局作用域" class="headerlink" title="1、全局作用域"></a>1、全局作用域</h2><p>直接编写在 <code>&lt;script&gt;</code> 标签中的 JS 代码都在全局作用域，全局作用域中的变量都是全局变量，在页面任意部分都能访问到</p>
+<p>全局作用域在页面打开时创建，在页面关闭时销毁</p>
+<p>全局作用域中有一个全局对象 window，代表一个浏览器的窗口，由浏览器创建可直接使用</p>
+<p>在全局作用域中创建的变量都会作为 window 对象的属性保存，创建的函数都会作为 window 对象的方法</p>
+<p><strong>变量声明提前：</strong>使用 var 关键字声明的变量，会在所有代码执行之前被声明（但不一定会赋值），但若声明变量时不使用 var 关键字，则变量不会被声明提前</p>
+<pre><code>console.log(a);
+var a = 123;  //改行对变量 a 的声明实际上会在最开头，只是在这一行被赋值</code></pre>
+<p><strong>函数声明提前：</strong>使用函数声明形式 <code>function 函数()&#123;&#125;</code> 创建的函数会在所有代码执行之前被创建，所以可以在函数声明前调用。但是使用函数表达式 <code>var 变量 = function()&#123;&#125;</code> 创建的函数不会被声明提前，所以不能在声明前调用</p>
+<h2 id="2、函数作用域"><a href="#2、函数作用域" class="headerlink" title="2、函数作用域"></a>2、函数作用域</h2><p>调用函数时创建函数作用域，函数执行完毕后，函数作用域销毁。每调用一次函数就会创建一个新的函数作用域，它们之间相互独立</p>
+<p>当在函数作用域中操作一个变量时会先在自身作用域中寻找，若有就直接使用，若没有则向上一级作用域中寻找，直到找到全局作用域，若全局作用域中依然没有找到，则会报错 ReferenceError</p>
+<p>在函数中要访问全局变量可使用 window 对象，<code>window.变量名</code></p>
+<p>在函数作用域中也有声明提前的特性，使用 var 关键字声明的变量会在函数中所有代码执行之前被声明。函数声明也会在函数中所有代码执行之前执行。定义形参相当于在函数作用域中声明了变量</p>
+<pre><code>var a = 1;
+function func()&#123;
+    console.log(c);
+    var c = 10;
+&#125;
+func();  //此时会输出 “undefined”，因为在 func 函数中var c 变量会声明提前，但是执行到 console 语句时函数作用域中的 c 变量还未被赋值</code></pre>
+<p>在函数中不适用 var 声明的变量都会成为全局变量 </p>
+<pre><code>var a = 1;
+function func()&#123;
+    console.log(c);
+    c = 10;
+&#125;
+func();  //此时会输出 1，因为函数中 c 没有使用 var 关键字所以不会提前声明，所以向上一级中找 c</code></pre>
+<h1 id="四、this"><a href="#四、this" class="headerlink" title="四、this"></a>四、this</h1><p>解析器在调用函数每次都会向函数内部传递一个隐含的参数 this</p>
+<p>this 指向一个对象，这个对象称为函数执行的上下文对象</p>
+<p>根据函数<strong>调用方式</strong>的不同，this 会指向不同的对象</p>
+<p>— 以函数的形式（<code>函数名()</code>，也相当于 <code>window.函数名()</code>）调用时，this 永远是 window</p>
+<p>— 以方法的形式（<code>对象.方法名()</code>）调用时，this 就是调用方法所属的那个对象</p>
+<p>— 在构造函数中调用时，this 就是新创建的那个对象</p>
+<p>— 使用 call 和 apply 调用时，this 是指定的那个对象</p>
+<p>— 在事件响应函数中，this 指向响应函数所绑定的对象（普通情况下）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;— addEventListener() 中 this 指向绑定事件的对象</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;— attachEvent() 中 this 指向 window</p>
+<h1 id="五、原型对象"><a href="#五、原型对象" class="headerlink" title="五、原型对象"></a>五、原型对象</h1><h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2><p>创建的每个函数，解析器都会向函数中添加一个属性 prototype，这个属性对应着一个原型对象</p>
+<h2 id="proto"><a href="#proto" class="headerlink" title="proto"></a><strong>proto</strong></h2><p>若函数作为普通函数调用 prototype 没有任何作用，但当以构造函数形式调用时，它所实例化的对象都会有个隐含属性指向该构造函数的原型对象，可通过 <strong>proto</strong> 来访问该属性</p>
+<h2 id="原型对象中的属性、方法"><a href="#原型对象中的属性、方法" class="headerlink" title="原型对象中的属性、方法"></a>原型对象中的属性、方法</h2><p>原型对象相当于一个公共的区域，所有同一个类的实例都可以访问到这个原型对象，可将对象中共有的内容（属性、方法）统一设置到原型对象中</p>
+<p>当访问对象的属性或方法时会先在对象自身中寻找，若有则直接使用，若没有则去原型对象中寻找</p>
+<pre><code>function Person(name,age,gender)&#123;
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
+&#125;
+Person.prototype.sayName = function()&#123;
+    alert(this.name);
+&#125;
+var per = new Person(&quot;xxx&quot;,18,&quot;男&quot;); 
+per.sayName();</code></pre>
+<p><img src="/2021/12/17/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1.png" alt="原型对象"></p>
+<p>使用 <code>&quot;属性名&quot; in 对象实例</code> 检查对象中是否含有某属性时，若对象中没有但是原型中有也会返回 true</p>
+<p>使用 <code>对象实例.hasOwnProperty(&quot;属性名&quot;)</code> 检查的是对象自身中是否含有该属性</p>
+<p>原型对象也是对象，所以它也有原型，当使用一个对象的属性或方法时，先在自身中寻找，若没有则去原型对象中寻找，若依然没有则去原型的原型中寻找，直到找到 Object 对象的原型</p>
+<p>Object 对象的原型没有原型，若在 Object 中依然没有找到，则返回 undefined。Object 的 <strong>proto</strong> 是 null</p>
+<p><img src="/2021/12/17/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E5%8E%9F%E5%9E%8B%E7%9A%84%E5%8E%9F%E5%9E%8B.png" alt="原型的原型"></p>
+<h2 id="修改原型对象中的方法"><a href="#修改原型对象中的方法" class="headerlink" title="修改原型对象中的方法"></a>修改原型对象中的方法</h2><p>当在页面中打印对象时实际上是输出对象的 toString() 方法的返回值，若不希望输出 [Object Object]，可为当前对象实例添加一个 toString() 方法，或者修改对象原型的 toString()方法</p>
+<pre><code>per.toString() = function()&#123; //但该方法只对当前实例有效
+    return &quot;xxx&quot;
+&#125;
+Person.prototype.toString = function()&#123;  //该方法对该对象的所有实例有效
+    return &quot;xxxx&quot;
+&#125;</code></pre>
+<h1 id="六、垃圾回收（GC）"><a href="#六、垃圾回收（GC）" class="headerlink" title="六、垃圾回收（GC）"></a>六、垃圾回收（GC）</h1><p>程序运行过程中会产生垃圾，垃圾积攒过多后会导致程序运行速度过慢</p>
+<p>垃圾：当一个对象没有任何的变量或属性对它进行引用，此时将用于无法操作该对象，这是这种对象就是一个垃圾，这种对象过多会占用大量内存空间导致程序运行变慢，须进行清理</p>
+<p>JS 中有自动垃圾回收机制，由浏览器、JS 引擎将这些垃圾对象自动从内存中销毁，我们不需要也不能进行垃圾回收操作</p>
+<p>我们需要做的只是要将不再使用的对象设置为 null 即可</p>
+<p><img src="/2021/12/17/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.png" alt="垃圾回收"></p>
+<h1 id="七、数组"><a href="#七、数组" class="headerlink" title="七、数组"></a>七、数组</h1><p>数组也是个内建对象，和普通对象不同的是普通对象使用字符串作为属性名，而数组使用数字作为索引操作元素</p>
+<p>数组的存储性能比普通对象好，开发中常使用数组存储数据</p>
+<p>数组中的元素可以是任意数据类型，也可以是对象（函数、数组等）</p>
+<p>使用 typeof 检查一个数组时会返回 object</p>
+<h2 id="1、数组对象的操作"><a href="#1、数组对象的操作" class="headerlink" title="1、数组对象的操作"></a>1、数组对象的操作</h2><p><code>var 数组名 = new Array(元素1,元素2,...,元素n)</code> 或 <code>var 数组名 = new Array(数组长度)</code> 使用构造函数创建数组对象</p>
+<p><code>var 数组名 = [元素1,元素2,...,元素n]</code> 使用字面量创建数组对象</p>
+<p><code>数组名[索引] = 值</code> 向数组中添加元素</p>
+<p><code>数组名[索引]</code> 读取数组中的元素，若读取不存在的索引不会报错而是返回 undefined</p>
+<p><code>数组名.length</code> 设置或获取数组的最大索引+1，即使数组中不连续；通过 length 设置数组长度时，若修改的长度大于原长度则多出部分会空出来，若小于原长度则多出部分会被移除</p>
+<p><code>数组名[数组名.length] = 值</code> 向数组最后添加元素</p>
+<h2 id="2、数组的方法"><a href="#2、数组的方法" class="headerlink" title="2、数组的方法"></a>2、数组的方法</h2><h3 id="添加与删除"><a href="#添加与删除" class="headerlink" title="添加与删除"></a>添加与删除</h3><p><code>push(元素1,元素2,...,元素n)</code> 向数组末尾添加一个或多个元素，并返回数组的新长度</p>
+<p><code>pop()</code> 删除数组的最后一个元素，并返回被删除的元素</p>
+<p><code>unshift(第一个元素,第二个元素,...,第n个元素)</code> 向数组开头添加一个或多个元素，并返回数组的新长度，新数组中新增元素的顺序和传参顺序一致</p>
+<p><code>shift()</code> 删除数组的第一个元素，并返回被删除的元素</p>
+<h3 id="数组遍历"><a href="#数组遍历" class="headerlink" title="数组遍历"></a>数组遍历</h3><p><code>数组名.forEach(function(value,index,当前数组))</code> 遍历数组（只支持 IE8 以上的浏览器），需要一个函数作为参数（这种由我们创建不由我们调用的称为回调函数）</p>
+<p>数组中有几个元素函数就会执行几次，每次执行时浏览器会将遍历到的元素以实参形式传进来，浏览器会在回调函数中传递三个参数：(当前正遍历的元素, 当前正遍历元素的索引, 正在遍历的数组)</p>
+<h3 id="数组片段获取"><a href="#数组片段获取" class="headerlink" title="数组片段获取"></a>数组片段获取</h3><p><code>slice(开始位置,结束位置)</code> 从某个已有的数组返回选定的元素，第二个参数可选，左闭右开，该方法<strong>不会影响原数组</strong>，会返回一个新数组</p>
+<p><code>splice(开始位置,删除个数,添加元素1,添加元素n)</code> 删除元组并向数组添加新元素，<strong>会修改原数组</strong>，并返回被删除的元素，添加的元素会自动插入开始位置，并且顺序与参数传入顺序一致</p>
+<h3 id="数组连接"><a href="#数组连接" class="headerlink" title="数组连接"></a>数组连接</h3><p><code>数组1.concat(数组2,数组n,元素1,元素n)</code> 连接两个或多个数组，该方法<strong>不会影响原数组</strong>，会返回一个新数组</p>
+<p><code>数组.join(连接符)</code> 该方法将数组转换为字符串，方法<strong>不会影响原数组</strong>，默认使用 <code>,</code> 作为连接符</p>
+<h3 id="数组排序"><a href="#数组排序" class="headerlink" title="数组排序"></a>数组排序</h3><p><code>数组.reverse()</code> 用来反转数组，该方法<strong>直接修改原数组</strong></p>
+<p><code>数组.sort()</code> 对数组中元素排序，该方法<strong>直接修改原数组</strong>，默认按照 Unicode 编码排序，所以对数组排序会得到错误结果（1开头都会排在前面）</p>
+<p>可在 sort() 中添加回调函数指定排序规则，回调函数中需定义两个形参，浏览器根据回调函数返回值决定元素顺序（返回大于0，元素会交换位置，返回小于等于0，元素位置不变）</p>
+<pre><code>数组.sort(function(a,b)&#123;
+    return a-b;  //升序排列
+&#125;)</code></pre>
+<h1 id="八、call-和-apply"><a href="#八、call-和-apply" class="headerlink" title="八、call 和 apply"></a>八、call 和 apply</h1><p>call 和 apply 都是函数对象的方法，需要通过函数对象（不带括号的函数名）调用</p>
+<h2 id="相同点："><a href="#相同点：" class="headerlink" title="相同点："></a>相同点：</h2><p>调用函数执行：当对函数调用 call() 和 apply() 都会调用函数执行</p>
+<p>修改函数的 this：调用 call() 和 apply() 可将一个对象指定为第一个参数，此时这个对象会成为函数执行时的 this（原先 <code>函数名()</code> 函数调用时的 this 指向 window）</p>
+<h2 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h2><p>call() 方法可将实参在对象之后依次传递</p>
+<p>apply() 方法需要将实参封装到一个数组中统一传递</p>
+<pre><code>function fun()&#123;
+    console.log(this)
+&#125;
+var obj=&#123;
+    name: &quot;obj&quot;,
+    sayName:function()&#123;
+        alert(this.name);
+    &#125;
+&#125;
+var obj2=&#123;name: &quot;obj2&quot;&#125;
+fun.call(obj);  //this 指 obj，apply 同理
+obj.sayName.call(obj);  //alert 的是 obj，apply 同理
+obj.sayName.apply(obj2);  //alert 的是 obj2，call 同理
+
+function fun(a,b)&#123;
+    console.log(a);
+    console.log(b);
+&#125;
+obj=&#123;
+    name: &quot;obj&quot;,
+    sayName:function()&#123;
+        alert(this.name);
+    &#125;
+&#125;
+fun.call(obj,2,3);
+fun.apply(obj,[2,3]);</code></pre>
+<h1 id="九、arguments"><a href="#九、arguments" class="headerlink" title="九、arguments"></a>九、arguments</h1><p>在调用函数时，浏览器每次都会传递两个隐含参数：（1）函数的上下文对象 this（2）封装实参的对象 arguments</p>
+<p>arguments 是一个类数组对象，可以通过索引来操作数据，也可以获取长度（arguments.length）</p>
+<p>调用函数时，传递的实参都会在 arguments 中保存，即使不定义形参也可通过 arguments 来使用实参（如 arguments[0] 表示第一个实参）</p>
+<p>arguments 中有个属性叫 callee，该属性对应当前正在指向的函数对象</p>
+<pre><code>function fun(a,b)&#123;
+    console.log(arguments.callee == fun);  //输出 true
+&#125;</code></pre>
+<h1 id="十、Date-对象"><a href="#十、Date-对象" class="headerlink" title="十、Date 对象"></a>十、Date 对象</h1><p>Date 对象也是一个内建对象</p>
+<p><code>var 变量 = new Date();</code> 使用构造函数创建 Date 对象，会封装为当前代码执行的时间</p>
+<p><code>var 变量 = new Date(&quot;月/日/年 时:分:秒&quot;);</code> 创建指定时间的对象</p>
+<p><code>Date对象实例.getDate();</code> 获取当前日期对象的日</p>
+<p><code>Date对象实例.getDay();</code> 获取当前日期对象的星期几，会返回 0<del>6 表示周日</del>周六</p>
+<p><code>Date对象实例.getMonth();</code> 获取当前日期对象的月，会返回 0<del>11 表示1月</del>12月</p>
+<p><code>Date对象实例.getFullYear();</code> 获取当前日期对象的年</p>
+<p><code>Date对象实例.getTime();</code> 获取当前日期对象的时间戳，时间戳指从格林威治标准时间1970年1月1日0时0分0秒到当前日期所花费的毫秒数</p>
+<pre><code>var d = new Date(&quot;1/1/1970 0:0:0&quot;);
+console.log(d.getTime());  //输出为 -28800000，因为系统使用的时背景时间，和格林威治标准时间相差八小时</code></pre>
+<p><code>Date.now();</code> 获取当前时间戳</p>
+<p>计算机底层在保存时间时使用的都是时间戳</p>
+<p>可使用时间戳测试代码的执行性能</p>
+<h1 id="十一、Math"><a href="#十一、Math" class="headerlink" title="十一、Math"></a>十一、Math</h1><p>Math 和其他对象（如 Date）不同，它不是一个构造函数，它属于工具类，封装了数学运算相关的属性和方法</p>
+<p><code>Math.PI</code> 圆周率</p>
+<p><code>Math.abs(数字)</code> 计算绝对值</p>
+<p><code>Math.ceil(数字)</code> 向上取整，小数位有就自动进 1</p>
+<p><code>Math.floor(数字)</code> 向下取整</p>
+<p><code>Math.round(数字)</code> 四舍五入取整</p>
+<p><code>Math.random()</code> 生成 0~1 之间（不包括 0 和 1）的随机数  </p>
+<p><code>Math.round(Math.random()*x)</code> 生成 0~x 之间（包括 0 和 x）的随机整数    </p>
+<p><code>Math.round(Math.random()*(y-x)+x)</code> 生成 x~y 之间（包括 x 和 y）的随机整数</p>
+<p><code>Math.max(数字1,数字2,...,数字n)</code> 取最大值</p>
+<p><code>Math.min(数字1,数字2,...,数字n)</code> 取最小值 </p>
+<p><code>Math.pow(x,y)</code> x 的 y 次幂</p>
+<p><code>Math.sqrt(数字)</code> 开方</p>
+<h1 id="十二、包装类"><a href="#十二、包装类" class="headerlink" title="十二、包装类"></a>十二、包装类</h1><p>JS 中提供了三个包装类将基本数据类型转换为对象：</p>
+<p><code>String()</code> 将基本数据类型字符串转换为 String 对象</p>
+<p><code>Number()</code> 将基本数据类型数字转换为 Number 对象</p>
+<p><code>Boolean()</code> 将基本数据类型字符串转换为 Boolean 对象</p>
+<p>转换成对象后可添加属性</p>
+<p>实际应用中不会使用基本数据类型的对象，若使用基本数据类型的对象，在做比较时可能会有不可预料的结果</p>
+<p>方法和属性只能添加给对象，不能添加给基本数据类型</p>
+<p>但是当对基本数据类型的值调用属性或方法时，浏览器会临时使用包装类将其转换为对象，然后再调用对象的属性和方法，调用后再转换回基本数据类型，如基本数据类型调用 toString() 方法</p>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>在底层字符串是以字符数组的形式保存的，可使用索引和 length</p>
+<p><code>字符串.charAt(索引)</code> 返回指定位置的字符，<strong>不会影响原字符串</strong></p>
+<p><code>字符串.charCodeAt(索引)</code> 返回指定位置字符的 Unicode 编码 </p>
+<p><code>String.fromCharCode(十进制编码或 0x十六进制)</code> 根据字符 Unicode 编码获取字符 </p>
+<p><code>字符串.concat(字符串1,字符串2,字符串n)</code> 连接两个或多个字符串,<strong>不会影响原字符串</strong></p>
+<p><code>字符串.indexOf(字符,开始检索位置)</code> 返回字符在字符串中第一次出现的索引或 -1（未找到时），第二个参数可选</p>
+<p><code>字符串.lastIndexOf(字符,开始检索位置)</code> 返回字符在字符串中最后一次出现的索引或 -1（未找到时），第二个参数可选</p>
+<p><code>字符串.slice(开始位置,结束位置)</code> 截取字符串，左闭右开，<strong>不会影响原字符串</strong>，若省略第二个参数则默认是字符串末尾，可使用负值参数</p>
+<p><code>字符串.substring(开始位置,结束位置)</code> 截取字符串，和 slice 类似，左闭右开，，<strong>不会影响原字符串</strong>，但该方法不能接收负值参数，若传递负值默认使用 0，并且会自动调整参数为升序</p>
+<p><code>字符串.substr(开始位置,截取长度)</code> 截取字符串，<strong>不会影响原字符串</strong>，但 ECMAScript 没有对该方法标准化，所以不建议使用</p>
+<p><code>字符串.split(分割符)</code> 将字符串拆分为数组，若传递一个空串作为参数，则会拆分出字符串中的每个字符，也可传正则表达式</p>
+<p><code>字符串.toUpperCase()</code> 字符串转为大写，<strong>不会影响原字符串</strong></p>
+<p><code>字符串.toLowerCase()</code> 字符串转为小写，<strong>不会影响原字符串</strong></p>
+<h1 id="十三、正则表达式"><a href="#十三、正则表达式" class="headerlink" title="十三、正则表达式"></a>十三、正则表达式</h1><p>正则表达式用于定义一些字符串的规则，计算机可根据正则表达式，检查一个字符串是否符合规则，或将字符串中符合规则的内容提取出来</p>
+<p>正则表达式是个对象，使用 typeof 检查正则对象，会返回 object</p>
+<h2 id="创建正则表达式"><a href="#创建正则表达式" class="headerlink" title="创建正则表达式"></a>创建正则表达式</h2><p><code>var 变量 = new RegExp(正则表达式,匹配模式)</code> 创建正则表达式对象，匹配模式可选值有 <code>&quot;i&quot;</code> 忽略大小写，<code>&quot;g&quot;</code> 全局匹配模式，可设置多个匹配模式，且顺序无要求，这种创建方式更灵活，因为参数中可传变量</p>
+<p><code>var 变量 = /正则表达式/匹配模式</code> 使用字面量创建正则表达式，如 <code>var 变量 = /a/i;</code>，在正则表达式中使用 <code>|</code>或 <code>[]</code> 表示或，使用 <code>[^xxx]</code> 表示除了 xxx 以外的内容，这种创建方式更简单</p>
+<h2 id="正则表达式的方法"><a href="#正则表达式的方法" class="headerlink" title="正则表达式的方法"></a>正则表达式的方法</h2><p><code>正则对象.test(待检查字符串)</code> 检查字符串是否符合正则表达式规则，返回布尔值</p>
+<pre><code>var reg = new RegExp(&quot;a&quot;);  //该正则表达式可检查一个字符串中是否含有 a，默认严格区分大小
+console.log(reg.test(&quot;abc&quot;)); //返回 true，因为含有 a
+
+var reg = new RegExp(&quot;ab&quot;,&quot;i&quot;);  //该正则表达式可检查一个字符串中是否含有 ab，忽略大小写
+console.log(reg.test(&quot;Abc&quot;)); //返回 true，因为含有 ab
+
+var reg = /a|b|c/;  //检查字符串中是否有 a 或 b 或 c
+var reg = /[abc]/;  //检查字符串中是否有 a 或 b 或 c
+var reg = /[a-z]/;  //检查字符串中是否有任意小写字母
+var reg = /[A-Z]/;  //检查字符串中是否有任意大写字母
+var reg = /[A-z]/;  //检查字符串中是否有任意字母
+var reg = /[0-9]/;  //检查字符串中是否有任意数字
+var reg = /a[bde]c/;  //检查字符串中是否有 abc 或 adc 或 aec
+var reg = /[^ab]/;  //检查字符串中是否有除了 ab 以外的内容
+var reg = /[^0-9]/;  //检查字符串中是否有除了数字以外的内容</code></pre>
+<h2 id="字符串和正则相关方法"><a href="#字符串和正则相关方法" class="headerlink" title="字符串和正则相关方法"></a>字符串和正则相关方法</h2><pre><code>字符串.split(/[A-z]/); 根据任意字母拆分字符串，该方法即使不指定全局匹配也会全都拆分 
+字符串.search(/a[bde]c/); 搜索字符串中是否含有指定内容，返回第一次出现索引或 -1，设置全局匹配无效
+字符串.match(/[A-z]/gi); 根据正则表达式，从字符串中将符合条件的内容提取出来，默认只找第一个符合要求的内容，可设置为全局匹配 g 模式这样可找符合要求的所有内容，返回数组
+字符串.replace(被替换内容,新的内容); 
+字符串.replace(/[a-z]/ig,&quot;&quot;);  //可删除所有字母</code></pre>
+<h2 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h2><p>通过量词可设置内容出现的次数</p>
+<p>量词只对它前边的一个内容起作用</p>
+<p><code>&#123;n&#125;</code> 正好出现 n 次</p>
+<p><code>&#123;n,m&#125;</code> 出现 n~m 次</p>
+<p><code>&#123;n,&#125;</code> 出现 n 次以上</p>
+<p><code>n+</code> 至少出现 1 次 n，相当于 <code>&#123;1,&#125;</code></p>
+<p><code>n*</code> 出现 0 次或多次 n，相当于 <code>&#123;0,&#125;</code></p>
+<p><code>n?</code> 出现 0 次或 1 次 n，相当于 <code>&#123;0,1&#125;</code></p>
+<p><code>^n</code> 以 n 开头</p>
+<p><code>n$</code> 以 n 结尾</p>
+<p><code>^n|n$</code> 以 n 开头或以 n 结尾</p>
+<p><code>^n$</code> 字符串只能是 n</p>
+<pre><code>var reg = /a&#123;3&#125;/;  字符串中连续出现 3 次 a
+var reg = /(ab)&#123;3&#125;/;  字符串中连续出现 3 次 ab
+var reg = /ab+c/;  字符串中 abc，其中 b 至少有一个
+var reg = /^a/;  字符串中是否以 a 开头
+var reg = /a$/;  字符串中是否以 a 结尾</code></pre>
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p><code>.</code> 表示任意字符，除了换行和行结束符</p>
+<p><code>\w</code> 表示任意字母、数字、_</p>
+<p><code>\W</code> 除了字母、数字、<em>，相当于 [^A-z0-9</em>]</p>
+<p><code>\d</code> 任意数字，相当于 [0-9_]</p>
+<p><code>\D</code> 除了数字，相当于 [^0-9_]</p>
+<p><code>\s</code> 表示空格</p>
+<p><code>\S</code> 除了纯空格</p>
+<p><code>\b</code> 表示单词边界，标识是个独立的单词</p>
+<p><code>\B</code> 除了单词边界</p>
+<p>正则表达式中使用 <code>\</code> 作为转义字符</p>
+<p>注意：使用构造函数时，由于它的参数是一个字符串，而 \ 是字符串中转义字符，若使用 \ 则需使用 \ 代替</p>
+<pre><code>var reg = /\\/;
+reg.test(&quot;b.\&quot;);  //返回 false，因为 \ 转义的是 &quot;
+reg.test(&quot;b.\\&quot;);  //返回 true
+var reg = new RegExp(&quot;\\.&quot;);  //相当于 var reg = /\./;
+var reg = new RegExp(&quot;\\\\&quot;);  //相当于 var reg = /\\/;</code></pre>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>去除字符串中所有空格</p>
+<pre><code>字符串.replace(/\s/g,&quot;&quot;)</code></pre>
+<p>去除字符串开头的所有空格</p>
+<pre><code>字符串.replace(/^\s*/,&quot;&quot;)</code></pre>
+<p>去除字符串末尾的所有空格</p>
+<pre><code>字符串.replace(/\s*$/,&quot;&quot;)</code></pre>
+<p>去除字符串前后的所有空格</p>
+<pre><code>字符串.replace(/^\s*|\s*$/g,&quot;&quot;)</code></pre>
+<p>检查手机号是否合法：（1）以 1 开头（2）第二位 3-9 任意数字（3）第三位以后任意 9 个数字</p>
+<pre><code>var reg = /^1[3-9][0-9]&#123;9&#125;$/  </code></pre>
+<p>电子邮箱匹配：任意字母数字下划线.任意字母数字下划线（可有可无） @ 任意字母数字下划线.任意字母数字.任意字母（2-5位）.任意字母（2-5位）</p>
+<pre><code>var reg = /^\w&#123;3,&#125;(\.\w+)*@[A-z0-9]+(\.[A-z]&#123;2,5&#125;)&#123;1,2&#125;$/</code></pre>
+<h1 id="十四、DOM"><a href="#十四、DOM" class="headerlink" title="十四、DOM"></a>十四、DOM</h1><h2 id="1、DOM"><a href="#1、DOM" class="headerlink" title="1、DOM"></a>1、DOM</h2><p>DOM（文档对象模型）是宿主对象，JS 中通过 DOM 对 HTML 文档进行操作</p>
+<p>— 文档：整个 HTML 网页文档</p>
+<p>— 对象：网页中的每个部分都转换为一个对象</p>
+<p>— 模型：使用模型表示对象之间的关系，方便获取对象，DOM 树</p>
+<h2 id="2、节点"><a href="#2、节点" class="headerlink" title="2、节点"></a>2、节点</h2><p>节点：构成网页的组基本的组成部分（最基本单元），网页中每一部分都可称为节点（如：html 标签、属性、文本、注释、整个文档等），但它们具体类型不同，节点类型不同，则其属性和方法也不同。</p>
+<p>常用节点分为四类：</p>
+<p>— 文档节点：整个 HTML 文档</p>
+<p>— 元素节点：HTML 文档中的 HTML 标签</p>
+<p>— 属性节点：元素的属性，并非元素节点的子节点，而是元素节点的一部分</p>
+<p>— 文本节点：HTML 标签中的文本内容（任意非 HTML 的文本）</p>
+<h3 id="节点属性"><a href="#节点属性" class="headerlink" title="节点属性"></a>节点属性</h3><p>节点的共有属性：nodeName、nodeType、nodeValue</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>nodeName</th>
+<th>nodeType</th>
+<th>nodeValue</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文档节点</td>
+<td>#document</td>
+<td>9</td>
+<td>null</td>
+</tr>
+<tr>
+<td>元素节点</td>
+<td>标签名</td>
+<td>1</td>
+<td>null</td>
+</tr>
+<tr>
+<td>属性节点</td>
+<td>属性名</td>
+<td>2</td>
+<td>属性值</td>
+</tr>
+<tr>
+<td>文本节点</td>
+<td>#text</td>
+<td>3</td>
+<td>文本内容</td>
+</tr>
+</tbody></table>
+<p>浏览器已提供文档节点对象，该对象是 window 的属性，可在页面中直接使用，是全局变量。通过document 对象可在整个文档访问内查找节点对象，并可以通过该对象创建各种节点对象</p>
+<h3 id="获取节点"><a href="#获取节点" class="headerlink" title="获取节点"></a>获取节点</h3><p>获取元素节点，都通过 document 对象调用</p>
+<pre><code>document.getElementById(&quot;xxx&quot;)   通过 id 获取一个元素节点对象
+document.getElementsByTagName(&quot;xxx&quot;)  通过标签名获取一组元素节点对象
+document.getElementsByName(&quot;xxx&quot;)   通过 name 属性获取一组元素节点对象
+document.documentElement;  获取 html 根标签
+document.body;  获取 body 标签，保存的是 body 的引用
+document.all;  代表页面中的所有元素
+document.getElementsByTagName(&quot;*&quot;);  获取页面中的所有元素，相当于 document.all
+document.getElementsByClassName(&quot;xxx&quot;);  根据元素的 class 属性值查询一组元素节点对象，但该方法不支持 IE8 及以下浏览器
+document.querySelector(&quot;CSS选择器&quot;)  可根据一个 CSS 选择器查询一个元素节点对象，但该方法只返回唯一一个元素，若有多个满足条件的元素，则返回第一个，IE8也支持
+document.querySelectorAll(&quot;CSS选择器&quot;)  可根据一个 CSS 选择器查询一个元素节点对象，但该方法返回符合条件的元素数组</code></pre>
+<h3 id="获取-修改元素属性"><a href="#获取-修改元素属性" class="headerlink" title="获取/修改元素属性"></a>获取/修改元素属性</h3><p>获取元素属性：<code>元素.属性名</code>，注意 class 属性不能采用这种方式，因为 class 是 JS 中的保留字</p>
+<p>读取 class 属性时需要使用 <code>元素.className</code></p>
+<h3 id="获取-修改元素内的文本节点"><a href="#获取-修改元素内的文本节点" class="headerlink" title="获取/修改元素内的文本节点"></a>获取/修改元素内的文本节点</h3><p>修改获取到的元素节点对象属性：<code>变量.innerHTML = &quot;xxx&quot;</code>，注意 innerHTML 对自结束标签没有意义</p>
+<p>或者先获取元素的文本子节点，再获取其 nodeValue 就是文本内容，如 <code>var 变量 = 元素对象.firstChild; console.log(变量.nodeValue)</code></p>
+<p>注：<code>innerText</code> 可获取元素内部的文本内容，和 <code>innerHTML</code> 类似，不同的是它会自动将 html 标签去除只留下文本内容</p>
+<h3 id="获取元素节点的子节点"><a href="#获取元素节点的子节点" class="headerlink" title="获取元素节点的子节点"></a>获取元素节点的子节点</h3><p>通过具体元素节点调用</p>
+<pre><code>getElementsByTagName(&quot;xxx&quot;)  [方法]，返回当前节点的指定标签名后代节点，注意调用对象
+childNodes  [属性]，表示当前节点的所有子节点（包括元素节点、文本节点等），注意 DOM 标签间的空白也会当成一个文本节点（IE8以上和其他浏览器）
+children  [属性]，表示当前元素的所有子元素（而非节点，因此不会包含空格换行的文本节点）
+firstChild  [属性]，表示当前节点的第一个子节点（包括空白文本节点）
+firstElementChild  [属性]，表示当前节点的第一个子元素（不包括空白文本节点），IE8不支持
+lastChild  [属性]，表示当前节点的最后一个子节点</code></pre>
+<h3 id="获取元素节点的父节点和兄弟节点"><a href="#获取元素节点的父节点和兄弟节点" class="headerlink" title="获取元素节点的父节点和兄弟节点"></a>获取元素节点的父节点和兄弟节点</h3><p>通过具体的节点调用</p>
+<pre><code>parentNode  [属性]，表示当前节点的父节点
+previousSibling  [属性]，表示当前节点的前一个兄弟节点（包括空白文本节点）
+previousElementSibling  [属性]，表示当前节点的前一个兄弟元素（不包括空白文本节点）
+nextSibling  [属性]，表示当前节点的后一个兄弟节点（包括空白文本节点）
+previousElementSibling  [属性]，表示当前节点的后一个兄弟元素（不包括空白文本节点）</code></pre>
+<h3 id="创建元素节点"><a href="#创建元素节点" class="headerlink" title="创建元素节点"></a>创建元素节点</h3><pre><code>document.createElement(&quot;标签名&quot;);  可创建一个元素节点对象，并返回创建好的对象
+document.createElement(&quot;文本内容&quot;); 可创建一个文本节点对象，并返回新节点
+父节点.appendChild(子节点);  可向父节点中添加一个新的子节点
+父节点.insertBefore(新子节点,指定的旧子节点);  在指定的子节点前面插入新的子节点
+父节点.replaceChild(新子节点,指定的旧子节点);  使用新子节点替换已有子节点
+父节点.removeChild(子节点);  删除子节点，相当于 子节点.parentNode.removeChild(子节点)
+使用 innerHTML 也可以完成 DOM 的增删改相关操作，但这种方法有时候动静太大</code></pre>
+<h2 id="3、文档加载"><a href="#3、文档加载" class="headerlink" title="3、文档加载"></a>3、文档加载</h2><p>浏览器加载页面时，按照自上向下顺序加载，读取到一行就运行一行</p>
+<p>事件 JS 代码编写位置的三种情况：</p>
+<p>（1）若将 <code>&lt;script&gt;</code> 标签写到页面上边 <code>&lt;head&gt;</code> 里，在代码执行时页面还没加载，则 DOM 对象也没有加载会导致无法获取 DOM 对象</p>
+<p>（2）将 JS 代码编写到页面下部就是为了可以在页面加载完后再执行，这样性能也更好</p>
+<p>（3）将事件写在 <code>onload</code> 事件中，<code>onload</code> 事件会在整个页面加载完成后才触发，确保代码执行时所有 DOM 对象已经加载完毕，支持该事件的对象有 image，layer，window，<code>window.onload = function()&#123;xxx&#125;</code></p>
+<h2 id="4、利用-DOM-修改-CSS-样式"><a href="#4、利用-DOM-修改-CSS-样式" class="headerlink" title="4、利用 DOM 修改 CSS 样式"></a>4、利用 DOM 修改 CSS 样式</h2><h3 id="操作内联样式"><a href="#操作内联样式" class="headerlink" title="操作内联样式"></a>操作内联样式</h3><p><code>元素.style.样式名&quot;</code> 读取样式</p>
+<p><code>元素.style.样式名 = &quot;样式值&quot;</code> 设置样式，每修改一个样式，浏览器就重新渲染一次页面，这样执行的性能比较差，且要修改多个样式时不太方便</p>
+<p>通过 style 属性设置和读取的都是<strong>内联样式</strong>，无法读取样式表中的样式</p>
+<p>若 CSS 样式名中含有 <code>-</code>，这种名称在 JS 中是不合法的，如 background-color，需要将这种样式名改为驼峰命名法（去掉 -，将 - 后的字母大写）</p>
+<p>因为内联样式有较高优先级，所以通过 JS 修改的样式往往会立即显示，但不会覆盖添加了 <code>!important</code> 的样式</p>
+<pre><code>box1.style.width = &quot;200px&quot;;
+box1.style.backgroundColor = &quot;red&quot;;</code></pre>
+<h3 id="通过类修改样式"><a href="#通过类修改样式" class="headerlink" title="通过类修改样式"></a>通过类修改样式</h3><p>可通过修改元素的 class 属性间接修改样式，<code>元素对象.className = &quot;xxx&quot;</code> 或 <code>元素对象.className += &quot; xxx&quot;</code>（注意新类前面的空格），这样只需修改一次即可同时修改多个样式，浏览器只需重新渲染页面一次，性能较好，并且这种方式可以使表现和行为进一步分离</p>
+<h3 id="读取元素样式"><a href="#读取元素样式" class="headerlink" title="读取元素样式"></a>读取元素样式</h3><p>（1）<code>元素.currentStyle.样式名&quot;</code> </p>
+<p>获取元素当前正在显示的样式（只有 IE 浏览器支持）</p>
+<p>该方法不能修改样式</p>
+<p>（2）<code>元素.getComputedStyle(要获取样式的元素，伪元素)</code> </p>
+<p>获取元素当前正在显示的样式，第二个参数一般都传 null，该方法返回一个封装了当前元素对应样式的对象</p>
+<p>该方法不能修改样式</p>
+<p>所有浏览器及 IE9 以上支持</p>
+<p>（3）<code>元素.getComputedStyle(要获取样式的元素，伪元素).样式名</code> </p>
+<p>获取元素当前正在显示的样式的值，若获取的样式没有设置，则会获取其真实值而非默认值，如若没有设置 width，不会获取到 auto，而会获取其真实宽度</p>
+<p>该方法不能修改样式</p>
+<p>不支持 IE8 及以下浏览器</p>
+<p>（4）同时支持 IE8 和其他浏览器</p>
+<p>可通过判断是否有 getComputedStyle 方法，若没有就用 currentStyle</p>
+<pre><code>if(window.getComputedStyle)&#123;  
+//注意这里需要加 window. 若不加是表示寻找变量，找不到就会报错，而加上表示寻找 window 对象的属性，找不到也不会报错而是返回 undefined
+    return getComputedStyle(obj,null)
+&#125;else&#123;
+    return obj.currentStyle.样式名
+&#125;</code></pre>
+<h3 id="其他样式相关属性"><a href="#其他样式相关属性" class="headerlink" title="其他样式相关属性"></a>其他样式相关属性</h3><p><code>元素.clientWidth</code> 获取元素的可见宽度（包含内容区和内边距）</p>
+<p><code>元素.clientHeight</code> 获取元素的可见高度（包含内容区和内边距）</p>
+<p>上述两个属性获取到的值都是不带 px 单位的数字，可直接用于计算，并且是只读的，不能通过该属性修改样式</p>
+<p><code>元素.offsetWidth</code> 获取元素的可见宽度（包含内容区、内边距和边框）</p>
+<p><code>元素.offsetHeight</code> 获取元素的可见高度（包含内容区、内边距和边框）</p>
+<p><code>元素.offsetParent</code> 获取当前元素的定位父元素，获取离当前元素最近的开启了定位的祖先元素，若所有祖先元素都没有开启定位，则返回 body</p>
+<p><code>元素.offsetLeft</code> 当前元素相对于其定位父元素的水平偏移量</p>
+<p><code>元素.offsetTop</code> 当前元素相对于其定位父元素的垂直偏移量</p>
+<p><code>元素.scrollHeight</code> 元素整个滚动区域的高度</p>
+<p><code>元素.scrollWidth</code> 元素整个滚动区域的宽度</p>
+<p><code>元素.scrollLeft</code> 元素水平滚动条移动的距离</p>
+<p><code>元素.scrollTop</code> 元素垂直滚动条移动的距离</p>
+<p>onsrcoll 该事件会在元素滚动条滚动时触发</p>
+<p>当 scrollHeight - scrollTop = clientHeight 时表示垂直滚动条滚动到底了</p>
+<p>当 scrollWidth - scrollLeft = clientWidth 时表示水平滚动条滚动到底了</p>
+<p>设置鼠标点击元素按住拖动时保持点击的相对位置不变</p>
+<pre><code>鼠标的clientX-元素的offsetLeft
+鼠标的clientY-元素的offsetTop</code></pre>
+<h1 id="十五、事件"><a href="#十五、事件" class="headerlink" title="十五、事件"></a>十五、事件</h1><p>事件：就是文档或浏览器窗口中发生的一些特点的交互瞬间（如点击、鼠标移动、按下键盘、关闭窗口等）</p>
+<p>JS 与 HTML 间的交互通过事件实现</p>
+<p>在事件响应函数中，响应函数给谁绑定的 this 就是谁</p>
+<h2 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h2><p>可在事件对应的属性中设置 JS 代码，当事件被触发时这些代码会执行</p>
+<p>绑定事件的方式：</p>
+<pre><code>方式一：
+&lt;button id=&quot;btn&quot; onclick=&quot;alert(&#39;xxx&#39;)&quot;&gt;按钮&lt;/button&gt;
+
+方式二：
+var btn = document.getElementById(&quot;元素id&quot;)
+btn.onclick = function()&#123;xxx&#125;</code></pre>
+<h2 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h2><p>当事件的响应函数被触发时，浏览器每次都会将一个事件对象作为实参传递进响应函数（除 IE8 及以下浏览器以外）</p>
+<p>IE8 及以下浏览器中，是将事件对象作为 window 对象的属性保存的</p>
+<p>在事件对象中封装了当前事件相关的一切信息，如鼠标坐标、键盘哪个键被按下、鼠标滚轮滚动的方向</p>
+<p><code>event.clientX</code> 鼠标指针在<strong>当前可见窗口</strong>的水平坐标</p>
+<p><code>window.event.clientX</code> IE8 中鼠标指针在<strong>当前可见窗口</strong>的水平坐标</p>
+<p><code>event.clientY</code> 鼠标指针在<strong>当前可见窗口</strong>的垂直坐标</p>
+<p><code>window.event.clientY</code> IE8 中鼠标指针在<strong>当前可见窗口</strong>的垂直坐标</p>
+<p><code>event.pageX</code> 鼠标指针相对于<strong>整个页面</strong>的水平坐标，但在 IE8 中不支持</p>
+<p><code>event.pageY</code> 鼠标指针相对于<strong>整个页面</strong>的垂直坐标，但在 IE8 中不支持</p>
+<p><code>event.target</code> 表示触发事件的对象，而非事件所绑定的对象，区别于在响应函数中的 this 是指事件所绑定的对象</p>
+<p>兼容不同浏览器的两种方式：</p>
+<pre><code>元素.事件如onmousemove = function(event)&#123;
+    if(!event)&#123;                     //方式一
+        event = window.event;
+    &#125;
+    event = event || window.event;  //方式二，更常用
+&#125;</code></pre>
+<h2 id="事件冒泡（Bubble）"><a href="#事件冒泡（Bubble）" class="headerlink" title="事件冒泡（Bubble）"></a>事件冒泡（Bubble）</h2><p>冒泡指事件的向上传导，当后代元素上的事件被触发时，其祖先元素的相同事件（如都是 onclick ）也会被触发</p>
+<p>在开发中大部分情况冒泡是有用的，若不希望发生事件冒泡可通过事件对象的 cancelBubble 属性设置为 true 来取消冒泡</p>
+<pre><code>元素对象.onclick = function(event)&#123;
+    event = event || window.event;
+    event.cancelBubble = true;
+&#125;</code></pre>
+<h2 id="事件的委派"><a href="#事件的委派" class="headerlink" title="事件的委派"></a>事件的委派</h2><p>事件的委派指将事件统一绑定给元素的共同祖先元素，这样当后代元素上的事件触发时会一直冒泡到祖先元素，从而通过祖先元素的响应函数来处理事件</p>
+<p>通过事件委派可以只绑定一次事件即可应用到多个元素上，即使是后添加的元素</p>
+<p>事件委派是利用了冒泡，通过委派可以减少事件绑定的次数，提高程序的性能</p>
+<p>触发事件的对象是期望的元素则执行，否则不执行，可通过判断 <code>if (event.target.className == &#39;xxx&#39;)</code> 来实现</p>
+<h2 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h2><p>（1）元素对象.事件 = 函数</p>
+<p>当使用 <code>元素对象.事件 = 函数</code> 的形式绑定响应函数时只能同时为一个元素的一个事件绑定一个响应函数，若为同一事件绑定多个响应函数，则后面的会覆盖前面的</p>
+<p>（2）addEventListener()</p>
+<p>通过该方法也可为元素绑定响应函数，IE8 及以下浏览器不支持，在 IE8 中可使用 attachEvent() 来实现</p>
+<p>参数：</p>
+<p>— 事件的字符串（不要加on）</p>
+<p>— 回调函数（当事件触发时会被调用）</p>
+<p>— 是否在捕获阶段触发事件，需要布尔值，一般都传 false</p>
+<pre><code>元素对象.addEventListener(&quot;click&quot;,function()&#123;&#125;,false);</code></pre>
+<p>使用 addEventListener() 可以为一个元素的相同事件同时绑定多个响应函数，当事件被触发时，响应函数将会按照函数的绑定顺序执行</p>
+<p>addEventListener() 中的 this，是绑定事件的对象</p>
+<p>（3）attachEvent()</p>
+<p>该方法功能和 addEventListener() 类似，也可以同时为一个事件绑定多个处理函数，不同的是该方法在 IE8 中支持，但在其他浏览器中不支持，并且它是后绑定的先执行，执行顺序和 addEventListener() 相反</p>
+<p>参数：</p>
+<p>— 事件的字符串（要加on）</p>
+<p>— 回调函数</p>
+<p>— 是否在捕获阶段触发事件，需要布尔值，一般都传 false</p>
+<p>由于 attachEvent() 中的回调函数是由浏览器调用，所以 attachEvent() 中的 this 是 window</p>
+<p>（4）兼容所有浏览器</p>
+<pre><code>function bind(obj,eventStr,callback)&#123; //(要绑定的事件对象,去掉 on 的事件字符串,回调函数)
+    if(obj.addEventListener)&#123;  //大部分浏览器兼容的方式
+        obj.addEventListener(eventStr,callback,false);
+    &#125;else&#123;  //IE8及以下浏览器
+        obj.attachEvent(&quot;on&quot;+eventStr,function()&#123;
+            callback.call(obj);
+            //因为 this 是谁由调用方式决定，因为加匿名函数前 callback 由浏览器调用，所以外面加个匿名函数，在函数内来指定 callback 由谁调用
+        &#125;);
+    &#125;
+&#125;</code></pre>
+<h2 id="事件的传播"><a href="#事件的传播" class="headerlink" title="事件的传播"></a>事件的传播</h2><p>关于事件传播，网景公司和微软公司由不同的理解和设计</p>
+<p>微软认为事件应该是由内向外传播，当事件触发时应先触发当前元素的事件，再向当前元素的祖先元素上传播，即事件应该在冒泡阶段执行</p>
+<p>网景公司认为事件应该由外向内传播，当事件触发时，应先触发当前元素的最外层祖先元素的事件，再向内传播给后代元素（即事件捕获）</p>
+<p>W3C 综合了两个公司的方案，将事件传播分成了三个阶段</p>
+<p>（1）捕获阶段：从最外层的祖先元素（大部分浏览器从 window 开始），向目标元素进行事件的捕获，但是默认此时不会触发事件</p>
+<p>（2）目标阶段：事件捕获到目标元素，捕获结束开始在目标元素上触发事件</p>
+<p>（3）冒泡阶段：事件从目标元素向它的祖先元素传递，依次触发祖先元素上的事件</p>
+<p>若希望在捕获阶段就触发事件，可以将 addEventListener() 的第三个参数设置为 true，一般情况下不会希望在捕获阶段触发事件，所以这个参数一般是 false</p>
+<p>在 IE8 及以下浏览器中没有捕获阶段</p>
+<h2 id="鼠标事件"><a href="#鼠标事件" class="headerlink" title="鼠标事件"></a>鼠标事件</h2><p>设置鼠标点击元素按住拖动时保持点击的相对位置不变</p>
+<pre><code>鼠标的clientX-元素的offsetLeft
+鼠标的clientY-元素的offsetTop</code></pre>
+<p>onmousemove 该事件会在鼠标在元素中移动时被触发</p>
+<p>onmousedown 鼠标按下</p>
+<p>onmouseup 鼠标松开，可用于取消其他事件，如</p>
+<pre><code>元素对象.onmouseup = function()&#123;
+    对象.onmousemove = null;
+    对象.onmouseup = null;
+&#125;</code></pre>
+<p><code>元素对象.setCapture()</code> 设置元素对鼠标按下相关事件进行捕获，该元素会把下一次所有鼠标按下相关的事件捕获到自身上（该方法只有 IE 支持，在火狐中调用不会报错，但 chrome 会报错）</p>
+<p><strong>鼠标拖拽元素的例子：</strong></p>
+<pre><code>box.onmousedown = function(event)&#123;  //box是开启一个绝对定位的 div
+    box.setCapture &amp;&amp; box.setCapture();  //设置捕获代替解决 IE8 不支持 return false
+    event = event || window.event;
+    val ol = event.clientX - box.offsetLeft;
+    val ot = event.clientY - box.offsetTop;
+    document.onmousemove = function(event)&#123;
+        event = event || window.event;
+        val left = event.clientX - ol;
+        val top = event.clientY - ot;
+        box.style.left = left + &quot;px&quot;;
+        box.style.top = top + &quot;px&quot;;
+    &#125;
+    document.onmouseup = function()&#123;
+        box.onmousemove = null;
+        box.onmouseup = null;
+        box.releaseCapture &amp;&amp; box.releaseCapture();  //鼠标松开时取消对事件的捕获
+    &#125;
+    return false;  //因为拖拽时浏览器默认会去搜索引擎中所有内容，这会导致拖拽功能异常，这是浏览器的默认行为，可通过 return false 来取消（但对 IE8 无效）
+&#125;</code></pre>
+<h2 id="滚轮事件"><a href="#滚轮事件" class="headerlink" title="滚轮事件"></a>滚轮事件</h2><p>onmousewheel 在鼠标滚轮滚动时触发（火狐不支持该属性）</p>
+<p>火狐中滚轮滚动可使用 DOMMouseScroll 来绑定滚动事件，且该事件需要通过 addEventListener() 函数来绑定</p>
+<p>event.wheelDelta 获取滚轮滚动的方向，往上为正，往下为负（火狐不支持该属性）</p>
+<p>火狐中通过 event.detail 来获取滚动方向，往上为负，往下为正</p>
+<p>当 scrollHeight - scrollTop = clientHeight 时表示垂直滚动条滚动到底了</p>
+<p>当 scrollWidth - scrollLeft = clientWidth 时表示水平滚动条滚动到底了</p>
+<p>当滚轮滚动时，若浏览器由滚动条，滚动条会随之滚动，这是浏览器默认行为，可通过 return false 取消该默认行为，若使用 addEventListener() 绑定响应函数应使用 event.preventDefault() 取消默认行为(IE8 不支持preventDefault)</p>
+<p><strong>随滚轮滚动时元素高度改变的例子：</strong></p>
+<pre><code>box.onnmousewheel = function(event)&#123;
+    event = event || window.event;
+    if(event.wheelDelta&gt;0 || event.detail&lt;0)&#123;
+        //向上滚
+        box.style.height = box.clientHeight - 10 + &quot;px&quot;;
+    &#125;else&#123;
+        //向下滚
+        box.style.height = box.clientHeight + 10 + &quot;px&quot;;
+    &#125;
+    event.preventDefault &amp;&amp; event.preventDefault();
+    return false;
+&#125;
+box.addEventListener(&quot;DOMMouseScroll&quot;,box.onnmousewheel);  //兼容火狐</code></pre>
+<h2 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a>键盘事件</h2><p>onkeydown 某个键盘按键被按下，若一直按着按键不松手事件会一直被触发。当 onkeydown 连续触发时，第一次和第二次之间会间隔稍微长一点（这是为了防止误操作发生）其他次会很快触发</p>
+<p>onkeyup 某个键盘按键被松开</p>
+<p>event.keyCode 获取按键的 Unicode 编码从而判断哪个按键被按下，数字 0-9 对应编码 48-57</p>
+<p>altKey、ctrlKey、shiftKey 判断 alt、ctrl、shift 是否被按下</p>
+<p>注意键盘事件一般都会绑定给可以获取焦点的对象（如 input）或者是 document，一般不给 div 绑定</p>
+<pre><code>document.onkeydown = function(event)&#123;
+    event = event || window.event;
+    if(event.keyCode === 89 &amp;&amp; event.ctrlKey)&#123;
+        console.log(&quot;ctrl和y都被按下&quot;)
+    &#125;
+    if(event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57)&#123;
+        return false;  //不能输入数字
+    &#125;
+&#125;
+document.onkeyup = function()&#123;
+&#125;</code></pre>
+<p><strong>根据方向键移动 div 的例子：</strong></p>
+<pre><code>document.onkeydown = function(event)&#123;
+    event = event || window.event;
+    var speek = 10;
+    if(event.ctrlKey)&#123;  //按下 ctrl 后速度加快
+        speed = 50;
+    &#125;
+    switch(event.keyCode)&#123;
+        case 37:  //向左
+            box.style.left = box.offsetLeft - speed + &quot;px&quot;;
+            break;
+        case 39:  //向右
+            box.style.left = box.offsetLeft + speed + &quot;px&quot;;
+            break;
+        case 38:  //向上
+            box.style.top = box.offsetTop - speed+ &quot;px&quot;;
+            break;
+        case 40:  //向下
+            box.style.top = box.offsetTop + speed + &quot;px&quot;;
+            break;
+    &#125;
+&#125;</code></pre>
+<h1 id="十六、BOM"><a href="#十六、BOM" class="headerlink" title="十六、BOM"></a>十六、BOM</h1><p>BOM（浏览器对象模型），BOM 可以使我们可以通过 JS 操作浏览器，DOM 是操作网页文档的，在 BOM 中提供了一组对象来完成对浏览器的操作</p>
+<p>BOM 对象有：Window、Navigator、Location、History、Screen</p>
+<p>（1）Window：代表整个浏览器的窗口，同时 window 也是网页中的全局对象</p>
+<p>（2）Navigator：代表当前浏览器的信息，通过该对象可以识别不同的浏览器</p>
+<p>由于历史原因 Navigator 对象中的大部分属性都已经不能识别浏览器了，一般只会使用 userAgent 来判断浏览器的信息，userAgent 是个包含用来描述浏览器信息内容的字符串</p>
+<p>注意 IE11 中已经将微软和 IE 相关的表示去掉，所以不能通过 userAgent 识别是否是 IE 浏览器</p>
+<p>若通过 userAgent 不能判断，还可通过一些浏览器中特有的对象来判断浏览器信息，如 ActiveXObject 是 IE 独有的</p>
+<pre><code>var ua = navigator.userAgent;
+if(/firefox/i,test(ua))&#123;
+    console.log(&quot;火狐&quot;);
+&#125;else if(/chrome/i,test(ua))&#123;
+    console.log(&quot;chrome&quot;);
+&#125;else if(/msie/i,test(ua))&#123;
+    console.log(&quot;IE&quot;);
+&#125;else if(&quot;ActiveXObject&quot; in window)&#123;
+    console.log(&quot;IE11&quot;);
+&#125;</code></pre>
+<p>（3）Location：当前浏览器的地址栏信息，通过 Location 可获取地址栏信息或操作浏览器跳转页面</p>
+<p>若直接打印 location 可获取地址栏的信息（当前页面的完整路径）</p>
+<p>location = “xxxx” 直接将属性修改为一个完整的路径或相对路径则页面会自动跳转到该路径，<strong>并会生成相应的历史记录</strong></p>
+<p>location.assign(“路径”) 用来跳转到其他页面，作用和直接修改 location 一样</p>
+<p>location.reload() 重新加载当前页面，作用和刷新一样，若传递 true 作为参数则会强制清空缓存刷新页面</p>
+<p>location.replace(“路径”) 使用新的页面替换当前页面，调用完毕也会跳转页面，<strong>但不会生成历史记录</strong>，不能使用回退按钮回退</p>
+<p>（4）History：代表浏览器的历史记录，可通过该对象操作浏览器的历史记录，由于保护隐私原因，该对象不能获取到具体的历史记录，只能操作浏览器向前或向后翻页，且该操作只在当次访问时有效</p>
+<p>history.length 可获取到当次访问的链接数量</p>
+<p>history.back() 可用来回退到上一个页面，和浏览器中的回退按钮一样</p>
+<p>history.forward() 可跳转到下一个页面，和浏览器的前进按钮一样</p>
+<p>history.go(整数) 可跳转到指定的页面，需要整数作为参数</p>
+<p>— 1 表示向前跳转一个页面，相当于 forward()</p>
+<p>— 2 表示向前跳转两个页面</p>
+<p>— -1 表示向后跳转一个页面</p>
+<p>— -2 表示向后跳转两个页面</p>
+<p>（5）Screen：代表用户的屏幕信息，通过该对象可获取到用户的显示器的相关信息（在移动端用的多）</p>
+<p>这些 BOM 对象在浏览器中都是作为 window 对象的属性保存的，可以通过 window 对象来使用，也可以直接使用</p>
+<h1 id="十七、定时器"><a href="#十七、定时器" class="headerlink" title="十七、定时器"></a>十七、定时器</h1><p>setInterval(回调函数,调用间隔) 是 window 对象的方法，将回调函数每隔一段时间执行一次，第二个参数的单位是毫秒，会返回 Number 类型的返回值，该返回值作为定时器的唯一标识</p>
+<p>注意在开启定时器前一般需要先使用 clearInterval(xx) 将当前元素上的其他定时器关闭</p>
+<p>clearInterval(定时器标识) 关闭定时器，可接收任意参数，若参数是一个有效的定时器标识则停止对应定时器，若不是一个有效标识，则什么也不做</p>
+<pre><code>var num = 1;
+var timer = setInterval(function()&#123;
+    num++;
+    console.log(num)
+    if(num == 11)&#123;
+        clearInterval(timer);
+    &#125;
+&#125;,1000);</code></pre>
+<p>setTimeout(回调函数,延时时间) 演示调用一个函数不马上执行，而是隔一段时间后再执行，而且只会执行一次</p>
+<p>clearTimeout(延时器标识) 关闭一个延时调用</p>
+<p>延时调用和定时调用实际上可以互相代替的，注意定时调用会执行多次，而延时调用只会执行一次</p>
+<p><strong>根据方向键移动 div 并解决第一次按下时延时的例子：</strong></p>
+<pre><code>var speek = 10;
+var dir = 0;
+setInterval(function()&#123;
+    switch(event.keyCode)&#123;
+        case 37:  //向左
+            box.style.left = box.offsetLeft - speed + &quot;px&quot;;
+            break;
+        case 39:  //向右
+            box.style.left = box.offsetLeft + speed + &quot;px&quot;;
+            break;
+        case 38:  //向上
+            box.style.top = box.offsetTop - speed+ &quot;px&quot;;
+            break;
+        case 40:  //向下
+            box.style.top = box.offsetTop + speed + &quot;px&quot;;
+            break;
+    &#125;
+&#125;)
+document.onkeydown = function(event)&#123;
+    event = event || window.event;
+    if(event.ctrlKey)&#123;  //按下 ctrl 后速度加快
+        speed = 50;
+    &#125;else&#123;
+        speed = 10;  //松开 ctrl 不加速
+    &#125;
+    dir = event.keyCode;
+&#125;
+document.onkeyup = function()&#123;  //松开按键时，div 不再移动
+    dir = 0;
+&#125;</code></pre>
+<h1 id="十八、JSON"><a href="#十八、JSON" class="headerlink" title="十八、JSON"></a>十八、JSON</h1><p>JS 中的对象只有 JS 自己认识，其他语言都不认识</p>
+<p>JSON（JavaScript Object Notation，JS 对象表示法）是一个特殊格式的<strong>字符串</strong>，该字符串可被任意的语言识别，并且可转换为任意语言中的对象，JSON 在开发汇总主要用于数据的交互</p>
+<p>JSON 和 JS 对象的格式一样，但是 JSON 字符串中的属性名必须加双引号</p>
+<p>JSON 分类：</p>
+<p>— 对象{}</p>
+<p>— 数组[]</p>
+<p>JSON 中允许的值有字符串、数值、布尔值、null、普通对象（不包括函数对象）、数值六种</p>
+<p>通过工具类 JSON 来互换 JSON 字符串与 JS 中的对象（IE7 及一下浏览器不支持）</p>
+<p>json –&gt; js 对象</p>
+<pre><code>JSON.parse(JSON字符串)
+eval(&quot;(&quot;+JSON字符串+&quot;)&quot;)  //IE7中，但不建议使用
+通过引入外部的 js 文件（自定义的 JSON 对象）来处理  //兼容 IE7</code></pre>
+<p>js 对象 –&gt; json</p>
+<pre><code>JSON.stringify(js对象)</code></pre>
+<p>eval() 可用来执行一段字符串形式的 JS 代码，并将执行结果返回，若 eval() 执行的字符串中含有 {}，它会将 {} 当成代码块，若不希望将其当成代码块解析，需在字符串前后各加一个 ()</p>
+<p>但在开发中尽量不要使用 eval()，因为它的执行性能比较差，并且有安全隐患</p>
+<h1 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h1><p>1、把 JS 写到外部文件中通过外部文件引入可在不页面同时引用，也可利用到浏览器的缓存机制</p>
+<p>2、JS 中每条语句以 <code>;</code> 结尾，若没写分号浏览器会自动添加，但是会消耗一些系统资源，有时浏览器会加错分号</p>
+<p>3、把 JS 代码写在 HTML 下方，加载完页面后加载</p>
+<p>4、使用 <code>元素.style.样式名 = &quot;样式值&quot;</code> 设置样式时，每修改一个样式，浏览器就重新渲染一次页面，这样执行的性能比较差，且要修改多个样式时不太方便</p>
+<h1 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h1><p><code>console.time(&quot;计时器的名字&quot;)</code> 可用来开启计时器</p>
+<p><code>console.timeEnd(&quot;计时器的名字&quot;)</code> 可用来终止计时器</p>
+<p>往表格 <code>&lt;table&gt;</code> 里使用 appendChild 添加 <code>&lt;tr&gt;</code> 时会添加在 <code>&lt;tbody&gt;</code> 外部，因此需要获取 tbody 对象后对它使用 appendChild 来添加 tr</p>
+<p>对于使用 for 循环遍历元素来给元素添加响应函数，需要注意 for 循环会在页面加载完成后立即执行，而响应函数会在被点击时才执行，当响应函数执行时，for 循环早已执行完毕</p>
+<p>浏览器的默认行为</p>
+<pre><code>对于表单、超链接等，若不想点击后跳转或提交可在响应函数的最后添加 return false 取消默认行为
+
+拖拽时浏览器默认会去搜索引擎中所有内容，这会导致拖拽功能异常，这是浏览器的默认行为，可通过 return false 来取消（但对 IE8 无效）
+
+当滚轮滚动时，若浏览器由滚动条，滚动条会随之滚动，这是浏览器默认行为，可通过 return false 取消该默认行为
+
+在文本框（如 input）中输入内容属于 onkeydown 的默认行为，可通过 return flase 取消默认行为，取消后输入内容不会出现在文本框中</code></pre>
+<p>注意若使用 addEventListener() 方法绑定响应函数时取消默认行为不能用 <code>return false</code>，需要使用 event.preventDefault() 来取消默认行为</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>LeetCode笔记</title>
+    <url>/2021/12/01/LeetCode%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="数组删除元素"><a href="#数组删除元素" class="headerlink" title="数组删除元素"></a>数组删除元素</h2><a id="more"></a>
+
+<p>在原数组中删除中某一元素，并返回最终数组的长度（忽略新长度后面的元素）</p>
+<pre><code>解法一：
+
+可使用快指针（用于遍历原数组）和慢指针（当前在原数组中填入元素的位置）来实现
+
+时间复杂度：O(n)O(n)，其中 nn 为序列的长度。我们只需要遍历该序列至多两次。
+
+空间复杂度：O(1)O(1)。我们只需要常数的空间保存若干变量。
+
+解法二：（优化）
+
+使用双指针，两个指针初始时分别位于数组的首尾，向中间移动遍历该序列。避免了需要保留的元素的重复赋值操作。</code></pre>
+<p>对于有序数组应想到二分查找，时间复杂度为 O(log n)</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>less学习笔记</title>
+    <url>/2021/12/15/less%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p>less 是一门 css 的预处理语言，less 是 css 增强版，通过 less 可以编写更少的代码实现更强大的样式</p>
+<a id="more"></a>
+
+<p>less 语法大体上和 css 一致，但 less 中增添了许多对 css 的扩展</p>
+<p>在 less 中添加了许多新特性，如虽然在原生 css 中支持变量，但是对不同浏览器的兼容性不好，有的浏览器不支持，而通过 less 浏览器对变量、minxin 等都可支持</p>
+<p>此外 less 中可以使用 <code>@import</code> 引入其他 less 文件有助于样式模块化</p>
+<p>浏览器无法直接执行 less 代码，必须先将 less 转换为 css（如 VSCode 中 Easy LESS 插件可将 less 自动编译为 css），再由浏览器执行</p>
+<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><p>声明：<code>@变量名:xxx;</code></p>
+<p>使用：<code>@变量名</code></p>
+<p>— 当变量作为类名或属性名或一部分值使用时，通过<code>@&#123;变量名&#125;</code></p>
+<p>— 直接使用另一个属性的值 <code>$参考的属性</code>（v3.0.0后支持）</p>
+<p>— less 中样式可以嵌套，当表示当前层的元素本身时使用 <code>&amp;</code> 表示，表示子元素时使用<code>&gt;子元素&#123;&#125;</code></p>
+<p>— 当前元素有与其他元素共有的部分时，用 <code>当前元素:extend(有相同样式的元素)&#123;&#125;</code></p>
+<p>— 对其他元素样式进行引用，相当于直接复制其他元素样式 <code>元素选择器();</code>，这种方式性能比上一种差，因为要先复制</p>
+<p>— 解决上个问题，可使用类选择器时可在选择器后添加一个括号，实际上就创建了一个mixins（相当于是个混合函数），即这部分样式不是自己用，而是专门给别人用</p>
+<p>引入其他 less 文件，通过 <code>@import &quot;xxx.less;&quot;</code>，该功能可用于样式模块化，如将定义变量、定义动画、定义布局、整合的 less 文件分开，方便后期维护</p>
+<p>less 中所有数值都可以直接进行运算，如 + - * /</p>
+<p>当重复声明时，使用时依据就近原则，使用最近声明的值</p>
+<p>可先使用后声明</p>
+<pre><code>@a:100px;
+@b:#bfa;
+@c:box2;
+@d:color;
+.box1&#123;
+    width: @a;
+    @&#123;d&#125;: @b;
+    background-@&#123;d&#125;:@b;
+&#125;
+.@&#123;c&#125;&#123;
+    width: @a;
+    background-image: url(&quot;@&#123;C&#125;/1.png&quot;);
+&#125;
+.p2:extend(.p1)&#123;
+    color:red;
+&#125;
+.p3&#123;
+    .p1();  //mixins，直接对指定样式进行引用
+&#125;
+.p4()&#123;  //创建了一个mixins
+    width:100px;
+    height:100px;
+&#125;
+.test(@w:100px,@h,@bg-color)&#123;  //调用混合函数，可指定默认值
+    width: @w;
+    height: @h;
+    border: 1px solid @bg-color;
+&#125;
+div&#123;
+    .test(200px,300px,#bfa);  //调用混合函数，按顺序传递参数，或.test(@bg-color:#bfa,@h:300px,@2:200px);
+&#125;
+.span&#123;
+    color: average(red,blue);  //使用 less 定义好的混合函数
+&#125;
+body:hover&#123;
+    background-color: darken(#bfa,20%); //使用 less 定义好的混合函数，当鼠标移入 body 时颜色加深20%
+&#125;</code></pre>
+<h1 id="VSCode-中的插件-Easy-LESS"><a href="#VSCode-中的插件-Easy-LESS" class="headerlink" title="VSCode 中的插件 Easy LESS"></a>VSCode 中的插件 Easy LESS</h1><p>Easy LESS 插件可将 less 自动编译为 css，但是在浏览器中检查页面样式时显示的依然时 css 文件中的代码位置，可在插件中设置如下内容，设置后浏览器中调试样式显示的时在 less 文件中的代码位置</p>
+<pre><code>&quot;less.compile&quot;:&#123;
+    &quot;compress&quot;: false,  //true =&gt; remove surplus whitespace
+    &quot;sourceMap&quot;: true,  //true =&gt; generate source maps(.css.map files)
+    &quot;out&quot;: true,   //false =&gt; DON&#39;T output .css files(overidable per-file)
+&#125;</code></pre>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>HTML+CSS学习笔记</title>
+    <url>/2021/12/08/HTML-CSS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="网页特点"><a href="#网页特点" class="headerlink" title="网页特点"></a>网页特点</h1><p>优点：（1）无需安装（2）无需更新（3）跨平台</p>
+<a id="more"></a>
+
+<h1 id="网页组成"><a href="#网页组成" class="headerlink" title="网页组成"></a>网页组成</h1><p>W3C标准制定网页由结构（HTML）+样式（CSS）+行为（JS）组成</p>
+<head>中包含的是网页的元数据，浏览器或搜索引擎根据这些元数据解析网页
+
+<p>注释不能嵌套</p>
+<h1 id="一、HTML"><a href="#一、HTML" class="headerlink" title="一、HTML"></a>一、HTML</h1><h2 id="文档声明"><a href="#文档声明" class="headerlink" title="文档声明"></a>文档声明</h2><p>文档声明通过标签 <code>&lt;!doctype&gt;</code> 用于告知浏览器当前网页的版本（如HTML 4、HTML5、XHTML等），不区分大小写</p>
+<p>HTML5文档声明：<code>&lt;!doctype html&gt;</code></p>
+<h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p>内存中一个小格子为 1 位，内存中无法操作 bit ，最小可操作单位为 1 byte（字节）= 8 bit</p>
+<pre><code>8 bit = 1 byte（字节）
+1024 byte = 1 kb（千字节）
+1024 kb = 1 mb（兆字节）
+1024 mb = 1 gb（吉字节）
+1024 gb = 1 tb（特字节）
+1024 tb = 1 pb</code></pre>
+<p>所有数据在计算机中以二进制存储，包括文本、图片、音频等。编码解码采用的规则称为字符集，如ASCII（美国7位）、ISO88591（欧洲 8位）、GB2312（中国）、GBK（中国 GB2312的扩展）、UTF-8（万国码）</p>
+<p>字符集说明写在 <code>&lt;meta&gt;</code> 标签里，如 <code>&lt;meta charset=&quot;utf-8&quot;&gt;</code>，从而避免乱码问题</p>
+<h2 id="meta-标签"><a href="#meta-标签" class="headerlink" title="meta 标签"></a>meta 标签</h2><p><code>&lt;meta&gt;</code> 标签用于设置网页中的元数据，用于浏览器或搜索引擎解析网页。<code>&lt;meta&gt;</code> 没有结束标签</p>
+<p>常用属性有 name（指定数据的名称，如keywords、description）+ content（指定数据的内容）、http-equiv（网页重定向）+ content、charset（指定网页的字符集）</p>
+<p>例子</p>
+<pre><code>&lt;meta name=&quot;keywords&quot; content=&quot;购物,网上购物&quot;&gt;
+为网页设置关键字，当在搜索引擎中搜索 “购物” 时会推荐该网站
+
+&lt;meta name=&quot;description&quot; content=&quot;这是网站的描述&quot;&gt;
+为网站设置描述，该描述会显示在搜索引擎搜索的结果中
+
+&lt;meta http-quiv=&quot;refresh&quot; content=&quot;秒数,url=https://www.baidu.com&quot;&gt;
+为网站设置定时重定向，当到达相应秒数后网页会跳转到相应路径</code></pre>
+<h2 id="语义化标签"><a href="#语义化标签" class="headerlink" title="语义化标签"></a>语义化标签</h2><h3 id="块元素、行内元素、替换元素"><a href="#块元素、行内元素、替换元素" class="headerlink" title="块元素、行内元素、替换元素"></a>块元素、行内元素、替换元素</h3><h4 id="块元素"><a href="#块元素" class="headerlink" title="块元素"></a>块元素</h4><p>在页面中独占一行的元素称为块（block）元素。</p>
+<p>如 <code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code>、<code>&lt;p&gt;</code>、<code>&lt;blockquote&gt;</code>（表示一个长引用，会换行缩进，对比<code>&lt;q&gt;</code>）</p>
+<p>— 块元素一般用于网页布局</p>
+<p>— 一般会在块元素中放行内元素，块元素中基本什么都能放</p>
+<p>— <code>&lt;p&gt;</code> 中不能放任何块元素，若写错，浏览器在解析时会自动修正</p>
+<h4 id="行内元素"><a href="#行内元素" class="headerlink" title="行内元素"></a>行内元素</h4><p>在页面中不会独占一行的元素称为行内（inline）元素。</p>
+<p>如 <code>&lt;em&gt;</code>（斜体）、<code>&lt;strong&gt;</code>（加粗）、<code>&lt;q&gt;</code>（短引用，不换行加引号，对比 <code>&lt;blockquote&gt;</code>）、<code>&lt;a&gt;</code>（超链接）</p>
+<p>— 行内元素主要用于包裹文字</p>
+<p>— 行内元素中不会放块元素，<strong>但是 <code>&lt;a&gt;</code> 可嵌套除它自身外的任何元素</strong></p>
+<h4 id="替换元素"><a href="#替换元素" class="headerlink" title="替换元素"></a>替换元素</h4><p>如 <code>&lt;img&gt;</code>、<code>&lt;iframe&gt;</code>、<code>&lt;audio&gt;</code>、<code>&lt;video&gt;</code></p>
+<h3 id="布局标签（结构化语义标签）"><a href="#布局标签（结构化语义标签）" class="headerlink" title="布局标签（结构化语义标签）"></a>布局标签（结构化语义标签）</h3><p>如以下 HTML5 新增标签</p>
+<pre><code>&lt;header&gt;  表示网页头部
+&lt;main&gt;    表示网页主体（一个页面只有一个 &lt;main&gt;）
+&lt;footer&gt;  表示网页底部
+&lt;nav&gt;     表示网页导航
+&lt;aside&gt;   表示网页中与主体相关的其他内容（侧边栏）
+&lt;article&gt; 表示一个独立的文章
+&lt;section&gt; 表示一个独立的区块，以上标签都不合适时用 &lt;section&gt;</code></pre>
+<p>与 <code>&lt;section&gt;</code> 类似的有 <code>&lt;div&gt;</code>（没有语义，表示区块）和 <code>&lt;span&gt;</code>（没有语义，行内元素）</p>
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><p>1、无序列表 <code>&lt;ul&gt;</code> + <code>&lt;li&gt;</code>（列表项，块元素）</p>
+<p>2、有序列表 <code>&lt;ol&gt;</code> + <code>&lt;li&gt;</code>（列表项）</p>
+<p>3、定义列表 <code>&lt;dl&gt;</code> + <code>&lt;dt&gt;</code>（表示定义的内容）+ <code>&lt;dd&gt;</code>（对内容进行解释说明）</p>
+<h3 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h3><p><code>&lt;a&gt;</code>为行内元素</p>
+<p>超链接通过设置属性 href 可跳转至其他网页，或在当前网页中进行跳转。</p>
+<p><code>href=&quot;#&quot;</code> 跳转至页面顶部</p>
+<p><code>href=&quot;#目标元素的id&quot;</code> 跳转至页面相应元素处</p>
+<p><code>href=&quot;javascript:;&quot;</code> 可作为超链接路径的占位符点击后什么也不会发生</p>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><code>&lt;img&gt;</code> 是替换元素（显示内容并非代码里写的内容，而是利用引入内容进行替换），介于块元素和行内元素之间，兼具两者特点（既能设置宽高，又不会独占一行）</p>
+<p>在 <code>&lt;img&gt;</code> 中 alt 属性默认情况不会显示，部分浏览器在图片无法加载时会显示，并且搜索引擎会根据 alt 中内容来识别图片</p>
+<p>图片一般有jpeg、jpg、gif、png、webp</p>
+<pre><code>jepg/jpg：支持颜色较丰富，不支持透明效果，不支持动图
+
+gif：支持颜色较少，支持简单透明，支持动图
+
+png：支持颜色丰富，支持复杂透明，不支持动图
+
+webp：谷歌新推出的专门用于表示网页中图片的一种格式，具备其他图片格式的所有优点，而且文件还很小。缺点：兼容性不好
+
+base64：将图片使用base64编码，将图片转换为字符，在 src 中通过字符的形式引入图片。一般需要和网页一起加载的图片用 base64，否则其他格式图片是在浏览器向后端请求网页后再次发送图片资源的请求</code></pre>
+<p>原则：效果一样，用小的；效果不一样，用效果好的</p>
+<h3 id="引入音频-视频"><a href="#引入音频-视频" class="headerlink" title="引入音频/视频"></a>引入音频/视频</h3><h4 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h4><p><code>&lt;audio&gt;</code>标签来引入音频，可在<code>&lt;audio&gt;</code>内添加 src 属性，也可在标签中间添加 <code>&lt;source src=&quot;xxx&quot;&gt;</code>来引入相应文件。</p>
+<p>还包括属性 controls（音频文件引入时默认不允许用户控制播放，加入该属性允许用户控制）、autoplay（打开页面时是否自动播放，大部分浏览器考虑到用户体验不会自动播放）、loop（是否循环播放）</p>
+<p><strong>考虑浏览器兼容问题：</strong></p>
+<p>（1）当浏览器不支持 <code>&lt;audio&gt;</code> 时显示文字提示</p>
+<p>（2）当浏览器不支持某种格式音频文件时使用另一种格式的音频文件</p>
+<p>（3）老版本浏览器不支持 <code>&lt;audio&gt;</code> 时，可使用 <code>&lt;embed&gt;</code>，包括属性src、<code>type=&quot;audio/mp3&quot;</code>、width、height</p>
+<pre><code>&lt;audio src=&quot;./xxx.mp3&quot; controls autoplay loop&gt;&lt;/audio&gt;
+
+（1）浏览器支持 &lt;audio&gt; 时显示音频，不支持时显示文字提示
+（2）浏览器会从上至下选择一个音频文件
+    &lt;audio controls&gt;
+        该浏览器不支持音频播放 
+        &lt;source src=&quot;./xxx.mp3&quot;&gt;
+        &lt;source src=&quot;./xxx.ogg&quot;&gt;
+    &lt;/audio&gt;
+（3）让所有浏览器都可显示音频，支持&lt;audio&gt;时用&lt;audio&gt;，并从&lt;source&gt;获取音频文件，不支持&lt;audio&gt;时会选&lt;embed&gt;
+    &lt;audio controls&gt; 
+        &lt;source src=&quot;./xxx.mp3&quot;&gt;
+        &lt;source src=&quot;./xxx.ogg&quot;&gt;
+        &lt;embed src=&quot;./xxx.mp3&quot; type=&quot;audio/mp3&quot;&gt;
+    &lt;/audio&gt;</code></pre>
+<h4 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h4><p>通过标签 <code>&lt;video&gt;</code>，使用方式和音频差不多，注意 <code>&lt;embed&gt;</code> 中<code>type=&quot;video/mp4&quot;</code></p>
+<h3 id="内联框架-lt-iframe-gt"><a href="#内联框架-lt-iframe-gt" class="headerlink" title="内联框架&lt;iframe&gt;"></a>内联框架<code>&lt;iframe&gt;</code></h3><p><code>&lt;iframe&gt;</code>用于向当前页面引入一个其他页面，页面中将会有个窗口显示其他网页，其中 src 属性设置要引入的网页路径，frameborder 属性设置内联框架是否有边框（取值为 0 或 1）</p>
+<p>缺点：内联框架中的网页不会被搜索引擎检索，因此对 SEO 也没有什么好处</p>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><h3 id="表格标签"><a href="#表格标签" class="headerlink" title="表格标签"></a>表格标签</h3><p><code>&lt;table&gt;&lt;/table&gt;</code> 表示表格（块元素），<code>&lt;tr&gt;</code> 表示一行（块元素），，<code>&lt;td&gt;</code> 表示一列（行内元素）</p>
+<p>在 <code>&lt;td&gt;</code> 中设置属性 <code>colspan=&quot;合并的列数&quot;</code> 可横向合并单元格，<code>rowspan=&quot;合并的行数&quot;</code> 可纵向合并单元格</p>
+<p>可以将表格分为如下三部分，通过定义这三部分后，表格头部、主体、底部在代码中的书写顺序无要求，最终显示为表头-主体-底部</p>
+<pre><code>`&lt;thead&gt;` 头部
+`&lt;tbody&gt;` 主体
+`&lt;tfoot&gt;` 底部</code></pre>
+<p>在这三部分中间可添加行列 <code>&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;</code>，还可添加 <code>&lt;th&gt;</code> 表示头部单元格代替 <code>&lt;td&gt;</code> ，如 <code>&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;</code>， <code>&lt;th&gt;</code> 中的文字会加粗居中</p>
+<p><strong>注：若表格中没有使用 tbody 而是直接使用 tr，浏览器会自动创建一个 tbody，并将 tr 全都放到 tbody 中，因此 tr 不是 table 的子元素</strong></p>
+<h3 id="表格属性"><a href="#表格属性" class="headerlink" title="表格属性"></a>表格属性</h3><p><code>border-spacing: xxpx;</code> 指定边框间的距离</p>
+<p><code>border-collapse: collapse;</code> 设置边框的合并</p>
+<pre><code>如表格外边框与单元格边框间有间距，可通过
+table&#123;
+    border: 1px solid black;
+    border-spacing: 0px;
+&#125;
+td&#123;
+    border: 1px solid black;
+&#125;
+消除间隙，但此时是把两者边框间距设为 0，实际边框为 1+1=2px
+可通过如下属性设置边框合并
+table&#123;
+    border: 1px solid black;
+    border-collapse: collapse;
+&#125;
+td&#123;
+    border: 1px solid black;
+&#125;
+此时也没有间隙，且两者边框合并后实际边框为 1px</code></pre>
+<p><code>vertical-align</code> 设置 <code>&lt;td&gt;</code> 中的元素对齐方式，默认情况下元素在 <code>&lt;td&gt;</code> 中是垂直居中的。可选值有 top、bottom、middle（默认） 等</p>
+<p>注：在 <code>&lt;td&gt;</code> 中是所有元素都能通过 <code>vertical-align</code> 设置，而其他元素中 <code>vertical-align</code> 只会影响文字</p>
+<h2 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h2><p><code>&lt;form&gt;</code> 声明表单，属性有 <code>action</code>（表单要提交的服务器地址）</p>
+<pre><code>表单内容
+文本框
+    &lt;input type=&quot;text&quot; name=&quot;服务器根据name获取相应数据&quot;&gt;
+密码           
+    &lt;input type=&quot;password&quot; name=&quot;服务器根据name获取相应数据&quot;&gt;
+提交按钮  
+    &lt;input type=&quot;submit&quot; value=&quot;按钮上的文字&quot;&gt;
+    或&lt;button type=&quot;submit&quot;&gt;提交&lt;/button&gt;
+普通按钮
+    &lt;input type=&quot;button&quot; value=&quot;按钮上的文字&quot;&gt;
+    或&lt;button type=&quot;button&quot;&gt;按钮&lt;/button&gt;
+重置按钮
+    &lt;input type=&quot;reset&quot;&gt;
+    或&lt;button type=&quot;reset&quot;&gt;重置&lt;/button&gt;
+单选按钮
+    &lt;input type=&quot;radio&quot; name=&quot;xxx&quot; value=&quot;向服务器发送的数据&quot; checked&gt;
+    通过相同的 name 属性限制相同 name 只能选一个，checked 表示默认选中
+多选框
+    &lt;input type=&quot;checkbox&quot; name=&quot;xxx&quot; value=&quot;向服务器发送的数据&quot; checked&gt;
+    checked 表示默认选中
+下拉列表
+    &lt;select name=&quot;xxx&quot;&gt;
+        &lt;option value=&quot;向服务器发送的数据&quot; selected&gt;选项一&lt;/option&gt;
+        &lt;option value=&quot;向服务器发送的数据&quot;&gt;选项二&lt;/option&gt;
+    &lt;/select&gt;
+    selected 表示默认选中
+颜色选择框（浏览器兼容性不好）
+    &lt;input type=&quot;color&quot;&gt;
+电子邮件输入框，会检查输入格式（浏览器兼容性不好）
+    &lt;input type=&quot;email&quot;&gt;
+
+表单中元素的属性
+autocomplete=&quot;on或off&quot; 开启或关闭自动补全
+readonly      将表单项设置为只读，无法修改，但数据会提交
+disabled      将表单项设为禁用，数据不会提交
+autofocus     设置表单项自动获取焦点</code></pre>
+<p>数据要提交到服务器中，必须为元素指定 name 属性值</p>
+<p>若给表单项添加 <code>disabled = &quot;disabled&quot;</code> 则表单项将变成不可用状态</p>
+<h1 id="二、CSS"><a href="#二、CSS" class="headerlink" title="二、CSS"></a>二、CSS</h1><p>网页实际上是一个多层结构，通过 CSS（层叠样式表）为每层设置样式</p>
+<p>设置 CSS 方法:</p>
+<p>（1）内联/行内样式：在标签内部通过 style 属性设置元素样式。只能对一个标签起作用</p>
+<p>（2）内部样式表：在 <code>&lt;head&gt;</code> 的 <code>&lt;style&gt;</code> 中通过CSS选择器选中元素并为其设置样式 。只能对一个页面起作用，不能跨页面复用</p>
+<p>（3）外部样式表：编写到外部 CSS 文件里，通过 <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;./xxx.css&quot;&gt;</code> 引入。</p>
+<h2 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h2><h3 id="1、基本选择器"><a href="#1、基本选择器" class="headerlink" title="1、基本选择器"></a>1、基本选择器</h3><h4 id="（1）元素选择器"><a href="#（1）元素选择器" class="headerlink" title="（1）元素选择器"></a>（1）元素选择器</h4><p>根据标签名选中指定元素，如 <code>p&#123;&#125; div&#123;&#125;</code></p>
+<h4 id="（2）id-选择器"><a href="#（2）id-选择器" class="headerlink" title="（2）id 选择器"></a>（2）id 选择器</h4><p>根据元素的 id 选中一个元素，如 <code>#box&#123;&#125; #element&#123;&#125;</code></p>
+<h4 id="（3）类选择器"><a href="#（3）类选择器" class="headerlink" title="（3）类选择器"></a>（3）类选择器</h4><p>根据元素的 class 属性选中一组元素，如 <code>.box&#123;&#125; .element&#123;&#125;</code></p>
+<p>class 可以重复使用，通过 class 属性为元素分组，也可同时为一个元素指定多个 class 属性</p>
+<h4 id="（4）通配选择器"><a href="#（4）通配选择器" class="headerlink" title="（4）通配选择器"></a>（4）通配选择器</h4><p>选中页面所有元素，如 <code>*&#123;&#125;</code></p>
+<h3 id="2、复合选择器"><a href="#2、复合选择器" class="headerlink" title="2、复合选择器"></a>2、复合选择器</h3><h4 id="（1）交集选择器"><a href="#（1）交集选择器" class="headerlink" title="（1）交集选择器"></a>（1）交集选择器</h4><p>选中同时符合多个条件的元素，如 <code>选择器1选择器2选择器n&#123;&#125;</code></p>
+<p>注意：交集选择器中若有元素选择器，必须使用元素选择器开头</p>
+<h4 id="（2）选择器分组（并集选择器）"><a href="#（2）选择器分组（并集选择器）" class="headerlink" title="（2）选择器分组（并集选择器）"></a>（2）选择器分组（并集选择器）</h4><p>同时选择多个选择器对应的元素，如 <code>选择器1,选择器2,选择器n&#123;&#125;</code></p>
+<h3 id="3、关系选择器"><a href="#3、关系选择器" class="headerlink" title="3、关系选择器"></a>3、关系选择器</h3><h4 id="（1）子元素选择器"><a href="#（1）子元素选择器" class="headerlink" title="（1）子元素选择器"></a>（1）子元素选择器</h4><p>选中指定父元素的指定子元素，语法 <code>父元素 &gt; 子元素&#123;&#125;</code></p>
+<h4 id="（2）后代元素选择器"><a href="#（2）后代元素选择器" class="headerlink" title="（2）后代元素选择器"></a>（2）后代元素选择器</h4><p>选中指定元素内的指定后代元素，语法 <code>祖先 后代&#123;&#125;</code></p>
+<h4 id="（3）选择下一个兄弟元素"><a href="#（3）选择下一个兄弟元素" class="headerlink" title="（3）选择下一个兄弟元素"></a>（3）选择下一个兄弟元素</h4><p>语法 <code>兄 + 弟&#123;&#125;</code></p>
+<h4 id="（4）选择下边所有兄弟元素"><a href="#（4）选择下边所有兄弟元素" class="headerlink" title="（4）选择下边所有兄弟元素"></a>（4）选择下边所有兄弟元素</h4><p>语法 <code>兄 ~ 弟&#123;&#125;</code></p>
+<h3 id="4、属性选择器"><a href="#4、属性选择器" class="headerlink" title="4、属性选择器"></a>4、属性选择器</h3><p>[属性名] 选择含有指定属性的元素</p>
+<p>[属性名=属性值] 选择含有指定属性和属性值的元素</p>
+<p>[属性名^=属性值] 选属性值以指定值开头的元素</p>
+<p>[属性名$=属性值] 选属性值以指定值结尾的元素</p>
+<p>[属性名*=属性值] 选属性值中含有某值的元素</p>
+<h3 id="5、伪类选择器"><a href="#5、伪类选择器" class="headerlink" title="5、伪类选择器"></a>5、伪类选择器</h3><p>伪类（不存在的类/特殊的类）用来描述一个元素的<strong>特殊状态</strong>，如：第一个子元素、被点击的元素、鼠标移入的元素</p>
+<h4 id="（1）子元素伪类1"><a href="#（1）子元素伪类1" class="headerlink" title="（1）子元素伪类1"></a>（1）子元素伪类1</h4><p><code>:first-child</code>  第一个子元素</p>
+<p><code>:last-child</code>  最后一个子元素</p>
+<p><code>:nth-child(第几个)</code>  选中第n个子元素，特殊值：n（子元素全选）、2n 或 even（选中偶数位的子元素）、2n+1 或 odd（选中奇数位的子元素）</p>
+<p><strong>注：以上伪类都是根据其父元素的所有子元素进行排序</strong></p>
+<h4 id="（2）子元素伪类2"><a href="#（2）子元素伪类2" class="headerlink" title="（2）子元素伪类2"></a>（2）子元素伪类2</h4><p><code>:first-of-type</code>、<code>:last-of-type</code>、<code>:nth-of-type()</code> 这三种伪类与上述功能相似，不同是这三种是在同类型子元素中排序</p>
+<pre><code>如
+&lt;ul&gt;
+    &lt;span&gt;xxx&lt;/span&gt;
+    &lt;li&gt;xxx&lt;/li&gt;
+    &lt;li&gt;xxx&lt;/li&gt;
+&lt;/ul&gt;
+
+设置样式
+ul &gt; li:first-child&#123;
+    color:red;   //对第一个 &lt;li&gt; 不生效，因为 &lt;span&gt; 才是第一个子元素
+&#125;
+ul &gt; li:first-of-type&#123;
+    color:red;   //对第一个 &lt;li&gt; 生效
+&#125;</code></pre>
+<h4 id="（3）否定伪类"><a href="#（3）否定伪类" class="headerlink" title="（3）否定伪类"></a>（3）否定伪类</h4><p>否定伪类 <code>:not()</code>，将符合条件的元素从选择器中去除</p>
+<pre><code>ul &gt; li:not(:nth-of-type(3))&#123;
+    color:red;   //除了第三个 &lt;li&gt; 外，其他 &lt;li&gt; 变为红色
+&#125;</code></pre>
+<h4 id="（4）超链接伪类"><a href="#（4）超链接伪类" class="headerlink" title="（4）超链接伪类"></a>（4）超链接伪类</h4><p><code>:link</code> 表示正常链接/没访问过的链接</p>
+<p><code>:visited</code> 表示访问过的链接</p>
+<p>由于保护隐私原因，<code>:visited</code> 伪类只能修改链接颜色，无法修改大小、背景等。</p>
+<p>以上两种是超链接独有的伪类</p>
+<h4 id="（5）其他伪类"><a href="#（5）其他伪类" class="headerlink" title="（5）其他伪类"></a>（5）其他伪类</h4><p><code>:hover</code> 表示鼠标移入的状态</p>
+<p><code>:active</code> 表示鼠标点击时</p>
+<h3 id="6、伪元素选择器"><a href="#6、伪元素选择器" class="headerlink" title="6、伪元素选择器"></a>6、伪元素选择器</h3><p>伪元素（不真实存在的元素/特殊的元素）用来描述一个元素的<strong>特殊位置</strong></p>
+<p><code>::first-letter</code>  第一个字母</p>
+<p><code>::first-line</code>  第一行</p>
+<p><code>::selection</code>  鼠标选中的内容</p>
+<p><code>::before</code> 元素的开始，必须结合 <code>content</code> 属性， <code>content</code> 中添加的内容鼠标无法选中</p>
+<p><code>::after</code> 元素的最后，必须结合 <code>content</code> 属性</p>
+<pre><code>如
+div::before&#123;
+    content:&#39;xxx&#39;;
+    color:red;
+&#125;
+会在 &lt;div&gt; 元素前添加字符串 &#39;xxx&#39;，并且该添加的部分为红色</code></pre>
+<p>伪元素默认是一个行内元素</p>
+<h2 id="样式继承"><a href="#样式继承" class="headerlink" title="样式继承"></a>样式继承</h2><p>样式继承是发生在祖先和后代之间的，为一个元素设置的样式会同时应用到其后代元素上</p>
+<p>但部分样式如背景（图片、颜色）相关、布局相关等的样式不会被继承</p>
+<h2 id="样式冲突与选择器权重"><a href="#样式冲突与选择器权重" class="headerlink" title="样式冲突与选择器权重"></a>样式冲突与选择器权重</h2><p><strong>样式冲突：</strong>当通过不同选择器，选中<strong>相同元素</strong>，并为<strong>相同样式</strong>设置不同值时，就发生了样式冲突</p>
+<p>发生样式冲突时，应用哪个样式由选择器权重（优先级）决定</p>
+<p><strong>选择器权重</strong>如下，从上至下递减：</p>
+<pre><code>1. 内联样式       优先级：1,0,0,0
+2. id 选择器      优先级：0,1,0,0
+3. 类和伪类选择器  优先级：0,0,1,0
+4. 元素选择器      优先级：0,0,1,0
+5. 通配选择器      优先级：0,0,0,0
+6. 继承的样式      没有优先级</code></pre>
+<p>比较优先级时遵循以下<strong>原则</strong>：</p>
+<p>（1）比较优先级时，需要将针对该元素的所有选择器的优先级进行相加计算，优先级越高，越优先显示（分组选择器中每个元素是独立计算互不影响）</p>
+<p>（2）选择器的累加不会超过其最大数量级，对同一元素设置多个类累加后再高也不会超过 id 选择器</p>
+<p>（3）若优先级计算后相等，则优先使用靠下的样式</p>
+<p>（4）在某个样式后添加 <code>!important</code>，此时该样式会获取最高优先级，甚至超过内联样式（慎用）</p>
+<h2 id="声明块"><a href="#声明块" class="headerlink" title="声明块"></a>声明块</h2><p><strong>使用外部样式表，可以使用到浏览器的缓存机制，从而加快网页的加载速度，提高用户体验</strong></p>
+<h2 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h2><h3 id="长度单位"><a href="#长度单位" class="headerlink" title="长度单位"></a>长度单位</h3><p><strong>像素：</strong>不同屏幕像素大小不同，像素越小屏幕显示越清晰，同样像素值在不同设备下显示效果不同</p>
+<p><strong>百分比：</strong>可将属性值设置为相对其父元素属性的百分比</p>
+<p><strong>em：</strong>相对于元素的字体大小计算的，em会根据字体大小变化而改变，如 1 em = 1 font-size，默认情况下 font-size = 16 px</p>
+<p><strong>rem：</strong>是相对与根元素 <code>&lt;html&gt;</code> 的字体大小来计算的</p>
+<p><strong>vw：</strong>是相对于视口宽度（viewport width）计算，1 vw = 1% 视口宽度，100 vw = 100% 视口宽度（移动端都支持，PC 端新版浏览器支持）</p>
+<p><strong>vw 与 百分比：</strong>百分比参照的是父元素的宽高，参照物是会一直改变的，而 vw 参照的总是视口宽度</p>
+<h3 id="颜色单位"><a href="#颜色单位" class="headerlink" title="颜色单位"></a>颜色单位</h3><p>颜色名称：可通过颜色英文名来设置颜色</p>
+<p>RGB：通过三原色调配出不同颜色，此处指光的三原色，每种颜色范围为 0-255（0%-100%），全 0 为黑色，全为 255 表示白色</p>
+<p>RGBA：在 rgb 基础上增加一个透明度，1 表示完全不透明，0 表示完全透明</p>
+<p>十六进制 RGB：共六位，两位两位分别对应R、G、B，范围为 00-ff，若两位两位重复可简写，如 #aabbcc 可简写为 #abc</p>
+<p>HSL/HSLA 值：</p>
+<p>H（色相，对应一个色环，红橙黄绿蓝靛紫一圈最后转回红，取值为0-360）</p>
+<p>S（饱和度，取值为0%-100%，取值为 0% 时为灰色）</p>
+<p>L（亮度，取值为0%-100%，当取值为 0% 时为黑色，取值为 100% 时为白色）</p>
+<p>A（透明度，取值为0-1，和 RGBA 类似）</p>
+<h2 id="文档流"><a href="#文档流" class="headerlink" title="文档流"></a>文档流</h2><p>网页是一个立体多层结构，最底下的一层称为文档流，文档流是网页的基础，创建的元素默认都是在文档流中排列</p>
+<p>在文档流中</p>
+<p>—块元素：</p>
+<pre><code>会在页面中独占一行（自上向下垂直排列）
+默认宽度是把父元素填满，是父元素的全部
+默认高度是被子元素内容撑开</code></pre>
+<p>—行内元素：</p>
+<pre><code>不会在页面中独占一行（自左向右水平排列），一行容不下会自动换行
+默认宽度和高度是被子元素内容撑开，无法设置宽高</code></pre>
+<h3 id="盒模型-盒子模型-框模型（box-model）"><a href="#盒模型-盒子模型-框模型（box-model）" class="headerlink" title="盒模型/盒子模型/框模型（box model）"></a>盒模型/盒子模型/框模型（box model）</h3><p>CSS 将页面中所有元素都设置为一个矩形的盒子</p>
+<p>盒子 = 内容区（content）+ 内边距（padding）+ 边框（border）+ 外边距（margin）</p>
+<p><strong>盒子的可见大小由内容区、内边距和边框共同决定</strong></p>
+<h4 id="（1）内容区"><a href="#（1）内容区" class="headerlink" title="（1）内容区"></a>（1）内容区</h4><p>元素中所有的子元素和文本内容都在内容区中排列，大小由 width 和 height 属性设置</p>
+<h4 id="（2）边框"><a href="#（2）边框" class="headerlink" title="（2）边框"></a>（2）边框</h4><p>边框大小会影响到整个盒子大小，至少设置三个样式</p>
+<pre><code>宽度 border-width，默认为 3px
+颜色 border-color，默认使用 color（实际上指定的是前景的颜色如字体、边框等，区别于背景） 的颜色
+样式 border-style，默认为none，取值有solid（实线）、dotted（点状虚线）、dashed（虚线）、double（双线）
+
+四个值：上       右       下     左
+三个值：上       左右     下
+两个值：上下     左右
+一个值：上下左右
+
+单独指定某一边样式：border-top/right/bottom/left-width/color/style
+
+简写：将三种属性写在一行用空格隔开，没有顺序要求
+如border: 10px green solid;
+border-top：10px solid red;</code></pre>
+<p><strong>outline 与 border 的区别：</strong></p>
+<p>outline 用来设置元素的轮廓线，用法与 border 一样，但是 outline 不会影响可见区域大小，不会挤走其他元素，会覆盖在其他元素上，不占用其余空间，即不会影响页面布局</p>
+<p><strong>盒子阴影</strong></p>
+<p>box-shadow 同样不会影响页面布局</p>
+<pre><code>第一个值 水平偏移量，正值向右移动，负值向左移动
+
+第一个值 垂直偏移量，正值向下移动，负值向上移动
+
+第三个值 阴影的模糊半径
+
+第四个值 阴影的颜色</code></pre>
+<p><strong>盒子圆角</strong></p>
+<p>border-radius、border-top/bottom-left/right-radius 会通过设置圆角的圆半径来形成圆角效果。</p>
+<pre><code>border-top-left-radius:50px 100px; //椭圆角，两个值分别为 x、y 轴半径
+border-radius 取值规则如下
+    四个值：左上       右上        右下   左下
+    三个值：左上       右上/左下    右下
+    两个值：左上/右下   右上/左下    右下
+    一个值：四个角
+设置椭圆角 border-radius: 20px / 40px;
+设置元素为圆形 border-radius: 50%;</code></pre>
+<h4 id="（3）内边距"><a href="#（3）内边距" class="headerlink" title="（3）内边距"></a>（3）内边距</h4><p>内边距为内容区和边框间的距离，有四个方向的内边距。</p>
+<p>内边距的设置会影响盒子的大小，背景颜色会延伸到内边距。当有四个值时规则和 border 相同分别表示“上右下左”</p>
+<h4 id="（4）外边距"><a href="#（4）外边距" class="headerlink" title="（4）外边距"></a>（4）外边距</h4><p>外边距不会影响盒子可见大小，但会影响位置以及盒子实际占用空间。也有四个方向外边距</p>
+<p>元素在页面中是按照自左向右的顺序排列，<strong>若设置左和上边距则会移动元素自身，而设置下和右边距会移动其他元素</strong></p>
+<p>默认情况下设置 <code>margin-right</code> 不会产生任何效果</p>
+<h4 id="（5）水平布局"><a href="#（5）水平布局" class="headerlink" title="（5）水平布局"></a>（5）水平布局</h4><p>元素水平方向的位置由 margin-left、border-left、padding-left、width、padding-right、border-right、margin-right 共同决定</p>
+<p>其中 width（默认为 auto）、margin-left、margin-right 这三个属性可以设置为 auto</p>
+<p>一个元素在其父元素中，水平布局必须满足以下等式</p>
+<pre><code>margin-left + border-left + padding-left + width + padding-right + border-right + margin-right = 父元素（更准确应为包含块）内容区宽度（width）</code></pre>
+<p>其中可设置为 auto 的值有 margin、width</p>
+<p>若相加结果等式不成立，则称为过度约束，则等式会自动调整</p>
+<p>— 在这七个值没有为 auto 的情况下，浏览器会自动调整 margin-right 值使等式成立；</p>
+<p>— 若某个值为 auto 的情况，则浏览器会自动调整值为 auto 的属性值以使等式成立</p>
+<p>— 若将一个宽度和一个外边距设为 auto 或三个值都设置为 auto，则宽度会调整为最大，设置为 auto 的外边距会自动为 0</p>
+<p>— 若将两个外边距设置为 auto，宽度为固定值，则会将外边距设置为相同的值，即元素在父元素中水平居中</p>
+<h4 id="（6）垂直布局"><a href="#（6）垂直布局" class="headerlink" title="（6）垂直布局"></a>（6）垂直布局</h4><h5 id="1-当父元素没有设置高度时，默认父元素高度是被内容撑开"><a href="#1-当父元素没有设置高度时，默认父元素高度是被内容撑开" class="headerlink" title="1. 当父元素没有设置高度时，默认父元素高度是被内容撑开"></a>1. 当父元素没有设置高度时，默认父元素高度是被内容撑开</h5><h5 id="2-处理子元素从父元素中溢出："><a href="#2-处理子元素从父元素中溢出：" class="headerlink" title="2. 处理子元素从父元素中溢出："></a>2. 处理子元素从父元素中溢出：</h5><pre><code>通过设置
+overflow
+overflow-x（处理水平方向溢出）
+overflow-y（处理垂直方向溢出）
+
+取值有
+visible（默认值，溢出依然显示）
+hidden（裁剪溢出内容）
+scroll（生成水平和述竖直两个滚动条）
+auto（根据需要生成滚动条）</code></pre>
+<h5 id="3-垂直外边距的重叠（折叠）：相邻的垂直方向外边距会发生重叠现象。"><a href="#3-垂直外边距的重叠（折叠）：相邻的垂直方向外边距会发生重叠现象。" class="headerlink" title="3. 垂直外边距的重叠（折叠）：相邻的垂直方向外边距会发生重叠现象。"></a>3. 垂直外边距的重叠（折叠）：相邻的垂直方向外边距会发生重叠现象。</h5><p>如上面的 div1 设置 margin-bottom:100px; 下面的 div2 设置 margin-top:100px; 则两个 div 间的距离为 100px</p>
+<p><strong>对于兄弟元素（对于开发有利，一般不需要处理）</strong></p>
+<p>— 兄弟元素间的<strong>相邻</strong>的<strong>垂直</strong>外边距会取两者间绝对值较大的值（包括正负）</p>
+<p>— 若兄弟元素间外边距一正一负，则取两者的和</p>
+<p>对于父子元素（会影响页面布局，需处理）</p>
+<p><strong>父子元素间的外边距，子元素的会传递给父元素（上边距）</strong></p>
+<p><strong>处理方式一</strong>：不使用外边距</p>
+<p>通过内边距代替，在父元素中设置 padding-top，并且父元素的高度 height 也要调整减去 padding-top 的值</p>
+<p><strong>处理方式二：</strong>不让外边距相邻</p>
+<p>在父元素中设置 border，同时调整父元素和子元素的 height</p>
+<p><strong>处理方式三：</strong>不让外边距相邻</p>
+<p>在父元素中设置一个子元素，把父元素与带有 margin-top 的子元素隔开，具体使用如下</p>
+<pre><code>父元素::before&#123;
+    content:&#39;&#39;;
+    display:table;
+&#125;</code></pre>
+<h4 id="（7）行内元素盒模型"><a href="#（7）行内元素盒模型" class="headerlink" title="（7）行内元素盒模型"></a>（7）行内元素盒模型</h4><p>行内元素不支持设置宽度和高度</p>
+<p>行内元素可以设置 padding、margin、border，但是垂直方向的 padding、margin、border 不会影响页面布局（即不会把其他元素挤开），但是可能会覆盖住其他元素</p>
+<p>水平方向相邻的 padding、margin 不会折叠，会直接相加</p>
+<h4 id="（8）行内元素与块元素间的转换"><a href="#（8）行内元素与块元素间的转换" class="headerlink" title="（8）行内元素与块元素间的转换"></a>（8）行内元素与块元素间的转换</h4><p>通过 <code>&lt;display&gt;</code> 来设置元素显示类型</p>
+<pre><code>可选值：
+    inline        将元素设置为行内元素
+    block         将元素设置为块元素
+    inline-block  将元素设置为行内块元素（既可设置宽度和高度又不会独占一行），但是会像文字一样元素的换行会在页面中显示一个空格
+    table         将元素设置为一个表格
+    none          元素不在页面中显示，且不占位，隐藏元素</code></pre>
+<h4 id="（9）盒子大小"><a href="#（9）盒子大小" class="headerlink" title="（9）盒子大小"></a>（9）盒子大小</h4><p>默认盒子可见大小由内容区 + 内边距 + 边框共同决定</p>
+<p>通过设置 <code>box-sizing</code> 属性可更改盒子尺寸的计算方式，即设置 width 和 height 属性的作用</p>
+<pre><code>可选值有
+    content-box：默认值，此时 width 和 height 用来设置内容区大小
+    border-box：此时 width 和 height 用来设置整个盒子可见区域大小，即 width 和 height 表示内容区 + 内边距 + 边框的总大小</code></pre>
+<h2 id="浏览器默认样式"><a href="#浏览器默认样式" class="headerlink" title="浏览器默认样式"></a>浏览器默认样式</h2><p>由于默认样式未知，且不同浏览器的默认样式不同，因此编写网页时要去除浏览器默认样式</p>
+<pre><code>如*&#123;
+    margin:0;
+    padding:0;
+&#125;
+ul&#123;
+    list-style:none; //去除无需列表前的小黑点
+&#125;</code></pre>
+<p>但上述方式去除可能会有残留</p>
+<p>可通过引入外部重置样式表来去除浏览器默认样式 <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;./reset.css&quot;&gt;</code></p>
+<p>可在<a href="https://meyerweb.com/eric/tools/css/reset/">该网站</a>获取，内容如下</p>
+<pre><code>/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video &#123;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+&#125;
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section &#123;
+    display: block;
+&#125;
+body &#123;
+    line-height: 1;
+&#125;
+ol, ul &#123;
+    list-style: none;
+&#125;
+blockquote, q &#123;
+    quotes: none;
+&#125;
+blockquote:before, blockquote:after,
+q:before, q:after &#123;
+    content: &#39;&#39;;
+    content: none;
+&#125;
+table &#123;
+    border-collapse: collapse;
+    border-spacing: 0;
+&#125;</code></pre>
+<h2 id="浮动"><a href="#浮动" class="headerlink" title="浮动"></a>浮动</h2><p>通过 float 属性设置元素浮动，此时水平布局的等式不需要强制成立。</p>
+<p>但是元素设置浮动后会完全从文档流中脱离，不再占用文档流的位置，所以元素下边还在文档流中的元素会自动向上移动，但若文档流中的元素是文字则会环绕浮动元素</p>
+<p>通过浮动可制作水平布局</p>
+<h3 id="浮动的特点"><a href="#浮动的特点" class="headerlink" title="浮动的特点"></a>浮动的特点</h3><p>（1）浮动元素会完全脱离文档流，不再占据文档流中的位置</p>
+<p>（2）设置浮动后元素会向父元素的左侧或右侧移动</p>
+<p>（3）浮动元素默认不会从父元素中移出，即不能跨出父元素边界</p>
+<p>（4）浮动元素向左或向右移动时不会超过前边的其他浮动元素</p>
+<p>（5）若浮动元素上边是一个没有浮动的元素，则浮动元素无法上移</p>
+<p>（6）浮动元素不会超过它上边的浮动的兄弟元素，最多和兄弟一样高</p>
+<p>（7）浮动元素不会盖住文字，文字会自动环绕在浮动元素周围，可利用该特性设置文字环绕图片效果</p>
+<h3 id="脱离文档流的特点"><a href="#脱离文档流的特点" class="headerlink" title="脱离文档流的特点"></a>脱离文档流的特点</h3><h4 id="1、块元素"><a href="#1、块元素" class="headerlink" title="1、块元素"></a>1、块元素</h4><p>（1）块元素不再独占一行</p>
+<p>（2）脱离文档流后，块元素的宽度和高度默认都被内容撑开</p>
+<h4 id="2、行内元素"><a href="#2、行内元素" class="headerlink" title="2、行内元素"></a>2、行内元素</h4><p>行内元素脱离文档流后会变成块元素，特点和脱离文档流后的块元素一样，且可设置宽高</p>
+<p><strong>脱离文档流后，不再需要区分块和行内元素了</strong></p>
+<h3 id="浮动的问题"><a href="#浮动的问题" class="headerlink" title="浮动的问题"></a>浮动的问题</h3><h4 id="高度塌陷"><a href="#高度塌陷" class="headerlink" title="高度塌陷"></a>高度塌陷</h4><p>在浮动布局中，父元素的高度默认是被子元素撑开的，当子元素浮动后，其会完全脱离文档流，则会无法撑起父元素高度，导致父元素的高度丢失。父元素高度丢失后其下方元素会自动上移，导致页面布局混乱</p>
+<h4 id="解决高度塌陷：BFC（Block-Formatting-Context）块级格式化环境"><a href="#解决高度塌陷：BFC（Block-Formatting-Context）块级格式化环境" class="headerlink" title="解决高度塌陷：BFC（Block Formatting Context）块级格式化环境"></a>解决高度塌陷：BFC（Block Formatting Context）块级格式化环境</h4><p>BFC 是一个 CSS 中的一个隐含属性，可为一个元素开启 BFC，开启 BFC 后该元素会变成一个独立的布局区域</p>
+<p><strong>元素开启 BFC 后的特点：</strong></p>
+<pre><code>1、开启 BFC 的元素不会被浮动元素所覆盖，下边文档流中的元素会跑到浮动元素旁边
+2、开启 BFC 的父元素，其子元素和父元素外边距不会重叠，即给子元素设置 margin-top 后不会影响父元素
+3、开启 BFC 的元素可以包含浮动的子元素，即不会发生高度塌陷</code></pre>
+<p><strong>开启 BFC 的方式：</strong></p>
+<pre><code>1、设置父元素的浮动 float（不推荐）
+2、将父元素设置为行内块元素（不推荐）
+3、将父元素的 overflow 设置为非 visible 的值，如 `overflow:hidden;`或`overflow:auto;`，从而使其可以包含住浮动的子元素</code></pre>
+<h4 id="解决高度塌陷：clear（较完美，无副作用）"><a href="#解决高度塌陷：clear（较完美，无副作用）" class="headerlink" title="解决高度塌陷：clear（较完美，无副作用）"></a>解决高度塌陷：clear（较完美，无副作用）</h4><p>通过在父元素的最后添加一个子元素，并为该子元素设置 <code>clear:both;</code> 则父元素会依靠添加的这个子元素撑起，在该子元素上方其实浏览器自动为其添加了外边距，使其不受浮动的兄弟元素的影响，设置方式如下</p>
+<pre><code>父元素::after&#123;
+    content:&#39;&#39;;
+    display:block;  //由于伪元素默认是行内元素会环绕在浮动元素周围，依然无法撑起父元素，所以要将其转为块元素，或者使用 display:table;
+    clear:both;
+&#125;</code></pre>
+<h3 id="解决浮动对其他元素的影响"><a href="#解决浮动对其他元素的影响" class="headerlink" title="解决浮动对其他元素的影响"></a>解决浮动对其他元素的影响</h3><p>clear 属性可清除浮动元素对当前元素产生的影响</p>
+<pre><code>可选值
+    left：清除左侧浮动元素（即 float:left 的元素）对当前元素的影响
+    right：清除右侧浮动元素（即 float:right 的元素）对当前元素的影响
+    both：清除两侧中最大影响的那侧</code></pre>
+<p>原理：设置清除浮动以后，浏览器会自动为元素<strong>添加相应外边距</strong>，使其位置不受其他元素的影响。如 div1 在 div3 上方，给 div1 设置 float 属性后原本 div3 会上移并被 div1 覆盖住，但给 div1 设置 <code>clear:left;</code> 后浏览器会自动为 div3 添加 margin-top，值为 div1 的高度，使得 div3 还在原本的位置不会上移</p>
+<h3 id="自定义clearfix类同时解决外边距重叠与高度塌陷"><a href="#自定义clearfix类同时解决外边距重叠与高度塌陷" class="headerlink" title="自定义clearfix类同时解决外边距重叠与高度塌陷"></a>自定义clearfix类同时解决外边距重叠与高度塌陷</h3><pre><code>通过给类 clearfix 添加属性
+.clearfix::before,.clearfix::after&#123;
+    content: &#39;&#39;;
+    display: table;
+    clear: both;
+&#125;</code></pre>
+<p>给需要解决外边距重叠与高度塌陷的父元素的 class 属性中添加 clearfix 即可使用上述样式解决问题</p>
+<h2 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h2><p>使用 position 属性设置定位</p>
+<pre><code>可选值
+    static    默认值，元素是精致的，没有开启定位
+    relative  开启元素的相对定位
+    absolute  开启元素的绝对定位
+    fixed     开启元素的固定定位
+    sticky    开启元素的粘滞定位</code></pre>
+<h3 id="1、相对定位"><a href="#1、相对定位" class="headerlink" title="1、相对定位"></a>1、相对定位</h3><p>偏移量（offset）：当元素<strong>开启定位后</strong>，通过偏移量设置元素位置</p>
+<p>— top/bottom/left/right：定位元素和定位位置上/下/左/右边的距离</p>
+<p>定位元素垂直（水平）方向的位置由 top（left） 和 bottom（right） 两个属性控制，一般用其一</p>
+<p>和 margin-right 等的区别是设置 right 移动的是元素自身，而 margin-right 是挤走其他元素</p>
+<h4 id="相对定位特点"><a href="#相对定位特点" class="headerlink" title="相对定位特点"></a>相对定位特点</h4><p>（1）元素开启相对定位后，若不设置偏移量，元素不会发生任何变化</p>
+<p>（2）相对定位是参照<strong>元素自身原本在文档流中的位置</strong>进行定位的</p>
+<p>（3）相对定位会提升元素的层级，层级会高于文档流中的元素</p>
+<p>（4）相对定位不会使元素脱离文档流（因为它在文档流中还占据位置）</p>
+<p>（5）相对定位不会改变元素的性质，块还是块（如元素原来位置是否还独占一行，宽高是否改变，是否还能设置宽高），行内元素还是行内元素</p>
+<h3 id="2、绝对定位"><a href="#2、绝对定位" class="headerlink" title="2、绝对定位"></a>2、绝对定位</h3><p>包含块（containing block）：</p>
+<p>— 正常情况下，包含块是离当前元素最近的祖先块元素，如 <code>&lt;div&gt;&lt;span&gt;&lt;em&gt;hello&lt;/em&gt;&lt;/span&gt;&lt;/div&gt;</code> 其中 <code>&lt;em&gt;</code> 的包含块是 <code>&lt;div&gt;</code></p>
+<p>— 绝对定位时，包含块是离当前元素最近的开启了定位的祖先元素，若所有祖先元素都没开启定位，则相对于根元素进行定位，根元素就是它的包含块（<code>&lt;html&gt;</code>是根元素，也称为初始包含块）</p>
+<h4 id="绝对定位特点"><a href="#绝对定位特点" class="headerlink" title="绝对定位特点"></a>绝对定位特点</h4><p>（1）开启绝对定位后，若不设置偏移量，元素的位置不会发生变化</p>
+<p>（2）开启绝对定位后，元素会从文档流中脱离</p>
+<p>（3）绝对定位会使元素提升一个层级</p>
+<p>（4）绝对定位会改变元素的性质，行内变成块，块的宽高变为被内容撑开</p>
+<p>（5）绝对定位元素是相对于其<strong>包含块</strong>进行定位的</p>
+<h4 id="绝对定位元素的位置"><a href="#绝对定位元素的位置" class="headerlink" title="绝对定位元素的位置"></a>绝对定位元素的位置</h4><p><strong>水平布局：</strong></p>
+<p>元素开启绝对定位后水平布局等式需添加 left 和 right，即应满足等式 </p>
+<pre><code>left + margin-left + border-left + padding-left + width + padding-right + border-right + margin-right + right = 包含块内容区宽度</code></pre>
+<p><strong>垂直布局：</strong></p>
+<p>之前垂直方向的等式不强制满足，但元素开启绝对定位后垂直布局必须满足等式 </p>
+<pre><code>top + margin-top + border-top + padding-top + height + padding-bottom + border-bottom + margin-bottom + bottom = 包含块内容区高度</code></pre>
+<p>其中可设置为 auto 的值有 margin、width/height、left/top、right/bottom</p>
+<p>当发生过度约束（等式不成立）时，</p>
+<p>— 若 9 个值中没有 auto 则自动调整 right/bottom 以使等式满足</p>
+<p>— 因为 left 和 right 的值默认是 auto，所以若不知道 left 和 right 时若等式不满足，则会自动调整这两个值</p>
+<p>— 若显式设置了 left 或 right 为 auto，若还有其他属性如 margin 类设为 auto，也会去自动调整 left 或 right，而不是 margin</p>
+<p>— 若 <code>left=0; right=0;</code> 其他值有 auto 则自动调整 auto 的值以使等式满足</p>
+<p>元素水平居中：</p>
+<pre><code>方式一：
+    父元素 position:relative;
+    子元素 
+    position:absolute;
+    left=0; 
+    right=0; 
+    margin-left=auto; 
+    margin-right=auto
+方式二：
+    父元素
+    display:flex; 
+    justify-content:center; </code></pre>
+<p>元素垂直居中：</p>
+<pre><code>方式一：
+    父元素 position:relative;
+    子元素 
+    position:absolute;
+    top=0; 
+    bottom=0; 
+    margin-top=auto; 
+    margin-bottom=auto
+方式二：
+    父元素
+    display: table-cell;   //将元素设置为单元格&lt;td&gt;
+    vertical-align: middle;
+方式三：
+    父元素
+    display:flex; 
+    align-items:center;`</code></pre>
+<p>元素水平 + 垂直居中：</p>
+<pre><code>方式一：    
+    父元素 position:relative;
+    子元素 
+    position:absolute;
+    left=0; 
+    right=0; 
+    top=0; 
+    bottom=0; 
+    margin-left=auto; 
+    margin-right=auto
+    margin-top=auto; 
+    margin-bottom=auto
+方式二：
+    父元素
+    display:flex; 
+    justify-content:center; 
+    align-items:center;`</code></pre>
+<p>也可通过表格 table 实现</p>
+<p>也可通过 绝对定位 + transform 实现</p>
+<p>也可通过弹性盒 flex 实现</p>
+<h3 id="3、固定定位"><a href="#3、固定定位" class="headerlink" title="3、固定定位"></a>3、固定定位</h3><p>固定定位是一种特殊的绝对定位，固定定位大部分特点都和绝对定位一样（如脱离文档流，元素性质改变，行内元素变为块元素，块元素宽高变为由内容撑开，不设置偏移量位置不会变），唯一不同的是固定定位永远参照浏览器的<strong>视口</strong>进行定位</p>
+<p>对于开启固定定位的元素水平布局满足以下等式</p>
+<pre><code>left + margin-left + border-left + padding-left + width + padding-right + border-right + margin-right + right = 视口宽度</code></pre>
+<p><strong>如设置元素贴在某元素右边</strong></p>
+<p>无法通过直接设置 right 等值进行定位，因为视口宽度不固定，此时可先设置 <code>right=50%;</code> 并设置 <code>margin-right: -(被贴元素宽度/2+元素宽度)</code> 即可，不能设置任何关于 left 的值，left 默认是 auto，通过这个 auto 会自动计算不同视口宽度下的对应的值，而为了元素往右需要增大 left，因此需要减小 margin-left，但是 margin-left 为正值且越大元素才会向右移，这互相矛盾了，所以需要通过设置 margin-right，并且 margin-right 不是移动元素自身而是挤其他元素，其值越负表示右移，因此最合适</p>
+<h3 id="4、粘滞定位（浏览器兼容性不好）"><a href="#4、粘滞定位（浏览器兼容性不好）" class="headerlink" title="4、粘滞定位（浏览器兼容性不好）"></a>4、粘滞定位（浏览器兼容性不好）</h3><p>粘滞定位和相对定位的特点基本一致，不同的是粘滞定位可以在元素到达某个位置（如通过 top 等属性设置，在到达离顶端多少的位置把它定住）时将其固定</p>
+<h3 id="5、元素层级"><a href="#5、元素层级" class="headerlink" title="5、元素层级"></a>5、元素层级</h3><p>对于开启定位元素，可通过 <code>z-index</code> 属性指定元素的层级，<code>z-index</code> 需要一个整数为参数，值越大元素的层级越高越优先显示</p>
+<p>但是祖先元素的层级再高也不会盖住后代元素，因为祖先元素层级高了后代元素也会跟着高所以无法覆盖</p>
+<p>只要是开启定位且没有设置 <code>z-index</code> 的元素的层级都一样</p>
+<p>若元素层级一样，则优先显示代码中靠下的元素</p>
+<h2 id="弹性盒-伸缩盒-flex（CSS3）"><a href="#弹性盒-伸缩盒-flex（CSS3）" class="headerlink" title="弹性盒/伸缩盒 flex（CSS3）"></a>弹性盒/伸缩盒 flex（CSS3）</h2><p>要使用弹性盒，必须先将一个元素设置为弹性容器</p>
+<h3 id="弹性容器"><a href="#弹性容器" class="headerlink" title="弹性容器"></a>弹性容器</h3><p>通过 <code>display</code> 来设置弹性容器</p>
+<pre><code>display: flex;         设置块级弹性容器，独占一行（用得多）
+display: inline-flex;  设置为行内弹性容器，不会独占一行</code></pre>
+<h4 id="相关属性"><a href="#相关属性" class="headerlink" title="相关属性"></a>相关属性</h4><p>1、flex-direction 指定容器中弹性元素的排列方式以及主轴</p>
+<pre><code>可选值
+    row 默认值，弹性元素在容器中从左向右水平排列，主轴自左向右
+    row-reverse  弹性元素在容器中从右向左反向水平排列，主轴自右向左
+    column  弹性元素自上向下纵向排列，主轴自上向下
+    column-reverse  弹性元素自下向上反向纵向排列，主轴自下向上</code></pre>
+<p>主轴：弹性元素的排列方向称为主轴</p>
+<p>侧轴：与主轴垂直方向称为侧轴</p>
+<p>justifyxxxxx属性与主轴有关，alignxxxxx属性与辅轴有关</p>
+<p>2、flex-wrap 设置弹性元素在弹性容器中是否自动换行</p>
+<pre><code>可选值
+    nowrap 默认值，不会自动换行
+    wrap 元素沿着辅轴方向自动换行
+    wrap-reverse 元素沿着辅轴反方向换行</code></pre>
+<p>3、flex-flow 是 flex-direction 和 flex-wrap 的简写属性</p>
+<pre><code>如 flex-flow: row wrap;</code></pre>
+<p>4、justify-content 如何分配<strong>主轴</strong>上的空白空间，即主轴上元素如何排列</p>
+<pre><code>可选值
+    flex-start 元素沿着主轴起边排列
+    flex-end 元素沿着主轴终边排列
+    center 元素居中排列，空白会在两边
+    space-around 空白分布到元素两侧，元素之间的距离会稍微大，是两边距离的两倍，因为中间空白是两个元素两边空白相加的结果
+    space-evenly 空白分布到元素的单侧，此时两边与元素中间空白大小相同（浏览器兼容不好）
+    space-between 空白均匀分布到元素之间</code></pre>
+<p>5、align-items 元素在<strong>辅轴</strong>上如何对齐</p>
+<pre><code>可选值
+    stretch  默认值，将一行内元素的高度设置为相同的值
+    flex-start  元素不会拉伸，元素沿着辅轴起边排列
+    flex-end  元素不会拉伸，元素沿着辅轴终边排列
+    center  元素在辅轴居中对齐
+    baseline 基线对齐（当字大小不同时基线不同）</code></pre>
+<p>6、align-content 辅轴上空白空间的分布</p>
+<pre><code>可选值
+    flex-start
+    flex-end
+    center 元素垂直居中排列，空白会在两边
+    space-around
+    space-evenly（浏览器兼容不好）
+    space-between</code></pre>
+<h3 id="弹性元素"><a href="#弹性元素" class="headerlink" title="弹性元素"></a>弹性元素</h3><p>弹性容器的直接子元素是弹性元素/弹性项</p>
+<p>弹性元素可以同时是弹性容器</p>
+<h4 id="相关属性-1"><a href="#相关属性-1" class="headerlink" title="相关属性"></a>相关属性</h4><p>1、flex-grow 指定弹性元素的伸展系数，即指定当父元素有多余空间时子元素如何伸展，父元素的剩余空间会按照比例进行分配</p>
+<pre><code>flex-grow:0;  子元素不伸展
+flex-grow:1或2或3等;</code></pre>
+<p>2、flex-shrink 指定弹性元素的收缩系数，即指定当父元素中空间不足以容纳所有子元素时，如何对子元素进行收缩。缩减缩少是根据缩减系数和元素大小来计算</p>
+<pre><code>flex-shrink: 1;  默认值，等比例收缩
+flex-shrink: 0;  当为 0 时不会收缩，子元素可能会超过父元素
+flex-shrink: 2或3等;  可是其他整数</code></pre>
+<p>3、align-self 用来覆盖当前弹性元素上的 align-items</p>
+<p>4、flex-basis 指定元素在主轴上的基础长度，若主轴是横向的，该值指定的是元素的宽度，若主轴是纵向的，该值指定的是元素的高度</p>
+<pre><code>可选值
+    auto 默认值，表示参考元素自身的高度或宽度
+    具体数值  若传递了一个具体数值，则以该值为准</code></pre>
+<p>5、flex 设置弹性元素 flex-grow，flex-shrink，flex-basis 样式的简写。<code>flex: 增长系数 缩减系数 基础长度</code></p>
+<pre><code>可选值
+    增长系数 缩减系数 基础长度
+    initial  表示 flex: 0 1 auto 只能减
+    auto   表示 flex: 1 1 auto  能增能减
+    none   表示 flex: 0 0 auto  不能增不能减</code></pre>
+<p>6、order 决定弹性元素的排列顺序</p>
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p>字体是属于矢量图（放大后不会失真）</p>
+<p>1、color 设置前景色（如字体、边框颜色）</p>
+<p>2、font-size 字体大小</p>
+<pre><code>单位：em，相对于当前元素的 font-size
+     rem，相对于根元素的 font-size</code></pre>
+<p><strong>注意：网页中字体大小最小是 12px，不能设置一个比 12 像素还小的字体</strong></p>
+<p>3、font-family 字体族</p>
+<pre><code>可选值（不是具体字体，而是对字体分类）：
+    serif      衬线字体
+    sans-serif 非衬线字体
+    monospace  等宽字体（有利于上下行对其）
+    cursice    草书字体
+    fantasy    虚幻字体
+以上只是指定字体的类别，浏览器会自动使用该类别下的字体，指定类别后具体用那种字体由浏览器决定</code></pre>
+<p>font-family 可同时指定多个字体，多个字体间用 <code>,</code> 隔开，字体生效时优先使用第一个，第一个无法使用则使用第二个，以此类推</p>
+<p>4、font-face 可将服务器中的字体直接提供给用户使用，</p>
+<pre><code>@font-face&#123;
+    font-family:&#39;myfont&#39;; //这里是指给字体起的名字，而非字体类别
+    src:url(&#39;./xxx/xxx.ttf&#39;) format(&quot;truetyp&quot;),
+        url(&#39;./xxx/xxx.ttf&#39;); //服务器中字体的路径,format()不是必须
+&#125;
+font-family:myfont;</code></pre>
+<p>问题：（1）加载速度（2）版权（但 font-family 中没有版权问题，因为 font-family 只是建议字体，具体用不用看用户电脑中是否安装；但 font-face 会涉及版权问题，因为是你提供的字体）（3）字体文件格式，如 <code>.ttf</code></p>
+<p>5、字体属性简写</p>
+<p><code>font</code> 属性可设置字体相关所有属性，语法：<code>font: 其他样式（加粗、斜体等） 字体大小/行高 字体族</code>，字体大小和字体族必写，若行高省略不写不表示不设置，而是使用默认值</p>
+<pre><code>font:50px/2 &#39;Times New Roman&#39;,Times,serif;
+
+line-height:2;
+font:50px &#39;Times New Roman&#39;,Times,serif;
+
+以上写法，两倍行高不生效，因为在 font中设置 50px 后面没有指定行高则会使用默认行高，会覆盖前面设置的 line-height:2;，可将 line-height:2; 移至 font 下方则可生效，如下
+
+font:50px &#39;Times New Roman&#39;,Times,serif;
+line-height:2;</code></pre>
+<p>6、文字对齐</p>
+<p>水平对齐：text-align，可选值：left（左对齐）、right（右对齐）、center（居中对齐）、justify（两端对齐）</p>
+<p>垂直对齐：vertical-align，可选值：baseline（默认值，文字基线对齐）、top（顶部对齐）、bottom（底部对齐）、middle（居中对齐，是指与字母 x 的中间对齐）</p>
+<p>注意：添加图片时，下方会由小缝隙，可通过设置图片的样式 <code>vertical-align:非baseline的值</code>来消除缝隙</p>
+<p>7、其他文本样式</p>
+<p>text-decoration</p>
+<pre><code>可选值 
+none
+underline（下划线）
+line-through（删除线）
+overline（上划线）
+如
+text-decoration: underline red dotted; //下划红虚线</code></pre>
+<p>white-space</p>
+<pre><code>可选值
+normal（自动换行）
+nowrap（不换行）
+pre（保留空白，原本多个空格仅显示为一个空格，设置为 pre 后会保留多个空格）</code></pre>
+<p>设置省略号</p>
+<pre><code>white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;</code></pre>
+<h3 id="图标字体"><a href="#图标字体" class="headerlink" title="图标字体"></a>图标字体</h3><p>图标可以通过图片引入，但是图片文件大小本身比较大，且不灵活（如放大缩小、改颜色）。还可以把图标设置为字体，通过 font-face 引入字体，这样可以通过使用字体的形式使用图标</p>
+<p>图标字体库：<a href="https://fontawesome.com/">Font Awesome</a>、<a href="https://www.iconfont.cn/">阿里 iconfont</a></p>
+<p><strong>font awesome 使用方法：</strong></p>
+<p>（1）官网下载软件并解压</p>
+<p>（2）将 css 和 webfont 文件夹移动到项目中，且放同一级目录下</p>
+<p>（3）将 css 文件夹中 all.css文件引入网页中 <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;./xxx/all.css&quot;&gt;</code></p>
+<p>（4）方法一：直接通过类名使用图标字体，在标签中添加 <code>class=&quot;fas&quot;</code> 或 <code>class=&quot;fab&quot;</code>，并通过 <code>font-size</code>、<code>color</code> 属性改变图标大小、颜色，如</p>
+<pre><code>&lt;i class=&quot;fas 具体图标对应类&quot;&gt;&lt;/i&gt;
+（`&lt;i&gt;`可换，图标类可换，但 fas 或 fab 是固定的）</code></pre>
+<p>方法二：通过伪元素设置图标，在 content 中设置 <code>\图标编码</code>（在 font awesome 文档中查找），并设置字体样式，如</p>
+<pre><code>对于 fas 类
+font-family:&#39;font Awesome 5 Brands&#39;;
+对于 fab 类
+font-family:&#39;font Awesome 5 Free&#39;;
+font-weight:900;</code></pre>
+<p>方法三：通过实体使用，<code>&amp;#x字体编码;</code>，如</p>
+<pre><code>&lt;span class=&quot;fas或fab&quot;&gt;&amp;#x图标编码;&lt;/span&gt;</code></pre>
+<p><strong>阿里 iconfont 使用方法：</strong></p>
+<p>（1）在官网选择图标加入“购物车”，在“购物车”中点击“添加指项目”，在“图标管理”-&gt;“我的项目”中点击“下载至本地”，并解压</p>
+<p>（2）将解压后所有文件移动到项目中，且放同一级目录下</p>
+<p>（3）将 css 文件夹中 all.css文件引入网页中 <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;./xxx/iconfont.css&quot;&gt;</code></p>
+<p>（4）方法一：直接通过类名使用图标字体，在标签中添加 <code>class=&quot;iconfont 图标类名&quot;</code>如</p>
+<pre><code>&lt;i class=&quot;fas 具体图标对应类&quot;&gt;&lt;/i&gt;</code></pre>
+<p>方法二：通过伪元素设置图标，在 content 中设置 <code>\图标编码</code>，以及 <code>font-family:&#39;iconfont&#39;;</code></p>
+<p>方法三：通过实体引入图标，设置 <code>class=&quot;iconfont&quot;</code>以及<code>&amp;#x字体编码;</code>，如</p>
+<pre><code>&lt;i class=&quot;iconfont&quot;&gt;&amp;#x图标编码;&lt;/i&gt;
+修改样式
+i.iconfont&#123;
+    font-size:100px;
+&#125;</code></pre>
+<p><strong>Unicode 编码中的字符使用方法：</strong></p>
+<p>可在 html 中通过 <code>&amp;#十进制编码;</code> 使用</p>
+<p>也可在 js 中通过 <code>\u十六进制编码</code> 使用</p>
+<h3 id="行高"><a href="#行高" class="headerlink" title="行高"></a>行高</h3><p>行高指文字占有的实际高度，可通过 <code>line-height</code> 设置，<code>line-height</code> 可直接指定大小（px，em），也可设置为整数，表示行高为字体大小的相应倍数，默认是 1.333</p>
+<p>字体框指字体存在的格子，设置 <code>font-size</code> 是在设置字体框的高度</p>
+<p><strong>行高用处：</strong></p>
+<p>行高会在字体框的上下平均分配，因此可以通过设置 <code>line-height</code> 和 <code>height</code> 相等使单行文字在一个元素中垂直居中 </p>
+<p>行高还可用于设置文字行间距，行间距 = 行高 - 字体大小</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>1、background-color（设置背景颜色）、background-image（设置背景图片）</p>
+<p>2、background-repeat：设置背景重复方式</p>
+<pre><code>可选值
+repeat    默认值，背景会沿 x、y 轴双方向重复
+repeat-x  沿着 x 轴方向重复
+repeat-y  沿着 y 轴方向重复
+no-repeat 背景图片不重复</code></pre>
+<p>3、background-position：设置背景图片位置</p>
+<pre><code>可选值一：top left right bottom center，需要同时指定两个值，若只写一个，则第二个值默认为 center 如
+background-position:top left;    //左上角
+background-position:center left; //左侧中间
+background-position:center center;  //正中间
+
+可选值二：通过 水平方向偏移量 垂直方向偏移量设置，如
+background-position:50px 300px;
+background-position:-50px 300px;</code></pre>
+<p>4、background-clip：设置背景范围</p>
+<pre><code>可选值
+border-box  默认值，背景会出现在边框下边
+padding-box 背景不会出现在边框，只出现在内容区和内边距
+content-box 背景只出现在内容区</code></pre>
+<p>5、background-origin：设置背景图片的偏移量计算的原点</p>
+<pre><code>可选值
+padding-box  默认值，此时 background-position 从内边距处开始计算
+content-box  此时背景图片的偏移量从内容区开始计算
+border-box   此时背景图片的偏移量从边框处开始计算</code></pre>
+<p>6、background-size：设置背景图片大小，</p>
+<pre><code>可选值
+宽度 高度  若只写一个，则第二个值默认是 auto
+cover     图片的比例不变，图片较小边为 100% 来将元素填满，大的边可能显示不全
+contain   图片比例不变，将图片在元素中完整显示，图片较大边为 100%，使图片全部显示，此时元素可能不会被填满</code></pre>
+<p>7、background-attachment：设置背景图片是否跟随元素移动</p>
+<pre><code>可选值
+scroll   默认值，背景图片会跟随元素移动
+fixed    背景图片会固定在页面中，不会跟随元素移动</code></pre>
+<p>8、background：背景相关所有属性的简写</p>
+<pre><code>如 background:#bfa url(&#39;./img.jpg&#39;) center center/contain border-box content-box no-repeat fixed; 
+无顺序要求，也没有哪个属性是必须写的
+但是 background-size 只能写在 background-position 后，并用 / 隔开
+background-clip 要写在 background-origin 后</code></pre>
+<h3 id="雪碧图（CSS-Sprite）"><a href="#雪碧图（CSS-Sprite）" class="headerlink" title="雪碧图（CSS-Sprite）"></a>雪碧图（CSS-Sprite）</h3><p>雪碧图：将多个小图片统一保存到大图片中，通过 background-position 来切换显示的图片，这样图片会同时加载到网页中，从而有效避免出现闪烁问题，该技术称为 CSS-Sprite</p>
+<h4 id="雪碧图使用步骤"><a href="#雪碧图使用步骤" class="headerlink" title="雪碧图使用步骤"></a>雪碧图使用步骤</h4><p>1、确定使用的图标及其大小</p>
+<p>2、根据测量结果创建一个元素</p>
+<p>3、将雪碧图设置为元素的背景图片</p>
+<p>4、设置偏移量以显示正确图片</p>
+<h4 id="雪碧图特点"><a href="#雪碧图特点" class="headerlink" title="雪碧图特点"></a>雪碧图特点</h4><p>一次性将多个图片加载到页面中，降低请求的次数，加快访问速度，提升用户体验</p>
+<h3 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h3><p>渐变的特质是图片，不是颜色，其很多特点和 background-image 相似，而非 background-color，通过 background-image 设置</p>
+<h4 id="线性渐变"><a href="#线性渐变" class="headerlink" title="线性渐变"></a>线性渐变</h4><pre><code>线性渐变1
+linear-gradient(渐变方向,开始的颜色 正颜色开始位置,中间颜色2 正颜色开始位置,中间颜色n，结束的颜色)
+渐变方向可为 to left、to right、to bottom、to top、to top left、xxxdeg（deg表示度数）、xxturn（转多少圈，如.5）等，也可省略，默认是180deg/to bottom
+颜色开始位置也可省略
+如
+background-image: linear-gradient(red 50px,yellow 100px); //红色向黄色从上往下渐变，红色从 50px 开始，上面也自动填充为红色，黄色从 100px 开始
+background-image: linear-gradient(to right，red,yellow); //红色向黄色从左往右渐变
+
+线性渐变2
+repeating-linear-gradient(渐变方向,开始的颜色 开始颜色的位置,结束的颜色 结束颜色的位置)
+通过设置渐变发生在 ‘开始颜色的位置’ 到 ‘结束颜色的位置’ 之间，范围也只有这么大，其他区域就重复这部分渐变
+此时 background-repeat:no-repeat 无效</code></pre>
+<h4 id="径向渐变"><a href="#径向渐变" class="headerlink" title="径向渐变"></a>径向渐变</h4><p>径向渐变即放射性效果，默认情况下径向渐变的形状根据元素形状来计算</p>
+<pre><code>radial-gradient(大小 at 圆心位置, 颜色1 位置1, 颜色2 位置2, 颜色n 位置n)，只有颜色是必须写的
+大小可选值
+    xxxpx xxxpx     径向 x 轴半径 径向 y 轴半径
+    circle          圆形
+    ellipse         椭圆形
+    closest-side    渐变会覆盖到元素最近的边
+    farthest-side   渐变会覆盖到元素最远的边
+    closest-corner  渐变会覆盖到元素最近的角    
+    farthest-corner 渐变会覆盖到元素最远的角
+位置可选值
+    xxxpx xxxpx     圆心 x 位置 圆心 y 位置
+    top
+    bottom
+    left
+    right
+    center    
+如
+background-image: radial-gradient(100px 100px,red,yellow);
+background-image: radial-gradient(100px 100px at 100px 100px,red,yellow);
+background-image: radial-gradient(100px 100px at center center,red,yellow);
+background-image: radial-gradient(ellipse,red,yellow);</code></pre>
+<h2 id="样式切换过渡"><a href="#样式切换过渡" class="headerlink" title="样式切换过渡"></a>样式切换过渡</h2><p><code>transition</code> 用于为样式设置过渡效果</p>
+<p>支持过渡的属性：大部分属性都支持，其值是个能计算的值的属性</p>
+<p>过渡有四个属性</p>
+<p>（1）<code>transition-property</code> 指定要执行过渡的属性，多个属性间用<code>,</code>隔开，若所有属性都要过渡，则用 <code>all</code> 关键字。要出现过渡效果还需要搭配 <code>transition-duration</code></p>
+<p>（2）<code>transition-duration</code> 指定过渡的持续时间，单位有 s 和 ms</p>
+<p>（3）<code>transition-timing-function</code> 过渡的时序函数，指定过渡的执行方式，可选值有<br>— ease        默认值，先加速再减速</p>
+<p>— linear      匀速运动</p>
+<p>— ease-in     加速运动</p>
+<p>— ease-out    减速运动</p>
+<p>— ease-in-out 先加速后减速</p>
+<p>— cubic-bezier(xx,xx,xx,xx)  贝塞尔曲线，可在<a href="https://cubic-bezier.com/">官网</a>查看不同参数的效果</p>
+<p>— step(步数,执行时间点)      分步执行过渡效果，第二个值可选，<code>end</code> 表示在时间结束时执行过渡（默认值），<code>start</code> 表示在时间开始时执行过渡</p>
+<p>— transition-delay   过渡效果的延迟，等待一段时间后再执行过渡</p>
+<p>过渡属性简写 <code>transition</code> 可同时设置过渡相关所有属性，无顺序要求，但若要写延迟，则持续时间要写在延迟时间之前</p>
+<pre><code>transition: height 0.3s;  //当元素高度发生变化时需要 0.3s 进行切换，但变化前后的高度不能有 auto 值
+transition: all 0.3s;  //当元素样式发生变化时所有变化的样式需要 0.3s 进行切换
+transition: 2s margin-left 1s cubic-bezier(.24,.95,.82,-0.88);</code></pre>
+<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><p><strong>动画与过渡的异同：</strong>动画和过渡类似，都可以实现动态效果，但是过渡需在某个属性发生变化时才会出发，而动画可自动出发动态效果</p>
+<p>设置动画效果，需先设置关键帧，关键帧设置了动画执行的每一个步骤</p>
+<pre><code>元素选择器&#123;
+    animation-name:动画名；//对当前元素生效的关键帧名字
+    animation-duration: 2s; //动画执行时间
+    animation-delay: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;  //动画执行的次数，取值为数值或 infinite（无限次）
+    animation-direction: normal; //动画运行的方向，
+         normal（默认值）表示从 from 向 to 运行，每次都是这样
+        reverse 表示从 to 向 from 执行，每次都是这样
+        alternate 从 from 向 to 开始，重复执行时动画反向执行
+        alternate-reverse 从 to 向 from 开始，重复执行时动画方向执行
+    animation-play-state //设置动画的执行状态，
+        running 动画执行
+        paused  动画暂停
+    animation-fill-mode  //动画填充模式
+        none（默认值）表示动画执行完毕元素回到原来位置
+        forwards 动画执行完毕元素会停止在动画结束位置
+        backwards 动画延时等待时，元素就会处于开始位置
+        both 结合了 forwards 和 backwards
+&#125;
+@keyframe 动画名&#123;
+    from&#123;
+        margin-left: 0;
+    &#125;   //动画开始位置，也可用 0%&#123;&#125; 表示
+    40%&#123;
+        xxxx;
+    &#125;  //可选项
+    to&#123;
+        margin-left: 700px;
+    &#125;  //动画结束位置，也可用 100%&#123;&#125; 表示
+&#125;</code></pre>
+<p>动画属性简写 <code>animation</code> 可同时设置动画相关所有属性，无顺序要求，但若要写延迟，则持续时间要写在延迟时间之前</p>
+<h2 id="变形平移"><a href="#变形平移" class="headerlink" title="变形平移"></a>变形平移</h2><p>transform 用来设置元素的变形效果</p>
+<p>注意变形不会影响页面布局，即元素改变位置但对其他元素产生影响，不会挤走其他元素，同时也没脱离文档流</p>
+<h3 id="1、平移"><a href="#1、平移" class="headerlink" title="1、平移"></a>1、平移</h3><pre><code>translateX(xxx) 沿着 x 轴方向平移，可设置像素或百分比
+translateY(xxx) 沿着 y 轴方向平移，可设置像素或百分比
+translateZ(xxx) 沿着 z 轴方向平移，可设置像素或百分比
+百分比是相对于自身计算的</code></pre>
+<h3 id="2、旋转"><a href="#2、旋转" class="headerlink" title="2、旋转"></a>2、旋转</h3><pre><code>rotateX(xxxdeg或xxxturn) 沿着 x 轴方向旋转
+rotateY(xxxdeg或xxxturn) 沿着 y 轴方向旋转
+rotateZ(xxxdeg或xxxturn) 沿着 z 轴方向旋转</code></pre>
+<h3 id="3、缩放"><a href="#3、缩放" class="headerlink" title="3、缩放"></a>3、缩放</h3><pre><code>scaleX(xxx) 水平方向缩放
+scaleY(xxx) 垂直方向缩放
+scale(xxx) 双方向缩放
+scaleZ(xxx) z轴方向缩放，对立体元素才会看到效果</code></pre>
+<p>z轴平移属于立体效果（近大远小），默认情况下网页不支持透视，若需要看见效果必须要设置网页的视距</p>
+<pre><code>html&#123;
+    perspective: 800px;  //设置当前王阿耶视距（人眼与网页的距离），一般为 800-1200px
+&#125;</code></pre>
+<p>元素变形默认是 2D 效果，若要 3D 变形效果需设置 <code>transform-style:preserve-3d</code> 搭配 <code>transform</code></p>
+<p><code>backface-visibility</code> 可设置旋转后背面效果，可选值：visible、<br>hidden</p>
+<p><code>transform-origin: xxxpx xxxpx;</code> 设置变形原点，默认值 center</p>
+<p><code>transform</code>中可同时设置平移和旋转，用空格隔开，写的顺序不同效果不同</p>
+<p><strong>利用变形可设置鼠标移入时元素浮出效果</strong>，如</p>
+<pre><code>元素选择器&#123;
+    transition: all .3s;  //设置过渡
+&#125;
+元素选择器:hover&#123;
+    transform:translateY(-4px);  //鼠标移入时元素向上移
+    box-shadow: 0 0 10px rgba(0,0,0,.3)
+&#125;</code></pre>
+<h2 id="CSS-中的变量与计算（浏览器兼容不太好）"><a href="#CSS-中的变量与计算（浏览器兼容不太好）" class="headerlink" title="CSS 中的变量与计算（浏览器兼容不太好）"></a>CSS 中的变量与计算（浏览器兼容不太好）</h2><p>CSS 原生支持变量设置</p>
+<p>变量：通过 <code>--变量名;</code> 声明变量，使用时通过 <code>var(--变量名)</code></p>
+<p>计算：通过 <code>calc(表达式)</code>进行属性值计算，如 <code>width: calc(200px/2);</code></p>
+<h2 id="页面适配"><a href="#页面适配" class="headerlink" title="页面适配"></a>页面适配</h2><h3 id="像素"><a href="#像素" class="headerlink" title="像素"></a>像素</h3><p>前端开发中像素分为 CSS 像素和物理像素两种，浏览器在显示网页时需将 CSS 像素转为物理像素然后呈现</p>
+<p>一个 CSS 像素由几个物理像素显示是由浏览器决定，默认情况下在 PC 端，1 个 CSS 像素 = 1 个物理像素</p>
+<p>浏览器开发者工具中的像素大小表示的是视口大小（CSS 像素）</p>
+<h3 id="视口"><a href="#视口" class="headerlink" title="视口"></a>视口</h3><h4 id="像素比"><a href="#像素比" class="headerlink" title="像素比"></a>像素比</h4><p>视口就是屏幕中用来显示网页的区域</p>
+<p>可通过查看视口大小来改变 CSS 像素和物理像素的比值</p>
+<p>— 默认情况下</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;视口宽度 1920px（CSS像素），1920px（物理像素）</p>
+<p>— 浏览器放大两倍时</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;视口宽度 960px（CSS像素），1920px（物理像素），此时 CSS 像素 : 物理像素 = 1 : 2</p>
+<h4 id="改变视口"><a href="#改变视口" class="headerlink" title="改变视口"></a>改变视口</h4><p>每款移动设备设计时都有一个最佳像素比，一般只需将像素比设置为该值即可得到最佳效果，将像素比设置为最佳像素比的视口大小，称其为完美视口</p>
+<p>可通过 <code>&lt;meta&gt;</code> 设置视口大小</p>
+<pre><code>设置完美视口
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
+其中 device-width 表示设备的宽度（完美视口），initial-scale=1.0 也表示完美视口，都写上是为了保险起见</code></pre>
+<h3 id="移动端"><a href="#移动端" class="headerlink" title="移动端"></a>移动端</h3><p>不同屏幕的单位像素大小不同，像素越小屏幕越清晰</p>
+<p>智能手机的像素点远小于计算机的像素点，在<a href="https://material.io/resources/devices/">该网站</a>可查看不同设备的分辨率</p>
+<p>如 24 寸显示器：1920 x 1080，iPhone 6：750 x 1334（物理像素）</p>
+<p>默认情况下移动端的网页会将视口设置为 980 像素（CSS像素），以确保 PC 端的网页可以在移动端正常访问，但若网页宽度超过 980 像素，则移动端的浏览器会自动对网页缩放以完整显示网页，所以大部分 PC 端网站都可在移动端正常浏览，但用户体验不太好，因此一般会设计两套网页</p>
+<p>默认情况下移动端像素比为 CSS 像素 : 物理像素 = 980 : 移动端宽度，如当 980 像素的视口在 iPhone 6 的 750 x 1334 的屏幕中显示时 1 个 CSS = 零点几个物理像素</p>
+<h4 id="单位-1"><a href="#单位-1" class="headerlink" title="单位"></a>单位</h4><p>使用 vw 作为单位，vw 相对于视口宽度计算，100 vw = 整个视口宽度</p>
+<p>vw 在移动端浏览器中基本都支持</p>
+<p>移动端设计图宽度一般为 750px 或 1125px</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;100vw = 750px，即0.1333333333333vw = 1px</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;6.4vw = 48px</p>
+<h4 id="vw适配"><a href="#vw适配" class="headerlink" title="vw适配"></a>vw适配</h4><p>由于在编写网页时换算 px 与 vw 较为麻烦，设计图中某元素vw = 100vw * (设计图某元素px/设计图宽度)px，因此可结合 rem 来进行适配</p>
+<pre><code>对于 750px 大小的设计图
+0.1333333vw = 设计图中 1px，但是不能设置小于 12px 的字体大小，所以扩大 40 倍
+5.3333vw = 设计图中 40px
+html&#123;
+    font-size: 5.3333vw;  //所以 1rem = 设计图中40px
+&#125;
+此时要显示设计图中 48 * 35 px 的块
+.box&#123;
+    width: 1.2rem;     //48/40 = 1.2 rem
+    height: 0.875rem;  //35/40 = 0.875 rem
+&#125;</code></pre>
+<p>为了在写代码时更方便计算可使用 less 写样式，可在代码中直接写表达式</p>
+<pre><code>html&#123;
+    font-size:100vw / 750 * 40;
+&#125;
+.box&#123;
+    width: 48/40rem;
+    height: 35/40rem;
+&#125;</code></pre>
+<h2 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h2><p>网页可根据不同的设备或窗口大小呈现出不同布局，使用响应式布局可使一个网页适用于所有设备</p>
+<p>响应式设计的网页（1）移动端优先（2）渐进增强</p>
+<p>注意：在移动端不能去设置鼠标移入后的效果（即 hover，因为是触屏），所以该效果需要通过 js 实现</p>
+<h3 id="媒体查询"><a href="#媒体查询" class="headerlink" title="媒体查询"></a>媒体查询</h3><p>通过媒体查询，可为不同设备（如有屏幕设备等，不是指 PC 和移动端）或设备不同状态来分别设置</p>
+<p>可通过在样式中使用 <code>@media 媒体类型&#123;&#125;</code> 进行媒体查询，可通过 <code>,</code> 连接多个媒体类型表示或，用 <code>and</code> 表示与，也可在媒体类型前加 <code>only</code>（主要是为了兼容一些老版本浏览器，因为老版本浏览器不认识 only，会直接忽略这一部分）</p>
+<h4 id="1、媒体类型（即设备类型）"><a href="#1、媒体类型（即设备类型）" class="headerlink" title="1、媒体类型（即设备类型）"></a>1、媒体类型（即设备类型）</h4><p>— all 所有设备</p>
+<p>— print 打印设备</p>
+<p>— screen 带屏幕的设备</p>
+<p>— speech 屏幕阅读器</p>
+<pre><code>@media all&#123;
+    body&#123;
+        background-color: #bfa;
+    &#125;
+&#125;
+@media print,screen&#123;
+    body&#123;
+        background-color: #bfa;
+    &#125;
+&#125;
+@media only screen&#123;
+    body&#123;
+        background-color: #bfa;
+    &#125;
+&#125;</code></pre>
+<h4 id="2、媒体特性"><a href="#2、媒体特性" class="headerlink" title="2、媒体特性"></a>2、媒体特性</h4><p>— width 视口宽度 <code>@media(width:xxxpx)&#123;&#125;</code> </p>
+<p>— height 收口高度</p>
+<p>— min-width 视口的最小宽度（视口大于指定宽度时生效）<code>@media(min-width:xxxpx)&#123;&#125;</code> </p>
+<p>— max-width 视口的最大宽度（视口小于指定宽度时生效）<code>@media(max-width:xxxpx)&#123;&#125;</code> </p>
+<pre><code>@media (width:500px)&#123;  //视口宽度为 500 px 时生效
+    body&#123;
+        background-color: #bfa;
+    &#125;
+&#125;
+@media (min-width:500px)&#123;  //视口宽度大于 500 px 时生效
+    body&#123;
+        background-color: #bfa;
+    &#125;
+&#125;
+@media (min-width:500px),(max-width:300px)&#123;  //视口宽度大于 500 px 或小于 300px 时生效
+    body&#123;
+        background-color: #bfa;
+    &#125;
+&#125;
+@media only screen (min-width:500px) and (max-width:700px)&#123;  //视口宽度大于 500 px 且小于 700px 的有屏设备生效
+    body&#123;
+        background-color: #bfa;
+    &#125;
+&#125;
+@media not only screen (min-width:500px) and (max-width:700px)&#123;&#125; //not 是对后面的整体作否定</code></pre>
+<p><strong>断点：</strong>样式切换的分界点，称其为断点，网页会在该点发生变化，</p>
+<p>一般常用断点有：</p>
+<p>— 小于768（超小屏幕） max-width:768px</p>
+<p>— 大于768（小屏幕） min-width:768px</p>
+<p>— 大于992（中型屏幕） min-width:992px</p>
+<p>— 大于1200（大屏幕） min-width:1200px</p>
+<h1 id="SEO-与-性能"><a href="#SEO-与-性能" class="headerlink" title="SEO 与 性能"></a>SEO 与 性能</h1><p>1、标题标签</p>
+<p>标题标签有 <code>&lt;h1&gt;</code> ~ <code>&lt;h6&gt;</code> 重要性递减，搜索引擎检索时首先看 <code>&lt;title&gt;</code> 判断网站主要内容，接着看 <code>&lt;h1&gt;</code>，<code>&lt;h1&gt;</code> 在网页中的重要性仅次于 <code>&lt;title&gt;</code> ，一般一个页面只有一个 <code>&lt;h1&gt;</code>，一般只会用 <code>&lt;h1&gt;</code> - <code>&lt;h3&gt;</code></p>
+<p>2、浏览器在解析网页时会自动对网页中不符合规范的内容进行修正，这会影响性能</p>
+<p>如：（1）标签写在 <code>&lt;html&gt;</code> 外部（2）根元素 <code>&lt;html&gt;</code> 中出现除 <code>&lt;head&gt;</code> 和 <code>&lt;body&gt;</code> 以外的子元素（3）<code>&lt;p&gt;</code> 中嵌套了块元素</p>
+<p>3、样式加载</p>
+<p>当使用外部样式表时，浏览器第一次加载完该 css 文件或后会保存在浏览器的缓存中，下一个页面加载同一 css 文件时无需向服务器请求，直接在浏览器缓存中读取</p>
+<p>4、雪碧图</p>
+<p>浏览器加载外部资源（如图片）是按需加载，用则加载，不用则步加载，可通过雪碧图一次性将多个图片加载到页面中，降低请求的次数，加快访问速度，提升用户体验</p>
+<p>5、<code>text-indent</code> 用于设置文字缩进，可用于文字隐藏，这样可以在设置一些标题供浏览器搜索但不在页面中显示</p>
+<p>6、加快加载速度</p>
+<p>为了使项目上线时加载速度尽量快，需删除代码中的注释以及无用的换行等，可通过在 VSCode 中安装插件 JS &amp; CSS Minifier，选中要压缩的文件，按 F1，并输入 <code>Minify:Document</code>，则该插件会对文件进行压缩生成 <code>xxx.min.css</code> 或 <code>xxx.min.js</code> 文件，在 html 代码中 <link> 引入时换成压缩后的文件</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>1、<code>&lt;hgroup&gt;</code> 用于标题分组，将一组相关的标题同时放入<code>&lt;hgroup&gt;</code> 中</p>
+<p>2、隐藏元素可通过 display 或 visibility 属性进行设置</p>
+<p>设置 <code>display:none;</code> 元素不在页面中显示，且不占位置</p>
+<p>设置<code>visibility:hidden;</code> 元素不在页面中显示，但依然占据位置</p>
+<p>（<code>visibility:visible;</code> 为默认值，元素在页面中正常显示）</p>
+<p>3、文字在父元素中垂直居中：将父元素的 line-height 设置为和父元素 height 一样的值</p>
+<p>4、子元素在父元素中垂直居中：</p>
+<p><strong>方式一：</strong>子元素开启绝对定位，父元素也开启定位后，在子元素中设置 <code>top=0; bottom=0; margin-top=auto; margin-bottom=auto</code>（但这种方式只适用于大小确定的元素）</p>
+<p><strong>方式二：</strong>将父元素设置为<code>&lt;td&gt;</code>单元格，<code>display: table-cell; vertical-align: middle;</code></p>
+<p><strong>方式三：</strong>对于大小不确定的元素，可通过绝对定位配合 transform 设置水平或垂直居中，<code>position: absolute; left:50%; top:50%; transform: translateX(-50%) translateY(-50%);</code></p>
+<p><strong>方式四：</strong>通过弹性盒 flex 来设置，<code>display:flex; justify-content:center; align-items:center;</code></p>
+<p>5、图片闪烁问题————雪碧图</p>
+<p>如超链接中若以背景图片表示不同状态下的显示效果，则 <code>:link</code> 会首先加载，而 <code>:hover</code>、<code>:active</code> 会在指定状态触发时才会加载，可能就会出现空白一闪的情况</p>
+<p>解决：通过雪碧图来解决， 如将超链接三种状态的背景图片并排放在一张图里，通过 background-position 属性设置不同状态下显示背景图片的位置</p>
+<p>6、当屏幕宽度缩小时，为了不让窗口宽度过小导致布局混乱，可给 body 设置 <code>min-width: xxxpx;</code>，当窗口小于 min-width 时 body 不会再缩小</p>
+<p>7、轮播图</p>
+<p>方法一：通过 CSS 实现轮播图</p>
+<p>对图片开启绝对定位脱离文档流，使得多张图片摞在一起，当要显示哪一图片时设置该图片 z-index 即可</p>
+<p>8、标签页或收藏栏中小图标</p>
+<p>网站图标一般存储于根目录，名为 <code>favicon.ico</code>，通过 <code>&lt;link rel=&quot;icon&quot; href=&quot;./favicon.ico&quot;&gt;</code> 引入</p>
+<p>9、动画</p>
+<p>方式一：雪碧图 + 样式过渡 transition</p>
+<p>方式二：通过 animation 属性</p>
+<p>10、一般给 <code>&lt;body&gt;</code> 设置 background-color 是给 <code>&lt;html&gt;</code> 设置，因此要看 body 的真实大小要通过 border</p>
+<p>11、设置透明度可通过 <code>opacity:0.5;</code>，但在 IE8 中需要使用 <code>filter: alpha(opacity=50)</code></p>
+</head>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>JavaScript学习笔记2</title>
+    <url>/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>

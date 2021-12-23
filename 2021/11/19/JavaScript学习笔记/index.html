@@ -30,12 +30,10 @@
 <meta property="og:site_name" content="X 的笔记">
 <meta property="og:description" content="廖雪峰的 JavaScript 教程笔记">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://nicolejay.github.io/2021/11/19/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/systemvariable.png">
 <meta property="article:published_time" content="2021-11-19T09:26:10.000Z">
-<meta property="article:modified_time" content="2021-11-19T16:15:01.563Z">
+<meta property="article:modified_time" content="2021-11-28T14:19:20.429Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://nicolejay.github.io/2021/11/19/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/systemvariable.png">
 
 
 <link rel="canonical" href="http://nicolejay.github.io/2021/11/19/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
@@ -187,7 +185,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BB%96%E9%9B%AA%E5%B3%B0%E7%9A%84-JavaScript-%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">廖雪峰的 JavaScript 教程笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">1.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.2.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">1.3.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.4.</span> <span class="nav-text">对象</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BB%96%E9%9B%AA%E5%B3%B0%E7%9A%84-JavaScript-%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">廖雪峰的 JavaScript 教程笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">一些背景知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.4.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">1.5.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB"><span class="nav-number">1.6.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.7.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9C%9F%E5%81%87%E5%80%BC"><span class="nav-number">1.8.</span> <span class="nav-text">真假值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">1.9.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">1.10.</span> <span class="nav-text">ES6 新特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD"><span class="nav-number">1.11.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript"><span class="nav-number">1.12.</span> <span class="nav-text">TypeScript</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -203,7 +201,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -302,23 +300,35 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="廖雪峰的-JavaScript-教程笔记"><a href="#廖雪峰的-JavaScript-教程笔记" class="headerlink" title="廖雪峰的 JavaScript 教程笔记"></a>廖雪峰的 JavaScript 教程笔记</h1><a id="more"></a>
 
-<p>只有JavaScript能跨平台、跨浏览器驱动网页，与用户交互</p>
+<h2 id="一些背景知识"><a href="#一些背景知识" class="headerlink" title="一些背景知识"></a>一些背景知识</h2><p>只有JavaScript能跨平台、跨浏览器驱动网页，与用户交互</p>
 <p>Node.js把JavaScript引入到了服务器端</p>
-<p>JavaScript（对ECMAScript标准的一种实现）又称ECMAScript（一种语言标准）、ES6（ECMAScript 6）</p>
+<p>JavaScript（对ECMAScript标准的一种实现）又称ECMAScript（一种语言标准）、ES6（ECMAScript 6）、ES2015（ECMAScript 2015）</p>
+<p>Babel 是 JavaScript 转译器（也称源代码编译器），将使用了 ECMAScript 语言特性的 JavaScript 转换为只使用广泛支持的 ES5（ECMAScript 2009） 特性的等价代码。如Node.js使用的是 CommonJS 模块的 require 语法，之前不支持 import（不支持原生的ES6模块），则要用 babel 转译 js 模块为 CommonJS 模块</p>
+<p>Webpack、Browserify 等打包工具主要是将 ES6 代码转译为 ES5 的 js 文件生成传统的代码包</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>1、原始数据类型：数、字符串、布尔值、Symbol（ES6）、null、undefined</p>
+<p>2、派生数据类型：对象（如：函数、数组、正则表达式）</p>
 <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>JavaScript严格区分大小写</p>
 <p>JavaScript不区分整数和浮点数，统一用Number表示</p>
 <p><strong>== 和 === 的区别</strong>：== 会自动转换数据类型再比较，有时会得到奇怪的结果；=== 不会自动转换数据类型，若数据类型不一致，返回false，若一致，再比较。（JavaScript的设计缺陷，一般使用 === ）</p>
+<p>在 == 比较中，遇到比较的一方有数，则全部自动 toNumber(x) 转为数后比较，其中 toNumber(包含字母字符串) -&gt; NaN，toNumber(undefined) -&gt; NaN，toNumber(null) -&gt; +0；</p>
+<p>若比较的一方中有布尔值，则布尔值先被 toNumber(x) 转为数；</p>
+<p>若比较的一方中有对象，则对象会被 toPrimitive(x) 转为字符串或数</p>
+<p>在 === 比较中，类型相同则正常比较（除 NaN 外），类型不同则为 false，不同对象比较也为 false</p>
 <pre><code>//判断是否为NaN
 NaN === NaN; // false
 isNaN(NaN); // true（唯一判断NaN的方法）
 
+null == undefined; //true
+
 //浮点数比较
 1 / 3 === (1 - 2 / 3); // false（因为计算机无法精确表示无限循环小数，浮点数运算时会产生误差）
 Math.abs(1 / 3 - (1 - 2 / 3)) &lt; 0.0000001; // true（只能计算浮点数之差的绝对值是否小于某阈值来比较两浮点数是否相等）</code></pre>
-<p><strong>null 和 undefined：</strong>null 为空值，undefined 为未定义，一般用 null，undefined仅在判断函数参数是否传递的情况下有用</p>
+<p><strong>null 和 undefined：</strong>null 为空值，undefined 为未定义，一般用 null，undefined 仅在判断函数参数是否传递的情况下有用</p>
 <p>JavaScript的一个数组中可以包含多种类型</p>
-<p>JavaScript是变量本身类型不固定的动态语言，而静态语言在定义变量时必须指定变量类型，如Java</p>
-<p><strong>变量是否用 var 声明：</strong>通过 var 声明的变量作用域为该变量被申明的函数体内。如果一个变量没有通过var申明就被使用，则该变量自动被申明为全局变量，这导致不同js文件中未通过 var 声明的同名变量间会相互影响（JavaScript设计缺陷）————解决：在代码第一行写上 <code>&#39;use strict&#39;;</code> 启用strict模式,在strict模式下运行的JavaScript代码，强制通过 var 声明变量，使用未通过 var 声明的变量会报错</p>
+<p>JavaScript是变量本身类型不固定的动态语言，而静态语言（强类型语言）在定义变量时必须指定变量类型，如Java</p>
+<p><strong>变量是否用 var 声明：</strong>通过 var 声明的变量作用域为该变量被申明的函数体内。如果一个变量没有通过 var 申明就被使用，则该变量自动被申明为全局变量，这导致不同js文件中未通过 var 声明的同名变量间会相互影响（JavaScript设计缺陷）————解决：在代码第一行写上 <code>&#39;use strict&#39;;</code> 启用strict模式,在strict模式下运行的JavaScript代码，强制通过 var 声明变量，使用未通过 var 声明的变量会报错</p>
+<p><strong>let 和 var：</strong>在同一作用域内重复声明变量，let会报错，var不会报错</p>
+<p><strong>const：</strong>const声明的变量是只读变量，若对 const 声明的变量重新用 let 或 var 声明会报错。且对于非对象类型（如数、布尔值、字符串）不可改变其值，但对于 const 声明的对象可改变其属性值，但不可对对象整体重新赋值（即变量本身的引用（内存中的引用地址）不可改）。</p>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p><strong>引号：</strong>字符串中包含单引号、双引号前面加转义符 <code>\</code> ，多行字符串用用 <code>\n</code> 表示（较早）或用反引号 `` （ES6）</p>
 <p><strong>模板字符串：</strong>用反引号括起来，其中用 <code>$&#123;变量名&#125;</code> 来表示相应值（ES6）</p>
 <p><strong>索引：</strong>字符串可以像数组一样通过索引取值，但不可通过索引赋值</p>
@@ -334,16 +344,80 @@ slice() 或 slice(开始索引，结束索引)     //返回指定索引区间元
 push(元素1,元素2,...)     //在末尾添加元素，可加多个
 pop()     //返回并删除末尾元素，空数组 pop 不报错，返回 undefined
 unshift(元素1,元素2,...)     //在头部添加元素，可加多个
-shift()     //返回并删除头部元素，空数组 pop 不报错，返回 undefined
+shift()     //返回并删除头部元素
 sort()     //排序，直接改变原数组，arr.sort()
 reverse()     //倒序，直接改变原数组，arr.reverse()
 splice(删除和添加的开始索引, 删除个数, 添加元素1, 添加元素2, ...)     //删除和添加元素
 concat()     //连接数组，返回新数组，arr1.concat(arr2)
 join(用于连接的字符)     //数组连成字符串</code></pre>
-<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>特殊属性名声明时用 <code>&#39;&#39;</code> 括起来，访问它时不用 <code>对象.属性</code>，而用 <code>对象[&#39;属性&#39;]</code></p>
+<p><strong>展开运算符：</strong>在ES5中可用 <code>apply()</code> 把数组转为参数，ES6中可直接用 <code>...数组名</code></p>
+<p>JavaScript 中数组是可修改对象，若添加元素，它就会动态增长</p>
+<p>JavaScript 只支持一维数组，不支持矩阵，可通过数组嵌套数组来实现矩阵</p>
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>ES5创建</p>
+<pre><code>function 类名(变量1,...,变量n)&#123;
+    this.属性1=变量1
+    this.属性n=变量n
+&#125;
+类名.prototype.方法名 = function()&#123;xxxxx&#125;</code></pre>
+<p>ES6创建</p>
+<pre><code>class 类名&#123;
+    constructor(变量1,...,变量n)&#123;
+        this.属性1=变量1
+        this.属性n=变量n
+    &#125;
+    方法名()&#123;xxxxx&#125;
+&#125;</code></pre>
+<p>继承</p>
+<pre><code>class 子类名 extends 父类 &#123;
+    constructor(变量1,...,变量n)&#123;
+        super(变量1,...,变量n-1)  //调用父类构造函数
+        this.属性n=变量n
+    &#125;
+    方法名()&#123;xxxxx&#125;
+&#125;</code></pre>
+<p>js 的面向对象编程还是基于原型实现的，ES6的类是基于原型语法的语法糖</p>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>对象是类的实例</p>
+<p>特殊属性名声明时用 <code>&#39;&#39;</code> 括起来，访问它时不用 <code>对象.属性</code>，而用 <code>对象[&#39;属性&#39;]</code></p>
 <p>访问不存在的属性返回 undefined</p>
 <p>删除属性 <code>delete 对象.属性</code> 或 ``</p>
-<p><a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/">官网</a><br><img src="/2021/11/19/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/systemvariable.png" alt="添加系统变量"></p>
+<h2 id="真假值"><a href="#真假值" class="headerlink" title="真假值"></a>真假值</h2><p>null、undefined、false、+0、-0、NaN、空字符串、不存在的对象属性为假，其余正常变量（如：1、-1）或对象（如：new String(‘’)、new Boolean(false)）为真</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>箭头函数可省略关键字 function，若函数体只有一行还可省略 {} 和 return（ES6）</p>
+<p>函数的参数可设置默认值（ES6）</p>
+<p>函数中有一个内置对象 <code>arguments</code>（数组），包含函数被调用时传入的参数</p>
+<p>可用展开运算符代替 arguments 来表示剩余参数，如 <code>function a(x,y,...剩余参数整体的名字)</code></p>
+<h2 id="ES6-新特性"><a href="#ES6-新特性" class="headerlink" title="ES6 新特性"></a>ES6 新特性</h2><p>1、用 let 和 const 声明变量替代 var，作用域行为</p>
+<p>2、模板字面量</p>
+<p>3、解构：（1）一次初始化多个变量 <code>let &#123;x,y&#125;=&#123;&#39;a&#39;,&#39;b&#39;&#125;</code>（2）互换值 <code>[x,y]=[y,x]</code>（3）属性简写（给属性同名变量赋值后即可表示对象）</p>
+<p>4、展开运算符：（1）数组展开（2）表示剩余函数参数</p>
+<p>5、箭头函数</p>
+<p>6、函数可设置参数默认值</p>
+<p>7、类</p>
+<p>8、模块：使用 <code>export &#123;函数1，变量1，函数n&#125;</code> 导出，<code>import &#123;函数1，变量1，函数n&#125; from 文件</code> 导入</p>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p>1、相比于放在 <head> 标签里或使用 include 语句，在关闭 </head><body> 标签前引入 js 代码使得浏览器在加载脚本前解析和显示 HTML，有利于提升页面性能</body></p>
+<p>2、在类中声明函数时，可使用 prototype 方法来节约内存和降低实例化的开销。因为在类中声明函数时若通过 <code>类.prototype.方法 = function () &#123;xxxxx&#125;</code> 则函数只会被创建一次并在所有实例中共享；而通过在类定义里声明函数，则每个实例都会创建一个函数副本</p>
+<h2 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h2><p>TypeScript 是开源的、渐进式包含类型的 JavaScript 超集，它为 JavaScript 变量提供类型支持，TypeScript 会被编译为简单的 JavaScript 代码。虽然 TypeScript 在编译时会进行类型和错误检查，但错误不会阻止编译器生成 JavaScript 代码</p>
+<p><strong>定义变量</strong></p>
+<pre><code>let a: tring = &#39;x&#39;
+let a: number = 10
+let a: boolean</code></pre>
+<p><strong>接口</strong></p>
+<p>第一种：自定义一种数据类型</p>
+<p>第二种：与面向对象编程相关</p>
+<pre><code>interface 接口 &#123;
+    函数1(参数): 类型
+&#125;
+class 类 implements 接口 &#123;
+    变量: 类型
+    函数1(参数): 类型&#123;xxx&#125;
+&#125;</code></pre>
+<p><strong>泛型</strong>：指定函数的参数类型</p>
+<pre><code>interface 接口 &lt;参数类型&gt; &#123;
+    函数1(参数): 类型
+&#125;
+class 类 implements 接口 &#123;
+    变量: 类型
+    函数1(参数:参数类型): 类型&#123;xxx&#125;
+&#125;</code></pre>
 
     </div>
 
@@ -362,6 +436,9 @@ join(用于连接的字符)     //数组连成字符串</code></pre>
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2021/12/01/LeetCode%E7%AC%94%E8%AE%B0/" rel="next" title="LeetCode笔记">
+                  LeetCode笔记 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
