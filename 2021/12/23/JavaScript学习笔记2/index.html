@@ -23,15 +23,30 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"nicolejay.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
+<meta name="description" content="一、JS 基础的深入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript学习笔记2">
 <meta property="og:url" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/index.html">
 <meta property="og:site_name" content="X 的笔记">
+<meta property="og:description" content="一、JS 基础的深入">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E6%98%BE%E5%BC%8F%E9%9A%90%E5%BC%8F%E5%8E%9F%E5%9E%8B.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E5%8E%9F%E5%9E%8B%E9%93%BE.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0-%E5%8E%9F%E5%9E%8B-%E5%AE%9E%E4%BE%8B%E5%85%B3%E7%B3%BB1.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0-%E5%8E%9F%E5%9E%8B-%E5%AE%9E%E4%BE%8B%E5%85%B3%E7%B3%BB2.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/instanceof.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/instanceof1.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E4%BE%8B%E5%AD%901.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/instanceof1.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/webworker.png">
 <meta property="article:published_time" content="2021-12-23T13:45:31.000Z">
-<meta property="article:modified_time" content="2021-12-23T13:45:31.323Z">
+<meta property="article:modified_time" content="2021-12-29T12:14:41.723Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1.png">
 
 
 <link rel="canonical" href="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/">
@@ -170,7 +185,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -183,6 +198,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81JS-%E5%9F%BA%E7%A1%80%E7%9A%84%E6%B7%B1%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">一、JS 基础的深入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.</span> <span class="nav-text">1、数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据类型判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined-%E5%92%8C-null-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.2.</span> <span class="nav-text">undefined 和 null 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%B8%BA%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E4%B8%BA-null"><span class="nav-number">1.1.3.</span> <span class="nav-text">什么时候为变量赋值为 null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.4.</span> <span class="nav-text">变量类型与数据类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E6%95%B0%E6%8D%AE%E3%80%81%E5%8F%98%E9%87%8F%E4%B8%8E%E5%86%85%E5%AD%98"><span class="nav-number">1.2.</span> <span class="nav-text">2、数据、变量与内存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.1.</span> <span class="nav-text">什么是数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E5%AD%98"><span class="nav-number">1.2.2.</span> <span class="nav-text">什么是内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.3.</span> <span class="nav-text">什么是变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E3%80%81%E5%86%85%E5%AD%98%E3%80%81%E5%8F%98%E9%87%8F%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.2.4.</span> <span class="nav-text">数据、内存、变量之间的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var-a-xxx%EF%BC%8C-a-%E5%86%85%E5%AD%98%E4%B8%AD%E4%BF%9D%E5%AD%98%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.2.5.</span> <span class="nav-text">var a &#x3D; xxx， a 内存中保存的是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC"><span class="nav-number">1.2.6.</span> <span class="nav-text">引用变量赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-JS-%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0%E6%97%B6%E4%BC%A0%E9%80%92%E5%8F%98%E9%87%8F%E5%8F%82%E6%95%B0%E6%97%B6%EF%BC%8C%E6%98%AF%E5%80%BC%E4%BC%A0%E9%80%92%E8%BF%98%E6%98%AF%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92"><span class="nav-number">1.2.7.</span> <span class="nav-text">在 JS 调用函数时传递变量参数时，是值传递还是引用传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS-%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E5%86%85%E5%AD%98"><span class="nav-number">1.2.8.</span> <span class="nav-text">JS 引擎如何管理内存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.</span> <span class="nav-text">3、对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.1.</span> <span class="nav-text">什么是对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.2.</span> <span class="nav-text">为什么要用对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-number">1.3.3.</span> <span class="nav-text">对象的组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1%E5%86%85%E9%83%A8%E6%95%B0%E6%8D%AE"><span class="nav-number">1.3.4.</span> <span class="nav-text">如何访问对象内部数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%BF%85%E9%A1%BB%E4%BD%BF%E7%94%A8-%E2%80%98%E5%B1%9E%E6%80%A7%E5%90%8D%E2%80%99-%E7%9A%84%E6%96%B9%E5%BC%8F%E8%8E%B7%E5%8F%96%E5%B1%9E%E6%80%A7"><span class="nav-number">1.3.5.</span> <span class="nav-text">什么时候必须使用[‘属性名’]的方式获取属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">4、函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.1.</span> <span class="nav-text">什么是函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.2.</span> <span class="nav-text">为什么要用函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.3.</span> <span class="nav-text">如何定义函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%B0%83%E7%94%A8%EF%BC%88%E6%89%A7%E8%A1%8C%EF%BC%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.4.</span> <span class="nav-text">如何调用（执行）函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.5.</span> <span class="nav-text">回调函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E5%87%BD%E6%95%B0%E6%89%8D%E6%98%AF%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">什么函数才是回调函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.5.2.</span> <span class="nav-text">常见的回调函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F-IIFE"><span class="nav-number">1.4.6.</span> <span class="nav-text">立即执行函数表达式 IIFE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9A%84-this"><span class="nav-number">1.4.7.</span> <span class="nav-text">函数中的 this</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#this-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.4.7.1.</span> <span class="nav-text">this 是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%A1%AE%E5%AE%9A-this-%E7%9A%84%E5%80%BC"><span class="nav-number">1.4.7.2.</span> <span class="nav-text">如何确定 this 的值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81JS-%E8%AF%AD%E5%8F%A5%E4%B8%AD%E7%9A%84%E5%88%86%E5%8F%B7"><span class="nav-number">1.5.</span> <span class="nav-text">5、JS 语句中的分号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%87%BD%E6%95%B0%E9%AB%98%E7%BA%A7"><span class="nav-number">2.</span> <span class="nav-text">二、函数高级</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE"><span class="nav-number">2.1.</span> <span class="nav-text">1、原型与原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84-prototype-%E5%B1%9E%E6%80%A7"><span class="nav-number">2.1.1.</span> <span class="nav-text">函数的 prototype 属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%99%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1%E6%B7%BB%E5%8A%A0%E5%B1%9E%E6%80%A7%EF%BC%88%E4%B8%80%E8%88%AC%E9%83%BD%E6%98%AF%E6%96%B9%E6%B3%95%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">给原型对象添加属性（一般都是方法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E5%8E%9F%E5%9E%8B%E4%B8%8E%E9%9A%90%E5%BC%8F%E5%8E%9F%E5%9E%8B"><span class="nav-number">2.1.3.</span> <span class="nav-text">显式原型与隐式原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE%EF%BC%88%E5%88%AB%E5%90%8D%E9%9A%90%E5%BC%8F%E5%8E%9F%E5%9E%8B%E9%93%BE%EF%BC%89"><span class="nav-number">2.1.4.</span> <span class="nav-text">原型链（别名隐式原型链）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E3%80%81%E5%8E%9F%E5%9E%8B%E3%80%81%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.1.5.</span> <span class="nav-text">构造函数、原型、实例对象的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE%E8%A1%A5%E5%85%85"><span class="nav-number">2.1.6.</span> <span class="nav-text">原型链补充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%9A%84%E5%B1%9E%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.7.</span> <span class="nav-text">原型链的属性问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#instanceof"><span class="nav-number">2.1.8.</span> <span class="nav-text">instanceof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E4%BE%8B%E5%AD%90"><span class="nav-number">2.1.9.</span> <span class="nav-text">相关例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E4%B8%8E%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88"><span class="nav-number">2.2.</span> <span class="nav-text">2、执行上下文与执行上下文栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E4%B8%8E%E5%87%BD%E6%95%B0%E6%8F%90%E5%8D%87"><span class="nav-number">2.2.1.</span> <span class="nav-text">变量提升与函数提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">2.2.2.</span> <span class="nav-text">执行上下文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">全局执行上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">函数执行上下文</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88"><span class="nav-number">2.2.3.</span> <span class="nav-text">执行上下文栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E4%BE%8B%E5%AD%90-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">相关例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE"><span class="nav-number">2.3.</span> <span class="nav-text">3、作用域与作用域链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.3.1.</span> <span class="nav-text">作用域与执行上下文的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84%E8%81%94%E7%B3%BB"><span class="nav-number">2.3.2.</span> <span class="nav-text">作用域与执行上下文的联系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE"><span class="nav-number">2.3.3.</span> <span class="nav-text">作用域链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E4%BE%8B%E5%AD%90-2"><span class="nav-number">2.3.4.</span> <span class="nav-text">相关例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E9%97%AD%E5%8C%85"><span class="nav-number">2.4.</span> <span class="nav-text">4、闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BA%A7%E7%94%9F%E9%97%AD%E5%8C%85"><span class="nav-number">2.4.1.</span> <span class="nav-text">如何产生闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%97%AD%E5%8C%85"><span class="nav-number">2.4.2.</span> <span class="nav-text">什么是闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E9%97%AD%E5%8C%85%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.4.3.</span> <span class="nav-text">产生闭包的条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AD%E5%8C%85"><span class="nav-number">2.4.4.</span> <span class="nav-text">常见的闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AD%E5%8C%85%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">2.4.5.</span> <span class="nav-text">闭包的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AD%E5%8C%85%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">2.4.6.</span> <span class="nav-text">闭包的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AD%E5%8C%85%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">2.4.7.</span> <span class="nav-text">闭包的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AD%E5%8C%85%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">2.4.8.</span> <span class="nav-text">闭包的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2"><span class="nav-number">2.4.9.</span> <span class="nav-text">内存溢出与内存泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E4%BE%8B%E5%AD%90-3"><span class="nav-number">2.4.10.</span> <span class="nav-text">相关例子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E9%AB%98%E7%BA%A7"><span class="nav-number">3.</span> <span class="nav-text">三、面向对象高级</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">1、对象创建模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">3.1.1.</span> <span class="nav-text">方式一：构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.1.2.</span> <span class="nav-text">方式二：对象字面量模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%89%EF%BC%9A%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%88%E8%BE%83%E4%B8%8D%E5%B8%B8%E7%94%A8%EF%BC%89"><span class="nav-number">3.1.3.</span> <span class="nav-text">方式三：工厂模式（较不常用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E5%9B%9B%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.1.4.</span> <span class="nav-text">方式四：自定义构造函数模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%94%EF%BC%9A%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0-%E5%8E%9F%E5%9E%8B%E7%9A%84%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.1.5.</span> <span class="nav-text">方式五：构造函数+原型的组合模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.2.</span> <span class="nav-text">2、继承模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%BB%A7%E6%89%BF%EF%BC%88%E5%BE%97%E5%88%B0%E6%96%B9%E6%B3%95%EF%BC%89"><span class="nav-number">3.2.1.</span> <span class="nav-text">方式一：原型链继承（得到方法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E5%80%9F%E7%94%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%BB%A7%E6%89%BF%EF%BC%88%E5%BE%97%E5%88%B0%E5%B1%9E%E6%80%A7%EF%BC%89"><span class="nav-number">3.2.2.</span> <span class="nav-text">方式二：借用构造函数继承（得到属性）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%89%EF%BC%9A%E7%BB%84%E5%90%88%E7%BB%A7%E6%89%BF"><span class="nav-number">3.2.3.</span> <span class="nav-text">方式三：组合继承</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%BA%BF%E7%A8%8B%E6%9C%BA%E5%88%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">4.</span> <span class="nav-text">四、线程机制与事件机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="nav-number">4.1.</span> <span class="nav-text">1、进程与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">4.1.1.</span> <span class="nav-text">多进程与多线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">4.1.2.</span> <span class="nav-text">比较单线程与多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">4.1.2.1.</span> <span class="nav-text">多线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E7%BA%BF%E7%A8%8B"><span class="nav-number">4.1.2.2.</span> <span class="nav-text">单线程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E6%B5%8F%E8%A7%88%E5%99%A8%E5%86%85%E6%A0%B8"><span class="nav-number">4.2.</span> <span class="nav-text">2、浏览器内核</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%86%85%E6%A0%B8%E4%B8%8D%E5%90%8C"><span class="nav-number">4.2.1.</span> <span class="nav-text">不同浏览器的内核不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%BB%84%E6%88%90%E6%A8%A1%E5%9D%97"><span class="nav-number">4.2.2.</span> <span class="nav-text">内核组成模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%AE%9A%E6%97%B6%E5%99%A8%E5%BC%95%E5%8F%91%E7%9A%84%E6%80%9D%E8%80%83"><span class="nav-number">4.3.</span> <span class="nav-text">3、定时器引发的思考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E7%9C%9F%E7%9A%84%E6%98%AF%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C%E7%9A%84%E5%90%97%EF%BC%9F"><span class="nav-number">4.3.1.</span> <span class="nav-text">定时器真的是定时执行的吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E6%98%AF%E5%9C%A8%E5%88%86%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%89%A7%E8%A1%8C%E7%9A%84%E5%90%97%EF%BC%9F"><span class="nav-number">4.3.2.</span> <span class="nav-text">定时器回调函数是在分线程中执行的吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F"><span class="nav-number">4.3.3.</span> <span class="nav-text">定时器是如何实现的？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81JS-%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E6%89%A7%E8%A1%8C%E7%9A%84"><span class="nav-number">4.4.</span> <span class="nav-text">4、JS 是单线程执行的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%81%E6%98%8E-js-%E6%89%A7%E8%A1%8C%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84"><span class="nav-number">4.4.1.</span> <span class="nav-text">证明 js 执行是单线程的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-js-%E8%A6%81%E7%94%A8%E5%8D%95%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%BC%8F%EF%BC%8C%E8%80%8C%E4%B8%8D%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.4.2.</span> <span class="nav-text">为什么 js 要用单线程模式，而不用多线程模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%88%86%E7%B1%BB"><span class="nav-number">4.4.3.</span> <span class="nav-text">代码分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js-%E5%BC%95%E6%93%8E%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="nav-number">4.4.4.</span> <span class="nav-text">js 引擎执行代码的基本流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81-%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%EF%BC%88%E8%BD%AE%E8%AF%A2%EF%BC%89%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.5.</span> <span class="nav-text">5、 浏览器的事件循环（轮询）模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8%E6%A8%A1%E5%9E%8B%EF%BC%88event-driven-interaction-model%EF%BC%89"><span class="nav-number">4.5.1.</span> <span class="nav-text">事件驱动模型（event-driven interaction model）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%BF%90%E8%BD%AC%E6%B5%81%E7%A8%8B"><span class="nav-number">4.5.2.</span> <span class="nav-text">模型运转流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%A0%88%EF%BC%88execution-stack%EF%BC%89"><span class="nav-number">4.5.3.</span> <span class="nav-text">执行栈（execution stack）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%86%85%E6%A0%B8%EF%BC%88browser-core%EF%BC%89"><span class="nav-number">4.5.4.</span> <span class="nav-text">浏览器内核（browser core）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E8%B0%83%E9%98%9F%E5%88%97"><span class="nav-number">4.5.5.</span> <span class="nav-text">回调队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2%EF%BC%88event-loop%EF%BC%89"><span class="nav-number">4.5.6.</span> <span class="nav-text">事件轮询（event loop）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E6%A8%A1%E5%9E%8B%EF%BC%88request-response-model%EF%BC%89"><span class="nav-number">4.5.7.</span> <span class="nav-text">请求响应模型（request-response model）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81H5-Web-Workers%EF%BC%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%89"><span class="nav-number">4.6.</span> <span class="nav-text">6、H5 Web Workers（多线程）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3API"><span class="nav-number">4.6.1.</span> <span class="nav-text">相关API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">4.6.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E8%B6%B3"><span class="nav-number">4.6.3.</span> <span class="nav-text">不足</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%85%B6%E4%BB%96"><span class="nav-number">5.</span> <span class="nav-text">五、其他</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -198,7 +214,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -275,6 +291,15 @@
 
       <time title="创建时间：2021-12-23 21:45:31" itemprop="dateCreated datePublished" datetime="2021-12-23T21:45:31+08:00">2021-12-23</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -286,7 +311,930 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <h1 id="一、JS-基础的深入"><a href="#一、JS-基础的深入" class="headerlink" title="一、JS 基础的深入"></a>一、JS 基础的深入</h1><a id="more"></a>
+
+<h2 id="1、数据"><a href="#1、数据" class="headerlink" title="1、数据"></a>1、数据</h2><h3 id="数据类型判断"><a href="#数据类型判断" class="headerlink" title="数据类型判断"></a>数据类型判断</h3><p>判断数据类型的方法有 typeof、instanceof、===</p>
+<p>typeof 返回的是字符串类型的数据类型表达</p>
+<p>— 可以判断：undefined、数值、字符串、布尔值、函数</p>
+<p>— 不能判断：null 与 object（因为都会返回’object’）、object 与 array</p>
+<p>instanceof 用于判断对象的具体类型（数组、函数等）</p>
+<p>=== 可以判断：undefined、null（因为这两种数据类型只有一种值）</p>
+<pre><code>var a1 = &#123;
+    a2:[1,&#39;a&#39;,console.log],
+    a3:function()&#123;&#125;
+&#125;
+a1 instanceof Object //true
+a1.a2 instanceof Object //true
+a1.a2 instanceof Array //true
+a1.a3 instanceof Object //true
+a1.a3 instanceof Function //true
+typeof a1.a3 === &#39;function&#39;  //true</code></pre>
+<h3 id="undefined-和-null-的区别"><a href="#undefined-和-null-的区别" class="headerlink" title="undefined 和 null 的区别"></a>undefined 和 null 的区别</h3><p>undefined 代表定义了未赋值，null 表示定义并赋值了，值为null</p>
+<h3 id="什么时候为变量赋值为-null"><a href="#什么时候为变量赋值为-null" class="headerlink" title="什么时候为变量赋值为 null"></a>什么时候为变量赋值为 null</h3><p>初始赋值为 null，表明其将要赋值为对象</p>
+<p>结束前赋值为 null 为了释放对象在内存中的位置，让变量指向的对象成为垃圾对象（被垃圾回收器回收）</p>
+<h3 id="变量类型与数据类型"><a href="#变量类型与数据类型" class="headerlink" title="变量类型与数据类型"></a>变量类型与数据类型</h3><p>数据类型分为基本类型和对象类型，变量的类型（变量内存值的类型）分为基本类型（保存的是基本类型数据）和引用类型（保存的是地址值）</p>
+<h2 id="2、数据、变量与内存"><a href="#2、数据、变量与内存" class="headerlink" title="2、数据、变量与内存"></a>2、数据、变量与内存</h2><h3 id="什么是数据"><a href="#什么是数据" class="headerlink" title="什么是数据"></a>什么是数据</h3><p>存储在内存中代表特定信息的东西，本质上是 01 串</p>
+<p>数据的特点：可传递，可运算</p>
+<p>一切皆数据，函数也是数据</p>
+<p>内存中所有操作的目标是数据，如算术运算、逻辑运算、赋值、运行函数</p>
+<h3 id="什么是内存"><a href="#什么是内存" class="headerlink" title="什么是内存"></a>什么是内存</h3><p>内存条通电后产生的可存储数据的临时空间</p>
+<p>内存的产生和死亡：内存条（电路板）–&gt; 通电 –&gt; 产生内存空间 –&gt; 存储数据 –&gt; 处理数据 –&gt; 断电 –&gt; 内存空间和数据消失</p>
+<p>分配内存：声明变量和函数或创建对象时，JS 引擎会自动分配一定大小的内存来存放对应数据</p>
+<p>释放内存：清空内存中的数据，表示内存可以再分配使用（内存不释放就不能复用）</p>
+<p>一块内存有两个数据：内部存储的数据和地址值</p>
+<p>内存分类：栈和堆</p>
+<p>— 栈：存全局变量、局部变量、标识对象的变量（如函数名），空间较小</p>
+<p>— 堆：对象（如数组、函数），空间较大</p>
+<h3 id="什么是变量"><a href="#什么是变量" class="headerlink" title="什么是变量"></a>什么是变量</h3><p>变量是可变化的量，由变量名和变量值组成</p>
+<p>每个变量都对应一块小内存，变量名用来查找对应的内存，变量值就是内存中保存的数据</p>
+<h3 id="数据、内存、变量之间的关系"><a href="#数据、内存、变量之间的关系" class="headerlink" title="数据、内存、变量之间的关系"></a>数据、内存、变量之间的关系</h3><p>内存是一个容器，用来存储程序运行需要操作的数据的临时空间</p>
+<p>变量（变量名、变量值）是内存的标识，通过变量找到对应内存，进而操作（读/写）内存中的数据</p>
+<h3 id="var-a-xxx，-a-内存中保存的是什么？"><a href="#var-a-xxx，-a-内存中保存的是什么？" class="headerlink" title="var a = xxx， a 内存中保存的是什么？"></a>var a = xxx， a 内存中保存的是什么？</h3><p>（1）xxx 是基本数据类型，a 保存的是这个数据 </p>
+<p>（2）xxx 是对象，保存的是对象的地址值</p>
+<p>（3）xxx 是一个变量，保存的是 xxx 的内存内容（可能是基本数据类型，也可能是地址值）</p>
+<pre><code>var b = &#39;abc&#39;
+var a = b   //a 保存的是 &#39;abc&#39;
+b = &#123;&#125;
+a = b    //a 保存的是 b 中的内存内容，只是 b 的内存内容存的对象地址值</code></pre>
+<h3 id="引用变量赋值"><a href="#引用变量赋值" class="headerlink" title="引用变量赋值"></a>引用变量赋值</h3><p>n 个引用变量指向同一个对象，通过一个变量修改对象内部数据，其他所有变量看到的是修改之后的数据</p>
+<p>n 个引用变量指向一个对象，让其中一个引用变量指向另一个对象，其他所有引用变量依然指向前一个对象</p>
+<pre><code>var a = &#123;age:10&#125;
+var b = a
+b.age = 12  //此时 a.age 也变为 12
+function fn(obj)&#123;
+    obj.age = &#39;15&#39;
+&#125;
+fn(a)  //此时 a.age 和 b.age 都变为 15
+
+var c = &#123;age:12&#125;
+var d = c
+c = &#123;name:&#39;BOB&#39;,age:13&#125;  //c 相当于重新开辟了新的空间创建了个新的对象，此时 c 和 d 指向两个对象，d.age 还是 12
+
+var e = &#123;age:12&#125;
+function fun(obj)&#123;
+    obj = &#123;age:15&#125;  //相当于创建一个新对象，obj 存的地址改变
+&#125;
+fun(e)  // 此时 e.age 还是12，函数中的 obj 会变成垃圾被回收</code></pre>
+<h3 id="在-JS-调用函数时传递变量参数时，是值传递还是引用传递"><a href="#在-JS-调用函数时传递变量参数时，是值传递还是引用传递" class="headerlink" title="在 JS 调用函数时传递变量参数时，是值传递还是引用传递"></a>在 JS 调用函数时传递变量参数时，是值传递还是引用传递</h3><p>理解1：都是值（包括基本值或地址值）传递</p>
+<p>理解2：可能是值传递，也可能是引用传递（即传地址值，注意不是地址，而是表示地址的值）</p>
+<pre><code>var a = 3
+function fn(a)&#123;
+    a = a + 1
+&#125;
+console.log(a)   // a 还是 3
+function fn2(obj)&#123;
+    console.log(obj.name)
+&#125;
+var obj = &#123;name:&#39;tom&#39;&#125;
+fn2(obj)</code></pre>
+<h3 id="JS-引擎如何管理内存"><a href="#JS-引擎如何管理内存" class="headerlink" title="JS 引擎如何管理内存"></a>JS 引擎如何管理内存</h3><p>（1）内存生命周期</p>
+<p>— 分配小内存空间，等到它的使用权</p>
+<p>— 存储数据，可以对它反复进行操作</p>
+<p>— 释放小内存空间，清空内存中数据，内存可再被分配复用</p>
+<p>（2）释放内存</p>
+<p>局部变量（为执行函数分配的栈空间内存）：函数执行完自动释放</p>
+<p>对象（存储对象的堆空间内存）：先成为垃圾对象（即先把指向对象的变量设为 null，即内存没有引用指向时） —&gt; 由垃圾回收器回收</p>
+<p>全局变量在运行时不会释放</p>
+<pre><code>var a = 3
+var obj = &#123;&#125;  //此时共占用 3 个小内存，分别被 a、obj、obj 所指向对象占用
+obj = null   //此时 obj 指向的对象成为垃圾对象，而 obj 变量所占内存没有释放</code></pre>
+<h2 id="3、对象"><a href="#3、对象" class="headerlink" title="3、对象"></a>3、对象</h2><h3 id="什么是对象"><a href="#什么是对象" class="headerlink" title="什么是对象"></a>什么是对象</h3><p>多个数据的封装体（集合体），用来保存多个数据的容器</p>
+<p>一个对象代表现实中的一个事物</p>
+<p>对象类型的数据有 Object、Function（可执行）、Array（内部数据有序）</p>
+<h3 id="为什么要用对象"><a href="#为什么要用对象" class="headerlink" title="为什么要用对象"></a>为什么要用对象</h3><p>统一管理多个数据</p>
+<h3 id="对象的组成"><a href="#对象的组成" class="headerlink" title="对象的组成"></a>对象的组成</h3><p>对象由属性和方法组成</p>
+<p>属性：由属性名（字符串）和属性值（任意类型）组成</p>
+<p>方法：是一种特别的属性，属性值是函数的属性</p>
+<h3 id="如何访问对象内部数据"><a href="#如何访问对象内部数据" class="headerlink" title="如何访问对象内部数据"></a>如何访问对象内部数据</h3><p><code>.属性名</code>：编码简单，有时不能用</p>
+<p><code>[&#39;属性名&#39;]</code>：编码复杂，能通用</p>
+<h3 id="什么时候必须使用-‘属性名’-的方式获取属性"><a href="#什么时候必须使用-‘属性名’-的方式获取属性" class="headerlink" title="什么时候必须使用[‘属性名’]的方式获取属性"></a>什么时候必须使用[‘属性名’]的方式获取属性</h3><p>— 属性名包含特殊字符：- 空格</p>
+<p>— 使用变量表示属性名</p>
+<h2 id="4、函数"><a href="#4、函数" class="headerlink" title="4、函数"></a>4、函数</h2><h3 id="什么是函数"><a href="#什么是函数" class="headerlink" title="什么是函数"></a>什么是函数</h3><p>实现特定功能的 n 条语句的封装体</p>
+<p>只有函数是可执行的，其他类型的数据不能执行</p>
+<p>函数也是对象</p>
+<h3 id="为什么要用函数"><a href="#为什么要用函数" class="headerlink" title="为什么要用函数"></a>为什么要用函数</h3><p>提高代码复用</p>
+<p>便于阅读交流</p>
+<h3 id="如何定义函数"><a href="#如何定义函数" class="headerlink" title="如何定义函数"></a>如何定义函数</h3><p>— 函数声明 <code>function fn()&#123;&#125;</code></p>
+<p>— 表达式 <code>var fn = function()&#123;&#125;</code></p>
+<h3 id="如何调用（执行）函数"><a href="#如何调用（执行）函数" class="headerlink" title="如何调用（执行）函数"></a>如何调用（执行）函数</h3><p><code>test()</code> 直接调用</p>
+<p><code>对象.方法名()</code> 通过对象调用</p>
+<p><code>new 函数名()</code> new 调用</p>
+<p><code>函数对象.call(对象实例)</code> 或 <code>函数对象.apply(对象实例)</code> 让一个函数成为指定任意对象的方法进行调用</p>
+<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><h4 id="什么函数才是回调函数"><a href="#什么函数才是回调函数" class="headerlink" title="什么函数才是回调函数"></a>什么函数才是回调函数</h4><p>1）定义的 2）没有显式调用 3）但最终它在某个时刻或某个条件下执行了</p>
+<h4 id="常见的回调函数"><a href="#常见的回调函数" class="headerlink" title="常见的回调函数"></a>常见的回调函数</h4><p>— dom 事件回调函数（如 点击 onclick、获取焦点等），this 是发生事件的 dom 元素</p>
+<p>— 定时器（如setTimeout）回调函数，this 是 window</p>
+<p>— ajax 请求回调函数</p>
+<p>— 生命周期回调函数</p>
+<h3 id="立即执行函数表达式-IIFE"><a href="#立即执行函数表达式-IIFE" class="headerlink" title="立即执行函数表达式 IIFE"></a>立即执行函数表达式 IIFE</h3><p>IIFE 全称是 Immediately-Invoked Function Expression，可理解为匿名函数自调用</p>
+<p>作用：隐藏内部实现，不会污染外部（全局）命名空间，可用它来编码 js 模块</p>
+<pre><code>;(function()&#123;  //匿名函数自调用，前面的分号是为了防止上一行后没有分号把下面都连一块，所以使用分号分隔开
+    var a = 1;
+    function test()&#123;
+        console.log(++a)
+    &#125;
+    window.$ = function()&#123;  //向外暴露一个全局函数
+        return&#123;
+            test:test
+        &#125;
+    &#125;
+&#125;)()
+$().test()  //输出 2</code></pre>
+<h3 id="函数中的-this"><a href="#函数中的-this" class="headerlink" title="函数中的 this"></a>函数中的 this</h3><h4 id="this-是什么"><a href="#this-是什么" class="headerlink" title="this 是什么"></a>this 是什么</h4><p>任何函数本质上都是通过某个对象调用的，若没有直接指定就是window</p>
+<p>所有函数内部都有一个变量 this</p>
+<p>this 的值是调用函数的当前对象</p>
+<h4 id="如何确定-this-的值"><a href="#如何确定-this-的值" class="headerlink" title="如何确定 this 的值"></a>如何确定 this 的值</h4><p>函数名()&nbsp;&nbsp;&nbsp;&nbsp;this 是 window</p>
+<p>对象实例.函数名()&nbsp;&nbsp;&nbsp;&nbsp;this 是对象实例</p>
+<p>new 函数名()&nbsp;&nbsp;&nbsp;&nbsp;this 是新创建的对象</p>
+<p>函数对象.call(对象实例)&nbsp;&nbsp;&nbsp;&nbsp;this 是参数中的对象实例</p>
+<pre><code>function Person(color)&#123;
+    console.log(this)
+    this.color = color
+    this.getColor = function()&#123;
+        console.log(this)
+    &#125;
+&#125;
+Person(&#39;red&#39;)              //this 是 window
+var p = new Person(&#39;red&#39;)  //this 是 p
+p.getColor()               //this 是 p
+var obj = &#123;&#125;
+p.getColor.call(obj)       //this 是 obj
+var test = p.getColor
+test()                     //this 是 window
+function fun1()&#123;
+    function fun2()&#123;
+        console.log(this)
+    &#125;
+    fun2()                 //this 是 window
+&#125;
+fun1()                     //this 是 window</code></pre>
+<h2 id="5、JS-语句中的分号"><a href="#5、JS-语句中的分号" class="headerlink" title="5、JS 语句中的分号"></a>5、JS 语句中的分号</h2><p>是否加分号是编码风格的问题，看个人喜好（如 vue.js 框架源码中没用分号）</p>
+<p>必须加分号的情况：</p>
+<p>— 小括号开头的前一条语句</p>
+<p>— 中括号开头的前一条语句</p>
+<p>上面的情况以防万一可以在行首加分号</p>
+<pre><code>;(function()&#123;&#125;)()
+;[1,3].forEach(function()&#123;&#125;)</code></pre>
+<h1 id="二、函数高级"><a href="#二、函数高级" class="headerlink" title="二、函数高级"></a>二、函数高级</h1><h2 id="1、原型与原型链"><a href="#1、原型与原型链" class="headerlink" title="1、原型与原型链"></a>1、原型与原型链</h2><h3 id="函数的-prototype-属性"><a href="#函数的-prototype-属性" class="headerlink" title="函数的 prototype 属性"></a>函数的 prototype 属性</h3><p>每个函数都有一个 prototype 属性（在函数定义时创建函数对象，并添加 prototype 属性 <code>this.prototype = &#123;&#125;</code>）它默认指向一个 Object 空对象（没有我们指定的属性），prototype 指向的对象即称为原型对象</p>
+<p>原型对象（即 prototype 所指向的）中有一个属性 constructor，它指向函数对象</p>
+<pre><code>Date.prototype.constructor === Date  //true
+function Fun()&#123;&#125;
+Fun.prototype.constructor === Fun   //true
+Fun.prototype.test = function()&#123;&#125;
+var fun = new Fun()
+fun.test()</code></pre>
+<p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1.png" alt="原型对象"></p>
+<p>如上图构造函数（左边）和原型对象（右边）相互引用</p>
+<h3 id="给原型对象添加属性（一般都是方法）"><a href="#给原型对象添加属性（一般都是方法）" class="headerlink" title="给原型对象添加属性（一般都是方法）"></a>给原型对象添加属性（一般都是方法）</h3><p>作用：函数的所有对象实例自动拥有原型中的属性（方法）</p>
+<h3 id="显式原型与隐式原型"><a href="#显式原型与隐式原型" class="headerlink" title="显式原型与隐式原型"></a>显式原型与隐式原型</h3><p>每个函数都有一个 prototype，即显式原型属性，在定义函数时自动添加的 <code>this.prototype = &#123;&#125;</code>，默认指向一个空的 Object 实例对象（但是 Object 不满足）</p>
+<p>每个实例对象都有一个 <code>__proto__</code>，称为隐式原型属性，创建对象时自动添加的 <code>this.__proto__ = 构造函数.prototype</code>，默认为构造函数的 ptototype 属性值</p>
+<p>对象的隐式原型的值为其对应的构造函数的显式原型的值</p>
+<p>程序员能直接操作显式原型，但不能直接操作隐式原型（ES6 之前）</p>
+<pre><code>function Fn()&#123;&#125;    //定义构造函数，内部语句：this.prototype = &#123;&#125;，this 指函数对象
+Fn.prototype       //显式原型属性
+
+var fn = new Fn()  //内部语句：this.proto__ = Fn.prototype，this 指 fn
+fn.__proto__       //隐式原型属性
+Fn.prototype === fn.__proto  //true
+
+Fn.prototype.test = function()&#123;&#125;
+fn.test()</code></pre>
+<p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E6%98%BE%E5%BC%8F%E9%9A%90%E5%BC%8F%E5%8E%9F%E5%9E%8B.png" alt="显式隐式原型"></p>
+<p>（prototype 是给构造函数使用（读/写），<code>__proto__</code> 是给对象实例使用（读））</p>
+<p><strong>记住：实例对象的隐式原型 <code>__proto__</code> = 构造函数的显式原型 <code>prototype</code></strong></p>
+<h3 id="原型链（别名隐式原型链）"><a href="#原型链（别名隐式原型链）" class="headerlink" title="原型链（别名隐式原型链）"></a>原型链（别名隐式原型链）</h3><p>访问一个对象属性时，先在自身属性中查找，找到返回；若没有，再沿着 <code>__proto__</code> 这条链向上查找，找到返回；若最终没有找到，返回 undefined</p>
+<p>作用：查找对象的属性（方法）</p>
+<pre><code>function Fn = function()&#123;
+    this.test1 = function()&#123;&#125;
+&#125;
+Fn.prototype.test2 = function()&#123;&#125;
+var fn = new Fn()
+fn.test1()
+fn.test2()
+fn.toString()
+fn.test3()  //报错函数 not define</code></pre>
+<p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E5%8E%9F%E5%9E%8B%E9%93%BE.png" alt="原型链"></p>
+<h3 id="构造函数、原型、实例对象的关系"><a href="#构造函数、原型、实例对象的关系" class="headerlink" title="构造函数、原型、实例对象的关系"></a>构造函数、原型、实例对象的关系</h3><p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0-%E5%8E%9F%E5%9E%8B-%E5%AE%9E%E4%BE%8B%E5%85%B3%E7%B3%BB1.png" alt="构造函数-原型-实例关系1"></p>
+<p>所有函数都是 Function 的实例（包含 Function）</p>
+<p>所有函数的 <code>__proto__</code> 都是一样的，因为构造函数都是 Function()</p>
+<p>function Foo(){} 等价于 var Foo = new Function()</p>
+<p>注意 Function = new Function()</p>
+<p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0-%E5%8E%9F%E5%9E%8B-%E5%AE%9E%E4%BE%8B%E5%85%B3%E7%B3%BB2.png" alt="构造函数-原型-实例关系2"></p>
+<p>上图中 Foo 是 Function 的实例对象，Object 是 Function 的实例对象，Function 的实例对象和构造函数都是它自己，Function 的原型是 Object 的实例对象</p>
+<pre><code>Foo.prototype instanceof Object   //true
+Object.prototype instanceof Object  //false
+Function.prototype instanceof Object  //true</code></pre>
+<h3 id="原型链补充"><a href="#原型链补充" class="headerlink" title="原型链补充"></a>原型链补充</h3><p>（1）函数的显式原型指向的对象默认是空 Object 实例对象（但 Object 不满足）</p>
+<pre><code>Foo.prototype instanceof Object   //true
+Object.prototype instanceof Object  //false
+Function.prototype instanceof Object  //true</code></pre>
+<p>（2）所有函数都是 Function 的实例（包含 Function）</p>
+<pre><code>Function.__proto__ === Function.prototype</code></pre>
+<p>（3）Object 的原型对象是原型链的尽头</p>
+<pre><code>Object.prototype.__proto__  //是 null</code></pre>
+<h3 id="原型链的属性问题"><a href="#原型链的属性问题" class="headerlink" title="原型链的属性问题"></a>原型链的属性问题</h3><p>读取对象属性值时，会自动到原型链中查找</p>
+<p>设置对象的属性值时，不会查找原型链，若当前对象中没有该属性，则直接添加该属性</p>
+<p>方法一般定义在原型中，属性一般通过构造函数定义在对象本身上</p>
+<pre><code>function Person(name,age)&#123;
+    this.name = name
+    this.age = age
+&#125;
+Person.prototype.setName = function(name)&#123;
+    this.name = name
+&#125;
+var p1 = new Person(&#39;aa&#39;,12)
+p1.setName(&#39;bb&#39;)  //此时 p1 实例中有两个属性 name（为 bb） 和 age
+var p2 = new Person(&#39;cc&#39;,12)
+p2.setName(&#39;dd&#39;)  //此时 p2 实例中有两个属性 name（为 dd） 和 age
+
+p1.__proto__ === p2.__proto__   //true</code></pre>
+<h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><p><code>A实例对象 instanceof B构造函数</code> 若 B 函数的显式原型对象在 A 对象的（隐式）原型链上，返回 true，否则返回 false</p>
+<p>Function 是通过 new 自己产生的实例</p>
+<p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/instanceof.png" alt="instanceof"></p>
+<pre><code>Object instanceof Function  //true
+Object instanceof Object  //true
+Function instanceof Function  //true
+Function instanceof Object  //true
+function Foo()&#123;&#125;
+Object instanceof Foo  //false</code></pre>
+<p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/instanceof1.png" alt="instanceof1"></p>
+<h3 id="相关例子"><a href="#相关例子" class="headerlink" title="相关例子"></a>相关例子</h3><pre><code>function A()&#123;&#125;
+A.prototype.n = 1
+var b = new A()
+A.prototype = &#123;n:2,m:3&#125;
+var c = new A()
+console.log(b.n, b.m, c.n, c.m)  //1 undefined 2 3</code></pre>
+<p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E4%BE%8B%E5%AD%901.png" alt="例子1"></p>
+<pre><code>function Foo()&#123;&#125;
+Object.prototype.a = function()&#123;&#125;
+Function.prototype.b = function()&#123;&#125;
+var f1 = new Foo()
+f1.a()  //不报错
+f1.b()  //报错
+F.a()   //不报错
+F.b()   //不报错</code></pre>
+<p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/instanceof1.png" alt="instanceof1"></p>
+<h2 id="2、执行上下文与执行上下文栈"><a href="#2、执行上下文与执行上下文栈" class="headerlink" title="2、执行上下文与执行上下文栈"></a>2、执行上下文与执行上下文栈</h2><h3 id="变量提升与函数提升"><a href="#变量提升与函数提升" class="headerlink" title="变量提升与函数提升"></a>变量提升与函数提升</h3><p>变量声明提升：通过 var 定义的变量，在定义语句之前就可以访问到，只是值为 undefined</p>
+<p>函数声明提升：<strong>通过 function 声明的函数</strong>，在声明语句之前就可以直接调用，值为函数对象</p>
+<pre><code>console.log(a)  //输出 undefined，变量提升
+fn1()   //可调用，函数提升
+fn2()   //不能调用，变量提升
+var a = 3
+function fn1()&#123;&#125;
+var fn2 = function()&#123;&#125;</code></pre>
+<p>变量提升和函数提升的产生过程：</p>
+<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><p>代码根据其位置可分为全局代码和函数（局部）代码</p>
+<p>执行上下文的个数 = 调用的函数数量 + 1（指 window）</p>
+<h4 id="全局执行上下文"><a href="#全局执行上下文" class="headerlink" title="全局执行上下文"></a>全局执行上下文</h4><p>（1）在全局代码前将 window 确定为全局执行上下文</p>
+<p>（2）对全局数据进行预处理</p>
+<p>&nbsp;&nbsp;&nbsp;— var 定义的全局变量=undefined，并添加为 window 的属性</p>
+<p>&nbsp;&nbsp;&nbsp;— function 声明的全局函数创建好函数对象，并添加为 window 的方法</p>
+<p>&nbsp;&nbsp;&nbsp;— this 赋值为 window</p>
+<p>（3）开始执行全局代码</p>
+<h4 id="函数执行上下文"><a href="#函数执行上下文" class="headerlink" title="函数执行上下文"></a>函数执行上下文</h4><p>只有在调用函数的时候才会生成执行上下文</p>
+<p>（1）在调用函数，准备执行函数体前，创建对应的函数执行上下文对象（封闭的虚拟对象，是栈内存中的一片区域，里面存放局部变量、形参、arguments等）</p>
+<p>（2）对局部数据进行预处理</p>
+<p>&nbsp;&nbsp;&nbsp;— 形参=实参，并添加为执行上下文的属性</p>
+<p>&nbsp;&nbsp;&nbsp;— arguments=实参列表，并添加为执行上下文的属性</p>
+<p>&nbsp;&nbsp;&nbsp;— var 定义的局部变量=undefined，并添加为执行上下文的属性</p>
+<p>&nbsp;&nbsp;&nbsp;— function 声明的函数创建好函数对象，并添加为执行上下文的方法</p>
+<p>&nbsp;&nbsp;&nbsp;— this 赋值为调用函数的对象</p>
+<p>（3）开始执行函数体代码</p>
+<pre><code>function fn(a1)&#123;
+    console.log(a1)  //2
+    console.log(a2)  //undefined
+    a3()             //a3()执行
+    console.log(this)  //this 指 window
+    console.log(arguments)  //伪数组[2,3]
+    var a2 = 3
+    function a3()&#123;
+        console.log(&#39;a3()执行&#39;)
+    &#125;
+&#125;
+fn(2,3)</code></pre>
+<h3 id="执行上下文栈"><a href="#执行上下文栈" class="headerlink" title="执行上下文栈"></a>执行上下文栈</h3><p>（1）在全局代码执行前，JS 引擎会创建一个栈来存储管理所有的执行上下文对象</p>
+<p>（2）在全局执行上下文（window）确定后，将其添加到栈中（压栈）</p>
+<p>（3）在函数执行上下文创建后，将其添加到栈中（压栈）</p>
+<p>（4）在当前函数执行完成后，将栈顶的对象移除（出栈）</p>
+<p>（5）当所有的代码执行完后，栈中只剩下 window</p>
+<pre><code>                    //1.进入全局执行上下文
+var a = 10
+var bar = function(x)&#123;
+    var b = 5
+    foo(x+b)          //3.进入 foo 执行上下文
+&#125;
+var foo = function(y)&#123;
+    var c = 5
+    console.log(a+c+y)
+&#125;
+bar(10)               //2.进入 bar 函数执行上下文</code></pre>
+<p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88.png" alt="执行上下文栈"></p>
+<p>栈底一定是 window，当前运行的总是栈顶的上下文对象</p>
+<h3 id="相关例子-1"><a href="#相关例子-1" class="headerlink" title="相关例子"></a>相关例子</h3><p>1</p>
+<pre><code>var a = 3
+function fn()&#123;
+    console.log(a)
+    var a = 4  //a 在 console.log 前声明 a，在此行才赋值
+&#125;
+fn()  //输出 undefined，因为在 fn 函数中</code></pre>
+<p>2</p>
+<pre><code>console.log(&#39;gb:&#39;+i)
+var i = 1
+foo(1)
+function foo(i)&#123;
+    if(i === 4)&#123;return&#125;
+    console.log(&#39;fb:&#39;+i)
+    foo(i+1)
+    console.log(&#39;fe:&#39;+i)
+&#125;
+console.log(&#39;ge:&#39;+i)</code></pre>
+<p>代码依次输出 gb:undefined、fb:1、fb:2、fb:3、fb:3、fb:2、fb:1、ge:1，整个过程中产生了 5 个执行上下文</p>
+<p>3</p>
+<pre><code>function a()&#123;&#125;
+var a
+console.log(typeof a)  //输出 &#39;function&#39;</code></pre>
+<p>先执行变量提升，再执行函数提升</p>
+<p>4</p>
+<pre><code>if(!(b in window))&#123;  //此处判断为 true
+    var b = 1
+&#125;
+console.log(b)   //输出 undefined</code></pre>
+<p>5</p>
+<pre><code>var c = 1
+function c(c)&#123;
+    console.log(c)
+    var c =3
+&#125;
+c(2)   //此处会报错</code></pre>
+<p>上述代码会报错，因为上述代码相当于</p>
+<pre><code>var c
+function c(c)&#123;
+    console.log(c)
+    var c =3
+&#125;
+c = 1
+c(2)   //此处会报错</code></pre>
+<h2 id="3、作用域与作用域链"><a href="#3、作用域与作用域链" class="headerlink" title="3、作用域与作用域链"></a>3、作用域与作用域链</h2><p>作用域是一个代码所在的区域，它是静态的（执行上下文对象是在执行调用的时候才产生是动态的），在编写代码时就确定了</p>
+<p>作用域分为全局作用域、函数作用域</p>
+<p>没有块作用域（即在大括号内声明的变量在外面也可见，但 ES6 有，Java 中也有）</p>
+<pre><code>if(true)&#123;var c =3;&#125;  //大括号内的 c 在外面也可见，没有块作用域
+console.log(c)</code></pre>
+<p>作用域的作用：隔离变量，不同作用域下同名变量不会冲突</p>
+<p>作用域的个数 = 定义的函数数量 + 1（指全局）</p>
+<h3 id="作用域与执行上下文的区别"><a href="#作用域与执行上下文的区别" class="headerlink" title="作用域与执行上下文的区别"></a>作用域与执行上下文的区别</h3><p>（1）全局作用域之外，每个函数都会创建自己的作用域，作用域在函数定义时就已经确定了，而不是在函数调用时</p>
+<p>全局执行上下文环境是在全局作用域确定之后，js 代码马上执行之前创建</p>
+<p>函数执行上下文是在调用函数时，函数体代码执行之前创建</p>
+<p>（2）作用域是静态的，只要函数定义好就一直存在，且不会再变化</p>
+<p>执行上下文是动态的，调用函数时创建，函数调用结束时就会自动释放</p>
+<h3 id="作用域与执行上下文的联系"><a href="#作用域与执行上下文的联系" class="headerlink" title="作用域与执行上下文的联系"></a>作用域与执行上下文的联系</h3><p>执行上下文环境（对象）是从属于所在的作用域</p>
+<p>全局上下文环境 ==&gt; 全局作用域</p>
+<p>函数上下文环境 ==&gt; 对应的函数作用域</p>
+<h3 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h3><p>作用域链是多个上下级关系的作用域形成的链，它的方向是从下向上的（从内到外），即嵌套的作用域产生的由内向外的链</p>
+<p>作用域链作用：查找变量时就是沿着作用域链来查找的</p>
+<p>查找一个变量的查找规则：</p>
+<p>— 1.在当前作用域的执行上下文中查找对应的属性，若有直接返回，否则进入 2</p>
+<p>— 2.在上一级作用域的执行上下文中查找对应的属性，若有直接返回，否则进入 3</p>
+<p>— 3.再次执行 2 的相同操作，直到全局作用域，若还找不到就抛出找不到的异常</p>
+<h3 id="相关例子-2"><a href="#相关例子-2" class="headerlink" title="相关例子"></a>相关例子</h3><pre><code>var x = 10
+function fn()&#123;
+    console.log(x)
+&#125;
+function show(f)&#123;
+    var x = 20
+    f()
+&#125;
+show(fn)  //会输出 10</code></pre>
+<p>上述代码会输出 10</p>
+<pre><code>var fn = function()&#123;
+    console.log(fn)
+&#125;
+fn()  //会输出 fn 函数</code></pre>
+<p>上述代码会输出 fn 函数</p>
+<pre><code>var obj = &#123;
+    fn2: function()&#123;
+        console.log(fn2)
+    &#125;
+&#125;</code></pre>
+<p>上述代码会报错 fn2 is not defined，因为在当前作用域先找 fn2 没有，再去外部全局作用域找也没有</p>
+<pre><code>var obj = &#123;
+    fn2: function()&#123;
+        console.log(this.fn2)
+    &#125;
+&#125;</code></pre>
+<p>上述代码不会报错，会输出 obj 对象中的 fn2 方法</p>
+<h2 id="4、闭包"><a href="#4、闭包" class="headerlink" title="4、闭包"></a>4、闭包</h2><p>例子：分别点击三个按钮弹出相应的数字</p>
+<pre><code>var btns = document.getElementsByTagName(&#39;button&#39;)
+for(var i = 0,length = btns.length; i &lt; length; i++)&#123;
+    var btn = btns[i]
+    btn.onclick = function()&#123;
+        alert(&#39;第&#39;+(i+1)+&#39;个&#39;)
+    &#125;
+&#125;</code></pre>
+<p>上述代码在点击所有按钮时都是弹出 ‘第4个’</p>
+<pre><code>var btns = document.getElementsByTagName(&#39;button&#39;)
+for(var i = 0,length = btns.length; i &lt; length; i++)&#123;
+    var btn = btns[i]
+    btn.index = i  //将 btn 所对应的下标保存在 btn 上
+    btn.onclick = function()&#123;
+        alert(&#39;第&#39;+(this.index+1)+&#39;个&#39;)
+    &#125;
+&#125;</code></pre>
+<p>上述代码可正常实现功能</p>
+<pre><code>var btns = document.getElementsByTagName(&#39;button&#39;)
+for(var i = 0,length = btns.length; i &lt; length; i++)&#123;
+    （function(i)&#123;
+        var btn = btns[i]
+        btn.onclick = function()&#123;
+            alert(&#39;第&#39;+(i+1)+&#39;个&#39;)
+        &#125;
+    &#125;)(i)
+&#125;</code></pre>
+<p>上述代码利用闭包实现功能</p>
+<h3 id="如何产生闭包"><a href="#如何产生闭包" class="headerlink" title="如何产生闭包"></a>如何产生闭包</h3><p>当一个嵌套的内部（子）函数引用了嵌套的外部（父）函数的变量（包括函数）时，就产生了闭包，如</p>
+<pre><code>function fn1()&#123;
+    var a = 2
+    var b = &#39;abc&#39;
+    function fn2()&#123;  //闭包
+        console.log(a)
+    &#125;
+    fn2()
+&#125;
+fn1()</code></pre>
+<h3 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包"></a>什么是闭包</h3><p>理解1：闭包是嵌套的内部函数</p>
+<p>理解2：包含被引用变量（函数）的对象</p>
+<p>注意：闭包存在于嵌套的内部函数中</p>
+<h3 id="产生闭包的条件"><a href="#产生闭包的条件" class="headerlink" title="产生闭包的条件"></a>产生闭包的条件</h3><p>（1）函数嵌套</p>
+<p>（2）内部函数引用了外部函数的数据（变量/函数），并执行内部函数定义就会产生闭包（不用调用内部函数，但必须调用外部函数）</p>
+<p>外部函数执行几次（内部函数就创建几次）就产生几个闭包，和内部函数执行几次没有关系</p>
+<pre><code>function fn1()&#123;
+    var a = 2   //在此处打断点就已产生闭包，因为变量提升和函数提升，已执行 fn2 函数定义
+    var b = &#39;abc&#39;
+    function fn2()&#123;  //闭包
+        console.log(a)
+    &#125;
+    fn2()
+&#125;
+fn1()
+
+function fn1()&#123;
+    var a = 2   //在此处打断点就还未产生闭包，因为变量提升但 fn2 变量还未赋值为函数，所以函数定义未执行
+    var b = &#39;abc&#39;
+    var fn2 = function()&#123;  //闭包，闭包中有 a 没有 b
+        console.log(a)
+    &#125;
+    fn2()
+&#125;
+fn1()</code></pre>
+<h3 id="常见的闭包"><a href="#常见的闭包" class="headerlink" title="常见的闭包"></a>常见的闭包</h3><p>（1）将函数作为另一个函数的返回值</p>
+<pre><code>function fn1()&#123;
+    var a = 2
+    var fn2 = function()&#123;  //闭包
+        a++
+        console.log(a)
+    &#125;
+    return fn2
+&#125;
+var f = fn1()
+f()  //输出 3
+f()  //输出 4</code></pre>
+<p>上述代码只产生一次闭包，并且在调用 f() 时闭包没有消失 </p>
+<p>（2）将函数作为实参传递给另一个函数调用</p>
+<pre><code>function showDelay(msg,time)&#123;
+    setTimeout(function()&#123;  //此处产生闭包，因为内部函数使用了外部函数的 msg，产生闭包的原因和 setTimeout 以及 time 变量无关
+        alert(msg)
+    &#125;,time)
+&#125;
+showDelay(&#39;xxx&#39;,2000)</code></pre>
+<h3 id="闭包的作用"><a href="#闭包的作用" class="headerlink" title="闭包的作用"></a>闭包的作用</h3><p>（1）使用函数内部的变量在函数执行完后，仍然存活在内存中（延长了局部变量的生命周期）</p>
+<p>（2）让函数外部可以操作（读写）到函数内部的数据（变量/函数）</p>
+<pre><code>function fn1()&#123;
+    var a = 2
+    var fn2 = function()&#123;
+        a++
+        console.log(a)
+    &#125;
+    var fn3 = function()&#123;
+        a--
+        console.log(a)
+    &#125;
+    return fn3
+&#125;
+fn1()  //此时 fn1 内部的对象 fn2、fn3 都成为垃圾对象，局部变量也不存在了
+var f = fn1()  //fn1 执行完后 fn2 就不存在了，闭包中只有 a，fn3 本身也不存在，但 fn3 不成为垃圾对象，因为 f 指向了 fn3
+f()  //输出 3
+f()  //输出 4</code></pre>
+<p>总结：函数执行完后，函数内部声明的局部变量一般不存在，只有存在于闭包中的变量才可能存在（前提是闭包中的函数对象没有成为垃圾对象，被引用的局部变量才存在）</p>
+<p>在函数外部不能直接访问函数内部的局部变量，但可以通过闭包让外部操作它</p>
+<h3 id="闭包的生命周期"><a href="#闭包的生命周期" class="headerlink" title="闭包的生命周期"></a>闭包的生命周期</h3><p>产生：在嵌套内部<strong>函数定义执行完</strong>时就产生了（不是在调用时）</p>
+<p>死亡：在嵌套的内部函数成为垃圾对象时</p>
+<pre><code>function fn1()&#123;
+    //此时闭包就已经产生了（因为函数提升，内部函数对象已经创建了）
+    var a = 2
+    function fn2()&#123;  //闭包
+        a++
+        console.log(a)
+    &#125;
+    return fn2
+&#125;
+var f = fn1()
+f()  //输出 3
+f()  //输出 4
+f = null  //此时闭包死亡（因为包含闭包的函数对象 fn2 成为垃圾对象）
+
+function fn1()&#123;
+    var a = 2
+    var fn2 = function()&#123;
+        a++
+        console.log(a)
+    &#125;  //此时闭包才产生，因为此时才执行完函数定义
+    return fn2
+&#125;
+var f = fn1()
+f()  //输出 3
+f()  //输出 4
+f = null   //此时闭包死亡（因为包含闭包的函数对象 fn2 成为垃圾对象）</code></pre>
+<h3 id="闭包的应用"><a href="#闭包的应用" class="headerlink" title="闭包的应用"></a>闭包的应用</h3><p>闭包可用于定义 JS 模块：</p>
+<p>— 具有特定功能的 js 文件</p>
+<p>— 将所有的数据和功能都封装在一个函数内部（私有的）</p>
+<p>— 只向外暴露一个包含 n 个方法的对象或函数</p>
+<p>— 模块的使用者只需通过模块暴露的对象调用方法来实现对应的功能</p>
+<p>定义和使用模块的方式一：</p>
+<pre><code>定义一个模块 myModule.js
+function myModule()&#123;
+    //私有数据
+    var msg = &#39;xxx&#39;
+    //操作数据的函数
+    function fn1()&#123;  //闭包
+        console.log(msg.toUpperCase())
+    &#125;
+    function fn2()&#123;  //闭包
+        console.log(msg.toLowerCase())
+    &#125;
+    //向外暴露对象（给外部使用的方法）
+    return &#123;
+        fn1:fn1,
+        fn2:fn2
+    &#125;
+&#125;
+
+在另一个文件中
+&lt;script type=&quot;text/javascript&quot; src=&quot;myModule.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    var module = myModule()
+    module.fn1()
+    module.fn2()
+&lt;/script&gt;</code></pre>
+<p>定义和使用模块的方式二（这种方式更方便）：</p>
+<pre><code>定义一个模块 myModule.js
+(function()&#123;
+    var msg = &#39;xxx&#39;
+    //操作数据的函数
+    function fn1()&#123;  //闭包
+        console.log(msg.toUpperCase())
+    &#125;
+    function fn2()&#123;  //闭包
+        console.log(msg.toLowerCase())
+    &#125;
+    //向外暴露对象（给外部使用的方法）
+    window.module = &#123;  //通过 window 向外暴露
+        fn1:fn1,
+        fn2:fn2
+    &#125;
+&#125;)()
+
+在另一个文件中
+&lt;script type=&quot;text/javascript&quot; src=&quot;myModule.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    module.fn1()
+    module.fn2()
+&lt;/script&gt;</code></pre>
+<p>定义和使用模块的方式三（这种方式有利于代码压缩，即把变量名自动转为单个字母表示）：</p>
+<pre><code>定义一个模块 myModule.js
+(function(w)&#123;
+    var msg = &#39;xxx&#39;
+    //操作数据的函数
+    function fn1()&#123;  //闭包
+        console.log(msg.toUpperCase())
+    &#125;
+    function fn2()&#123;  //闭包
+        console.log(msg.toLowerCase())
+    &#125;
+    //向外暴露对象（给外部使用的方法）
+    w.module = &#123;  //通过 window 向外暴露
+        fn1:fn1,
+        fn2:fn2
+    &#125;
+&#125;)(window)
+
+在另一个文件中
+&lt;script type=&quot;text/javascript&quot; src=&quot;myModule.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    module.fn1()
+    module.fn2()
+&lt;/script&gt;</code></pre>
+<h3 id="闭包的缺点"><a href="#闭包的缺点" class="headerlink" title="闭包的缺点"></a>闭包的缺点</h3><p>闭包缺点：</p>
+<p>（1）函数执行完后，函数内的局部变量没有释放，占用内存事件会变长</p>
+<p>（2）容易造成内存泄露</p>
+<p>解决：</p>
+<p>（1）能不用闭包就不用</p>
+<p>（2）及时释放，将指向内部函数的变量设为 null，让内部函数成为垃圾对象，进而回收闭包</p>
+<h3 id="内存溢出与内存泄露"><a href="#内存溢出与内存泄露" class="headerlink" title="内存溢出与内存泄露"></a>内存溢出与内存泄露</h3><p>（1）内存溢出：一种程序运行出现的错误，错误原因是当程序运行需要的内存超过了剩余的内存时，就会抛出内存溢出的错误</p>
+<p>（2）内存泄露：占用的内存没有及时释放（但程序不出错），内存泄露积累多了就容易导致内存溢出</p>
+<p>常见的内存泄露：</p>
+<p>— 意外的全局变量</p>
+<p>— 没有及时清理的计时器或回调函数</p>
+<p>— 闭包</p>
+<pre><code>function fn()&#123;
+    a = 3  //意外的全局变量
+&#125;
+fn()
+
+setInterval(function()&#123;  //启动循环定时器后不清理
+    console.log(&#39;xxx)
+&#125;,1000)
+
+function fn1()&#123;
+    var a =4
+    function fn2()&#123;
+        console.log(++a)
+    &#125;
+    return fn2
+&#125;
+var f = fn1()
+f()</code></pre>
+<h3 id="相关例子-3"><a href="#相关例子-3" class="headerlink" title="相关例子"></a>相关例子</h3><pre><code>var name = &quot;The window&quot;
+var obj = &#123;
+    name:&#39;My object&#39;
+    fn:function()&#123;
+        return function()&#123;
+            return this.name;
+        &#125;
+    &#125;
+&#125;
+alert(obj.fn()())</code></pre>
+<p>输出 The window，因为相当于直接调用 fn 里的匿名函数，上面代码中没有闭包，有函数嵌套，但内部函数没有引用外部函数变量</p>
+<pre><code>var name = &quot;The window&quot;
+var obj = &#123;
+    name:&#39;My object&#39;
+    fn:function()&#123;
+        var that = this
+        return function()&#123;
+            return that.name;
+        &#125;
+    &#125;
+&#125;
+alert(obj.fn()())</code></pre>
+<p>输出 My object，直接调用 fn 里的匿名函数，但是输出的是 that 对象的 name，上面代码中有闭包，有函数嵌套，且内部函数引用外部函数变量 that</p>
+<pre><code>function fun(n,o)&#123;
+    console.log(o)
+    return&#123;
+        fun:function(m)&#123; //闭包，因为 n 引用了外部函数 fun 中的 n
+            return fun(m,n)  //这里的 fun 函数是只最外面第一行的 fun 函数
+        &#125;
+    &#125;
+&#125;
+var a = fun(0);  //undefined，因为没有给形参 o 赋值，此时闭包里的 n 是 0 
+a.fun(1);    //0，函数执行产生了新的闭包，但马上消失，因为没有变量来接收 a.fun(1) 返回值
+a.fun(2);    //0
+a.fun(3);    //0
+var b = fun(0).fun(1).fun(2).fun(3);  //undefined,0，1，2
+var c = fun(0).fun(1);  //undefined,0
+c.fun(2);  //1
+c.fun(3);  //1</code></pre>
+<h1 id="三、面向对象高级"><a href="#三、面向对象高级" class="headerlink" title="三、面向对象高级"></a>三、面向对象高级</h1><h2 id="1、对象创建模式"><a href="#1、对象创建模式" class="headerlink" title="1、对象创建模式"></a>1、对象创建模式</h2><h3 id="方式一：构造函数"><a href="#方式一：构造函数" class="headerlink" title="方式一：构造函数"></a>方式一：构造函数</h3><p>Object 构造函数（new Object()）模式：先创建空 Object 对象，再动态添加属性/方法</p>
+<p>适用场景：起始时不确定对象内部数据</p>
+<p>问题：语句太多</p>
+<h3 id="方式二：对象字面量模式"><a href="#方式二：对象字面量模式" class="headerlink" title="方式二：对象字面量模式"></a>方式二：对象字面量模式</h3><p>使用 {} 创建对象，同时指定属性/方法</p>
+<p>适用场景：起始时对象内部数据是确定的</p>
+<p>问题：如果创建多个对象有，重复代码</p>
+<h3 id="方式三：工厂模式（较不常用）"><a href="#方式三：工厂模式（较不常用）" class="headerlink" title="方式三：工厂模式（较不常用）"></a>方式三：工厂模式（较不常用）</h3><p>通过工厂函数（返回一个对象的函数都可以称为工厂函数）动态创建对象并返回</p>
+<p>适用场景：需要创建多个对象</p>
+<p>问题：对象没有一个具体的类型，都是 Object 类型</p>
+<pre><code>function createPerson(name,age)&#123;
+    var obj = &#123;
+        name:name,
+        age:age,
+        setName:function(name)&#123;
+            this.name = name
+        &#125;
+    &#125;
+    return obj
+&#125;</code></pre>
+<h3 id="方式四：自定义构造函数模式"><a href="#方式四：自定义构造函数模式" class="headerlink" title="方式四：自定义构造函数模式"></a>方式四：自定义构造函数模式</h3><p>自定义构造函数，通过 new 创建对象</p>
+<p>适用场景：需要创建多个类型确定的对象</p>
+<p>问题：每个对象都有相同的数据，浪费内存</p>
+<pre><code>function Person(name,age)&#123;
+    this.name = name
+    this.age = age
+    this.setName = function(name)&#123;
+        this.name = name
+    &#125;
+&#125;</code></pre>
+<h3 id="方式五：构造函数-原型的组合模式"><a href="#方式五：构造函数-原型的组合模式" class="headerlink" title="方式五：构造函数+原型的组合模式"></a>方式五：构造函数+原型的组合模式</h3><p>自定义构造函数，通过在函数中初始化，方法添加到原型上</p>
+<p>适用场景：需要创建多个类型确定的对象</p>
+<pre><code>function Person(name,age)&#123;
+    this.name = name
+    this.age = age
+&#125;
+Person.prototype.setName = function(name)&#123;
+    this.name = name
+&#125;</code></pre>
+<h2 id="2、继承模式"><a href="#2、继承模式" class="headerlink" title="2、继承模式"></a>2、继承模式</h2><h3 id="方式一：原型链继承（得到方法）"><a href="#方式一：原型链继承（得到方法）" class="headerlink" title="方式一：原型链继承（得到方法）"></a>方式一：原型链继承（得到方法）</h3><p>步骤</p>
+<p>— 定义父类型构造函数</p>
+<p>— 给父类型的原型添加方法</p>
+<p>— 定义子类型构造函数</p>
+<p>— 创建父类型的实例对象赋值为子类型的原型</p>
+<p>— 将子类型原型的构造属性设置为子类型</p>
+<p>— 给子类型原型添加方法</p>
+<p>— 创建子类型的对象：可以调用父类型的方法</p>
+<pre><code>//父类型
+function Supper()&#123;
+    this.supprop = &#39;supper&#39;
+&#125;
+Supper.prototype.showSupperProp = function()&#123;
+    console.log(this.supprop)
+&#125;
+//子类型
+function Sub()&#123;
+    this.subprop = &#39;sub&#39;
+&#125;
+//子类型的原型为父类型的一个实例对象
+Sub.prototype = new Supper()
+//让子类型的原型的 constructor 指向子类型
+Sub.prototype.constructor = Sub //若没有这条语句则 constructor 指向 Supper
+Sub.prototype.showSubProp = functioin()&#123;
+    console.log(this.subprop)
+&#125;
+var sub = new Sub()
+sub.showSupperProp()
+sub.showSubProp()</code></pre>
+<p>关键：子类型的原型为父类型的一个实例对象</p>
+<h3 id="方式二：借用构造函数继承（得到属性）"><a href="#方式二：借用构造函数继承（得到属性）" class="headerlink" title="方式二：借用构造函数继承（得到属性）"></a>方式二：借用构造函数继承（得到属性）</h3><p>步骤：</p>
+<p>— 定义父类型构造函数</p>
+<p>— 定义子类型构造函数</p>
+<p>— 在子类型构造函数中调用父类型的构造</p>
+<pre><code>function Person(name,age)&#123;
+    this.name = name
+    this.age = age
+&#125;
+function Student(name,age,price)&#123;
+    Person.call(this,name,age)  //相当于 this.Person(name,age)
+    this.price = price
+&#125;
+var s = new Student(&#39;xx&#39;,12,10000)</code></pre>
+<p>关键：在子类型构造函数中通过 call() 调用父类型构造函数</p>
+<h3 id="方式三：组合继承"><a href="#方式三：组合继承" class="headerlink" title="方式三：组合继承"></a>方式三：组合继承</h3><p>原型链 + 借用构造函数的组合继承</p>
+<p>步骤：</p>
+<p>— 利用原型链实现对父类型对象的方法继承</p>
+<p>— 利用 call() 借用父类型构造函数初始化相同属性</p>
+<pre><code>function Person(name,age)&#123;
+    this.name = name
+    this.age = age
+&#125;
+Person.protorype.setName = function(name)&#123;
+    this.name = name
+&#125;
+function Student(name,age,price)&#123;
+    Person.call(this,name,age)  //为了得到属性
+    this.price = price
+&#125;
+Student.prototype = new Person()  //为了能看到父类型原型的方法
+Student.protorype.constructor = Student //为了修正 constructor 属性
+Student.prototype.setPrice = function(price)&#123;
+    this.price = price
+&#125;
+var s = new Student(&#39;xx&#39;,12,10000)
+s.setName(&#39;yyy&#39;)
+s.setPrice(12000)
+console.log(s.name,s.age,s.price)  //输出 yyy 12 12000</code></pre>
+<h1 id="四、线程机制与事件机制"><a href="#四、线程机制与事件机制" class="headerlink" title="四、线程机制与事件机制"></a>四、线程机制与事件机制</h1><h2 id="1、进程与线程"><a href="#1、进程与线程" class="headerlink" title="1、进程与线程"></a>1、进程与线程</h2><p>进程（process）：程序的一次执行，占有独有的内存空间，各个应用程序间内存空间相互独立，可通过 Windows 任务管理器查看进程</p>
+<p>线程（thread）：线程是进程内一个独立的执行单元，是程序执行的一个完整流程，是 CPU的最小调度单元</p>
+<p>程序是单线程还是多线程是看一个进程内有多少线程</p>
+<p>应用程序必须运行在某个进程的某个线程上</p>
+<p>一个进程中至少有一个运行的线程，主线程，进程启动后自动创建</p>
+<p>一个进程中可以同时运行多个线程，会说程序是多线程运行的</p>
+<p>一个进程内的数据可以供其中的多个线程直接共享</p>
+<p>多个进程之间的数据是不能直接共享的</p>
+<p>线程池（thread pool）：保存多个线程对象的容器，实现线程对象的反复利用</p>
+<h3 id="多进程与多线程"><a href="#多进程与多线程" class="headerlink" title="多进程与多线程"></a>多进程与多线程</h3><p>多进程运行：一个应用程序可以同时启动多个实例运行</p>
+<p>多线程：在一个进程内，同时有多个线程运行</p>
+<p>CPU 的核数可对应同时运行的线程数</p>
+<h3 id="比较单线程与多线程"><a href="#比较单线程与多线程" class="headerlink" title="比较单线程与多线程"></a>比较单线程与多线程</h3><h4 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h4><p><strong>优点：</strong></p>
+<p>能有效提升 CPU 利用率</p>
+<p><strong>缺点：</strong></p>
+<p>（1）创建多线程开销</p>
+<p>（2）线程间切换开销</p>
+<p>（3）死锁与状态同步问题</p>
+<h4 id="单线程"><a href="#单线程" class="headerlink" title="单线程"></a>单线程</h4><p><strong>优点：</strong>顺序编程简单易懂</p>
+<p><strong>缺点：</strong>效率低</p>
+<p>js 是单线程运行的，但使用  H5 中的 Web Workers 可以多线程运行</p>
+<p>浏览器是多线程运行的</p>
+<p>浏览器有单进程和多进程，单进程的有 Firefox、老版 IE，多进程的有 chrome、新版 IE，可通过在浏览器打开多个标签后在任务管理器中查看是单进程还是多进程</p>
+<h2 id="2、浏览器内核"><a href="#2、浏览器内核" class="headerlink" title="2、浏览器内核"></a>2、浏览器内核</h2><p>浏览器内核：支撑浏览器运行的最核心的程序</p>
+<h3 id="不同浏览器的内核不同"><a href="#不同浏览器的内核不同" class="headerlink" title="不同浏览器的内核不同"></a>不同浏览器的内核不同</h3><p>— Chrome、Safari：webkit</p>
+<p>— Firefox：Gecko</p>
+<p>— IE：Trident</p>
+<p>— 360、搜狗等国内浏览器：Trident + webkit</p>
+<h3 id="内核组成模块"><a href="#内核组成模块" class="headerlink" title="内核组成模块"></a>内核组成模块</h3><p><strong>主线程中：</strong></p>
+<p>— js 引擎模块（也是程序）：负责 js 程序的编译（运行前动态编译）与运行，因此 js 代码在主线程中运行（使用了 Web Worker 另说）</p>
+<p>— html,css 文档解析模块：负责页面文本的解析（读文本-按一定规则拆解）</p>
+<p>— DOM/CSS 模块：负责 DOM/CSS 在内存中的相关处理（把标签转换为对象，页面在内存中是个 DOM 对象树）</p>
+<p>— 布局和渲染模块：负责页面的布局和效果的绘制（内存中的对象）</p>
+<p>……</p>
+<p><strong>分线程中：</strong></p>
+<p>— 定时器模块：负责定时器的管理</p>
+<p>— DOM 事件响应模块：负责事件的管理</p>
+<p>— 网络请求模块：负责 ajax 请求</p>
+<h2 id="3、定时器引发的思考"><a href="#3、定时器引发的思考" class="headerlink" title="3、定时器引发的思考"></a>3、定时器引发的思考</h2><h3 id="定时器真的是定时执行的吗？"><a href="#定时器真的是定时执行的吗？" class="headerlink" title="定时器真的是定时执行的吗？"></a>定时器真的是定时执行的吗？</h3><p>定时器并不能保证真正定时执行</p>
+<p>一般会延迟一点（可以接受），也可能延迟很长时间（不能接受）</p>
+<p>若在主线程执行了一个长时间的操作，可能导致延时才处理</p>
+<h3 id="定时器回调函数是在分线程中执行的吗？"><a href="#定时器回调函数是在分线程中执行的吗？" class="headerlink" title="定时器回调函数是在分线程中执行的吗？"></a>定时器回调函数是在分线程中执行的吗？</h3><p>定时器回调函数是在主线程中执行的，js 是单线程的，所有 js 代码都是在主线程中执行（无论是回调函数还是非回调函数）</p>
+<h3 id="定时器是如何实现的？"><a href="#定时器是如何实现的？" class="headerlink" title="定时器是如何实现的？"></a>定时器是如何实现的？</h3><p>事件循环模型</p>
+<h2 id="4、JS-是单线程执行的"><a href="#4、JS-是单线程执行的" class="headerlink" title="4、JS 是单线程执行的"></a>4、JS 是单线程执行的</h2><p>js 是单线程执行的，回调函数也是在主线程，H5 提出了实现多线程的方案（Web Worker）</p>
+<p>只有主线程能更新界面</p>
+<h3 id="证明-js-执行是单线程的"><a href="#证明-js-执行是单线程的" class="headerlink" title="证明 js 执行是单线程的"></a>证明 js 执行是单线程的</h3><p>setTimeout() 的回调函数是在主线程执行的，定时器回调函数只有在运行栈中的代码全部执行完后才有可能执行</p>
+<pre><code>setTimeout(function()&#123;
+    console.log(&#39;22&#39;)
+&#125;,2000)
+setTimeout(function()&#123;
+    console.log(&#39;11&#39;)
+&#125;,1000)
+function fn()&#123;console.log(&#39;fn&#39;)&#125;
+fn()
+console.log(&#39;alert之前&#39;)
+alert(&#39;----&#39;) //暂停当前主线程执行，同时暂停计时，点击确定后恢复程序执行和计时
+console.log(&#39;alert之后&#39;)</code></pre>
+<h3 id="为什么-js-要用单线程模式，而不用多线程模式"><a href="#为什么-js-要用单线程模式，而不用多线程模式" class="headerlink" title="为什么 js 要用单线程模式，而不用多线程模式"></a>为什么 js 要用单线程模式，而不用多线程模式</h3><p>JavaScript 的单线程与它的用途有关，作为浏览器脚本语言，JavaScript 的主要用途是与用户互动，以及操作 DOM，这决定了它只能是单线程，否则会带来很复杂的同步问题（如同时对一个对象更新和删除）</p>
+<h3 id="代码分类"><a href="#代码分类" class="headerlink" title="代码分类"></a>代码分类</h3><p>代码分类：初始化代码、回调代码</p>
+<p>初始化执行代码（同步代码）：包含绑定 DOM 事件监听，设置定时器，发送 ajax 请求的代码</p>
+<p>回调执行代码（异步代码）：处理回调逻辑</p>
+<h3 id="js-引擎执行代码的基本流程"><a href="#js-引擎执行代码的基本流程" class="headerlink" title="js 引擎执行代码的基本流程"></a>js 引擎执行代码的基本流程</h3><p>（1）先执行初始化代码：包含一般代码和以下一些特别的代码</p>
+<p>— 设置定时器</p>
+<p>— 绑定监听</p>
+<p>— 发生 ajax 请求</p>
+<p>上述三种情况都包含回调函数，回调函数是异步执行</p>
+<p>（2）后面在某个时可才会执行回调代码</p>
+<pre><code>setTimeout(function()&#123;
+    console.log(&#39;22&#39;)
+&#125;,0)
+console.log(&#39;alert之前&#39;)
+alert(&#39;----&#39;) //暂停当前主线程执行，同时暂停计时，点击确定后恢复程序执行和计时
+console.log(&#39;alert之后&#39;)
+
+输出
+alert之前
+弹出----
+alert之后
+22  //即使 setTimeout 的时间设为 0，回调函数也在初始化代码都执行结束后才会执行</code></pre>
+<h2 id="5、-浏览器的事件循环（轮询）模型"><a href="#5、-浏览器的事件循环（轮询）模型" class="headerlink" title="5、 浏览器的事件循环（轮询）模型"></a>5、 浏览器的事件循环（轮询）模型</h2><p>模型的两个重要组成部分：</p>
+<p>— 事件（定时器/DOM 事件/Ajax）管理模块</p>
+<p>— 回调队列</p>
+<h3 id="事件驱动模型（event-driven-interaction-model）"><a href="#事件驱动模型（event-driven-interaction-model）" class="headerlink" title="事件驱动模型（event-driven interaction model）"></a>事件驱动模型（event-driven interaction model）</h3><p>如下图所示</p>
+<p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%A8%A1%E5%9E%8B.png" alt="事件循环模型"></p>
+<p>如上图所示最左侧的栈中表示初始化代码执行，栈中是一些执行上下文对象，回调函数交给右侧的不同管理模块处理，右侧表示在分线程上执行的不同管理模块，各模块不由 js 引擎执行（在主线程执行），而是由浏览器负责，管理模块把回调函数插入下方队列待执行</p>
+<h3 id="模型运转流程"><a href="#模型运转流程" class="headerlink" title="模型运转流程"></a>模型运转流程</h3><p>（1）执行初始化代码，将事件回调函数交给对应模块管理</p>
+<p>（2）当事件发生时，管理模块会将回调函数及其数据添加到回调队列中</p>
+<p>（3）只有当初始化代码执行完后，才遍历读取队列中的回调函数执行</p>
+<h3 id="执行栈（execution-stack）"><a href="#执行栈（execution-stack）" class="headerlink" title="执行栈（execution stack）"></a>执行栈（execution stack）</h3><p>所有代码都在此空间中执行</p>
+<h3 id="浏览器内核（browser-core）"><a href="#浏览器内核（browser-core）" class="headerlink" title="浏览器内核（browser core）"></a>浏览器内核（browser core）</h3><p>js 引擎模块（在主线程处理）</p>
+<p>其他模块（在主/分线程处理）</p>
+<h3 id="回调队列"><a href="#回调队列" class="headerlink" title="回调队列"></a>回调队列</h3><p>callback queue 也称为任务队列（task queue）/消息队列（message queue）/事件队列（event queue）</p>
+<h3 id="事件轮询（event-loop）"><a href="#事件轮询（event-loop）" class="headerlink" title="事件轮询（event loop）"></a>事件轮询（event loop）</h3><p>从任务队列中循环取出回调函数放入执行栈中一个接一个处理</p>
+<h3 id="请求响应模型（request-response-model）"><a href="#请求响应模型（request-response-model）" class="headerlink" title="请求响应模型（request-response model）"></a>请求响应模型（request-response model）</h3><p>浏览器向服务器发送请求，服务器接收请求，并处理请求，并返回响应数据，浏览器接收响应数据并渲染</p>
+<h2 id="6、H5-Web-Workers（多线程）"><a href="#6、H5-Web-Workers（多线程）" class="headerlink" title="6、H5 Web Workers（多线程）"></a>6、H5 Web Workers（多线程）</h2><p>H5 规范提供了 js 分线程的实现，名为 Web Workers，是一个 JavaScript 多线程解决方案（js 原本是单线程运行的）</p>
+<p>这样可以将一些大计算量的代码交由 Web Worker 给分线程运行而不冻结用户界面，但是子线程完全受主线程控制，且不得操作 DOM，所以这个新标准并没有改变 JavaScript 单线程的本质</p>
+<h3 id="相关API"><a href="#相关API" class="headerlink" title="相关API"></a>相关API</h3><p>Worker：构造函数，加载分线程执行的 js 文件</p>
+<p>Worker.prototype.onmessage：用于接收另一个线程的回调函数</p>
+<p>Worker.prototype.postMessage：向另一个线程发送消息</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>创建在分线程执行的 js 文件</p>
+<p>在主线程中的 js 中发消息并设置回调</p>
+<p>主线程中</p>
+<pre><code>//创建一个 Worker 对象并向它传递将在新线程中执行的脚本的 URL
+var worker = new Worker(&#39;worker.js&#39;)
+//绑定接收消息的监听，主线程接收 worker 分线程传来的数据函数
+worker.onmessage = function(event)&#123; //也可写在 postMessage 后面，因为只有在初始化代码执行完后才有可能执行回调函数
+    console.log(event.data)
+&#125;
+//主线程向 worker 分线程发送数据
+woreker.postMessage(&quot;hello world&quot;)</code></pre>
+<p>分线程代码文件中</p>
+<pre><code>var onmessage = function (event)&#123;  //不能用函数声明
+    var msg = event.data  //通过 event.data 获得发送来的数据
+    postMessage(&#39;ok&#39;)  //将获取到的数据发送回主线程
+&#125;</code></pre>
+<p>分线程中的全局变量不是 window，而是它自己的全局变量，所以在分线程中无法操作 DOM 元素（document相关）不能更新界面，也无法使用 alert（window 的方法）等</p>
+<p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/webworker.png" alt="webworker"></p>
+<h3 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h3><p>（1）慢，因为增加了消息传输</p>
+<p>（2）Worker 内代码不能操作 DOM（更新 UI），因为全局对象不是 window</p>
+<p>（3）不能跨域加载 JS</p>
+<p>（4）不是每个浏览器都支持这个新特性</p>
+<h1 id="五、其他"><a href="#五、其他" class="headerlink" title="五、其他"></a>五、其他</h1><p>1、定义在对象中的属性变量不是私有的，因为外部可直接操作，只有定义在函数内的变量才可能是私有的（闭包另说），因为函数有作用域</p>
+<p>2、找变量是通过作用域链，找对象的属性是通过原型链</p>
+<p>3、变量找不到会报错，属性找不到会返回 undefined，如找变量 a 找不到会报错，找 window.a 找不到会返回 undefined</p>
+<p>4、new 一个对象背后做了什么？</p>
+<p>— 创建一个空对象</p>
+<p>— 给对象设置 <code>__proto__</code>，值为构造函数对象的 prototype 属性值（即 <code>this.__proto__ = Fn.prototype</code>）</p>
+<p>— 执行构造函数体（给对象添加属性/方法）</p>
+
     </div>
 
     
@@ -304,6 +1252,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2021/12/29/jQuery%E7%AC%94%E8%AE%B0/" rel="next" title="jQuery笔记">
+                  jQuery笔记 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
