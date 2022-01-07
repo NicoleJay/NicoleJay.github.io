@@ -4671,6 +4671,8 @@ console.log(w.forEach)  //会返回 undefined</code></pre>
     <url>/2022/01/07/Ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="一、AJAX"><a href="#一、AJAX" class="headerlink" title="一、AJAX"></a>一、AJAX</h1><p>AJAX（Asynchronous JavaScript and XML）即异步的 JS 和 XML</p>
 <p>通过 AJAX 可在浏览器中向服务器发送异步请求，最大的优势：无刷新获取数据</p>
+<a id="more"></a>
+
 <p>AJAX 不是编程语言，而是一种将现有的标准组合在一起使用的新方式</p>
 <p><strong>特点：</strong>可在不刷新网页的情况下向后端发送 http 请求，得到 http 响应，实现懒加载效果（用则加载不用则步加载）提高网页加载速度</p>
 <h1 id="二、XML"><a href="#二、XML" class="headerlink" title="二、XML"></a>二、XML</h1><p>XML（）可扩展标记语言</p>
@@ -5091,5 +5093,10 @@ app.listen(8000,()=&gt;&#123;
       <categories>
         <category>前端</category>
       </categories>
+  </entry>
+  <entry>
+    <title>ES新特性学习笔记</title>
+    <url>/2022/01/07/ES%E6%96%B0%E7%89%B9%E6%80%A7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>

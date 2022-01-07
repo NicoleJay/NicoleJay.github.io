@@ -196,7 +196,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -237,6 +237,69 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://nicolejay.github.io/2022/01/07/ES%E6%96%B0%E7%89%B9%E6%80%A7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="NicoleJay">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X 的笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/07/ES%E6%96%B0%E7%89%B9%E6%80%A7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">ES新特性学习笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-07 22:56:08" itemprop="dateCreated datePublished" datetime="2022-01-07T22:56:08+08:00">2022-01-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -294,423 +357,14 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="一、AJAX"><a href="#一、AJAX" class="headerlink" title="一、AJAX"></a>一、AJAX</h1><p>AJAX（Asynchronous JavaScript and XML）即异步的 JS 和 XML</p>
 <p>通过 AJAX 可在浏览器中向服务器发送异步请求，最大的优势：无刷新获取数据</p>
-<p>AJAX 不是编程语言，而是一种将现有的标准组合在一起使用的新方式</p>
-<p><strong>特点：</strong>可在不刷新网页的情况下向后端发送 http 请求，得到 http 响应，实现懒加载效果（用则加载不用则步加载）提高网页加载速度</p>
-<h1 id="二、XML"><a href="#二、XML" class="headerlink" title="二、XML"></a>二、XML</h1><p>XML（）可扩展标记语言</p>
-<p>XML 被设计用来传输（如服务器以 XML 形式返回数据给客户端）和存储数据（如可用来保存一些用户数据、订单数据、商品数据等）</p>
-<pre><code>&lt;student&gt;
-    &lt;name&gt;xxx&lt;/name&gt;
-    &lt;age&gt;12&lt;/age&gt;
-    &lt;gender&gt;男&lt;/gender&gt;
-&lt;/student&gt;</code></pre>
-<p>最初 AJAX 在数据交换时使用的是 XML，现在一般使用 JSON 格式</p>
-<h2 id="XML-和-HTML-区别"><a href="#XML-和-HTML-区别" class="headerlink" title="XML 和 HTML 区别"></a>XML 和 HTML 区别</h2><p>XML 和 HTML 类似都是由标签组成</p>
-<p>不同的是 HTML 中都是预定义标签，而 XML 中没有预定义标签，全都是自定义标签，用来表示数据</p>
-<p>XML 被设计用来传输和存储数据，而 HTML 用来呈现数据</p>
-<h2 id="AJAX-优缺点"><a href="#AJAX-优缺点" class="headerlink" title="AJAX 优缺点"></a>AJAX 优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>（1）可无需刷新页面与服务器端进行通信（这是创造 AJAX 的初衷）</p>
-<p>（2）允许根据用户事件（如鼠标事件、键盘事件、表单事件、文档事件等）来更新部分页面内容</p>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>（1）没有浏览历史，不能回退</p>
-<p>（2）存在跨域问题（同源）</p>
-<p>（3）SEO 不友好，即源码（即响应体）第一次向服务器请求的数据中没有某元素，然后通过 AJAX 向服务端发请求后通过 JS 动态创建元素到页面中，则爬虫爬不到该元素</p>
-<h1 id="三、HTTP-协议"><a href="#三、HTTP-协议" class="headerlink" title="三、HTTP 协议"></a>三、HTTP 协议</h1><p>HTTP 协议（hypertext transport protocol）即超文本传输协议，协议详细规定了浏览器和万维网服务器之间互相通信的规则</p>
-<h2 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h2><p>请求报文包括四部分：请求行、请求头、空行、请求体</p>
-<p>请求行：请求类型（如 GET/POST/…）、URL、HTTP 协议版本（如 HTTP/1.1）</p>
-<p>请求头：Host、Cookie、Content-type、User-Agent</p>
-<p>当请求类型为 GET 时请求体为空，为 POST 时请求体可不为空</p>
-<pre><code>行  POST /bv?p=123 HTTP/1.1
-头  Host: xxx.com
-    Cookie: name=xxx
-    Content-type: application/x-www-form-urlencoded
-    User-Agent: chrome 83
-空行
-体  username=admin&amp;password=admin</code></pre>
-<h2 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h2><p>响应报文包括四部分：行、头、空行、体</p>
-<p>响应行：HTTP 协议版本（如 HTTP/1.1）、响应状态码（如 200、404 找不到页面、403 Forbidden、401 未授权、500 内部错误等，2xx都表示成功）、响应状态字符串（如 OK，与状态码对应）</p>
-<p>响应头（对响应体作描述）：Content-type、Content-length、Content-encoding</p>
-<pre><code>行  HTTP/1.1 200 OK
-头  Content-type: text/html;charset=utf-8  表示请求体内容的类型
-    Content-length: 2048
-    Content-encoding: gzip
-    ...
-空行
-体  &lt;html&gt;
-        &lt;head&gt;&lt;/head&gt;
-        &lt;body&gt;
-            &lt;h1&gt;xxx&lt;/h1&gt;
-        &lt;/body&gt;
-    &lt;/html&gt;</code></pre>
-<h1 id="四、服务端的准备"><a href="#四、服务端的准备" class="headerlink" title="四、服务端的准备"></a>四、服务端的准备</h1><p>AJAX 需要向服务端发请求，所以需要准备服务端环境，安装 Node.js、使用 Express 框架搭建后端</p>
-<h2 id="1、Node-js"><a href="#1、Node-js" class="headerlink" title="1、Node.js"></a>1、Node.js</h2><p>Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行时，是一个可以解析 js 代码的应用程序，通过 js 代码对计算机资源做一些操作</p>
-<p>因为 AJAX 的应用当中需要一个服务端，所以需要安装 Node.js</p>
-<h2 id="2、Express-框架的简单使用"><a href="#2、Express-框架的简单使用" class="headerlink" title="2、Express 框架的简单使用"></a>2、Express 框架的简单使用</h2><p>Express 是基于 Node.js 平台的 Web 开发框架</p>
-<p>在终端</p>
-<pre><code>//做初始化，npm 是 Node.js 平台下的包管理工具
-npm init --yes  
-//安装 express
-npm i express</code></pre>
-<p>js 代码</p>
-<pre><code>//引入 express
-const express = require(&#39;express&#39;);
-//创建应用对象
-const app = express();
-//创建路由规则
-//当请求头中的 URL 匹配时会执行下方函数中的回调函数
-app.get(&#39;/请求头第二个字段URL&#39;,(request,response)=&gt;&#123;  //参数request是对请求报文的封装，response是对响应报文的封装
-    response.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;*&#39;);  //设置响应头，设置允许跨域
-    response.send(&#39;xxx&#39;);  //设置响应体
-&#125;);
-//监听端口启动服务
-app.listen(8000,()=&gt;&#123;
-    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
-&#125;)</code></pre>
-<p>在终端启动服务</p>
-<pre><code>node 文件名.js</code></pre>
-<p>当 js 文件内容发生变化时需重新启动服务</p>
-<h2 id="3、nodemon-自动重启服务工具"><a href="#3、nodemon-自动重启服务工具" class="headerlink" title="3、nodemon 自动重启服务工具"></a>3、nodemon 自动重启服务工具</h2><p>当 js 文件改变时 nodemon 可启动重启 node 应用</p>
-<p>在终端安装</p>
-<pre><code>npm install -g nodemon</code></pre>
-<p>安装完 nodemon 后在启动服务需使用</p>
-<pre><code>nodemon 文件名.js</code></pre>
-<h1 id="五、原生-AJAX"><a href="#五、原生-AJAX" class="headerlink" title="五、原生 AJAX"></a>五、原生 AJAX</h1><h2 id="1、基本使用"><a href="#1、基本使用" class="headerlink" title="1、基本使用"></a>1、基本使用</h2><p>步骤：</p>
-<p>— 1、创建对象，<code>new XMLHttpRequest()</code></p>
-<p>— 2、初始化，<code>xhr.open(&#39;xxx&#39;,&#39;xxx&#39;)</code> 设置请求方法和 url，url 中设置参数 <code>?参数1=值&amp;参数2=值&amp;参数n=值</code></p>
-<p>— 3、发送，<code>xhr.send()</code></p>
-<p>— 4、事件绑定，<code>xhr.onreadystatechange</code> 处理服务端返回的结果</p>
-<p>其中 readyState 是 xhr 对象中的属性，表示状态，有 5 个值：</p>
-<pre><code>0（未初始化）
-1（open方法已调用完毕）
-2（send方法已调用完毕）
-3（服务端返回了部分结果）
-4（服务端返回了所有结果）</code></pre>
-<p>例子（前端部分）</p>
-<pre><code>const xhr = new XMLHttpRequest();  //创建对象
-xhr.open(&#39;GET&#39;,&#39;http://127.0.0.1:8000/server?a=1&amp;b=2&amp;c=3&#39;); //初始化
-xhr.send();  //发送
-xhr.onreadystatechange = function()&#123;  //事件绑定，会触发四次，0-1，1-2，2-3，3-4
-    if(xhr.readyState === 4)&#123;  //服务端返回了所有结果
-        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;  //判断响应状态码
-            //处理结果--行 头 空行 体
-            console.log(xhr.status);  //状态码
-            console.log(xhr.statusText);  //状态字符串
-            console.log(xhr.getAllResponseHeaders());  //所有响应头
-            console.log(xhr.response);  //响应体
-
-        &#125;else&#123;&#125;
-    &#125;
-&#125;</code></pre>
-<h2 id="2、发送-POST-请求"><a href="#2、发送-POST-请求" class="headerlink" title="2、发送 POST 请求"></a>2、发送 POST 请求</h2><p>无参数的 post 请求与 get 类似，参考上面的例子，同时后端也需有相应路径下的 post 方法</p>
-<h3 id="post-中设置请求体"><a href="#post-中设置请求体" class="headerlink" title="post 中设置请求体"></a>post 中设置请求体</h3><pre><code>const xhr = new XMLHttpRequest(); 
-xhr.open(&#39;POST&#39;,&#39;http://127.0.0.1:8000/server&#39;);
-xhr.send(&#39;a=1&amp;b=2&amp;c=3&#39;);  //发送，设置请求体，请求体的内容可以任意
-xhr.onreadystatechange = function()&#123;
-    if(xhr.readyState === 4)&#123;
-        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
-            //处理结果
-        &#125;else&#123;&#125;
-    &#125;
-&#125;</code></pre>
-<h3 id="post-中设置请求头"><a href="#post-中设置请求头" class="headerlink" title="post 中设置请求头"></a>post 中设置请求头</h3><p>一般会把身份校验信息放在头信息中</p>
-<pre><code>const xhr = new XMLHttpRequest(); 
-xhr.open(&#39;POST&#39;,&#39;http://127.0.0.1:8000/server&#39;);
-xhr.setRequestHeader(&#39;Content-Type&#39;,&#39;application/x-www-form-urlencoded&#39;);  //设置请求头
-xhr.send(&#39;a=1&amp;b=2&amp;c=3&#39;);  //发送，设置请求体，请求体的内容可以任意
-xhr.onreadystatechange = function()&#123;
-    if(xhr.readyState === 4)&#123;
-        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
-            //处理结果
-        &#125;else&#123;&#125;
-    &#125;
-&#125;</code></pre>
-<p>若使用自定义请求头名，此时发送完 post 请求后还会再发送一个 options 请求，需在后端设置</p>
-<pre><code>const express = require(&#39;express&#39;);
-const app = express();   //创建应用对象
-app.all(&#39;/server&#39;,(request,response)=&gt;&#123;  //设置 all 方法可接收任意类型的请求
-    response.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;*&#39;);  //设置响应头，设置允许跨域
-    response.setHeader(&#39;Access-Control-Allow-Headers&#39;,&#39;*&#39;);  //设置使所有类型头信息都能接受，从而允许那些自定义的头信息
-    response.send(&#39;xxx&#39;);  //设置响应体
-&#125;);
-//监听端口启动服务
-app.listen(8000,()=&gt;&#123;
-    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
-&#125;)</code></pre>
-<h2 id="3、传输-JSON-数据"><a href="#3、传输-JSON-数据" class="headerlink" title="3、传输 JSON 数据"></a>3、传输 JSON 数据</h2><p>后端</p>
-<pre><code>const express = require(&#39;express&#39;);
-const app = express();  //创建应用对象
-//创建路由规则
-app.get(&#39;/请求头第二个字段URL&#39;,(request,response)=&gt;&#123;
-    response.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;*&#39;);  //设置响应头，设置允许跨域
-    const data = &#123;
-        name:&#39;xxx&#39;
-    &#125;
-    let str = JSON.stringfy(data);  //将对象进行字符串转换
-    response.send(str);  //设置响应体
-&#125;);
-//监听端口启动服务
-app.listen(8000,()=&gt;&#123;
-    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
-&#125;)</code></pre>
-<p>前端方式一：手动对数据转化</p>
-<pre><code>const xhr = new XMLHttpRequest(); 
-xhr.open(&#39;POST&#39;,&#39;http://127.0.0.1:8000/server&#39;);
-xhr.send();
-xhr.onreadystatechange = function()&#123;
-    if(xhr.readyState === 4)&#123;
-        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
-            //方式一：手动对数据转化
-            let data = JSON.parse(xhr.response);
-        &#125;else&#123;&#125;
-    &#125;
-&#125;</code></pre>
-<p>前端方式一：（自动转换）设置响应体数据类型</p>
-<pre><code>const xhr = new XMLHttpRequest(); 
-//方式二：设置响应体数据类型
-xhr.responseType = &#39;json&#39;;
-xhr.open(&#39;POST&#39;,&#39;http://127.0.0.1:8000/server&#39;);
-xhr.send();
-xhr.onreadystatechange = function()&#123;
-    if(xhr.readyState === 4)&#123;
-        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
-            console.log(xhr.response)
-        &#125;else&#123;&#125;
-    &#125;
-&#125;</code></pre>
-<h2 id="4、IE-缓存问题"><a href="#4、IE-缓存问题" class="headerlink" title="4、IE 缓存问题"></a>4、IE 缓存问题</h2><p>IE 浏览器会缓存 AJAX 的请求结果，下次发相同请求时使用的是本地的缓存结果而不是服务器返回的最新数据，不利于一些时效性要求比较高的场景</p>
-<p>解决：</p>
-<p>在前端中设置 url 时添加一个时间戳参数来表示每次发送的是不同请求</p>
-<pre><code>const xhr = new XMLHttpRequest(); 
-xhr.open(&#39;POST&#39;,&#39;http://127.0.0.1:8000/server?t=&#39;+Date.now());  //通过 url 解决 IE 缓存问题
-xhr.send();
-xhr.onreadystatechange = function()&#123;
-    if(xhr.readyState === 4)&#123;
-        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
-            console.log(xhr.response)
-        &#125;else&#123;&#125;
-    &#125;
-&#125;</code></pre>
-<h2 id="5、AJAX-请求超时和网络异常处理"><a href="#5、AJAX-请求超时和网络异常处理" class="headerlink" title="5、AJAX 请求超时和网络异常处理"></a>5、AJAX 请求超时和网络异常处理</h2><p>添加请求超时及网络异常处理，在前端添加</p>
-<pre><code>const xhr = new XMLHttpRequest(); 
-//设置超过 2s 为超时，则取消请求
-xhr.timeout = 2000;
-//超时回调
-xhr.ontimeout = function()&#123;
-    alert(&quot;网络异常，请稍后重试&quot;);
-&#125;
-//网络异常回调
-xhr.onerror = function()&#123;
-    alert(&quot;网络出问题了&quot;);
-&#125;
-xhr.open(&#39;POST&#39;,&#39;http://127.0.0.1:8000/server);
-xhr.send();
-xhr.onreadystatechange = function()&#123;
-    if(xhr.readyState === 4)&#123;
-        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
-            console.log(xhr.response)
-        &#125;else&#123;&#125;
-    &#125;
-&#125;</code></pre>
-<h2 id="6、AJAX-取消请求"><a href="#6、AJAX-取消请求" class="headerlink" title="6、AJAX 取消请求"></a>6、AJAX 取消请求</h2><p>通过 xhr 对象的 abort 方法来取消请求 <code>xhr.abort()</code>（xhr 是XMLHttpRequest 对象实例）</p>
-<h2 id="7、AJAX-请求重复发送问题"><a href="#7、AJAX-请求重复发送问题" class="headerlink" title="7、AJAX 请求重复发送问题"></a>7、AJAX 请求重复发送问题</h2><p>当服务器响应较慢时，用户可能多次重复发送相同请求，会增加服务器的压力，因此当多次发相同请求时可把前面未响应完成的请求取消</p>
-<p>在前端添加一个标识变量来表示是否正在发送请求</p>
-<pre><code>let xhr = null;
-let isSending = false;  //是否正在发送请求
-if(isSending)&#123;  //若正在发送请求，则取消该请求
-    xhr.abort();
-&#125;
-xhr = new XMLHttpRequest(); 
-isSending = true;
-xhr.open(&#39;GET&#39;,&#39;http://127.0.0.1:8000/server);
-xhr.send();
-xhr.onreadystatechange = function()&#123;
-    if(xhr.readyState === 4)&#123;
-        isSending = false;
-    &#125;
-&#125;</code></pre>
-<h1 id="六、jQuery-中使用-AJAX"><a href="#六、jQuery-中使用-AJAX" class="headerlink" title="六、jQuery 中使用 AJAX"></a>六、jQuery 中使用 AJAX</h1><h2 id="get-请求"><a href="#get-请求" class="headerlink" title="get 请求"></a>get 请求</h2><p><code>$get(url,[请求携带的参数],[载入成功时回调函数],[返回内容格式])</code></p>
-<p>其中返回内容格式可以是 xml、html、script、json、text、_default</p>
-<pre><code>$.get(&#39;http://127.0.0.1:8000/server&#39;,&#123;a:1,b:2&#125;,function(data)&#123;
-    console.log(data)
-&#125;,&#39;json&#39;)</code></pre>
-<p>若使用 CDN 引入jQuery，在发送请求时出现警告 A cookie associated with a cross-site resource at <a target="_blank" rel="noopener" href="http://bootcss.com/">http://bootcss.com/</a> was set without the ‘SameSite’ attibute….</p>
-<p>可在引入时添加跨源请求的属性设置 <code>crossorigin=&quot;anonymous&quot;</code>，添加后向对于 src 资源请求时不会带当前域名下的 cookie</p>
-<pre><code>&lt;script crossorigin=&quot;anonymous&quot; src=&quot;https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js&quot;&gt;&lt;/script&gt;</code></pre>
-<h2 id="post-请求"><a href="#post-请求" class="headerlink" title="post 请求"></a>post 请求</h2><p><code>$post(url,[请求携带的参数],[载入成功时回调函数],[返回内容格式])</code></p>
-<pre><code>$.post(&#39;http://127.0.0.1:8000/server&#39;,&#123;a:1,b:2&#125;,function(data)&#123;
-    console.log(data)
-&#125;,&#39;json&#39;)</code></pre>
-<h2 id="通用发送请求的方法"><a href="#通用发送请求的方法" class="headerlink" title="通用发送请求的方法"></a>通用发送请求的方法</h2><p>前端</p>
-<pre><code>$.ajax(&#123;
-    url: &#39;http://127.0.0.1:8000/server&#39;,
-    data: &#123;a:1,b:2&#125;,   //参数
-    type: &#39;GET&#39;,       //请求类型
-    dataType: &#39;json&#39;,  //响应体结果类型，这样可直接解析json字符串
-    success: function(data)&#123;  //成功的回调
-        console.log(data);
-    &#125;,
-    timeout: 2000,  //设置超时时间
-    error: function()&#123;  //失败的回调，包括超时、异常等
-        console.log(&#39;错误&#39;);
-    &#125;,
-    headers: &#123;
-        c:3,
-        d:4
-    &#125;
-&#125;)</code></pre>
-<p>后端</p>
-<pre><code>const express = require(&#39;express&#39;);
-const app = express();
-app.all(&#39;/server&#39;,(request,response)=&gt;&#123;
-    response.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;*&#39;);  //设置允许跨域
-    response.setHeader(&#39;Access-Control-Allow-Headers&#39;,&#39;*&#39;);  //设置使所有类型头信息都能接受，从而允许那些自定义的头信息
-    response.send(&#39;xxx&#39;);  //设置响应体
-&#125;);
-//监听端口启动服务
-app.listen(8000,()=&gt;&#123;
-    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
-&#125;)</code></pre>
-<h1 id="七、axios"><a href="#七、axios" class="headerlink" title="七、axios"></a>七、axios</h1><p>axios 是目前最热门的 AJAX 工具库，也是 Vue 和 React 推荐的 AJAX 工具包</p>
-<p>可在项目中使用 <code>npm install axios</code> 安装或使用 <code>&lt;script  crossorigin=&quot;anonymous&quot; src=&quot;https://cdn.bootcdn.net/ajax/libs/axios/0.24.0/axios.min.js&quot;&gt;&lt;/script&gt;</code> 引入并使用</p>
-<h2 id="get-请求-1"><a href="#get-请求-1" class="headerlink" title="get 请求"></a>get 请求</h2><pre><code>const axios = require(&#39;axios&#39;);  //通过 npm 方式安装需先引入 axios
-
-axios.defaults.baseURL = &#39;http://127.0.0.1:8000&#39;; //配置 baseURL，也可不配置，都写在请求的 url 里
-axios.get(&#39;/server&#39;,&#123;
-    params: &#123;  //url 参数
-        a:1,
-        b:2
-    &#125;,
-    headers: &#123;   //请求头信息
-        c:3,
-        d:4
-    &#125;
-&#125;).then(value =&gt; &#123;  //数据返回和处理和 jQuery 不同，jQuery 使用回调函数，而 axios 是基于 promise
-    console.log(value)
-&#125;)</code></pre>
-<h2 id="post-请求-1"><a href="#post-请求-1" class="headerlink" title="post 请求"></a>post 请求</h2><p><code>axios.post(url,&#123;请求体&#125;,&#123;其他配置&#125;)</code></p>
-<pre><code>axios.defaults.baseURL = &#39;http://127.0.0.1:8000&#39;; //配置 baseURL，也可不配置，都写在请求的 url 里
-axios.get(&#39;/server&#39;,&#123;
-    e:5,       //请求体
-    f:6
-&#125;,&#123;
-    params: &#123;  //url 参数
-        a:1,
-        b:2
-    &#125;,
-    headers: &#123;   //请求头信息
-        c:3,
-        d:4
-    &#125;
-&#125;).then(value =&gt; &#123;  //数据返回和处理和 jQuery 不同，jQuery 使用回调函数，而 axios 是基于 promise
-    console.log(value)
-&#125;)</code></pre>
-<h2 id="通用发送请求的方法-1"><a href="#通用发送请求的方法-1" class="headerlink" title="通用发送请求的方法"></a>通用发送请求的方法</h2><pre><code>axios(&#123;
-    method: &#39;POST&#39;,
-    url: &#39;http://127.0.0.1:8000/server&#39;,
-    params: &#123;    //url 参数
-        a:1,
-        b:2
-    &#125;,
-    headers: &#123;   //请求头信息
-        c:3,
-        d:4
-    &#125;,
-    data: &#123;       //请求体
-        e:5,
-        f:6
-    &#125;    
-&#125;).then(response =&gt; &#123;
-    console.log(response)
-&#125;)</code></pre>
-<h1 id="八、使用-fetch-函数发送请求"><a href="#八、使用-fetch-函数发送请求" class="headerlink" title="八、使用 fetch 函数发送请求"></a>八、使用 fetch 函数发送请求</h1><p>fetch 函数属于全局对象，返回一个 promise 对象，这个 promise 会在请求响应后被 resolve，并传回 Response 对象</p>
-<pre><code>fetch(&#39;http://127.0.0.1:8000/server?c=1&#39;,&#123;
-    method: &#39;POST&#39;,
-    headers: &#123;   //请求头信息
-        c:3,
-        d:4
-    &#125;,
-    body: &#39;e=5&amp;f=6&#39;  //请求体，请求体可以是 Blob、BufferSource、Formdata、URLSearchParam 对象或字符串
-&#125;).then(response =&gt; &#123;
-    return response.text(); //获取响应体结果，不能直接看到响应体结果，需使用 return，若返回的是 json，则使用 return response.json()
-&#125;).then(response =&gt; &#123;
-    console.log(response)
-&#125;)</code></pre>
-<h1 id="九、跨域"><a href="#九、跨域" class="headerlink" title="九、跨域"></a>九、跨域</h1><h2 id="1、同源策略"><a href="#1、同源策略" class="headerlink" title="1、同源策略"></a>1、同源策略</h2><p>同源策略（Same-Origin Policy）最早由网景公司提出，是浏览器的一种安全策略</p>
-<p>同源即当前网页的 URL 和 AJAX 请求的目标资源的 URL 的协议、域名、端口号完全相同</p>
-<p>若违背同源策略就是跨域</p>
-<p>AJAX 默认是遵循同源策略的，若不满足同源策略则无法直接发送 AJAX 请求</p>
-<p>在同源情况下的请求中 url 可不用加协议、域名、端口（浏览器会自动加上），可简写为 <code>/xxx</code></p>
-<h2 id="2、跨域的解决方案"><a href="#2、跨域的解决方案" class="headerlink" title="2、跨域的解决方案"></a>2、跨域的解决方案</h2><h3 id="（1）JSONP"><a href="#（1）JSONP" class="headerlink" title="（1）JSONP"></a>（1）JSONP</h3><p>JSONP（JSON with Padding）是一个非官方的跨域解决方案，只支持 get 请求</p>
-<h4 id="JSONP-如何工作"><a href="#JSONP-如何工作" class="headerlink" title="JSONP 如何工作"></a>JSONP 如何工作</h4><p>在网页有一些标签天生具有跨域能力，如 img、link、iframe、script</p>
-<p>JSONP 就是利用 script 标签的跨域能力来发送请求的</p>
-<p>JSONP 的返回结果是一个定义好的函数的调用（即 js 代码，不能是字符串等数据），这样浏览器引擎才能解析并执行，若是自定义函数，需在前端代码中定义好，函数中的参数一般放要返回的数据内容</p>
-<p>前端</p>
-<pre><code>&lt;script&gt;
-    function handle(data)&#123;
-        console.log(data.a)
-    &#125;
-&lt;/script&gt;
-&lt;script src=&quot;http://127.0.0.1:8000/server&quot;&gt;&lt;/script&gt;</code></pre>
-<p>后端</p>
-<pre><code>const express = require(&#39;express&#39;);
-const app = express();
-app.all(&#39;/server&#39;,(request,response)=&gt;&#123;
-    const data = &#123;
-        a:1
-    &#125;
-    response.send(&#39;console.log(&#39;xxx&#39;)&#39;);
-    //或 response.end(&#39;handle($&#123;str&#125;)&#39;); //end 和 send 差不多，但 end 方法不会加特殊响应头
-&#125;);
-//监听端口启动服务
-app.listen(8000,()=&gt;&#123;
-    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
-&#125;)</code></pre>
-<h4 id="JSONP-的使用"><a href="#JSONP-的使用" class="headerlink" title="JSONP 的使用"></a>JSONP 的使用</h4><ol>
-<li><p>动态创建一个 script 标签</p>
-<p> var script = document.createElement(“script”);</p>
-</li>
-<li><p>设置 script 的 src，设置回调函数</p>
-<p> script.src = ‘<a target="_blank" rel="noopener" href="http://127.0.0.1:8000/sever&#39;">http://127.0.0.1:8000/sever&#39;</a>;</p>
-</li>
-<li><p>将 script 插入文档中</p>
-<p> document.body.appendChild(script);</p>
-</li>
-</ol>
-<h4 id="jQuery-发送-JSONP-请求"><a href="#jQuery-发送-JSONP-请求" class="headerlink" title="jQuery 发送 JSONP 请求"></a>jQuery 发送 JSONP 请求</h4><p>需在 url 参数中设置 <code>?callback=?</code>，发送请求时 jQuery 会注册一个函数作为 callback 参数的值，后端返回该函数的调用则前端就可以对数据做处理</p>
-<p>前端</p>
-<pre><code>$.getJSON(&#39;http://127.0.0.1:8000/sever?callback=?&#39;,function(data)&#123;
-    console.log(data)
-&#125;)</code></pre>
-<p>后端</p>
-<pre><code>const express = require(&#39;express&#39;);
-const app = express();
-app.all(&#39;/server&#39;,(request,response)=&gt;&#123;
-    const data = &#123;
-        a:1
-    &#125;
-    let str = JSON.stringify(data);
-    let cb = request.query.callback;
-    response.end(&#39;$&#123;cb&#125;($&#123;str&#125;)&#39;)
-&#125;);
-//监听端口启动服务
-app.listen(8000,()=&gt;&#123;
-    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
-&#125;)</code></pre>
-<h3 id="（2）CORS"><a href="#（2）CORS" class="headerlink" title="（2）CORS"></a>（2）CORS</h3><p>CORS（Cross-Origin Resource Sharing）跨域资源共享，CORS 是官方的跨域解决方案</p>
-<p>CORS 的特点是不需要在客户端做任何特殊的操作，完全在服务器中进行处理，支持 get 和 post 等请求。跨域资源共享标准新增了一组 HTTP 首部字段（响应头），允许服务器声明哪些源站通过浏览器有权限访问哪些资源</p>
-<h4 id="CORS-如何工作"><a href="#CORS-如何工作" class="headerlink" title="CORS 如何工作"></a>CORS 如何工作</h4><p>CORS 是通过设置一个响应头来告诉浏览器，该请求允许跨域，浏览器收到该响应后会对该响应放行</p>
-<p>后端</p>
-<pre><code>const express = require(&#39;express&#39;);
-const app = express();
-app.all(&#39;/server&#39;,(request,response)=&gt;&#123;
-    response.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;*&#39;);  //设置允许跨域
-    //或 response.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;http://127.0.0.1:5000&#39;);  //仅允许 http://127.0.0.1:5000 的网页可向该服务器发送跨域请求
-    response.setHeader(&#39;Access-Control-Allow-Headers&#39;,&#39;*&#39;);  //可接收自定义头信息
-    response.setHeader(&#39;Access-Control-Allow-Method&#39;,&#39;*&#39;);  //允许 get、post 等任意方法
-    response.send(&#39;xxx&#39;);  //设置响应体
-&#125;);
-//监听端口启动服务
-app.listen(8000,()=&gt;&#123;
-    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
-&#125;)</code></pre>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/07/Ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1026,86 +680,6 @@ app.listen(8000,()=&gt;&#123;
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/12/17/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://nicolejay.github.io/2021/12/15/less%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="NicoleJay">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="X 的笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/12/15/less%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">less学习笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-12-15 16:56:08" itemprop="dateCreated datePublished" datetime="2021-12-15T16:56:08+08:00">2021-12-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>less 是一门 css 的预处理语言，less 是 css 增强版，通过 less 可以编写更少的代码实现更强大的样式</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/15/less%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
