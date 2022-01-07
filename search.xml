@@ -1658,7 +1658,7 @@ btn.onclick = function()&#123;xxx&#125;</code></pre>
 <p><strong>随滚轮滚动时元素高度改变的例子：</strong></p>
 <pre><code>box.onnmousewheel = function(event)&#123;
     event = event || window.event;
-    if(event.wheelDelta&gt;0 || event.detail&lt;0)&#123;
+    if(event.wheelDelta&gt;0 || event.wheelDelta&lt;0)&#123;
         //向上滚
         box.style.height = box.clientHeight - 10 + &quot;px&quot;;
     &#125;else&#123;
@@ -1857,12 +1857,21 @@ eval(&quot;(&quot;+JSON字符串+&quot;)&quot;)  //IE7中，但不建议使用
 <p>在 less 中添加了许多新特性，如虽然在原生 css 中支持变量，但是对不同浏览器的兼容性不好，有的浏览器不支持，而通过 less 浏览器对变量、minxin 等都可支持</p>
 <p>此外 less 中可以使用 <code>@import</code> 引入其他 less 文件有助于样式模块化</p>
 <p>浏览器无法直接执行 less 代码，必须先将 less 转换为 css（如 VSCode 中 Easy LESS 插件可将 less 自动编译为 css），再由浏览器执行</p>
-<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><p>声明：<code>@变量名:xxx;</code></p>
-<p>使用：<code>@变量名</code></p>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>变量声明：<code>@变量名:xxx;</code></p>
+<p>使用变量：<code>@变量名</code></p>
+<p>变量在 less 中属于块级作用域，延迟加载</p>
 <p>— 当变量作为类名或属性名或一部分值使用时，通过<code>@&#123;变量名&#125;</code></p>
 <p>— 直接使用另一个属性的值 <code>$参考的属性</code>（v3.0.0后支持）</p>
 <p>— less 中样式可以嵌套，当表示当前层的元素本身时使用 <code>&amp;</code> 表示，表示子元素时使用<code>&gt;子元素&#123;&#125;</code></p>
-<p>— 当前元素有与其他元素共有的部分时，用 <code>当前元素:extend(有相同样式的元素)&#123;&#125;</code></p>
+<p>— 当前元素有与其他元素共有的部分时，用 <code>当前元素:extend(有相同样式的元素)&#123;&#125;</code>，关键字 all 表示继承所有父类的相关声明块</p>
+<pre><code>#test&#123;
+    &amp;:extend(.father all)
+&#125;
+//相当于
+#test:extend(.father all)&#123;&#125;
+
+实质上将 .father 选择器和 #test 组合成一个选择器，声明块使用 .father 的</code></pre>
+<p>注意父类不能定义成混合（继承不灵活但性能高，混合灵活（因为可以传参）但性能低）</p>
 <p>— 对其他元素样式进行引用，相当于直接复制其他元素样式 <code>元素选择器();</code>，这种方式性能比上一种差，因为要先复制</p>
 <p>— 解决上个问题，可使用类选择器时可在选择器后添加一个括号，实际上就创建了一个mixins（相当于是个混合函数），即这部分样式不是自己用，而是专门给别人用</p>
 <p>引入其他 less 文件，通过 <code>@import &quot;xxx.less;&quot;</code>，该功能可用于样式模块化，如将定义变量、定义动画、定义布局、整合的 less 文件分开，方便后期维护</p>
@@ -1906,6 +1915,7 @@ div&#123;
 body:hover&#123;
     background-color: darken(#bfa,20%); //使用 less 定义好的混合函数，当鼠标移入 body 时颜色加深20%
 &#125;</code></pre>
+<h1 id="less-的避免编译"><a href="#less-的避免编译" class="headerlink" title="less 的避免编译"></a>less 的避免编译</h1><p><code>~&quot;不会被编译的内容&quot;</code></p>
 <h1 id="VSCode-中的插件-Easy-LESS"><a href="#VSCode-中的插件-Easy-LESS" class="headerlink" title="VSCode 中的插件 Easy LESS"></a>VSCode 中的插件 Easy LESS</h1><p>Easy LESS 插件可将 less 自动编译为 css，但是在浏览器中检查页面样式时显示的依然时 css 文件中的代码位置，可在插件中设置如下内容，设置后浏览器中调试样式显示的时在 less 文件中的代码位置</p>
 <pre><code>&quot;less.compile&quot;:&#123;
     &quot;compress&quot;: false,  //true =&gt; remove surplus whitespace
@@ -3879,6 +3889,1207 @@ woreker.postMessage(&quot;hello world&quot;)</code></pre>
   <entry>
     <title>jQuery笔记</title>
     <url>/2021/12/29/jQuery%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h1 id="一、jQuery-基础"><a href="#一、jQuery-基础" class="headerlink" title="一、jQuery 基础"></a>一、jQuery 基础</h1><p>jQuery 是一个 JS 函数库（write less, do more），封装了 BOM 和 DOM 的一些函数、对象、方法等，如 CRUD（增删改查）、Ajax，使用 jQuery 的网站超过 90%，jQuery 是中大型 WEB 项目开发首选</p>
+<a id="more"></a>
+
+<h2 id="1、jQuery-的用途"><a href="#1、jQuery-的用途" class="headerlink" title="1、jQuery 的用途"></a>1、jQuery 的用途</h2><p>HTML 元素选择（选择器）（方便快速查找 DOM 元素）</p>
+<p>HTML 元素操作（如增删改）</p>
+<p>CSS 操作</p>
+<p>HTML 事件处理</p>
+<p>JS 动画效果</p>
+<p><strong>链式调用</strong>（如 a().b().c()）（通过在方法或函数（除了获取数据的方法）中最后返回 this（jQuery 对象），来实现可链式调用）</p>
+<p><strong>读写合一</strong>（方法中不传参表示读，传参表示写），若 jQuery 对象中包含多个 dom 元素，则统一读时只读第一个，写时是对所有元素写</p>
+<p><strong>隐式遍历</strong>（$(‘#box&gt;li’).click(function(){}) 会对 box 下所有 li 加监听）</p>
+<p>浏览器兼容</p>
+<p>易扩展插件</p>
+<p>ajax 封装</p>
+<p>……</p>
+<h2 id="2、jQuery-的不同版本"><a href="#2、jQuery-的不同版本" class="headerlink" title="2、jQuery 的不同版本"></a>2、jQuery 的不同版本</h2><p>1.x：用的最多，因为兼容老版本 IE，文件更大</p>
+<p>2.x：部分 IE8 及以下不支持，文件小，执行效率更高</p>
+<p>3.x：完全不再支持 IE8 及以下版本，提供了一些新的 API，提供不包含 ajax/动画 API 的版本</p>
+<p>两种 js 库库文件：.js 和 .min.js</p>
+<p>.js 文件是开发版（测试版）</p>
+<p>.min.js 文件是生产版（压缩版），去掉空格、换行，并把变量都转成单个字母的形式</p>
+<h2 id="3、引入-jQuery"><a href="#3、引入-jQuery" class="headerlink" title="3、引入 jQuery"></a>3、引入 jQuery</h2><p>jQuery 库的大体结构如下</p>
+<pre><code>(functon(window)&#123;
+    var jQuery = function()&#123;
+        return new jQuery.fn.init(xxx)
+    &#125;
+    window.$ = window.jQuery = jQuery
+&#125;)(window)</code></pre>
+<p>引入 jQuery 后相当于给 window 添加了两个属性 window.jQuery 和 window.$，两个的含义相同，表示的是一个函数，并且调用 jQuery 库返回的是一个对象</p>
+<p>有两种引入 jQuery 的方式：服务器本地库引入、CDN 远程库引入</p>
+<p>服务器本地库引入是把 jQuery 库文件保存在服务器中的文件夹下，使用 <code>&lt;script type=&quot;type/javascript&quot; src=&quot;./jquery-1.12.13.js&quot;&gt;&lt;/script&gt;</code> 引入 jQuery</p>
+<p>CDN 远程库在项目上线时，一般使用比较靠谱的 CDN 资源库，减轻服务器负担，如免费的 CDN 资源库 <a href="www.bootcdn.cn">bootcdn</a> </p>
+<h2 id="4、使用-jQuery"><a href="#4、使用-jQuery" class="headerlink" title="4、使用 jQuery"></a>4、使用 jQuery</h2><p>把 jQuery 函数 当作函数使用 <code>$(xxxx)</code>，把 jQuery 函数当作对象使用 <code>$.xxx()</code>，如 $.each，$.trim</p>
+<p>jQuery 函数是 jQuery 库向外暴露的，直接可用，而 jQuery 对象是执行 jQuery 函数产生的</p>
+<p>jQuery 对象（<code>$xxx</code>）包含所有匹配的 n 个 DOM 元素的伪数组对象，是执行 <code>$()</code> 返回的就是 jQuery 对象</p>
+<h3 id="（1）jQuery-核心函数（-jQuery）"><a href="#（1）jQuery-核心函数（-jQuery）" class="headerlink" title="（1）jQuery 核心函数（$/jQuery）"></a>（1）jQuery 核心函数（$/jQuery）</h3><p>jQuery 库向外直接暴露的就是 jQuery 函数 $/jQuery，引入 jQuery 库后，直接使用即可</p>
+<pre><code>jQuery === $   //true </code></pre>
+<p><strong>参数类型：</strong></p>
+<p>1）参数为函数：当 DOM 加载完成后，执行此回调函数</p>
+<pre><code>$(function()&#123;&#125;)  //绑定文档加载完成的监听</code></pre>
+<p>2）参数为选择器字符串：查找所有匹配的标签，并将它们封装成 jQuery 对象</p>
+<pre><code>$(&#39;#btn&#39;).click(function()&#123;&#125;)  //绑定点击事件监听，在回调函数中的 this 依然指向发生事件的 dom 元素 &lt;button&gt;</code></pre>
+<p>3）参数为 DOM 对象：将 DOM 对象封装成 jQuery 对象</p>
+<pre><code>$(&#39;#btn&#39;).click(function()&#123;   //绑定点击事件监听，在回调函数中的 this 依然指向发生事件的 dom 元素 &lt;button&gt;
+    alert($(this).html())  //参数为 DOM 对象，封装成 jQuery 对象后就可以调用 jQuery 的方法
+&#125;)  </code></pre>
+<p>4）参数为 html 标签字符串：创建标签对象并封装成 jQuery 对象</p>
+<pre><code>$(&#39;&lt;input type=&quot;text&quot;&gt;&#39;).appendTo(&quot;div&quot;)  //把 &lt;input&gt; 插入 &lt;div&gt; 中</code></pre>
+<h3 id="（2）jQuery-核心对象"><a href="#（2）jQuery-核心对象" class="headerlink" title="（2）jQuery 核心对象"></a>（2）jQuery 核心对象</h3><p>执行 jQuery 函数 <code>$()</code> 返回的对象为 jQuery （核心）对象，一般名称前会加 $，通过 <code>$obj.xxx()</code> 使用</p>
+<p>如 <code>var $btn = $(&#39;#btn&#39;)</code></p>
+<p>jQuery 对象内部包含的是 DOM 元素对象（一个或多个）的伪数组对象（能获取 length 且可用下标访问的对象）</p>
+<p>jQuery 对象拥有很多有用的属性和方法，让程序员能方便地操作 dom</p>
+<h5 id="jQuery-对象的属性和方法"><a href="#jQuery-对象的属性和方法" class="headerlink" title="jQuery 对象的属性和方法"></a>jQuery 对象的属性和方法</h5><p>1）基本行为</p>
+<p><code>length</code> 或 <code>size()</code>，返回 jQuery 对象内包含的 dom 元素的个数</p>
+<p><code>[index]</code> 或 <code>get(index)</code>，返回的是对应位置的 dom 元素</p>
+<p><code>each()</code>，遍历 jQuery 对象内包含的 dom 元素，如下</p>
+<p><code>$.each(数组,function(index,item)&#123;&#125;)</code> 或 <code>数组.each(function(index,item)&#123;&#125;)</code> 隐式遍历数组，回调函数中第一个参数为数组中元素下标，第二个参数为遍历的数组中的当前元素</p>
+<p><code>index()</code>，得到在所在兄弟元素中的下标</p>
+<pre><code>var $buttons = $(&#39;button&#39;)
+$buttons.each(function(index,domEle)&#123;
+    console.log(index,domEle.innerHTML)
+    console.log(this)  //this 表示数组中当前 dom 元素对象 domEle
+&#125;)
+
+$(&#39;#btn3&#39;).index()  //第三个按钮是所有按钮中的第几个</code></pre>
+<p>2）属性</p>
+<p>操作内部标签的属性或值</p>
+<p>3）CSS</p>
+<p>操作标签的样式</p>
+<p>4）文档</p>
+<p>对标签进行增删改操作</p>
+<p>5）筛选</p>
+<p>根据指定的规则过滤内部的标签</p>
+<p>6）事件</p>
+<p>处理事件监听相关</p>
+<p>7）效果</p>
+<p>实现一些动画效果</p>
+<h1 id="二、jQuery-函数"><a href="#二、jQuery-函数" class="headerlink" title="二、jQuery 函数"></a>二、jQuery 函数</h1><h2 id="1、选择器"><a href="#1、选择器" class="headerlink" title="1、选择器"></a>1、选择器</h2><p>选择器本身只是一个有特定语法规则的字符串，没有实质用处</p>
+<p>它的基本语法规则使用的就是 CSS 的选择器语法，并对其进行了扩展</p>
+<p>只有调用 <code>$()</code>，并将选择器作为参数传入才能起作用</p>
+<p><code>$(选择器)</code> 的作用：根据选择器规则在整个文档中查找所有匹配的标签的数组，并封装成 jQuery 对象返回</p>
+<p>选择器分类：基本选择器、层次选择器、过滤选择器、表单选择器</p>
+<h3 id="（1）基本选择器"><a href="#（1）基本选择器" class="headerlink" title="（1）基本选择器"></a>（1）基本选择器</h3><p>基本选择器是最常用的选择器</p>
+<p><code>#id</code>、<code>element</code>、<code>.类</code>、<code>*</code>、<code>选择器1,选择器2,选择器n</code>、<code>选择器1选择器2选择器n</code></p>
+<pre><code>$(&#39;#div1&#39;).css(&#39;background&#39;,&#39;red&#39;)
+或
+$(&#39;#div1&#39;).css(&#123;&#39;background&#39;:&#39;red&#39;&#125;)</code></pre>
+<h3 id="（2）层次选择器"><a href="#（2）层次选择器" class="headerlink" title="（2）层次选择器"></a>（2）层次选择器</h3><p>层次选择器用于查找子元素、后代元素、兄弟元素</p>
+<p><code>祖先元素 后代元素</code>，<code>父元素 &gt; 子元素</code>，<code>兄元素 + 弟元素</code>（兄元素后紧跟着的某类型弟元素），<code>兄元素 ~ 弟元素们</code>（兄元素后所有的某类型弟元素）</p>
+<h3 id="（3）过滤选择器"><a href="#（3）过滤选择器" class="headerlink" title="（3）过滤选择器"></a>（3）过滤选择器</h3><p>过滤选择器是在原有选择器匹配的元素中进一步进行过滤，既不是找子元素也不是找兄弟元素</p>
+<p>多个过滤选择器不是同时执行，而是依次执行</p>
+<p><code>:first</code> 第一个</p>
+<p><code>:last</code>  最后一个</p>
+<p><code>:eq(index)</code> 根据下标找出某个</p>
+<p><code>:not(selector)</code>  排除某些</p>
+<p><code>:lt</code> 下标小于</p>
+<p><code>:gt</code> 下标大于</p>
+<p><code>:odd</code> 奇数元素</p>
+<p><code>:even</code>  偶数元素</p>
+<p><code>:hidden</code>  隐藏</p>
+<p><code>:visible</code>  显示</p>
+<p><code>[属性名]</code>  某个属性</p>
+<p><code>[属性名=属性值]</code>  某属性为某值的元素</p>
+<pre><code>$(&#39;div:not(.box)&#39;).css(&#39;background&#39;,&#39;red&#39;)  //选择所有 class 属性不为 box 的div（这里包含没有 class 属性的元素）
+$(&#39;li:lt(3):gt(0)&#39;).css(&#39;background&#39;,&#39;red&#39;)  //选择第二个和第三个 li 元素
+$(&#39;li:gt(0):lt(3)&#39;).css(&#39;background&#39;,&#39;red&#39;)  //这里选出来是第二三四个 li 元素，而不是第二个和第三个 li 元素，因为先执行 :gt(0)，在选出的元素里再执行 :lt(3)
+$(&#39;li:contains(&#39;xxx&#39;)&#39;).css(&#39;background&#39;,&#39;red&#39;)  //选择内容为 xxx 的 li 元素
+$(&#39;li:hidden&#39;).length  //选择隐藏的 li 个数
+$(&#39;li:hidden&#39;).length[0]  //选择第一个隐藏的 li
+$(&#39;li[title]&#39;).css(&#39;background&#39;,&#39;red&#39;)  //选择有 title 属性的 li
+$(&#39;li[title=xxx]&#39;).css(&#39;background&#39;,&#39;red&#39;)  //选择有title 属性值为 xxx 的 li</code></pre>
+<h3 id="（4）表单选择器"><a href="#（4）表单选择器" class="headerlink" title="（4）表单选择器"></a>（4）表单选择器</h3><p><code>:input</code> 所有表单项，包括 <code>&lt;select&gt;</code> 等</p>
+<p><code>:text</code>、<code>:checkbox</code>、<code>:radio</code>、<code>:checked</code>（选中的项）</p>
+<pre><code>$(&#39;:text:disabled&#39;).css(&#39;background&#39;,&#39;red&#39;)  //选择不可用的文本输入框
+$(&#39;:checkbox:checked&#39;).length  //多选框选择的个数
+$(&#39;:submit&#39;)  //提交按钮
+$(&#39;select&gt;option:selected&#39;).html()  //所选下拉框的文本内容
+$(&#39;select&#39;).val()  //所选下拉框 option 的 value 属性值</code></pre>
+<p>表单</p>
+<p>表单对象属性</p>
+<h2 id="2、-工具（把-jQuery-函数当对象使用）"><a href="#2、-工具（把-jQuery-函数当对象使用）" class="headerlink" title="2、$工具（把 jQuery 函数当对象使用）"></a>2、$工具（把 jQuery 函数当对象使用）</h2><p><code>$.each()</code> 遍历数组或对象中的数据</p>
+<pre><code>$.each(数组,function(index,item)&#123;&#125;) 隐式遍历数组，回调函数中第一个参数为数组中元素下标，第二个参数为遍历的数组中的当前元素
+
+$.each(对象,function(key,value)&#123;&#125;)  //遍历对象</code></pre>
+<p><code>$.trim()</code> 去除字符串两边的空格</p>
+<pre><code>$.trim(字符串) 去除两端的空格，和字符串本身的方法 `字符串.trim()` 效果相同</code></pre>
+<p><code>$.type(obj)</code> 得到数据的类型</p>
+<pre><code>$.type($)  //返回 &#39;function&#39;</code></pre>
+<p><code>$.isArray(obj)</code> 判断是否是数组</p>
+<pre><code>$.isArray($(&#39;body&#39;))  //false</code></pre>
+<p><code>$.isFunction(obj)</code> 判断是否是函数</p>
+<pre><code>$.isFunction($)  //true</code></pre>
+<p><code>$.parseJSON(json)</code> 解析 json 字符串转换为 js 对象/数组</p>
+<pre><code>var json = &#39;&#123;&quot;nsme&quot;:&quot;xxx&quot;,age:12&#125;&#39;  //其中 json 对象就是 &#123;&#125;
+$.parseJSON(json)  //json 对象转为 js 对象，返回 js 对象
+var json = &#39;[&#123;&quot;nsme&quot;:&quot;xxx&quot;,age:12&#125;,&#123;&quot;nsme&quot;:&quot;yyy&quot;,age:10&#125;]&#39;  //其中 json 数组就是 []
+$.parseJSON(json)  //json 对象转为 js 数组，返回 js 数组</code></pre>
+<h2 id="3、属性"><a href="#3、属性" class="headerlink" title="3、属性"></a>3、属性</h2><p>操作标签的属性、标签体文本</p>
+<p><code>attr(&#39;属性名&#39;)</code> 或 <code>attr(&#39;属性名&#39;,&#39;属性值&#39;)</code>：读写非布尔值的标签属性</p>
+<p><code>prop(&#39;属性名&#39;)</code> 或 <code>prop(&#39;属性名&#39;,属性值)</code> 读写布尔值的标签属性</p>
+<p><code>removeAttr(&#39;属性名&#39;)</code> 或 <code>removeProp(&#39;属性名&#39;)</code> 删除属性</p>
+<p><code>addClass(&#39;class值&#39;)</code> 添加 class 属性值</p>
+<p><code>removeClass(&#39;class值&#39;)</code>  移除指定 class 值</p>
+<p><code>html()</code> 或 <code>html(&#39;xxx&#39;)</code> 读写标签体文本</p>
+<p><code>val()</code> 或 <code>val(&#39;xxx&#39;)</code>：读写标签的 value</p>
+<p><code>$(&#39;:text&#39;).val()</code> 得到输入框 <input> 的文本</p>
+<p><code>$(&#39;:text&#39;).val(&#39;xxx&#39;)</code>  设置输入框 <input> 的文本</p>
+<pre><code>$(&#39;div:first&#39;).attr(&#39;title&#39;)
+$(&#39;div&#39;).attr(&#39;name&#39;,&#39;xxx&#39;)
+$(&#39;div&#39;).addClass(&#39;class值&#39;)
+$(&#39;div&#39;).removeClass(&#39;xxx&#39;)  //移除所有 div 的 class 为 xxx 的 class
+$(&#39;li:first&#39;).html(&#39;&lt;h1&gt;xxx&lt;/h1&gt;&#39;)  //设置第一个 li 的标签体为 &lt;h1xxx&lt;/h1&gt;
+$(&#39;div&#39;).removeClass(&#39;xxx&#39;)</code></pre>
+<h2 id="4、ajax"><a href="#4、ajax" class="headerlink" title="4、ajax"></a>4、ajax</h2><h1 id="三、jQuery-对象"><a href="#三、jQuery-对象" class="headerlink" title="三、jQuery 对象"></a>三、jQuery 对象</h1><h2 id="1、CSS"><a href="#1、CSS" class="headerlink" title="1、CSS"></a>1、CSS</h2><h3 id="设置-style-样式"><a href="#设置-style-样式" class="headerlink" title="设置 style 样式"></a>设置 style 样式</h3><p><code>jQuery对象.css(&#39;属性&#39;)</code> 或 <code>jQuery对象.css(&#39;属性&#39;,&#39;值&#39;)</code> 或 <code>jQuery对象.css(&#123;多个样式对&#125;)</code>：读写样式，返回的仍然是当前的 jQuery 对象，方法最后返回的是 this</p>
+<h3 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h3><p><code>offset()</code>：获取相对于页面左上角的位置，返回的对象包含 top 和 left 两个整数，该方法只对可见元素有效，（读）</p>
+<p><code>offset(&#123;top:xx,left:xx&#125;)</code>：设置相对于页面左上角的位置（写）</p>
+<p><code>position()</code>：获取相对于父元素左上角的位置，返回的对象包含 top 和 left 两个整数，（只能读）</p>
+<p><code>scrollTop()</code>：读取/设置滚动条的 Y 坐标</p>
+<p><code>$(document.body).scrollTop()+$(document.documentElement).scrollTop()</code>：读取页面滚动条的 Y 坐标（兼容 chrome 和 IE）</p>
+<p><code>$(&#39;html,body&#39;).scrollTop(60)</code>：滚动到指定位置（兼容 chrome 和 IE）</p>
+<p>滚动条回到顶部的例子</p>
+<pre><code>//瞬间回到顶部
+$(&#39;#btn&#39;).click(function()&#123;
+    $(html,body).scrollTop(0)
+&#125;)
+
+//平滑地回到顶部
+$(&#39;#btn&#39;).click = function()&#123;
+    var $page = $(&#39;html&#39;,&#39;body&#39;)  //这里是用于后面设置，不能用于读取，因为有两个值
+    var distance = $(&#39;html&#39;).scrollTop() + $(&#39;body&#39;).scrollTop()  //总距离
+    var time = 500  //总时间
+    var intervalTime = 50  //间隔时间
+    var itemDistance = distance/(time/intervalTime)  //单位时间运动距离
+    var intervalId = setInterval(function()&#123;
+        distance -= itemDistance
+        if(distance&lt;=0)&#123;
+            distance = 0
+            clearInterval(intervalId)
+        &#125;
+        $page.scrollTop(distance)
+    &#125;,intervalTime)
+&#125;</code></pre>
+<h3 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h3><p>（1）内容尺寸</p>
+<p>height()：height</p>
+<p>width()：width</p>
+<p>（2）内部尺寸</p>
+<p>innerHeight()：height+padding</p>
+<p>innerWidth()：width+padding</p>
+<p>（3）外部尺寸</p>
+<p>outerHeight(false/true)：height+padding+border，若是 true 加上 margin，默认是 false</p>
+<p>outerWidth(false/true)：width+padding+border，若是 true 加上 margin，默认是 false</p>
+<h2 id="2、筛选————过滤和查找"><a href="#2、筛选————过滤和查找" class="headerlink" title="2、筛选————过滤和查找"></a>2、筛选————过滤和查找</h2><p>对包含多个 dom 元素的 jQuery 对象进行过滤是找出对象中的一个或多个元素，并封装成新的 jQuery 对象返回；</p>
+<p>而查找是指查找对象内部某元素的父母、子孙后代或兄弟元素，并封装成新的 jQuery 对象返回</p>
+<h3 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h3><p><code>first()</code>：jQuery 对象中的第一个 dom 元素组成的 jQuery 对象，返回的是 jQuery 对象（<code>last()</code>、<code>eq(index)</code>同理）</p>
+<p>注意 <code>jQuery对象.first()</code> 返回的是 jQuery 对象，而 <code>jQuery对象[0]</code> 返回的是对象中包含的的第一个 dom 元素</p>
+<p><code>filter(&#39;[属性名]=xxx&#39;)</code> 过滤出属性为某值的元素，（对当前元素提要求）</p>
+<p><code>filter(&#39;[属性名]!=xxx&#39;)</code> 或 <code>not(&#39;[属性名]=xxx&#39;)</code> 过滤出没有某属性以及属性不为某值的元素，（对当前元素提要求并取反）</p>
+<p><code>filter(&#39;[属性名][属性名]!=xxx&#39;)</code> 过滤出有某属性并且属性值不为某值的元素</p>
+<p><code>has(&#39;标签名&#39;)</code> 过滤出元素中有子标签的元素，（对子元素提要求）</p>
+<pre><code>var $lis = $(&#39;ul&gt;li&#39;)
+$lis.first().css(&#39;background&#39;,&#39;red&#39;)  //相当于 $lis[0].style.background = &#39;red&#39;
+$lis.filter(&#39;[title=hello]&#39;)  //title 属性为 hello 的 li
+$lis.not(&#39;[title=hello]&#39;)  //title 属性不为 hello 的 li
+$lis.filter(&#39;[title][title!=hello]&#39;) //有 title 属性且title 属性不为 hello，相当于 $lis.filter(&#39;[title]).filter(&#39;[title!=hello])&#39;
+$lis.has(&#39;span&#39;) //有 span 子标签的 li</code></pre>
+<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p><code>children(&#39;条件&#39;)</code> 查找子元素（直接子元素，而非后代） </p>
+<p><code>find(&#39;条件&#39;)</code> 查找后代元素</p>
+<p><code>parent()</code> 查找父元素</p>
+<p><code>preAll(&#39;条件&#39;)</code> 前面的所有的符合条件的兄弟元素</p>
+<p><code>nextAll(&#39;条件&#39;)</code> 后面所有的符合条件的兄弟元素</p>
+<p><code>siblings(&#39;条件&#39;)</code> 前后所有的兄弟元素</p>
+<pre><code>var $ul = $(&#39;ul&#39;)
+$ul.children(&#39;span:eq(1)&#39;)  //ul 下的第 2 个 span 子标签
+$ul.find(&#39;span:eq(1)&#39;)  //ul 下的第 2 个 span 后代标签
+$ul.parent()  // ul 的父元素
+var $li = $(&#39;#aa&#39;)
+$li.preAll(&#39;li&#39;)  //id 为 aa 的 li 标签前面的所有 li
+$li.siblings(&#39;li&#39;)  //id 为 aa 的 li 标签的所有兄弟 li</code></pre>
+<h2 id="3、文档处理（CUD-增删改）"><a href="#3、文档处理（CUD-增删改）" class="headerlink" title="3、文档处理（CUD 增删改）"></a>3、文档处理（CUD 增删改）</h2><h3 id="（1）添加元素"><a href="#（1）添加元素" class="headerlink" title="（1）添加元素"></a>（1）添加元素</h3><h4 id="内部插入"><a href="#内部插入" class="headerlink" title="内部插入"></a>内部插入</h4><p><code>append(content)</code> 向当前匹配的所有元素内部的最后插入指定内容</p>
+<p><code>$(content).appendTo($父)</code> 向当前匹配的所有元素内部的最后插入指定内容，和上面效果相同</p>
+<p><code>prepend(content)</code> 向当前匹配的所有元素内部的最前面插入指定内容</p>
+<p><code>$(content).prependTo($父)</code> 向当前匹配的所有元素内部的最前面插入指定内容，和上面效果相同</p>
+<h4 id="外部插入"><a href="#外部插入" class="headerlink" title="外部插入"></a>外部插入</h4><p><code>before(content)</code> 将指定内容插入到当前所有匹配元素的前面</p>
+<p><code>after(content)</code> 将指定内容插入到当前所有匹配元素的后面替换节点</p>
+<h3 id="（2）删除元素"><a href="#（2）删除元素" class="headerlink" title="（2）删除元素"></a>（2）删除元素</h3><p><code>empty()</code> 删除所有匹配元素的子元素，父元素本身还在，等价于 <code>$(&#39;父 &gt; *&#39;).remove()</code></p>
+<p><code>remove()</code> 删除所有匹配的元素（包括父元素本身和其下子元素）</p>
+<pre><code>$(&#39;#ul2&#39;).empty()
+相当于 $(&#39;#ul2&gt;*&#39;).remove()</code></pre>
+<h3 id="（3）替换元素"><a href="#（3）替换元素" class="headerlink" title="（3）替换元素"></a>（3）替换元素</h3><p><code>replaceWith(content)</code> 用指定内容替换所有匹配的标签删除节点</p>
+<p><code>replaceAll(选择器)</code> 用指定元素替换所有匹配的标签删除节点</p>
+<pre><code>var $ul1 = $(&#39;#ul1&#39;)
+$ul1.append(&#39;&lt;span&gt;xxx&lt;/span&gt;&#39;)  //相当于 $(&#39;&lt;span&gt;xxx&lt;/span&gt;&#39;).appenTo($ul1)
+$ul1.prepend(&#39;&lt;span&gt;xxx&lt;/span&gt;&#39;)  //相当于 $(&#39;&lt;span&gt;xxx&lt;/span&gt;&#39;).prepenTo($ul1)
+$ul1.children(&#39;li[title=hello]&#39;).before(&#39;&lt;span&gt;xxx&lt;/span&gt;&#39;)  //在 id 为 ul1 的 ul 下的 li（title 为 hello）的前面添加 span
+$(&#39;#ul2&gt;li[title=hello]&#39;).replaceWith(&#39;&lt;p&gt;xxx&lt;/p&gt;&#39;)//在 id 为 ul2 的 ul 下的 li（title 为 hello）全部替换为 p</code></pre>
+<h2 id="4、事件处理"><a href="#4、事件处理" class="headerlink" title="4、事件处理"></a>4、事件处理</h2><h3 id="（1）绑定事件"><a href="#（1）绑定事件" class="headerlink" title="（1）绑定事件"></a>（1）绑定事件</h3><p>方式一：<code>jQuery对象.事件名(function()&#123;&#125;)</code>，这种方式好写但并不通用，有些事件没有这种绑定方法</p>
+<p>方式二：<code>jQuery对象.on(&#39;事件名1 事件名n&#39;,function()&#123;&#125;)</code></p>
+<p>优缺点：方式一编码方便，但只能加一个监听，且有的事件监听不支持</p>
+<p>方式二编码不方便，可以添加多个监听，且更通用</p>
+<p>常用：click、mouseenter/mouseleave、mouseover/mouseout、focus/blur</p>
+<pre><code>$(&#39;#image&#39;).on(&#39;load&#39;,function()&#123;&#125;) //监听图片加载完成，这时只能用 on</code></pre>
+<h4 id="绑定鼠标点击事件"><a href="#绑定鼠标点击事件" class="headerlink" title="绑定鼠标点击事件"></a>绑定鼠标点击事件</h4><p>方式一：<code>jQuery对象.click(function()&#123;&#125;)</code></p>
+<p>方式二：<code>jQuery对象.on(&#39;click&#39;,function()&#123;&#125;)</code></p>
+<h4 id="绑定鼠标移入移出事件"><a href="#绑定鼠标移入移出事件" class="headerlink" title="绑定鼠标移入移出事件"></a>绑定鼠标移入移出事件</h4><p>方式一：<code>jQuery对象.mouseenter(function()&#123;&#125;)</code> 和 <code>jQuery对象.mouseleave(function()&#123;&#125;)</code></p>
+<p>方式二：<code>jQuery对象.on(&#39;mouseenter&#39;,function()&#123;&#125;)</code> 和 <code>jQuery对象.on(&#39;mouseleave&#39;,function()&#123;&#125;)</code></p>
+<p>方式三：<code>jQuery对象.hover(function()&#123;console.log(&#39;鼠标移入，绑定在mouseenter&#39;)&#125;,function()&#123;console.log(&#39;鼠标移出，绑定在mouseleave&#39;)&#125;)</code></p>
+<h3 id="（2）解除事件绑定"><a href="#（2）解除事件绑定" class="headerlink" title="（2）解除事件绑定"></a>（2）解除事件绑定</h3><p><code>jQuery对象.off(&#39;事件名&#39;)</code></p>
+<h3 id="（3）事件坐标"><a href="#（3）事件坐标" class="headerlink" title="（3）事件坐标"></a>（3）事件坐标</h3><p>event.clientX、event.clientY 相对于视口的左上角</p>
+<p>event.pageX、event.pageY 相对于页面的左上角</p>
+<p>event.offsetX、event.offsetY 相对于事件元素左上角</p>
+<pre><code>$(#btn).click(function(event)&#123;
+    console.log(event.clientX,event.clientY) //原点为窗口左上角
+    console.log(event.pageX,event.pageY) //原点为页面左上角
+    console.log(event.offsetX,event.offsetY) //原点为事件元素左上角
+&#125;)</code></pre>
+<h3 id="（4）事件相关处理"><a href="#（4）事件相关处理" class="headerlink" title="（4）事件相关处理"></a>（4）事件相关处理</h3><h4 id="停止事件冒泡"><a href="#停止事件冒泡" class="headerlink" title="停止事件冒泡"></a>停止事件冒泡</h4><p><code>event.stopPropagation</code> 点击子元素，父元素点击监听不响应</p>
+<h4 id="阻止事件默认行为"><a href="#阻止事件默认行为" class="headerlink" title="阻止事件默认行为"></a>阻止事件默认行为</h4><p><code>event.preventDefault()</code> 阻止事件默认行为</p>
+<pre><code>$(&#39;#test&#39;).click(function(event)&#123;
+    if(Date.now()%2===0)&#123;
+        event.preventDefault()
+    &#125;
+&#125;)</code></pre>
+<h4 id="mouseover-和-mouseenter-的区别"><a href="#mouseover-和-mouseenter-的区别" class="headerlink" title="mouseover 和 mouseenter 的区别"></a>mouseover 和 mouseenter 的区别</h4><p>mouseover 在移入子元素时也会重新触发一次，mouseout 同理</p>
+<p>mouseenter 只在移入当前元素时才触发，mouseleave 同理，hover() 使用的就是 mouseenter() 和 mouseleave()</p>
+<p>若不存在子元素则 mouseover 和 mouseenter 没有区别</p>
+<h4 id="on-‘click’-fun-和-click-fun-的区别"><a href="#on-‘click’-fun-和-click-fun-的区别" class="headerlink" title="on(‘click’,fun) 和 click(fun) 的区别"></a>on(‘click’,fun) 和 click(fun) 的区别</h4><p>on 方法通用，但编码麻烦</p>
+<p>click 方法编码简单，但有的事件没有对应的方法</p>
+<h3 id="（5）事件委托-事件代理-事件委派"><a href="#（5）事件委托-事件代理-事件委派" class="headerlink" title="（5）事件委托/事件代理/事件委派"></a>（5）事件委托/事件代理/事件委派</h3><p>绑定事件监听的问题：新加的元素没有监听</p>
+<h4 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h4><p>— 将多个子元素的事件监听委托给父辈元素处理</p>
+<p>— 事件监听是加在父辈元素上，但事件发生在子元素上</p>
+<p>— 当操作任何一个子元素时，事件会冒泡到父辈元素</p>
+<p>— 父元素不会直接处理事件，而是根据 event.target 得到发生事件的子元素，通过这个子元素来调用事件回调函数（回调函数中的 this 指发生事件的子元素）</p>
+<h4 id="使用事件委托的好处"><a href="#使用事件委托的好处" class="headerlink" title="使用事件委托的好处"></a>使用事件委托的好处</h4><p>添加新的子元素，自动有事件响应处理</p>
+<p>减少事件监听的数量（如从 n 个减为 1 个）</p>
+<h4 id="jQuery-的事件委托-API"><a href="#jQuery-的事件委托-API" class="headerlink" title="jQuery 的事件委托 API"></a>jQuery 的事件委托 API</h4><p>设置事件委托：$(父元素选择器).delegate(子元素选择器,事件名,回调函数)</p>
+<p>移除事件委托：$(父元素选择器).undelegate(事件名)，若不加事件名参数表示移除对应的所有事件</p>
+<h1 id="四、动画效果"><a href="#四、动画效果" class="headerlink" title="四、动画效果"></a>四、动画效果</h1><h2 id="1、淡入淡出"><a href="#1、淡入淡出" class="headerlink" title="1、淡入淡出"></a>1、淡入淡出</h2><p>淡入淡出通过不断改变元素的透明度来实现</p>
+<p><code>fadeIn()</code> 带动画的显示</p>
+<p><code>fadeOut()</code> 带动画隐藏</p>
+<p><code>fadeToggle()</code> 带动画切换显示/隐藏</p>
+<p>可选参数有速度、切换效果、回调函数</p>
+<p>— 速度：slow、normal、fast、毫秒数</p>
+<p>— 切换效果：swing（默认）、linear</p>
+<p>— 回调函数：在动画完成时执行</p>
+<h2 id="2、滑动"><a href="#2、滑动" class="headerlink" title="2、滑动"></a>2、滑动</h2><p>滑动动画通过不断改变元素的高度实现</p>
+<p><code>slideDown()</code> 带动画的展开</p>
+<p><code>slideUp()</code> 带动画的收缩</p>
+<p><code>slideToggle()</code> 带动画的切换展开/收缩</p>
+<p>可选参数有速度、切换效果、回调函数</p>
+<h2 id="3、显示与隐藏"><a href="#3、显示与隐藏" class="headerlink" title="3、显示与隐藏"></a>3、显示与隐藏</h2><p>显示与隐藏通过不断改变宽度、高度、透明度来实现，默认是没有动画</p>
+<p><code>show()</code> （不）带动画的显示</p>
+<p><code>hide()</code> （不）带动画的隐藏</p>
+<p><code>toggle()</code> （不）带动画的切换显示/隐藏</p>
+<p>可选参数有速度、切换效果、回调函数</p>
+<h2 id="4、自定义动画"><a href="#4、自定义动画" class="headerlink" title="4、自定义动画"></a>4、自定义动画</h2><p><code>jQuery对象.animate(&#123;样式设置&#125;,毫秒数)</code>，其中样式可不写单位，若写单位需要将数值和单位加引号</p>
+<pre><code>$(&#39;#div1&#39;)  //宽度先变为200px，高度再变为200px
+    .animate(&#123;
+        width:200
+    &#125;,1000)
+    .animate(&#123;
+        height:200
+    &#125;,1000)
+$(&#39;#div1&#39;).animate(&#123;  //移动距离为（100，50）
+    left:&#39;+=100&#39;,
+    top:&#39;+=50&#39;
+&#125;,1000)
+$(&#39;#div1&#39;).animate(&#123;  //移动距离为（-100，-20）
+    left:&#39;-=100&#39;,
+    top:&#39;-=50&#39;
+&#125;,1000)</code></pre>
+<h2 id="5、停止动画"><a href="#5、停止动画" class="headerlink" title="5、停止动画"></a>5、停止动画</h2><p><code>jQuery对象.stop()</code> 停止动画</p>
+<h1 id="五、多库共存"><a href="#五、多库共存" class="headerlink" title="五、多库共存"></a>五、多库共存</h1><p>问题：如果有两个库都有 $，就存在冲突</p>
+<p>解决：jQuery 库可以通过 <code>jQuery.noConflict()</code> 释放 $ 的使用权，让另一个库可以正常使用，此时 jQuery 库只能使用 jQuery 了</p>
+<h1 id="六、onload-与-ready"><a href="#六、onload-与-ready" class="headerlink" title="六、onload 与 ready"></a>六、onload 与 ready</h1><p><code>$(function($)&#123;&#125;)</code></p>
+<p><code>$(document).ready(function()&#123;&#125;)</code></p>
+<p><code>window.onload = function()&#123;&#125;</code></p>
+<p>上面三种方式基本等价，其中回调函数会在 DOM 加载完成时运行</p>
+<h2 id="window-load-与-document-ready-区别"><a href="#window-load-与-document-ready-区别" class="headerlink" title="window.load 与 $(document).ready()区别"></a>window.load 与 $(document).ready()区别</h2><p>window.load 中包括页面的图片加载完后才会回调（晚），且只能有一个监听回调，后面加的监听回调会覆盖前面的</p>
+<p>$(document).ready() 等同于 $(function(){})，页面加载完就回调（早），且可以有多个监听回调</p>
+<pre><code>window.onload = function()&#123;  //不执行，被下面的 window.onload 覆盖
+    console.log(&#39;onload1&#39;)
+&#125;
+window.onload = function()&#123;  //执行
+    console.log(&#39;onload2&#39;)
+&#125;
+$(function()&#123;                //执行
+    console.log(&#39;ready1&#39;)
+&#125;)
+$(function()&#123;                //也执行
+    console.log(&#39;ready2&#39;)
+&#125;)</code></pre>
+<h1 id="七、jQuery插件"><a href="#七、jQuery插件" class="headerlink" title="七、jQuery插件"></a>七、jQuery插件</h1><h2 id="1、扩展插件"><a href="#1、扩展插件" class="headerlink" title="1、扩展插件"></a>1、扩展插件</h2><p><code>jQuery.extend</code> 是扩展 jQuery 对象本身（即jQuery 函数对象）的工具方法（扩展 $ 的方法），调用时 <code>$.新方法()</code></p>
+<p><code>jQuery.fn.extend</code> 是扩展 jQuery 对象（jQuery 元素集）的功能方法（扩展 $() 返回值的方法），调用时 <code>$(xxx).新方法()</code></p>
+<p>注意：自定义的插件文件要在 jQuery 后引入</p>
+<h3 id="（1）扩展-jQuery-的工具方法"><a href="#（1）扩展-jQuery-的工具方法" class="headerlink" title="（1）扩展 jQuery 的工具方法"></a>（1）扩展 jQuery 的工具方法</h3><p><code>$.extend(object)</code>，其中 this 指 $，使用 <code>$.xxx()</code> 调用</p>
+<h3 id="（2）扩展-jQuery-对象的方法"><a href="#（2）扩展-jQuery-对象的方法" class="headerlink" title="（2）扩展 jQuery 对象的方法"></a>（2）扩展 jQuery 对象的方法</h3><p><code>$.fn.extend(object)</code>，其中 this 指 jQuery 对象，使用 <code>$obj.xxx()</code> 调用</p>
+<pre><code>编写插件文件 myjQuery-plugin.js
+(function()&#123;
+    $.extend(&#123;          //给 $ 添加工具方法
+        min:function(a,b)&#123;
+            return a &lt; b ? a : b
+        &#125;,
+        max:function(a,b)&#123;
+            return a &gt; b ? a : b
+        &#125;,
+        leftTrim:function(str)&#123;
+            return str.replace(/^\s+/,&#39;&#39;)
+        &#125;,
+        rightTrim:function(str)&#123;
+            return str.replace(/\s+$/,&#39;&#39;)
+        &#125;
+    &#125;)
+    $.fn.extend(&#123;      //给 jQuery 对象添加功能方法
+        checkAll:function()&#123;
+            this.prop(&#39;checked&#39;,true) //this 是 jQuery 对象
+        &#125;,
+        unCheckAll:function()&#123;
+            this.prop(&#39;checked&#39;,false)
+        &#125;,
+        reverseCheck:function()&#123;
+            this.each(function()&#123; //this 是 jQuery 对象
+                this.checked = !this.checked   //this 是 dom 元素
+            &#125;)
+        &#125;,
+    &#125;)
+&#125;)()
+在其他 js 文件中使用插件
+&lt;script src=&quot;./jquery-1.10.1.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;  //先引入 jQuery
+&lt;script src=&quot;./myjQuery-plugin.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;  //引入自定义的插件文件
+&lt;script type=&quot;text/javascript&quot;&gt;
+    console.log($.min(1,2),$.max(2,1))
+&lt;/script&gt;</code></pre>
+<h2 id="2、jQuery-插件"><a href="#2、jQuery-插件" class="headerlink" title="2、jQuery 插件"></a>2、jQuery 插件</h2><p>jQuery 插件是基于 jQuery 编写的扩展库，在<a href="http://plugins.jquery.com/">官网</a>可查看相关 jQuery 插件</p>
+<p>常用的有 jquery-validation（表单验证插件）、jquery UI、laydate（日期控件，该控件其实不属于 jQuery 插件）</p>
+<h3 id="使用插件"><a href="#使用插件" class="headerlink" title="使用插件"></a>使用插件</h3><h4 id="jquery-validation"><a href="#jquery-validation" class="headerlink" title="jquery-validation"></a>jquery-validation</h4><p>先在<a href="http://plugins.jquery.com/">官网</a>下载相应插件，并把有用文件拷贝在项目文件夹下，然后利用 <code>&lt;script&gt;</code> 引入 jQuery 和 插件库</p>
+<pre><code>&lt;form id=&quot;myForm&quot; action=&quot;xxx&quot;&gt;
+    &lt;p&gt;用户名（必须，最小6位）：&lt;input name=&quot;username&quot; type=&quot;text&quot; required minlength=&quot;6&quot;&gt;&lt;/p&gt;
+    &lt;p&gt;密码（必须，6-8位）：&lt;input id=&quot;password&quot; name=&quot;password1&quot; type=&quot;password&quot; required minlength=&quot;6&quot; maxlength=&quot;8&quot;&gt;&lt;/p&gt;
+    &lt;p&gt;确认密码：&lt;input name=&quot;password2&quot; type=&quot;password&quot; equalTo=&quot;#password&quot;&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;input type=&quot;submit&quot; value=&quot;注册&quot;&gt;&lt;/p&gt;
+&lt;/form&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;jquery-1.11.1.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;jquery.validate.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    //声明式验证：程序员只需声明各种验证规则，也可自定义验证错误信息
+    $(&#39;#myForm&#39;).validate(&#123;  //对此表单开启验证
+        messages:&#123;  //自定义错误提示（可选）
+            username:&#123;  //使用表单项的 name 值
+                required:&#39;用户名是必须的&#39;,
+                minlength:&#39;用户名至少6位&#39;
+            &#125;,
+            password1:&#123;  //使用表单项的 name 值
+                required:&#39;密码是必须的&#39;,
+                minlength:&#39;密码至少6位&#39;,
+                maxlength:&#39;密码最多6位&#39;
+            &#125;,
+            password2:&#123;
+                equalTo:&#39;必须与密码相同&#39;
+            &#125;
+        &#125;
+    &#125;)
+&lt;/script&gt;</code></pre>
+<h4 id="jquery-UI"><a href="#jquery-UI" class="headerlink" title="jquery UI"></a>jquery UI</h4><p>在<a href="http://jqueryui.com/">官网</a>下载插件，并把 jquery.js、jquery-ui.js、jquery-ui.css 三个文件拷贝至项目文件夹</p>
+<pre><code>&lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;jquery-ui.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h2&gt;手风琴Accordion效果&lt;/h2&gt;  &lt;!--以下结构是从插件的index.html中拷贝来的--&gt;
+    &lt;div id=&quot;accordion&quot;&gt;
+        &lt;h3&gt;First&lt;/h3&gt;
+        &lt;div&gt;xxxxx&lt;/div&gt;
+        &lt;h3&gt;Second&lt;/h3&gt;
+        &lt;div&gt;xxxxx&lt;/div&gt;
+        &lt;h3&gt;Third&lt;/h3&gt;
+        &lt;div&gt;xxxxx&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;jquery-ui.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    $(&#39;#accordion&#39;).accordion()  //开启样式效果
+&lt;/script&gt;</code></pre>
+<h4 id="laydate"><a href="#laydate" class="headerlink" title="laydate"></a>laydate</h4><p>在<a href="http://www.layui.com/laydate/">官网</a>下载插件，把 need 文件夹、skins 文件夹、laydate.js 文件拷贝至项目文件夹中并放在同一目录下</p>
+<pre><code>&lt;head&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;laydate.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!--方式一--&gt;
+    &lt;input placeholder=&quot;请输入日期&quot; class=&quot;laydate-icon&quot; onclick=&quot;&quot;laydate()&gt;
+    &lt;!--方式二--&gt;
+    &lt;input class=&quot;laydate-icon&quot; id=&quot;demo&quot; value=&quot;xxx&quot;&gt;   
+    &lt;script&gt;
+        ;!function()&#123;
+            laydate(&#123;
+                elem:&#39;#demo&#39;
+            &#125;)
+        &#125;()
+    &lt;/script&gt;
+    &lt;!--方式三--&gt;
+    &lt;input class=&quot;laydate-icon&quot; id=&quot;test&quot;&gt;
+    &lt;script&gt;
+        laydate(&#123;
+            elem:&#39;#test&#39;,
+            format:&#39;YYYY/MM&#39;,  //分隔符可以任意定义，该例子只显示年月
+            festival:true,   //显示节日
+            choose:function(datas)&#123;  //选择完日期的回调
+                alert(datas);
+            &#125;
+        &#125;)
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre>
+<h1 id="八、jQuery-文档结构图"><a href="#八、jQuery-文档结构图" class="headerlink" title="八、jQuery 文档结构图"></a>八、jQuery 文档结构图</h1><p><img src="/2021/12/29/jQuery%E7%AC%94%E8%AE%B0/jQuery%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt="jQuery文档结构图"></p>
+<h1 id="九、其他"><a href="#九、其他" class="headerlink" title="九、其他"></a>九、其他</h1><p>1、伪数组</p>
+<p>伪数组是 Object 对象，有 length 属性和数值下标属性，但不是数值（即 伪数组 instanceof Array 结果为 false），没有数组特别的方法（如 forEach()、push()、pop()、splice()等）</p>
+<p>自定义一个伪数组</p>
+<pre><code>var w = &#123;&#125;
+w.length = 0
+w[0] = &#39;xxx&#39;
+w.length = 1
+w[1] = 123
+w.length = 2
+for(var i=0;i&lt;w.length;i++)&#123;  //可循环遍历元素
+    var obj = w[i]
+    console.log(i,obj)
+&#125;
+console.log(w.forEach)  //会返回 undefined</code></pre>
+<p>2、轮播图</p>
+<p>要实现循环切换，需在最后一张图片（5.jpg）后添加一张第一张图片（1.jpg），在第一张图片（1.jpg）前面添加最后一张图片（5.jpg）</p>
+<p>若到达最后一张图片（5.jpg），则跳转到最左边第 2 张图片（1.jpg），若到达最左边的图片（5.jpg），则跳转到最右边的第 2 张图片（5.jpg）</p>
+<p>还需注意快速点击时的bug（即正在翻页时点击向上或向下翻页），可在代码中设置标识判断当前是否正在翻页，翻页结束后更新标识值</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Bootstrap学习笔记</title>
+    <url>/2022/01/05/Bootstrap%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="一、引入-bootstrap"><a href="#一、引入-bootstrap" class="headerlink" title="一、引入 bootstrap"></a>一、引入 bootstrap</h1><a id="more"></a>
+
+<pre><code>&lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;bootstrap.min.css&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;&lt;/body&gt;
+&lt;script src=&quot;jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;bootstrap.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>可在<a href="https://v3.bootcss.com/getting-started/#template">官网的文档</a>中引入基本模板，然后开始使用 bootstrap</p>
+<h1 id="二、基础"><a href="#二、基础" class="headerlink" title="二、基础"></a>二、基础</h1><p>bootstrap 首先将 box-sizing 设置为 border-box</p>
+<p>在 bootstrap 中为了增强跨浏览器表现的一致性，使用 Normalize.css （可在 GitHub 上搜到）重置样式，也可使用<a href="https://cssreset.com/">cssreset</a>上的重置样式库</p>
+<h2 id="1、容器"><a href="#1、容器" class="headerlink" title="1、容器"></a>1、容器</h2><p>容器两侧都有 15px 的 padding</p>
+<h3 id="（1）流体容器"><a href="#（1）流体容器" class="headerlink" title="（1）流体容器"></a>（1）流体容器</h3><p>container-fluid 流体容器，相当于一个弹性盒，width 为 auto</p>
+<h3 id="（2）固定容器"><a href="#（2）固定容器" class="headerlink" title="（2）固定容器"></a>（2）固定容器</h3><p>固定容器 container 分为三个阈值 768、992、1200，在 xs、sm、md、lg 都具备时</p>
+<p>视口大小 &lt; 768 时，（xs 移动手机），width = auto，此时相当于流体容器</p>
+<p>768 &lt; 视口大小 &lt; 992 时，（sm 平板），width = 750 = 720 + 槽宽30</p>
+<p>992 &lt; 视口大小 &lt; 1200 时，（md 中屏pc），width = 970 = 940 + 槽宽30</p>
+<p>视口大小 &gt;= 1200 时，（lg 大屏pc），width = 1170 = 1140 + 槽宽30</p>
+<p>严格上说，sm 表示视口大小 &gt;= 768，md 表示视口大小 &gt;= 992，lg 表示视口大小 &gt;= 1200，代码执行时移动（小屏）优先，大屏下的样式写在小屏后会覆盖小屏的样式</p>
+<p>若只有 sm，则表示视口大小 &gt;= 768</p>
+<h2 id="2、栅格系统"><a href="#2、栅格系统" class="headerlink" title="2、栅格系统"></a>2、栅格系统</h2><p>栅格系统由固定容器、行、列组成，默认每行由 12 列组成</p>
+<p>栅格是基于浮动的，本质上用的是 float</p>
+<p>在栅格中通过 col-lg-pull-x 表示 left，col-lg-push-x 表示 right，col-lg-offset-x 表示 margin-left，其中 x 表示 0-12 的整数，md、sm、xs 同理</p>
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;row&quot;&gt;
+        &lt;div class=&quot;col-lg-10&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;col-lg-2&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;row&quot;&gt;
+        &lt;div class=&quot;col-lg-4&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;col-lg-8&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<h3 id="栅格系统源码"><a href="#栅格系统源码" class="headerlink" title="栅格系统源码"></a>栅格系统源码</h3><p>源码可在 <a href="https://www.bootcss.com/">bootstrap官网</a>下载</p>
+<pre><code>//固定容器
+.container&#123;
+    container-fixed();
+    ...
+&#125;
+//流体容器
+.container-fluid&#123;
+    container-fixed();
+&#125;
+//行
+.row&#123;
+    .make-row();
+&#125;
+//列
+.make-grid-columns();
+.make-grid(xs);  //移动优先
+@media(min-width:@screen-sm-min)&#123;
+    .make-grid(sm);
+&#125;
+@media(min-width:@screen-md-min)&#123;
+    .make-grid(md);
+&#125;
+@media(min-width:@screen-lg-min)&#123;
+    .make-grid(lg);
+&#125;</code></pre>
+<h4 id="固定容器和流体容器的公共样式"><a href="#固定容器和流体容器的公共样式" class="headerlink" title="固定容器和流体容器的公共样式"></a>固定容器和流体容器的公共样式</h4><pre><code>.container-fixed(@gutter:@grid-gutter-width)&#123;  //@grid-gutter-width 表示槽宽，默认为 30px
+    margin-right:auto;
+    margin-left:auto;
+    padding-left:floor((@gutter/2));  // 15px
+    padding-right:ceil((@gutter/2));  // 15px
+    &amp;:extend(.clearfix all);
+&#125;
+//其中 .clearfix 内容如下
+.clearfix()&#123;
+    &amp;:before,
+    &amp;:after&#123;
+        content:&quot;&quot;;
+        display:table;
+    &#125;
+    &amp;:after&#123;
+        clear:both;
+    &#125;
+&#125;</code></pre>
+<h4 id="固定容器的特定样式"><a href="#固定容器的特定样式" class="headerlink" title="固定容器的特定样式"></a>固定容器的特定样式</h4><pre><code>@media(min-width:@screen-sm-min)&#123;
+    width:@container-sm;
+&#125;
+@media(min-width:@screen-md-min)&#123;
+    width:@container-md;
+&#125;
+@media(min-width:@screen-lg-min)&#123;
+    width:@container-lg;
+&#125;
+//上述媒体查询必须从小到大，当屏幕大于 1200 时前两种媒体查询也会读到，但前面会被最后一个覆盖，若屏幕小于 768 时，则三种媒体查询都不会读到，width 则为默认值 auto</code></pre>
+<h4 id="行"><a href="#行" class="headerlink" title="行"></a>行</h4><p>行两侧都有 -15px 的 margin</p>
+<pre><code>.make-row(@gutter:@grid-gutter-width)&#123;
+    margin-left:ceil((@gutter/-2));  //-15px
+    margin-right:floor((@gutter/-2));  //-15px
+    &amp;:extend(.clearfix all);
+&#125;</code></pre>
+<h4 id="列"><a href="#列" class="headerlink" title="列"></a>列</h4><p>公共样式：列两侧都有 15px 的 padding，开启相对定位</p>
+<p>float</p>
+<p>width：1~12个级别</p>
+<p>left、right（列排序）：0~12，0:auto</p>
+<p>margin-left（列偏移）：0~12</p>
+<p>在列排序中注意阈值上样式的设置不能跳跃，即例如不能设置完 col-lg-push-x 后直接设置  col-sm-push-x，中间的 col-md-push-x 也需设置</p>
+<p>第一步：.make-grid-columns()</p>
+<pre><code>.make-grid-columns()&#123;
+    .col(@index)&#123;
+        @item:~&quot;.col-xs-@&#123;index&#125;,.col-sm-@&#123;index&#125;,.col-md-@&#123;index&#125;,.col-lg-@&#123;index&#125;&quot;;
+        .col((@index + 1),@item)  //此处不是递归，因为形参个数不同
+        //即.col(2,&quot;.col-xs-1,.col-sm-1,.col-md-1,.col-lg-1&quot;)
+    &#125;
+    .col(@index,@list) when (@index =&lt; @grid-columns)&#123;
+        @item:~&quot;.col-xs-@&#123;index&#125;,.col-sm-@&#123;index&#125;,.col-md-@&#123;index&#125;,.col-lg-@&#123;index&#125;&quot;;
+        .col((@index + 1),~&quot;@&#123;list&#125;,@&#123;item&#125;&quot;)  //此处是递归
+        //即.col(3,&quot;.col-xs-1,.col-sm-1,.col-md-1,.col-lg-1,.col-xs-2,.col-sm-2,.col-md-2,.col-lg-2&quot;)
+        //...
+        //.col(13,str)
+        //其中 str:
+        //    .col-xs-1,.col-sm-1,.col-md-1,.col-lg-1,
+        //    .col-xs-2,.col-sm-2,.col-md-2,.col-lg-2,
+        //    ...
+        //    .col-xs-12,.col-sm-12,.col-md-12,.col-lg-12,
+    &#125;
+    .col(@index,@list) when (@index &gt; @grid-columns)&#123;
+        @&#123;list&#125;&#123;
+            position:relative;
+            min-height:1px;
+            padding-left:ceil((@grid-gutter-width/2));
+            padding-right:floor((@grid-gutter-width/2));
+        &#125;
+    &#125;//即str&#123;position:...&#125;，str作为选择器
+    .col(1);
+&#125;</code></pre>
+<p>上面整体相当于执行了</p>
+<pre><code>.col-xs-1,.col-sm-1,.col-md-1,.col-lg-1,
+.col-xs-2,.col-sm-2,.col-md-2,.col-lg-2,
+...
+.col-xs-12,.col-sm-12,.col-md-12,.col-lg-12&#123;
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+&#125;</code></pre>
+<p>第二步：.make-grid(xs)</p>
+<pre><code>.make-grid(@class)&#123;
+    .float-grid-columns(@class); 
+    //相当于 .col-xs-1,.col-xs-2,...,.col-xs-12&#123;
+    //    float:left;
+    //&#125;
+    .loop-grid-columns(@grid-columns,@class,width); //从 12 递减到 1
+    //相当于 .col-xs-12&#123;
+    //    width:12/12;
+    //&#125;
+    //.col-xs-11&#123;
+    //    width:11/12;
+    //&#125;
+    //...
+    //.col-xs-1&#123;
+    //    width:1/12;
+    //&#125;
+    .loop-grid-columns(@grid-columns,@class,pull);  //列排列，从 12 递减到 0
+    .loop-grid-columns(@grid-columns,@class,push);  //列排列，从 12 递减到 0
+    .loop-grid-columns(@grid-columns,@class,offset);  //列偏移，从 12 递减到 0
+&#125;</code></pre>
+<p>第二步中.float-grid-columns(@class)</p>
+<pre><code>//其中
+.float-grid-columns(@class)&#123;
+    .col(@index)&#123;
+        @item:~&quot;.col-@&#123;class&#125;-@&#123;index&#125;&quot;;
+        .col((@index + 1),@item);
+    &#125;
+    .col(@index,@list) when (@index =&lt; @grid-columns)&#123;
+        @item:~&quot;.col-@&#123;class&#125;-@&#123;index&#125;&quot;;
+        .col((@index + 1),~&quot;@&#123;list&#125;,@&#123;item&#125;&quot;);
+    &#125;
+    .col(@index,@list) when (@index &gt; @grid-columns)&#123;
+        @&#123;list&#125;&#123;
+            float:left;  //本质使用 float
+        &#125;
+    &#125;
+    .col(1);
+&#125;</code></pre>
+<p>第二步中.loop-grid-columns(@index,@class,@type)</p>
+<pre><code>.loop-grid-columns(@index,@class,@type) when (@index &gt;= 0)&#123;
+    .calc-grid-column(@index,@class,@type);
+    .loop-grid-columns((@index-1),@class,@type);
+&#125;
+.calc-grid-column(@index,@class,@type) when (@type = width) and (@index &gt; 0)&#123;  //调用 12 次
+    .col-@&#123;class&#125;-@&#123;index&#125;&#123;
+        width:percentage((@index/@grid-columns));
+    &#125;
+&#125;
+.calc-grid-column(@index,@class,@type) when (@type = push) and (@index &gt; 0)&#123;  //调用 12 次
+    .col-@&#123;class&#125;-push-@&#123;index&#125;&#123;
+        left:percentage((@index/@grid-columns));
+    &#125;
+&#125;
+.calc-grid-column(@index,@class,@type) when (@type = push) and (@index = 0)&#123;  //调用 1 次
+    .col-@&#123;class&#125;-push-0&#123;
+        left:auto;
+    &#125;
+&#125;
+.calc-grid-column(@index,@class,@type) when (@type = pull) and (@index &gt; 0)&#123;  //调用 12 次
+    .col-@&#123;class&#125;-pull-@&#123;index&#125;&#123;
+        right:percentage((@index/@grid-columns));
+    &#125;
+&#125;
+.calc-grid-column(@index,@class,@type) when (@type = pull) and (@index = 0)&#123;  //调用 1 次
+    .col-@&#123;class&#125;-pull-0&#123;
+        right:auto;
+    &#125;
+&#125;
+.calc-grid-column(@index,@class,@type) when (@type = offset)&#123;  //调用 13 次，index 为 0 时，margin-left 为 0
+    .col-@&#123;class&#125;-offset-@&#123;index&#125;&#123;
+        margin-left:percentage((@index/@grid-columns));
+    &#125;
+&#125;
+//以 push 为例执行时相当于 .col-xs-push-12&#123;
+//    left:12/12;
+//&#125;
+//.col-xs-push-11&#123;
+//    left:11/12;
+//&#125;
+//...
+//.col-xs-push-1&#123;
+//    left:1/12;
+//&#125;
+//.col-xs-push-0&#123;
+//    left:auto;
+//&#125;</code></pre>
+<h3 id="栅格组合"><a href="#栅格组合" class="headerlink" title="栅格组合"></a>栅格组合</h3><p>栅格组合即在一个列中写多个不同的栅格</p>
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;row&quot;&gt;
+        &lt;div class=&quot;col-lg-10 col-md-6&quot;&gt;xxx&lt;/div&gt;
+        &lt;div class=&quot;col-lg-2 col-md-6&quot;&gt;xxx&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>当 992 &lt; 视口大小 &lt; 1200 （md）时，布局为两列每列占 6 格，此时不执行 lg</p>
+<p>栅格组合就是利用了 less 的递归</p>
+<h3 id="栅格实例"><a href="#栅格实例" class="headerlink" title="栅格实例"></a>栅格实例</h3><p>lg 时每行 4 块、md 时每行 3 块、sm 时每行 2 块、xs 时每行 1 块，显示时按照 1234 顺序显示，但是缩小窗口时，1 会最先换到下一行（正常情况下是 4 先换行）</p>
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;row&quot;&gt;
+        &lt;div class=&quot;col-lg-3 col-lg-push-9 col-md-4 col-md-push-8 col-sm-6 col-sm-push-6&quot;&gt;
+            ...
+            4
+            ...
+        &lt;/div&gt;
+        &lt;div class=&quot;col-lg-3 col-lg-push-3 col-md-4 col-md-pull-0 col-sm-6 col-sm-pull-6&quot;&gt;
+            ...
+            3
+            ...
+        &lt;/div&gt;
+        &lt;div class=&quot;col-lg-3 col-lg-pull-3 col-md-4 col-md-pull-8 col-sm-6&quot;&gt;
+            ...
+            2
+            ...
+        &lt;/div&gt;
+        &lt;div class=&quot;col-lg-3 col-lg-pull-9 col-md-4 col-sm-6&quot;&gt;
+            ...
+            1
+            ...
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<h3 id="自定义栅格系统"><a href="#自定义栅格系统" class="headerlink" title="自定义栅格系统"></a>自定义栅格系统</h3><p>1、新建文件夹，并新建文件 custom.less</p>
+<pre><code>@import &quot;mixin/clearfix.less&quot;;
+@import &quot;mixin/grid.less&quot;;
+@import &quot;mixin/grid-framework.less&quot;;
+@import &quot;grid.less&quot;;
+@import &quot;variables.less&quot;;
+//以上是栅格系统相关源码</code></pre>
+<p>注意 clearfix.less 中 .clearfix 后不能有空格、、括号</p>
+<p>2、把 grid-framework.less 文件中的 col-xxx 全部重命名为自定义名字，如 custom-col-xxx</p>
+<p>3、使用 Kaolo 软件对文件夹文件进行编译，会生成 custom.css、variable.css、mixin/clearfix.css、mixin/grid.css、mixin/grid-framework.css，只需用到其中的 custom.css</p>
+<p>4、只需在 html 文件中引入 custom.css 即可使用</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;custom.css&quot;&gt;
+&lt;style&gt;
+    *&#123;
+        box-sizing:border-box;
+    &#125;
+&lt;/style&gt;</code></pre>
+<p>html 中通过 custom-col-xxx 使用自定义栅格</p>
+<h3 id="栅格盒模型设计精妙之处"><a href="#栅格盒模型设计精妙之处" class="headerlink" title="栅格盒模型设计精妙之处"></a>栅格盒模型设计精妙之处</h3><p>容器两边具有 15px 的 padding</p>
+<p>行两边有 -15px 的 margin</p>
+<p>列中间两边有 15px 的 padding（必须）</p>
+<p>为了维护槽宽的规则，列两边必须有 16px 的 padding</p>
+<p>为了能使列嵌套行，行两边必须有 -15px 的 margin</p>
+<p>为了让容器能包裹住行，容器两边必须有 15px 的 padding</p>
+<p><a href="./Bootstrap%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%A0%85%E6%A0%BC%E8%AE%BE%E8%AE%A1.png">栅格设计</a></p>
+<h2 id="3、响应式工具"><a href="#3、响应式工具" class="headerlink" title="3、响应式工具"></a>3、响应式工具</h2><p>visible-xs、hidden-xs 视口大小 &lt; 768 时显示/隐藏</p>
+<p>visible-sm、hidden-sm 768 &lt; 视口大小 &lt; 992 时显示/隐藏</p>
+<p>visible-md、hidden-md 992 &lt; 视口大小 &lt; 1200 时显示/隐藏</p>
+<p>visible-lg、hidden-lg 视口大小 &gt; 1200 时显示/隐藏</p>
+<h2 id="4、bootstrap-定制化"><a href="#4、bootstrap-定制化" class="headerlink" title="4、bootstrap 定制化"></a>4、bootstrap 定制化</h2><p>方法一：在源码中修改，并重新编译入口文件 bootstrap.less 后，在 html 代码中使用新生成的 bootstrap.css 文件</p>
+<p>方法二：新建 css 文件，在该文件中</p>
+<pre><code>@import &quot;bootstrap.less&quot;;
+//接下来写需要修改的部分
+@grid-gutter-width:100px;  //如修改槽宽</code></pre>
+<p>然后编译该 css 文件，并在 html 文件中使用</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Ajax学习笔记</title>
+    <url>/2022/01/07/Ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="一、AJAX"><a href="#一、AJAX" class="headerlink" title="一、AJAX"></a>一、AJAX</h1><p>AJAX（Asynchronous JavaScript and XML）即异步的 JS 和 XML</p>
+<p>通过 AJAX 可在浏览器中向服务器发送异步请求，最大的优势：无刷新获取数据</p>
+<p>AJAX 不是编程语言，而是一种将现有的标准组合在一起使用的新方式</p>
+<p><strong>特点：</strong>可在不刷新网页的情况下向后端发送 http 请求，得到 http 响应，实现懒加载效果（用则加载不用则步加载）提高网页加载速度</p>
+<h1 id="二、XML"><a href="#二、XML" class="headerlink" title="二、XML"></a>二、XML</h1><p>XML（）可扩展标记语言</p>
+<p>XML 被设计用来传输（如服务器以 XML 形式返回数据给客户端）和存储数据（如可用来保存一些用户数据、订单数据、商品数据等）</p>
+<pre><code>&lt;student&gt;
+    &lt;name&gt;xxx&lt;/name&gt;
+    &lt;age&gt;12&lt;/age&gt;
+    &lt;gender&gt;男&lt;/gender&gt;
+&lt;/student&gt;</code></pre>
+<p>最初 AJAX 在数据交换时使用的是 XML，现在一般使用 JSON 格式</p>
+<h2 id="XML-和-HTML-区别"><a href="#XML-和-HTML-区别" class="headerlink" title="XML 和 HTML 区别"></a>XML 和 HTML 区别</h2><p>XML 和 HTML 类似都是由标签组成</p>
+<p>不同的是 HTML 中都是预定义标签，而 XML 中没有预定义标签，全都是自定义标签，用来表示数据</p>
+<p>XML 被设计用来传输和存储数据，而 HTML 用来呈现数据</p>
+<h2 id="AJAX-优缺点"><a href="#AJAX-优缺点" class="headerlink" title="AJAX 优缺点"></a>AJAX 优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>（1）可无需刷新页面与服务器端进行通信（这是创造 AJAX 的初衷）</p>
+<p>（2）允许根据用户事件（如鼠标事件、键盘事件、表单事件、文档事件等）来更新部分页面内容</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>（1）没有浏览历史，不能回退</p>
+<p>（2）存在跨域问题（同源）</p>
+<p>（3）SEO 不友好，即源码（即响应体）第一次向服务器请求的数据中没有某元素，然后通过 AJAX 向服务端发请求后通过 JS 动态创建元素到页面中，则爬虫爬不到该元素</p>
+<h1 id="三、HTTP-协议"><a href="#三、HTTP-协议" class="headerlink" title="三、HTTP 协议"></a>三、HTTP 协议</h1><p>HTTP 协议（hypertext transport protocol）即超文本传输协议，协议详细规定了浏览器和万维网服务器之间互相通信的规则</p>
+<h2 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h2><p>请求报文包括四部分：请求行、请求头、空行、请求体</p>
+<p>请求行：请求类型（如 GET/POST/…）、URL、HTTP 协议版本（如 HTTP/1.1）</p>
+<p>请求头：Host、Cookie、Content-type、User-Agent</p>
+<p>当请求类型为 GET 时请求体为空，为 POST 时请求体可不为空</p>
+<pre><code>行  POST /bv?p=123 HTTP/1.1
+头  Host: xxx.com
+    Cookie: name=xxx
+    Content-type: application/x-www-form-urlencoded
+    User-Agent: chrome 83
+空行
+体  username=admin&amp;password=admin</code></pre>
+<h2 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h2><p>响应报文包括四部分：行、头、空行、体</p>
+<p>响应行：HTTP 协议版本（如 HTTP/1.1）、响应状态码（如 200、404 找不到页面、403 Forbidden、401 未授权、500 内部错误等，2xx都表示成功）、响应状态字符串（如 OK，与状态码对应）</p>
+<p>响应头（对响应体作描述）：Content-type、Content-length、Content-encoding</p>
+<pre><code>行  HTTP/1.1 200 OK
+头  Content-type: text/html;charset=utf-8  表示请求体内容的类型
+    Content-length: 2048
+    Content-encoding: gzip
+    ...
+空行
+体  &lt;html&gt;
+        &lt;head&gt;&lt;/head&gt;
+        &lt;body&gt;
+            &lt;h1&gt;xxx&lt;/h1&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;</code></pre>
+<h1 id="四、服务端的准备"><a href="#四、服务端的准备" class="headerlink" title="四、服务端的准备"></a>四、服务端的准备</h1><p>AJAX 需要向服务端发请求，所以需要准备服务端环境，安装 Node.js、使用 Express 框架搭建后端</p>
+<h2 id="1、Node-js"><a href="#1、Node-js" class="headerlink" title="1、Node.js"></a>1、Node.js</h2><p>Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行时，是一个可以解析 js 代码的应用程序，通过 js 代码对计算机资源做一些操作</p>
+<p>因为 AJAX 的应用当中需要一个服务端，所以需要安装 Node.js</p>
+<h2 id="2、Express-框架的简单使用"><a href="#2、Express-框架的简单使用" class="headerlink" title="2、Express 框架的简单使用"></a>2、Express 框架的简单使用</h2><p>Express 是基于 Node.js 平台的 Web 开发框架</p>
+<p>在终端</p>
+<pre><code>//做初始化，npm 是 Node.js 平台下的包管理工具
+npm init --yes  
+//安装 express
+npm i express</code></pre>
+<p>js 代码</p>
+<pre><code>//引入 express
+const express = require(&#39;express&#39;);
+//创建应用对象
+const app = express();
+//创建路由规则
+//当请求头中的 URL 匹配时会执行下方函数中的回调函数
+app.get(&#39;/请求头第二个字段URL&#39;,(request,response)=&gt;&#123;  //参数request是对请求报文的封装，response是对响应报文的封装
+    response.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;*&#39;);  //设置响应头，设置允许跨域
+    response.send(&#39;xxx&#39;);  //设置响应体
+&#125;);
+//监听端口启动服务
+app.listen(8000,()=&gt;&#123;
+    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
+&#125;)</code></pre>
+<p>在终端启动服务</p>
+<pre><code>node 文件名.js</code></pre>
+<p>当 js 文件内容发生变化时需重新启动服务</p>
+<h2 id="3、nodemon-自动重启服务工具"><a href="#3、nodemon-自动重启服务工具" class="headerlink" title="3、nodemon 自动重启服务工具"></a>3、nodemon 自动重启服务工具</h2><p>当 js 文件改变时 nodemon 可启动重启 node 应用</p>
+<p>在终端安装</p>
+<pre><code>npm install -g nodemon</code></pre>
+<p>安装完 nodemon 后在启动服务需使用</p>
+<pre><code>nodemon 文件名.js</code></pre>
+<h1 id="五、原生-AJAX"><a href="#五、原生-AJAX" class="headerlink" title="五、原生 AJAX"></a>五、原生 AJAX</h1><h2 id="1、基本使用"><a href="#1、基本使用" class="headerlink" title="1、基本使用"></a>1、基本使用</h2><p>步骤：</p>
+<p>— 1、创建对象，<code>new XMLHttpRequest()</code></p>
+<p>— 2、初始化，<code>xhr.open(&#39;xxx&#39;,&#39;xxx&#39;)</code> 设置请求方法和 url，url 中设置参数 <code>?参数1=值&amp;参数2=值&amp;参数n=值</code></p>
+<p>— 3、发送，<code>xhr.send()</code></p>
+<p>— 4、事件绑定，<code>xhr.onreadystatechange</code> 处理服务端返回的结果</p>
+<p>其中 readyState 是 xhr 对象中的属性，表示状态，有 5 个值：</p>
+<pre><code>0（未初始化）
+1（open方法已调用完毕）
+2（send方法已调用完毕）
+3（服务端返回了部分结果）
+4（服务端返回了所有结果）</code></pre>
+<p>例子（前端部分）</p>
+<pre><code>const xhr = new XMLHttpRequest();  //创建对象
+xhr.open(&#39;GET&#39;,&#39;http://127.0.0.1:8000/server?a=1&amp;b=2&amp;c=3&#39;); //初始化
+xhr.send();  //发送
+xhr.onreadystatechange = function()&#123;  //事件绑定，会触发四次，0-1，1-2，2-3，3-4
+    if(xhr.readyState === 4)&#123;  //服务端返回了所有结果
+        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;  //判断响应状态码
+            //处理结果--行 头 空行 体
+            console.log(xhr.status);  //状态码
+            console.log(xhr.statusText);  //状态字符串
+            console.log(xhr.getAllResponseHeaders());  //所有响应头
+            console.log(xhr.response);  //响应体
+
+        &#125;else&#123;&#125;
+    &#125;
+&#125;</code></pre>
+<h2 id="2、发送-POST-请求"><a href="#2、发送-POST-请求" class="headerlink" title="2、发送 POST 请求"></a>2、发送 POST 请求</h2><p>无参数的 post 请求与 get 类似，参考上面的例子，同时后端也需有相应路径下的 post 方法</p>
+<h3 id="post-中设置请求体"><a href="#post-中设置请求体" class="headerlink" title="post 中设置请求体"></a>post 中设置请求体</h3><pre><code>const xhr = new XMLHttpRequest(); 
+xhr.open(&#39;POST&#39;,&#39;http://127.0.0.1:8000/server&#39;);
+xhr.send(&#39;a=1&amp;b=2&amp;c=3&#39;);  //发送，设置请求体，请求体的内容可以任意
+xhr.onreadystatechange = function()&#123;
+    if(xhr.readyState === 4)&#123;
+        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
+            //处理结果
+        &#125;else&#123;&#125;
+    &#125;
+&#125;</code></pre>
+<h3 id="post-中设置请求头"><a href="#post-中设置请求头" class="headerlink" title="post 中设置请求头"></a>post 中设置请求头</h3><p>一般会把身份校验信息放在头信息中</p>
+<pre><code>const xhr = new XMLHttpRequest(); 
+xhr.open(&#39;POST&#39;,&#39;http://127.0.0.1:8000/server&#39;);
+xhr.setRequestHeader(&#39;Content-Type&#39;,&#39;application/x-www-form-urlencoded&#39;);  //设置请求头
+xhr.send(&#39;a=1&amp;b=2&amp;c=3&#39;);  //发送，设置请求体，请求体的内容可以任意
+xhr.onreadystatechange = function()&#123;
+    if(xhr.readyState === 4)&#123;
+        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
+            //处理结果
+        &#125;else&#123;&#125;
+    &#125;
+&#125;</code></pre>
+<p>若使用自定义请求头名，此时发送完 post 请求后还会再发送一个 options 请求，需在后端设置</p>
+<pre><code>const express = require(&#39;express&#39;);
+const app = express();   //创建应用对象
+app.all(&#39;/server&#39;,(request,response)=&gt;&#123;  //设置 all 方法可接收任意类型的请求
+    response.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;*&#39;);  //设置响应头，设置允许跨域
+    response.setHeader(&#39;Access-Control-Allow-Headers&#39;,&#39;*&#39;);  //设置使所有类型头信息都能接受，从而允许那些自定义的头信息
+    response.send(&#39;xxx&#39;);  //设置响应体
+&#125;);
+//监听端口启动服务
+app.listen(8000,()=&gt;&#123;
+    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
+&#125;)</code></pre>
+<h2 id="3、传输-JSON-数据"><a href="#3、传输-JSON-数据" class="headerlink" title="3、传输 JSON 数据"></a>3、传输 JSON 数据</h2><p>后端</p>
+<pre><code>const express = require(&#39;express&#39;);
+const app = express();  //创建应用对象
+//创建路由规则
+app.get(&#39;/请求头第二个字段URL&#39;,(request,response)=&gt;&#123;
+    response.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;*&#39;);  //设置响应头，设置允许跨域
+    const data = &#123;
+        name:&#39;xxx&#39;
+    &#125;
+    let str = JSON.stringfy(data);  //将对象进行字符串转换
+    response.send(str);  //设置响应体
+&#125;);
+//监听端口启动服务
+app.listen(8000,()=&gt;&#123;
+    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
+&#125;)</code></pre>
+<p>前端方式一：手动对数据转化</p>
+<pre><code>const xhr = new XMLHttpRequest(); 
+xhr.open(&#39;POST&#39;,&#39;http://127.0.0.1:8000/server&#39;);
+xhr.send();
+xhr.onreadystatechange = function()&#123;
+    if(xhr.readyState === 4)&#123;
+        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
+            //方式一：手动对数据转化
+            let data = JSON.parse(xhr.response);
+        &#125;else&#123;&#125;
+    &#125;
+&#125;</code></pre>
+<p>前端方式一：（自动转换）设置响应体数据类型</p>
+<pre><code>const xhr = new XMLHttpRequest(); 
+//方式二：设置响应体数据类型
+xhr.responseType = &#39;json&#39;;
+xhr.open(&#39;POST&#39;,&#39;http://127.0.0.1:8000/server&#39;);
+xhr.send();
+xhr.onreadystatechange = function()&#123;
+    if(xhr.readyState === 4)&#123;
+        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
+            console.log(xhr.response)
+        &#125;else&#123;&#125;
+    &#125;
+&#125;</code></pre>
+<h2 id="4、IE-缓存问题"><a href="#4、IE-缓存问题" class="headerlink" title="4、IE 缓存问题"></a>4、IE 缓存问题</h2><p>IE 浏览器会缓存 AJAX 的请求结果，下次发相同请求时使用的是本地的缓存结果而不是服务器返回的最新数据，不利于一些时效性要求比较高的场景</p>
+<p>解决：</p>
+<p>在前端中设置 url 时添加一个时间戳参数来表示每次发送的是不同请求</p>
+<pre><code>const xhr = new XMLHttpRequest(); 
+xhr.open(&#39;POST&#39;,&#39;http://127.0.0.1:8000/server?t=&#39;+Date.now());  //通过 url 解决 IE 缓存问题
+xhr.send();
+xhr.onreadystatechange = function()&#123;
+    if(xhr.readyState === 4)&#123;
+        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
+            console.log(xhr.response)
+        &#125;else&#123;&#125;
+    &#125;
+&#125;</code></pre>
+<h2 id="5、AJAX-请求超时和网络异常处理"><a href="#5、AJAX-请求超时和网络异常处理" class="headerlink" title="5、AJAX 请求超时和网络异常处理"></a>5、AJAX 请求超时和网络异常处理</h2><p>添加请求超时及网络异常处理，在前端添加</p>
+<pre><code>const xhr = new XMLHttpRequest(); 
+//设置超过 2s 为超时，则取消请求
+xhr.timeout = 2000;
+//超时回调
+xhr.ontimeout = function()&#123;
+    alert(&quot;网络异常，请稍后重试&quot;);
+&#125;
+//网络异常回调
+xhr.onerror = function()&#123;
+    alert(&quot;网络出问题了&quot;);
+&#125;
+xhr.open(&#39;POST&#39;,&#39;http://127.0.0.1:8000/server);
+xhr.send();
+xhr.onreadystatechange = function()&#123;
+    if(xhr.readyState === 4)&#123;
+        if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
+            console.log(xhr.response)
+        &#125;else&#123;&#125;
+    &#125;
+&#125;</code></pre>
+<h2 id="6、AJAX-取消请求"><a href="#6、AJAX-取消请求" class="headerlink" title="6、AJAX 取消请求"></a>6、AJAX 取消请求</h2><p>通过 xhr 对象的 abort 方法来取消请求 <code>xhr.abort()</code>（xhr 是XMLHttpRequest 对象实例）</p>
+<h2 id="7、AJAX-请求重复发送问题"><a href="#7、AJAX-请求重复发送问题" class="headerlink" title="7、AJAX 请求重复发送问题"></a>7、AJAX 请求重复发送问题</h2><p>当服务器响应较慢时，用户可能多次重复发送相同请求，会增加服务器的压力，因此当多次发相同请求时可把前面未响应完成的请求取消</p>
+<p>在前端添加一个标识变量来表示是否正在发送请求</p>
+<pre><code>let xhr = null;
+let isSending = false;  //是否正在发送请求
+if(isSending)&#123;  //若正在发送请求，则取消该请求
+    xhr.abort();
+&#125;
+xhr = new XMLHttpRequest(); 
+isSending = true;
+xhr.open(&#39;GET&#39;,&#39;http://127.0.0.1:8000/server);
+xhr.send();
+xhr.onreadystatechange = function()&#123;
+    if(xhr.readyState === 4)&#123;
+        isSending = false;
+    &#125;
+&#125;</code></pre>
+<h1 id="六、jQuery-中使用-AJAX"><a href="#六、jQuery-中使用-AJAX" class="headerlink" title="六、jQuery 中使用 AJAX"></a>六、jQuery 中使用 AJAX</h1><h2 id="get-请求"><a href="#get-请求" class="headerlink" title="get 请求"></a>get 请求</h2><p><code>$get(url,[请求携带的参数],[载入成功时回调函数],[返回内容格式])</code></p>
+<p>其中返回内容格式可以是 xml、html、script、json、text、_default</p>
+<pre><code>$.get(&#39;http://127.0.0.1:8000/server&#39;,&#123;a:1,b:2&#125;,function(data)&#123;
+    console.log(data)
+&#125;,&#39;json&#39;)</code></pre>
+<p>若使用 CDN 引入jQuery，在发送请求时出现警告 A cookie associated with a cross-site resource at <a href="http://bootcss.com/">http://bootcss.com/</a> was set without the ‘SameSite’ attibute….</p>
+<p>可在引入时添加跨源请求的属性设置 <code>crossorigin=&quot;anonymous&quot;</code>，添加后向对于 src 资源请求时不会带当前域名下的 cookie</p>
+<pre><code>&lt;script crossorigin=&quot;anonymous&quot; src=&quot;https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h2 id="post-请求"><a href="#post-请求" class="headerlink" title="post 请求"></a>post 请求</h2><p><code>$post(url,[请求携带的参数],[载入成功时回调函数],[返回内容格式])</code></p>
+<pre><code>$.post(&#39;http://127.0.0.1:8000/server&#39;,&#123;a:1,b:2&#125;,function(data)&#123;
+    console.log(data)
+&#125;,&#39;json&#39;)</code></pre>
+<h2 id="通用发送请求的方法"><a href="#通用发送请求的方法" class="headerlink" title="通用发送请求的方法"></a>通用发送请求的方法</h2><p>前端</p>
+<pre><code>$.ajax(&#123;
+    url: &#39;http://127.0.0.1:8000/server&#39;,
+    data: &#123;a:1,b:2&#125;,   //参数
+    type: &#39;GET&#39;,       //请求类型
+    dataType: &#39;json&#39;,  //响应体结果类型，这样可直接解析json字符串
+    success: function(data)&#123;  //成功的回调
+        console.log(data);
+    &#125;,
+    timeout: 2000,  //设置超时时间
+    error: function()&#123;  //失败的回调，包括超时、异常等
+        console.log(&#39;错误&#39;);
+    &#125;,
+    headers: &#123;
+        c:3,
+        d:4
+    &#125;
+&#125;)</code></pre>
+<p>后端</p>
+<pre><code>const express = require(&#39;express&#39;);
+const app = express();
+app.all(&#39;/server&#39;,(request,response)=&gt;&#123;
+    response.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;*&#39;);  //设置允许跨域
+    response.setHeader(&#39;Access-Control-Allow-Headers&#39;,&#39;*&#39;);  //设置使所有类型头信息都能接受，从而允许那些自定义的头信息
+    response.send(&#39;xxx&#39;);  //设置响应体
+&#125;);
+//监听端口启动服务
+app.listen(8000,()=&gt;&#123;
+    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
+&#125;)</code></pre>
+<h1 id="七、axios"><a href="#七、axios" class="headerlink" title="七、axios"></a>七、axios</h1><p>axios 是目前最热门的 AJAX 工具库，也是 Vue 和 React 推荐的 AJAX 工具包</p>
+<p>可在项目中使用 <code>npm install axios</code> 安装或使用 <code>&lt;script  crossorigin=&quot;anonymous&quot; src=&quot;https://cdn.bootcdn.net/ajax/libs/axios/0.24.0/axios.min.js&quot;&gt;&lt;/script&gt;</code> 引入并使用</p>
+<h2 id="get-请求-1"><a href="#get-请求-1" class="headerlink" title="get 请求"></a>get 请求</h2><pre><code>const axios = require(&#39;axios&#39;);  //通过 npm 方式安装需先引入 axios
+
+axios.defaults.baseURL = &#39;http://127.0.0.1:8000&#39;; //配置 baseURL，也可不配置，都写在请求的 url 里
+axios.get(&#39;/server&#39;,&#123;
+    params: &#123;  //url 参数
+        a:1,
+        b:2
+    &#125;,
+    headers: &#123;   //请求头信息
+        c:3,
+        d:4
+    &#125;
+&#125;).then(value =&gt; &#123;  //数据返回和处理和 jQuery 不同，jQuery 使用回调函数，而 axios 是基于 promise
+    console.log(value)
+&#125;)</code></pre>
+<h2 id="post-请求-1"><a href="#post-请求-1" class="headerlink" title="post 请求"></a>post 请求</h2><p><code>axios.post(url,&#123;请求体&#125;,&#123;其他配置&#125;)</code></p>
+<pre><code>axios.defaults.baseURL = &#39;http://127.0.0.1:8000&#39;; //配置 baseURL，也可不配置，都写在请求的 url 里
+axios.get(&#39;/server&#39;,&#123;
+    e:5,       //请求体
+    f:6
+&#125;,&#123;
+    params: &#123;  //url 参数
+        a:1,
+        b:2
+    &#125;,
+    headers: &#123;   //请求头信息
+        c:3,
+        d:4
+    &#125;
+&#125;).then(value =&gt; &#123;  //数据返回和处理和 jQuery 不同，jQuery 使用回调函数，而 axios 是基于 promise
+    console.log(value)
+&#125;)</code></pre>
+<h2 id="通用发送请求的方法-1"><a href="#通用发送请求的方法-1" class="headerlink" title="通用发送请求的方法"></a>通用发送请求的方法</h2><pre><code>axios(&#123;
+    method: &#39;POST&#39;,
+    url: &#39;http://127.0.0.1:8000/server&#39;,
+    params: &#123;    //url 参数
+        a:1,
+        b:2
+    &#125;,
+    headers: &#123;   //请求头信息
+        c:3,
+        d:4
+    &#125;,
+    data: &#123;       //请求体
+        e:5,
+        f:6
+    &#125;    
+&#125;).then(response =&gt; &#123;
+    console.log(response)
+&#125;)</code></pre>
+<h1 id="八、使用-fetch-函数发送请求"><a href="#八、使用-fetch-函数发送请求" class="headerlink" title="八、使用 fetch 函数发送请求"></a>八、使用 fetch 函数发送请求</h1><p>fetch 函数属于全局对象，返回一个 promise 对象，这个 promise 会在请求响应后被 resolve，并传回 Response 对象</p>
+<pre><code>fetch(&#39;http://127.0.0.1:8000/server?c=1&#39;,&#123;
+    method: &#39;POST&#39;,
+    headers: &#123;   //请求头信息
+        c:3,
+        d:4
+    &#125;,
+    body: &#39;e=5&amp;f=6&#39;  //请求体，请求体可以是 Blob、BufferSource、Formdata、URLSearchParam 对象或字符串
+&#125;).then(response =&gt; &#123;
+    return response.text(); //获取响应体结果，不能直接看到响应体结果，需使用 return，若返回的是 json，则使用 return response.json()
+&#125;).then(response =&gt; &#123;
+    console.log(response)
+&#125;)</code></pre>
+<h1 id="九、跨域"><a href="#九、跨域" class="headerlink" title="九、跨域"></a>九、跨域</h1><h2 id="1、同源策略"><a href="#1、同源策略" class="headerlink" title="1、同源策略"></a>1、同源策略</h2><p>同源策略（Same-Origin Policy）最早由网景公司提出，是浏览器的一种安全策略</p>
+<p>同源即当前网页的 URL 和 AJAX 请求的目标资源的 URL 的协议、域名、端口号完全相同</p>
+<p>若违背同源策略就是跨域</p>
+<p>AJAX 默认是遵循同源策略的，若不满足同源策略则无法直接发送 AJAX 请求</p>
+<p>在同源情况下的请求中 url 可不用加协议、域名、端口（浏览器会自动加上），可简写为 <code>/xxx</code></p>
+<h2 id="2、跨域的解决方案"><a href="#2、跨域的解决方案" class="headerlink" title="2、跨域的解决方案"></a>2、跨域的解决方案</h2><h3 id="（1）JSONP"><a href="#（1）JSONP" class="headerlink" title="（1）JSONP"></a>（1）JSONP</h3><p>JSONP（JSON with Padding）是一个非官方的跨域解决方案，只支持 get 请求</p>
+<h4 id="JSONP-如何工作"><a href="#JSONP-如何工作" class="headerlink" title="JSONP 如何工作"></a>JSONP 如何工作</h4><p>在网页有一些标签天生具有跨域能力，如 img、link、iframe、script</p>
+<p>JSONP 就是利用 script 标签的跨域能力来发送请求的</p>
+<p>JSONP 的返回结果是一个定义好的函数的调用（即 js 代码，不能是字符串等数据），这样浏览器引擎才能解析并执行，若是自定义函数，需在前端代码中定义好，函数中的参数一般放要返回的数据内容</p>
+<p>前端</p>
+<pre><code>&lt;script&gt;
+    function handle(data)&#123;
+        console.log(data.a)
+    &#125;
+&lt;/script&gt;
+&lt;script src=&quot;http://127.0.0.1:8000/server&quot;&gt;&lt;/script&gt;</code></pre>
+<p>后端</p>
+<pre><code>const express = require(&#39;express&#39;);
+const app = express();
+app.all(&#39;/server&#39;,(request,response)=&gt;&#123;
+    const data = &#123;
+        a:1
+    &#125;
+    response.send(&#39;console.log(&#39;xxx&#39;)&#39;);
+    //或 response.end(&#39;handle($&#123;str&#125;)&#39;); //end 和 send 差不多，但 end 方法不会加特殊响应头
+&#125;);
+//监听端口启动服务
+app.listen(8000,()=&gt;&#123;
+    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
+&#125;)</code></pre>
+<h4 id="JSONP-的使用"><a href="#JSONP-的使用" class="headerlink" title="JSONP 的使用"></a>JSONP 的使用</h4><ol>
+<li><p>动态创建一个 script 标签</p>
+<p> var script = document.createElement(“script”);</p>
+</li>
+<li><p>设置 script 的 src，设置回调函数</p>
+<p> script.src = ‘<a href="http://127.0.0.1:8000/sever&#39;">http://127.0.0.1:8000/sever&#39;</a>;</p>
+</li>
+<li><p>将 script 插入文档中</p>
+<p> document.body.appendChild(script);</p>
+</li>
+</ol>
+<h4 id="jQuery-发送-JSONP-请求"><a href="#jQuery-发送-JSONP-请求" class="headerlink" title="jQuery 发送 JSONP 请求"></a>jQuery 发送 JSONP 请求</h4><p>需在 url 参数中设置 <code>?callback=?</code>，发送请求时 jQuery 会注册一个函数作为 callback 参数的值，后端返回该函数的调用则前端就可以对数据做处理</p>
+<p>前端</p>
+<pre><code>$.getJSON(&#39;http://127.0.0.1:8000/sever?callback=?&#39;,function(data)&#123;
+    console.log(data)
+&#125;)</code></pre>
+<p>后端</p>
+<pre><code>const express = require(&#39;express&#39;);
+const app = express();
+app.all(&#39;/server&#39;,(request,response)=&gt;&#123;
+    const data = &#123;
+        a:1
+    &#125;
+    let str = JSON.stringify(data);
+    let cb = request.query.callback;
+    response.end(&#39;$&#123;cb&#125;($&#123;str&#125;)&#39;)
+&#125;);
+//监听端口启动服务
+app.listen(8000,()=&gt;&#123;
+    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
+&#125;)</code></pre>
+<h3 id="（2）CORS"><a href="#（2）CORS" class="headerlink" title="（2）CORS"></a>（2）CORS</h3><p>CORS（Cross-Origin Resource Sharing）跨域资源共享，CORS 是官方的跨域解决方案</p>
+<p>CORS 的特点是不需要在客户端做任何特殊的操作，完全在服务器中进行处理，支持 get 和 post 等请求。跨域资源共享标准新增了一组 HTTP 首部字段（响应头），允许服务器声明哪些源站通过浏览器有权限访问哪些资源</p>
+<h4 id="CORS-如何工作"><a href="#CORS-如何工作" class="headerlink" title="CORS 如何工作"></a>CORS 如何工作</h4><p>CORS 是通过设置一个响应头来告诉浏览器，该请求允许跨域，浏览器收到该响应后会对该响应放行</p>
+<p>后端</p>
+<pre><code>const express = require(&#39;express&#39;);
+const app = express();
+app.all(&#39;/server&#39;,(request,response)=&gt;&#123;
+    response.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;*&#39;);  //设置允许跨域
+    //或 response.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;http://127.0.0.1:5000&#39;);  //仅允许 http://127.0.0.1:5000 的网页可向该服务器发送跨域请求
+    response.setHeader(&#39;Access-Control-Allow-Headers&#39;,&#39;*&#39;);  //可接收自定义头信息
+    response.setHeader(&#39;Access-Control-Allow-Method&#39;,&#39;*&#39;);  //允许 get、post 等任意方法
+    response.send(&#39;xxx&#39;);  //设置响应体
+&#125;);
+//监听端口启动服务
+app.listen(8000,()=&gt;&#123;
+    console.log(&quot;服务已启动，正在监听 8000 端口&quot;)
+&#125;)</code></pre>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
   </entry>
 </search>

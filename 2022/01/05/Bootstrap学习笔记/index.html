@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nicolejay.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="一、引入 bootstrap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bootstrap学习笔记">
+<meta property="og:url" content="http://nicolejay.github.io/2022/01/05/Bootstrap%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="X 的笔记">
+<meta property="og:description" content="一、引入 bootstrap">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-05T13:55:17.000Z">
+<meta property="article:modified_time" content="2022-01-06T13:31:48.899Z">
+<meta property="article:author" content="NicoleJay">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://nicolejay.github.io/2022/01/05/Bootstrap%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>Bootstrap学习笔记 | X 的笔记</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+  <a target="_blank" rel="noopener" href="https://github.com/NicoleJay" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">X 的笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%BC%95%E5%85%A5-bootstrap"><span class="nav-number">1.</span> <span class="nav-text">一、引入 bootstrap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%9F%BA%E7%A1%80"><span class="nav-number">2.</span> <span class="nav-text">二、基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%AE%B9%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">1、容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E6%B5%81%E4%BD%93%E5%AE%B9%E5%99%A8"><span class="nav-number">2.1.1.</span> <span class="nav-text">（1）流体容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%9B%BA%E5%AE%9A%E5%AE%B9%E5%99%A8"><span class="nav-number">2.1.2.</span> <span class="nav-text">（2）固定容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E6%A0%85%E6%A0%BC%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.2.</span> <span class="nav-text">2、栅格系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%85%E6%A0%BC%E7%B3%BB%E7%BB%9F%E6%BA%90%E7%A0%81"><span class="nav-number">2.2.1.</span> <span class="nav-text">栅格系统源码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E5%AE%B9%E5%99%A8%E5%92%8C%E6%B5%81%E4%BD%93%E5%AE%B9%E5%99%A8%E7%9A%84%E5%85%AC%E5%85%B1%E6%A0%B7%E5%BC%8F"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">固定容器和流体容器的公共样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E5%AE%B9%E5%99%A8%E7%9A%84%E7%89%B9%E5%AE%9A%E6%A0%B7%E5%BC%8F"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">固定容器的特定样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%8C"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97"><span class="nav-number">2.2.1.4.</span> <span class="nav-text">列</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%85%E6%A0%BC%E7%BB%84%E5%90%88"><span class="nav-number">2.2.2.</span> <span class="nav-text">栅格组合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%85%E6%A0%BC%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.2.3.</span> <span class="nav-text">栅格实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%85%E6%A0%BC%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.2.4.</span> <span class="nav-text">自定义栅格系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%85%E6%A0%BC%E7%9B%92%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1%E7%B2%BE%E5%A6%99%E4%B9%8B%E5%A4%84"><span class="nav-number">2.2.5.</span> <span class="nav-text">栅格盒模型设计精妙之处</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B7%A5%E5%85%B7"><span class="nav-number">2.3.</span> <span class="nav-text">3、响应式工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81bootstrap-%E5%AE%9A%E5%88%B6%E5%8C%96"><span class="nav-number">2.4.</span> <span class="nav-text">4、bootstrap 定制化</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="NicoleJay"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">NicoleJay</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/NicoleJay" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NicoleJay" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://nicolejay.github.io/2022/01/05/Bootstrap%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="NicoleJay">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X 的笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Bootstrap学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-05 21:55:17" itemprop="dateCreated datePublished" datetime="2022-01-05T21:55:17+08:00">2022-01-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="一、引入-bootstrap"><a href="#一、引入-bootstrap" class="headerlink" title="一、引入 bootstrap"></a>一、引入 bootstrap</h1><a id="more"></a>
+
+<pre><code>&lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;bootstrap.min.css&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;&lt;/body&gt;
+&lt;script src=&quot;jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;bootstrap.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>可在<a target="_blank" rel="noopener" href="https://v3.bootcss.com/getting-started/#template">官网的文档</a>中引入基本模板，然后开始使用 bootstrap</p>
+<h1 id="二、基础"><a href="#二、基础" class="headerlink" title="二、基础"></a>二、基础</h1><p>bootstrap 首先将 box-sizing 设置为 border-box</p>
+<p>在 bootstrap 中为了增强跨浏览器表现的一致性，使用 Normalize.css （可在 GitHub 上搜到）重置样式，也可使用<a target="_blank" rel="noopener" href="https://cssreset.com/">cssreset</a>上的重置样式库</p>
+<h2 id="1、容器"><a href="#1、容器" class="headerlink" title="1、容器"></a>1、容器</h2><p>容器两侧都有 15px 的 padding</p>
+<h3 id="（1）流体容器"><a href="#（1）流体容器" class="headerlink" title="（1）流体容器"></a>（1）流体容器</h3><p>container-fluid 流体容器，相当于一个弹性盒，width 为 auto</p>
+<h3 id="（2）固定容器"><a href="#（2）固定容器" class="headerlink" title="（2）固定容器"></a>（2）固定容器</h3><p>固定容器 container 分为三个阈值 768、992、1200，在 xs、sm、md、lg 都具备时</p>
+<p>视口大小 &lt; 768 时，（xs 移动手机），width = auto，此时相当于流体容器</p>
+<p>768 &lt; 视口大小 &lt; 992 时，（sm 平板），width = 750 = 720 + 槽宽30</p>
+<p>992 &lt; 视口大小 &lt; 1200 时，（md 中屏pc），width = 970 = 940 + 槽宽30</p>
+<p>视口大小 &gt;= 1200 时，（lg 大屏pc），width = 1170 = 1140 + 槽宽30</p>
+<p>严格上说，sm 表示视口大小 &gt;= 768，md 表示视口大小 &gt;= 992，lg 表示视口大小 &gt;= 1200，代码执行时移动（小屏）优先，大屏下的样式写在小屏后会覆盖小屏的样式</p>
+<p>若只有 sm，则表示视口大小 &gt;= 768</p>
+<h2 id="2、栅格系统"><a href="#2、栅格系统" class="headerlink" title="2、栅格系统"></a>2、栅格系统</h2><p>栅格系统由固定容器、行、列组成，默认每行由 12 列组成</p>
+<p>栅格是基于浮动的，本质上用的是 float</p>
+<p>在栅格中通过 col-lg-pull-x 表示 left，col-lg-push-x 表示 right，col-lg-offset-x 表示 margin-left，其中 x 表示 0-12 的整数，md、sm、xs 同理</p>
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;row&quot;&gt;
+        &lt;div class=&quot;col-lg-10&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;col-lg-2&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;row&quot;&gt;
+        &lt;div class=&quot;col-lg-4&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;col-lg-8&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<h3 id="栅格系统源码"><a href="#栅格系统源码" class="headerlink" title="栅格系统源码"></a>栅格系统源码</h3><p>源码可在 <a target="_blank" rel="noopener" href="https://www.bootcss.com/">bootstrap官网</a>下载</p>
+<pre><code>//固定容器
+.container&#123;
+    container-fixed();
+    ...
+&#125;
+//流体容器
+.container-fluid&#123;
+    container-fixed();
+&#125;
+//行
+.row&#123;
+    .make-row();
+&#125;
+//列
+.make-grid-columns();
+.make-grid(xs);  //移动优先
+@media(min-width:@screen-sm-min)&#123;
+    .make-grid(sm);
+&#125;
+@media(min-width:@screen-md-min)&#123;
+    .make-grid(md);
+&#125;
+@media(min-width:@screen-lg-min)&#123;
+    .make-grid(lg);
+&#125;</code></pre>
+<h4 id="固定容器和流体容器的公共样式"><a href="#固定容器和流体容器的公共样式" class="headerlink" title="固定容器和流体容器的公共样式"></a>固定容器和流体容器的公共样式</h4><pre><code>.container-fixed(@gutter:@grid-gutter-width)&#123;  //@grid-gutter-width 表示槽宽，默认为 30px
+    margin-right:auto;
+    margin-left:auto;
+    padding-left:floor((@gutter/2));  // 15px
+    padding-right:ceil((@gutter/2));  // 15px
+    &amp;:extend(.clearfix all);
+&#125;
+//其中 .clearfix 内容如下
+.clearfix()&#123;
+    &amp;:before,
+    &amp;:after&#123;
+        content:&quot;&quot;;
+        display:table;
+    &#125;
+    &amp;:after&#123;
+        clear:both;
+    &#125;
+&#125;</code></pre>
+<h4 id="固定容器的特定样式"><a href="#固定容器的特定样式" class="headerlink" title="固定容器的特定样式"></a>固定容器的特定样式</h4><pre><code>@media(min-width:@screen-sm-min)&#123;
+    width:@container-sm;
+&#125;
+@media(min-width:@screen-md-min)&#123;
+    width:@container-md;
+&#125;
+@media(min-width:@screen-lg-min)&#123;
+    width:@container-lg;
+&#125;
+//上述媒体查询必须从小到大，当屏幕大于 1200 时前两种媒体查询也会读到，但前面会被最后一个覆盖，若屏幕小于 768 时，则三种媒体查询都不会读到，width 则为默认值 auto</code></pre>
+<h4 id="行"><a href="#行" class="headerlink" title="行"></a>行</h4><p>行两侧都有 -15px 的 margin</p>
+<pre><code>.make-row(@gutter:@grid-gutter-width)&#123;
+    margin-left:ceil((@gutter/-2));  //-15px
+    margin-right:floor((@gutter/-2));  //-15px
+    &amp;:extend(.clearfix all);
+&#125;</code></pre>
+<h4 id="列"><a href="#列" class="headerlink" title="列"></a>列</h4><p>公共样式：列两侧都有 15px 的 padding，开启相对定位</p>
+<p>float</p>
+<p>width：1~12个级别</p>
+<p>left、right（列排序）：0~12，0:auto</p>
+<p>margin-left（列偏移）：0~12</p>
+<p>在列排序中注意阈值上样式的设置不能跳跃，即例如不能设置完 col-lg-push-x 后直接设置  col-sm-push-x，中间的 col-md-push-x 也需设置</p>
+<p>第一步：.make-grid-columns()</p>
+<pre><code>.make-grid-columns()&#123;
+    .col(@index)&#123;
+        @item:~&quot;.col-xs-@&#123;index&#125;,.col-sm-@&#123;index&#125;,.col-md-@&#123;index&#125;,.col-lg-@&#123;index&#125;&quot;;
+        .col((@index + 1),@item)  //此处不是递归，因为形参个数不同
+        //即.col(2,&quot;.col-xs-1,.col-sm-1,.col-md-1,.col-lg-1&quot;)
+    &#125;
+    .col(@index,@list) when (@index =&lt; @grid-columns)&#123;
+        @item:~&quot;.col-xs-@&#123;index&#125;,.col-sm-@&#123;index&#125;,.col-md-@&#123;index&#125;,.col-lg-@&#123;index&#125;&quot;;
+        .col((@index + 1),~&quot;@&#123;list&#125;,@&#123;item&#125;&quot;)  //此处是递归
+        //即.col(3,&quot;.col-xs-1,.col-sm-1,.col-md-1,.col-lg-1,.col-xs-2,.col-sm-2,.col-md-2,.col-lg-2&quot;)
+        //...
+        //.col(13,str)
+        //其中 str:
+        //    .col-xs-1,.col-sm-1,.col-md-1,.col-lg-1,
+        //    .col-xs-2,.col-sm-2,.col-md-2,.col-lg-2,
+        //    ...
+        //    .col-xs-12,.col-sm-12,.col-md-12,.col-lg-12,
+    &#125;
+    .col(@index,@list) when (@index &gt; @grid-columns)&#123;
+        @&#123;list&#125;&#123;
+            position:relative;
+            min-height:1px;
+            padding-left:ceil((@grid-gutter-width/2));
+            padding-right:floor((@grid-gutter-width/2));
+        &#125;
+    &#125;//即str&#123;position:...&#125;，str作为选择器
+    .col(1);
+&#125;</code></pre>
+<p>上面整体相当于执行了</p>
+<pre><code>.col-xs-1,.col-sm-1,.col-md-1,.col-lg-1,
+.col-xs-2,.col-sm-2,.col-md-2,.col-lg-2,
+...
+.col-xs-12,.col-sm-12,.col-md-12,.col-lg-12&#123;
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+&#125;</code></pre>
+<p>第二步：.make-grid(xs)</p>
+<pre><code>.make-grid(@class)&#123;
+    .float-grid-columns(@class); 
+    //相当于 .col-xs-1,.col-xs-2,...,.col-xs-12&#123;
+    //    float:left;
+    //&#125;
+    .loop-grid-columns(@grid-columns,@class,width); //从 12 递减到 1
+    //相当于 .col-xs-12&#123;
+    //    width:12/12;
+    //&#125;
+    //.col-xs-11&#123;
+    //    width:11/12;
+    //&#125;
+    //...
+    //.col-xs-1&#123;
+    //    width:1/12;
+    //&#125;
+    .loop-grid-columns(@grid-columns,@class,pull);  //列排列，从 12 递减到 0
+    .loop-grid-columns(@grid-columns,@class,push);  //列排列，从 12 递减到 0
+    .loop-grid-columns(@grid-columns,@class,offset);  //列偏移，从 12 递减到 0
+&#125;</code></pre>
+<p>第二步中.float-grid-columns(@class)</p>
+<pre><code>//其中
+.float-grid-columns(@class)&#123;
+    .col(@index)&#123;
+        @item:~&quot;.col-@&#123;class&#125;-@&#123;index&#125;&quot;;
+        .col((@index + 1),@item);
+    &#125;
+    .col(@index,@list) when (@index =&lt; @grid-columns)&#123;
+        @item:~&quot;.col-@&#123;class&#125;-@&#123;index&#125;&quot;;
+        .col((@index + 1),~&quot;@&#123;list&#125;,@&#123;item&#125;&quot;);
+    &#125;
+    .col(@index,@list) when (@index &gt; @grid-columns)&#123;
+        @&#123;list&#125;&#123;
+            float:left;  //本质使用 float
+        &#125;
+    &#125;
+    .col(1);
+&#125;</code></pre>
+<p>第二步中.loop-grid-columns(@index,@class,@type)</p>
+<pre><code>.loop-grid-columns(@index,@class,@type) when (@index &gt;= 0)&#123;
+    .calc-grid-column(@index,@class,@type);
+    .loop-grid-columns((@index-1),@class,@type);
+&#125;
+.calc-grid-column(@index,@class,@type) when (@type = width) and (@index &gt; 0)&#123;  //调用 12 次
+    .col-@&#123;class&#125;-@&#123;index&#125;&#123;
+        width:percentage((@index/@grid-columns));
+    &#125;
+&#125;
+.calc-grid-column(@index,@class,@type) when (@type = push) and (@index &gt; 0)&#123;  //调用 12 次
+    .col-@&#123;class&#125;-push-@&#123;index&#125;&#123;
+        left:percentage((@index/@grid-columns));
+    &#125;
+&#125;
+.calc-grid-column(@index,@class,@type) when (@type = push) and (@index = 0)&#123;  //调用 1 次
+    .col-@&#123;class&#125;-push-0&#123;
+        left:auto;
+    &#125;
+&#125;
+.calc-grid-column(@index,@class,@type) when (@type = pull) and (@index &gt; 0)&#123;  //调用 12 次
+    .col-@&#123;class&#125;-pull-@&#123;index&#125;&#123;
+        right:percentage((@index/@grid-columns));
+    &#125;
+&#125;
+.calc-grid-column(@index,@class,@type) when (@type = pull) and (@index = 0)&#123;  //调用 1 次
+    .col-@&#123;class&#125;-pull-0&#123;
+        right:auto;
+    &#125;
+&#125;
+.calc-grid-column(@index,@class,@type) when (@type = offset)&#123;  //调用 13 次，index 为 0 时，margin-left 为 0
+    .col-@&#123;class&#125;-offset-@&#123;index&#125;&#123;
+        margin-left:percentage((@index/@grid-columns));
+    &#125;
+&#125;
+//以 push 为例执行时相当于 .col-xs-push-12&#123;
+//    left:12/12;
+//&#125;
+//.col-xs-push-11&#123;
+//    left:11/12;
+//&#125;
+//...
+//.col-xs-push-1&#123;
+//    left:1/12;
+//&#125;
+//.col-xs-push-0&#123;
+//    left:auto;
+//&#125;</code></pre>
+<h3 id="栅格组合"><a href="#栅格组合" class="headerlink" title="栅格组合"></a>栅格组合</h3><p>栅格组合即在一个列中写多个不同的栅格</p>
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;row&quot;&gt;
+        &lt;div class=&quot;col-lg-10 col-md-6&quot;&gt;xxx&lt;/div&gt;
+        &lt;div class=&quot;col-lg-2 col-md-6&quot;&gt;xxx&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>当 992 &lt; 视口大小 &lt; 1200 （md）时，布局为两列每列占 6 格，此时不执行 lg</p>
+<p>栅格组合就是利用了 less 的递归</p>
+<h3 id="栅格实例"><a href="#栅格实例" class="headerlink" title="栅格实例"></a>栅格实例</h3><p>lg 时每行 4 块、md 时每行 3 块、sm 时每行 2 块、xs 时每行 1 块，显示时按照 1234 顺序显示，但是缩小窗口时，1 会最先换到下一行（正常情况下是 4 先换行）</p>
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;row&quot;&gt;
+        &lt;div class=&quot;col-lg-3 col-lg-push-9 col-md-4 col-md-push-8 col-sm-6 col-sm-push-6&quot;&gt;
+            ...
+            4
+            ...
+        &lt;/div&gt;
+        &lt;div class=&quot;col-lg-3 col-lg-push-3 col-md-4 col-md-pull-0 col-sm-6 col-sm-pull-6&quot;&gt;
+            ...
+            3
+            ...
+        &lt;/div&gt;
+        &lt;div class=&quot;col-lg-3 col-lg-pull-3 col-md-4 col-md-pull-8 col-sm-6&quot;&gt;
+            ...
+            2
+            ...
+        &lt;/div&gt;
+        &lt;div class=&quot;col-lg-3 col-lg-pull-9 col-md-4 col-sm-6&quot;&gt;
+            ...
+            1
+            ...
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<h3 id="自定义栅格系统"><a href="#自定义栅格系统" class="headerlink" title="自定义栅格系统"></a>自定义栅格系统</h3><p>1、新建文件夹，并新建文件 custom.less</p>
+<pre><code>@import &quot;mixin/clearfix.less&quot;;
+@import &quot;mixin/grid.less&quot;;
+@import &quot;mixin/grid-framework.less&quot;;
+@import &quot;grid.less&quot;;
+@import &quot;variables.less&quot;;
+//以上是栅格系统相关源码</code></pre>
+<p>注意 clearfix.less 中 .clearfix 后不能有空格、、括号</p>
+<p>2、把 grid-framework.less 文件中的 col-xxx 全部重命名为自定义名字，如 custom-col-xxx</p>
+<p>3、使用 Kaolo 软件对文件夹文件进行编译，会生成 custom.css、variable.css、mixin/clearfix.css、mixin/grid.css、mixin/grid-framework.css，只需用到其中的 custom.css</p>
+<p>4、只需在 html 文件中引入 custom.css 即可使用</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;custom.css&quot;&gt;
+&lt;style&gt;
+    *&#123;
+        box-sizing:border-box;
+    &#125;
+&lt;/style&gt;</code></pre>
+<p>html 中通过 custom-col-xxx 使用自定义栅格</p>
+<h3 id="栅格盒模型设计精妙之处"><a href="#栅格盒模型设计精妙之处" class="headerlink" title="栅格盒模型设计精妙之处"></a>栅格盒模型设计精妙之处</h3><p>容器两边具有 15px 的 padding</p>
+<p>行两边有 -15px 的 margin</p>
+<p>列中间两边有 15px 的 padding（必须）</p>
+<p>为了维护槽宽的规则，列两边必须有 16px 的 padding</p>
+<p>为了能使列嵌套行，行两边必须有 -15px 的 margin</p>
+<p>为了让容器能包裹住行，容器两边必须有 15px 的 padding</p>
+<p><a href="./Bootstrap%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%A0%85%E6%A0%BC%E8%AE%BE%E8%AE%A1.png">栅格设计</a></p>
+<h2 id="3、响应式工具"><a href="#3、响应式工具" class="headerlink" title="3、响应式工具"></a>3、响应式工具</h2><p>visible-xs、hidden-xs 视口大小 &lt; 768 时显示/隐藏</p>
+<p>visible-sm、hidden-sm 768 &lt; 视口大小 &lt; 992 时显示/隐藏</p>
+<p>visible-md、hidden-md 992 &lt; 视口大小 &lt; 1200 时显示/隐藏</p>
+<p>visible-lg、hidden-lg 视口大小 &gt; 1200 时显示/隐藏</p>
+<h2 id="4、bootstrap-定制化"><a href="#4、bootstrap-定制化" class="headerlink" title="4、bootstrap 定制化"></a>4、bootstrap 定制化</h2><p>方法一：在源码中修改，并重新编译入口文件 bootstrap.less 后，在 html 代码中使用新生成的 bootstrap.css 文件</p>
+<p>方法二：新建 css 文件，在该文件中</p>
+<pre><code>@import &quot;bootstrap.less&quot;;
+//接下来写需要修改的部分
+@grid-gutter-width:100px;  //如修改槽宽</code></pre>
+<p>然后编译该 css 文件，并在 html 文件中使用</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/29/jQuery%E7%AC%94%E8%AE%B0/" rel="prev" title="jQuery笔记">
+                  <i class="fa fa-chevron-left"></i> jQuery笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/01/07/Ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="Ajax学习笔记">
+                  Ajax学习笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NicoleJay</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
