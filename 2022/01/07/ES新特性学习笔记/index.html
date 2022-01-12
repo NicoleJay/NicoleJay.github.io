@@ -23,13 +23,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"nicolejay.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
+<meta name="description" content="一、ES 一些背景">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES新特性学习笔记">
 <meta property="og:url" content="http://nicolejay.github.io/2022/01/07/ES%E6%96%B0%E7%89%B9%E6%80%A7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="X 的笔记">
+<meta property="og:description" content="一、ES 一些背景">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-07T14:56:08.000Z">
-<meta property="article:modified_time" content="2022-01-07T14:56:08.914Z">
+<meta property="article:modified_time" content="2022-01-12T05:14:22.523Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
 
@@ -170,7 +172,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -183,6 +185,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81ES-%E4%B8%80%E4%BA%9B%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">一、ES 一些背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81ES6-%E8%AF%AD%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">二、ES6 语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81let"><span class="nav-number">2.1.</span> <span class="nav-text">1、let</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81const-%E5%A3%B0%E6%98%8E%E5%B8%B8%E9%87%8F"><span class="nav-number">2.2.</span> <span class="nav-text">2、const 声明常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%8F%98%E9%87%8F%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC"><span class="nav-number">2.3.</span> <span class="nav-text">3、变量的解构赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E8%A7%A3%E6%9E%84"><span class="nav-number">2.3.1.</span> <span class="nav-text">数组的解构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%A7%A3%E6%9E%84"><span class="nav-number">2.3.2.</span> <span class="nav-text">对象的解构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.4.</span> <span class="nav-text">4、模板字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E7%AE%80%E5%8C%96%E5%AF%B9%E8%B1%A1%E5%86%99%E6%B3%95"><span class="nav-number">2.5.</span> <span class="nav-text">5、简化对象写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="nav-number">2.6.</span> <span class="nav-text">6、箭头函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BE%8B%E5%AD%90"><span class="nav-number">2.6.1.</span> <span class="nav-text">箭头函数的使用例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%AD%901"><span class="nav-number">2.6.1.1.</span> <span class="nav-text">例子1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%AD%902"><span class="nav-number">2.6.1.2.</span> <span class="nav-text">例子2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7%E3%80%81%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-number">2.7.</span> <span class="nav-text">7、函数参数的默认值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8%E3%80%81rest-%E5%8F%82%E6%95%B0"><span class="nav-number">2.8.</span> <span class="nav-text">8、rest 参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9%E3%80%81%E6%89%A9%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.9.</span> <span class="nav-text">9、扩展运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10%E3%80%81Symbol"><span class="nav-number">2.10.</span> <span class="nav-text">10、Symbol</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-Symbol-%E7%BB%99%E5%AF%B9%E8%B1%A1%E6%B7%BB%E5%8A%A0%E5%B1%9E%E6%80%A7-%E6%96%B9%E6%B3%95"><span class="nav-number">2.10.1.</span> <span class="nav-text">通过 Symbol 给对象添加属性&#x2F;方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Symbol-%E5%86%85%E7%BD%AE%E5%80%BC"><span class="nav-number">2.10.2.</span> <span class="nav-text">Symbol 内置值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-hasInstance"><span class="nav-number">2.10.2.1.</span> <span class="nav-text">Symbol.hasInstance</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-isConcatSpreadable"><span class="nav-number">2.10.2.2.</span> <span class="nav-text">Symbol.isConcatSpreadable</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">2.11.</span> <span class="nav-text">11、迭代器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">2.11.1.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for%E2%80%A6in-%E5%92%8C-for%E2%80%A6of%E5%8C%BA%E5%88%AB"><span class="nav-number">2.11.2.</span> <span class="nav-text">for…in 和 for…of区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%81%8D%E5%8E%86%E6%95%B0%E6%8D%AE"><span class="nav-number">2.11.3.</span> <span class="nav-text">自定义遍历数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12%E3%80%81%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">2.12.</span> <span class="nav-text">12、生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.12.1.</span> <span class="nav-text">生成器实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%AD%901-1"><span class="nav-number">2.12.1.1.</span> <span class="nav-text">例子1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%AD%902-1"><span class="nav-number">2.12.1.2.</span> <span class="nav-text">例子2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13%E3%80%81Promise"><span class="nav-number">2.13.</span> <span class="nav-text">13、Promise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-%E5%B0%81%E8%A3%85%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="nav-number">2.14.</span> <span class="nav-text">Promise 封装读取文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-%E5%B0%81%E8%A3%85-AJAX-%E8%AF%B7%E6%B1%82"><span class="nav-number">2.15.</span> <span class="nav-text">Promise 封装 AJAX 请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-prototype-then-%E6%96%B9%E6%B3%95"><span class="nav-number">2.16.</span> <span class="nav-text">Promise.prototype.then 方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#then-%E6%96%B9%E6%B3%95%E7%9A%84%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8"><span class="nav-number">2.16.1.</span> <span class="nav-text">then 方法的链式调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-prototype-catch-%E6%96%B9%E6%B3%95"><span class="nav-number">2.17.</span> <span class="nav-text">Promise.prototype.catch 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14%E3%80%81Set"><span class="nav-number">2.18.</span> <span class="nav-text">14、Set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.19.</span> <span class="nav-text">集合的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D"><span class="nav-number">2.19.1.</span> <span class="nav-text">数组去重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E9%9B%86"><span class="nav-number">2.19.2.</span> <span class="nav-text">交集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E9%9B%86"><span class="nav-number">2.19.3.</span> <span class="nav-text">并集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%AE%E9%9B%86"><span class="nav-number">2.19.4.</span> <span class="nav-text">差集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15%E3%80%81Map"><span class="nav-number">2.20.</span> <span class="nav-text">15、Map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16%E3%80%81class-%E7%B1%BB"><span class="nav-number">2.21.</span> <span class="nav-text">16、class 类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#class-%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98"><span class="nav-number">2.21.1.</span> <span class="nav-text">class 的静态成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class-%E7%B1%BB%E5%AF%B9%E8%B1%A1%E7%BB%A7%E6%89%BF"><span class="nav-number">2.21.2.</span> <span class="nav-text">class 类对象继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%90%E7%B1%BB%E5%AF%B9%E7%88%B6%E7%B1%BB%E6%96%B9%E6%B3%95%E7%9A%84%E9%87%8D%E5%86%99"><span class="nav-number">2.21.2.1.</span> <span class="nav-text">子类对父类方法的重写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class-%E4%B8%AD%E7%9A%84-getter-%E5%92%8C-setter"><span class="nav-number">2.21.3.</span> <span class="nav-text">class 中的 getter 和 setter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17%E3%80%81%E6%95%B0%E5%80%BC%E6%89%A9%E5%B1%95"><span class="nav-number">2.22.</span> <span class="nav-text">17、数值扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Number-EPSILON"><span class="nav-number">2.22.1.</span> <span class="nav-text">Number.EPSILON</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%88%B6"><span class="nav-number">2.22.2.</span> <span class="nav-text">进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Number-isFinite"><span class="nav-number">2.22.3.</span> <span class="nav-text">Number.isFinite</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Number-isNaN"><span class="nav-number">2.22.4.</span> <span class="nav-text">Number.isNaN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Number-parseInt-%E5%92%8C-Number-parseFloat"><span class="nav-number">2.22.5.</span> <span class="nav-text">Number.parseInt 和 Number.parseFloat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Number-isInteger"><span class="nav-number">2.22.6.</span> <span class="nav-text">Number.isInteger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Math-trunc"><span class="nav-number">2.22.7.</span> <span class="nav-text">Math.trunc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Math-sign"><span class="nav-number">2.22.8.</span> <span class="nav-text">Math.sign</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18%E3%80%81ES6-%E7%9A%84%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95%E6%89%A9%E5%B1%95"><span class="nav-number">2.23.</span> <span class="nav-text">18、ES6 的对象方法扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-is"><span class="nav-number">2.23.1.</span> <span class="nav-text">Object.is</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-assign"><span class="nav-number">2.23.2.</span> <span class="nav-text">Object.assign</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-setPrototypeOf"><span class="nav-number">2.23.3.</span> <span class="nav-text">Object.setPrototypeOf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96"><span class="nav-number">2.24.</span> <span class="nav-text">19、模块化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E5%A5%BD%E5%A4%84"><span class="nav-number">2.24.1.</span> <span class="nav-text">模块化好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E8%AF%AD%E6%B3%95"><span class="nav-number">2.24.2.</span> <span class="nav-text">模块化语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9A%B4%E9%9C%B2%E6%A8%A1%E5%9D%97"><span class="nav-number">2.24.2.1.</span> <span class="nav-text">暴露模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E6%A8%A1%E5%9D%97"><span class="nav-number">2.24.2.2.</span> <span class="nav-text">引入模块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-script-%E6%A0%87%E7%AD%BE%E5%BC%95%E5%85%A5%E6%A8%A1%E5%9D%97"><span class="nav-number">2.24.2.2.1.</span> <span class="nav-text">通过 script 标签引入模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6%E5%BC%95%E5%85%A5%E6%A8%A1%E5%9D%97"><span class="nav-number">2.24.2.2.2.</span> <span class="nav-text">通过入口文件引入模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%95%E5%85%A5-npm-%E5%AE%89%E8%A3%85%E7%9A%84%E6%A8%A1%E5%9D%97"><span class="nav-number">2.24.2.2.3.</span> <span class="nav-text">引入 npm 安装的模块</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-%E6%A8%A1%E5%9D%97%E5%8C%96%E4%BB%A3%E7%A0%81%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.24.3.</span> <span class="nav-text">ES6 模块化代码转换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81ES7-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">三、ES7 新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81Array-prototype-includes"><span class="nav-number">3.1.</span> <span class="nav-text">1、Array.prototype.includes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E6%8C%87%E6%95%B0%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">3.2.</span> <span class="nav-text">2、指数操作符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81ES8-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">四、ES8 新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81async-%E5%92%8C-await"><span class="nav-number">4.1.</span> <span class="nav-text">1、async 和 await</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#async"><span class="nav-number">4.1.1.</span> <span class="nav-text">async</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#await"><span class="nav-number">4.1.2.</span> <span class="nav-text">await</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async-%E5%92%8C-await-%E7%BB%93%E5%90%88%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="nav-number">4.1.3.</span> <span class="nav-text">async 和 await 结合读取文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async-%E5%92%8C-await-%E7%BB%93%E5%90%88%E5%8F%91%E9%80%81-AJAX-%E8%AF%B7%E6%B1%82"><span class="nav-number">4.1.4.</span> <span class="nav-text">async 和 await 结合发送 AJAX 请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81ES8-%E4%B8%AD%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95%E7%9A%84%E6%89%A9%E5%B1%95"><span class="nav-number">4.2.</span> <span class="nav-text">2、ES8 中对象方法的扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-value-%E5%92%8C-Object-entries"><span class="nav-number">4.2.1.</span> <span class="nav-text">Object.value 和 Object.entries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-getOwnPropertyDescriptors"><span class="nav-number">4.2.2.</span> <span class="nav-text">Object.getOwnPropertyDescriptors</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81ES9-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">5.</span> <span class="nav-text">五、ES9 新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81ES9-%E7%9A%84%E6%89%A9%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E-rest-%E5%8F%82%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">1、ES9 的扩展运算符与 rest 参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81ES9-%E7%9A%84%E6%AD%A3%E5%88%99%E6%89%A9%E5%B1%95"><span class="nav-number">5.2.</span> <span class="nav-text">2、ES9 的正则扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E6%8D%95%E8%8E%B7%E5%88%86%E7%BB%84"><span class="nav-number">5.2.1.</span> <span class="nav-text">命名捕获分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E6%96%AD%E8%A8%80"><span class="nav-number">5.2.2.</span> <span class="nav-text">反向断言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dotAll-%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.2.3.</span> <span class="nav-text">dotAll 模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81ES10-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">6.</span> <span class="nav-text">六、ES10 新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81ES10-%E7%9A%84%E5%AF%B9%E8%B1%A1%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95-%E2%80%94%E2%80%94%E2%80%94%E2%80%94-Object-fromEntries"><span class="nav-number">6.1.</span> <span class="nav-text">1、ES10 的对象扩展方法 ———— Object.fromEntries</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81ES10-%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95-%E2%80%94%E2%80%94%E2%80%94%E2%80%94-trimStart-%E5%92%8C-trimEnd"><span class="nav-number">6.2.</span> <span class="nav-text">2、ES10 的字符串扩展方法 ———— trimStart 和 trimEnd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81ES10-%E7%9A%84%E6%95%B0%E7%BB%84%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95-%E2%80%94%E2%80%94%E2%80%94%E2%80%94-flat-%E5%92%8C-flatMap"><span class="nav-number">6.3.</span> <span class="nav-text">3、ES10 的数组扩展方法 ———— flat 和 flatMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81ES10-%E7%9A%84-Symbol-%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95-%E2%80%94%E2%80%94%E2%80%94%E2%80%94-Symbol-prototype-description"><span class="nav-number">6.4.</span> <span class="nav-text">4、ES10 的 Symbol 扩展方法 ———— Symbol.prototype.description</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%83%E3%80%81ES11-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">7.</span> <span class="nav-text">七、ES11 新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7"><span class="nav-number">7.1.</span> <span class="nav-text">1、私有属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81Promise-allSettled"><span class="nav-number">7.2.</span> <span class="nav-text">2、Promise.allSettled</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81ES11-%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95-%E2%80%94%E2%80%94%E2%80%94%E2%80%94-Sting-prototype-matchAll"><span class="nav-number">7.3.</span> <span class="nav-text">3、ES11 的字符串扩展方法 ———— Sting.prototype.matchAll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E5%8F%AF%E9%80%89%E9%93%BE%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">7.4.</span> <span class="nav-text">4、可选链操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E5%8A%A8%E6%80%81-import"><span class="nav-number">7.5.</span> <span class="nav-text">5、动态 import</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81ES11-%E5%BC%95%E5%85%A5%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E2%80%94%E2%80%94%E2%80%94%E2%80%94-BigInt"><span class="nav-number">7.6.</span> <span class="nav-text">6、ES11 引入的数据类型 ———— BigInt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7%E3%80%81%E7%BB%9D%E5%AF%B9%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1-globalThis"><span class="nav-number">7.7.</span> <span class="nav-text">7、绝对全局对象 globalThis</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -198,7 +201,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -275,6 +278,15 @@
 
       <time title="创建时间：2022-01-07 22:56:08" itemprop="dateCreated datePublished" datetime="2022-01-07T22:56:08+08:00">2022-01-07</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -286,7 +298,1188 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <h1 id="一、ES-一些背景"><a href="#一、ES-一些背景" class="headerlink" title="一、ES 一些背景"></a>一、ES 一些背景</h1><a id="more"></a>
+
+<p>ECMA（European Computer Manufactures Association）欧洲计算机制造商协会，该组织的目标是评估、开发和认可电信和计算机标准，1994 年后该组织改名为 Ecma 国际</p>
+<p>ES（EcmaScript）是脚本语言的规范，是由 Ecma 国际通过 ECMA-262 标准化的脚本程序设计语言。 ECMA-262 由 TC39（Technical Committee 39）委员会推进和维护</p>
+<p>JavaScript 是 EcmaScript 的一种实现，ES 新特性其实指的是 JavaScript 新特性</p>
+<p>ES 新特性语法简洁，功能丰富，框架开发应用（如 Vue、React、Angular）开发过程中需要用到大量的 ES6 新特性语法</p>
+<h1 id="二、ES6-语法"><a href="#二、ES6-语法" class="headerlink" title="二、ES6 语法"></a>二、ES6 语法</h1><h2 id="1、let"><a href="#1、let" class="headerlink" title="1、let"></a>1、let</h2><p>特性：</p>
+<p>（1）变量不能重复声明，而使用 var 可以重复声明</p>
+<p>（2）块级作用域</p>
+<p>ES5 中作用域分为全局作用域、函数作用域、eval 作用域（在 ES5 的严格模式中才会出现）</p>
+<p>ES6 中引入块级作用域，即变量只在代码块中有效，出代码块就无效了，let 声明变量就是块级作用域</p>
+<p>（3）不存在变量提升</p>
+<p>不能在变量声明之前使用</p>
+<p>（4）不影响作用域链</p>
+<p>如函数作用域中没有找到某变量依然会向上一级作用域中找</p>
+<pre><code>let items = document.getElementsByClassName(&#39;item&#39;);
+for(var i = 0; i &lt; items.length; i++)&#123;
+    items[i].onclick = function()&#123;
+        items[i].style.background = &#39;red&#39;;
+    &#125;
+&#125;</code></pre>
+<p>上述代码在点击时会报错 items[i] undefined，因为在点击时已经执行完 for 循环，执行点击的回调函数时在函数作用域中没有 i，则去上一级找，在全局下找到 i，并且 i 为 3，因此 items[i] 为 undefined</p>
+<p>但若改成</p>
+<pre><code>let items = document.getElementsByClassName(&#39;item&#39;);
+for(var i = 0; i &lt; items.length; i++)&#123;
+    items[i].onclick = function()&#123;
+        this.style.background = &#39;red&#39;;
+    &#125;
+&#125;</code></pre>
+<p>上述代码会出现预期效果</p>
+<p>或者使用 let 声明变量 i</p>
+<pre><code>let items = document.getElementsByClassName(&#39;item&#39;);
+for(let i = 0; i &lt; items.length; i++)&#123;
+    items[i].onclick = function()&#123;
+        items[i].style.background = &#39;red&#39;;
+    &#125;
+&#125;</code></pre>
+<p>此时代码也会出现预期效果，行点击的回调函数时在函数作用域中没有 i，则去上一级找，在代码块中找到相应的 i</p>
+<h2 id="2、const-声明常量"><a href="#2、const-声明常量" class="headerlink" title="2、const 声明常量"></a>2、const 声明常量</h2><p>常量就是值不能修改的量</p>
+<p>特点：</p>
+<p>（1）一定要赋初始值</p>
+<p>（2）一般常量名使用大写</p>
+<p>（3）常量的值不能修改</p>
+<p>（4）块级作用域</p>
+<pre><code>&#123;
+    const A = &#39;XX&#39;;
+&#125;
+console.log(A);   //此时会报错</code></pre>
+<p>（5）对于数组和对象的元素进行修改不算对常量的修改，不会报错</p>
+<p>因为仅对其元素修改并不会影响它保存的地址值</p>
+<h2 id="3、变量的解构赋值"><a href="#3、变量的解构赋值" class="headerlink" title="3、变量的解构赋值"></a>3、变量的解构赋值</h2><p>ES6 允许按照一定模式从数组和对象中提取值，对变量进行赋值，这称为解构赋值</p>
+<h3 id="数组的解构"><a href="#数组的解构" class="headerlink" title="数组的解构"></a>数组的解构</h3><pre><code>const arr = [&#39;12&#39;,&#39;23&#39;,&#39;34&#39;,&#39;45&#39;];
+let [a,b,c,d] = arr;  //则 a 为 12，b 为 23，c 为 34，d 为45</code></pre>
+<h3 id="对象的解构"><a href="#对象的解构" class="headerlink" title="对象的解构"></a>对象的解构</h3><pre><code>const obj = &#123;
+    name: &#39;xxx&#39;;
+    age: 12;
+    fun: function()&#123;&#125;
+&#125;;
+let &#123;name,age,fun&#125; = obj;</code></pre>
+<h2 id="4、模板字符串"><a href="#4、模板字符串" class="headerlink" title="4、模板字符串"></a>4、模板字符串</h2><p>ES6 中引入新的声明字符串的方式：使用反引号</p>
+<p>特点：</p>
+<p>（1）内容中可以直接出现换行符</p>
+<p>（2）变量拼接</p>
+<pre><code>let a = &#39;123&#39;;
+let b = `$&#123;a&#125;456`;  //b 为 123456</code></pre>
+<h2 id="5、简化对象写法"><a href="#5、简化对象写法" class="headerlink" title="5、简化对象写法"></a>5、简化对象写法</h2><p>ES6 允许在大括号里直接写入变量和函数作为对象的属性和方法</p>
+<pre><code>let name = &#39;xxx&#39;;
+let fun = function()&#123;&#125;
+const obj = &#123;
+    name,
+    fun,
+    fun1()&#123;&#125;  //在 ES5 中是 fun1: function()&#123;&#125;
+&#125;</code></pre>
+<h2 id="6、箭头函数"><a href="#6、箭头函数" class="headerlink" title="6、箭头函数"></a>6、箭头函数</h2><p>ES6 允许使用箭头（=&gt;）定义函数</p>
+<pre><code>//ES5
+let fn = function(a,b)&#123;
+    return a + b;
+&#125;
+//ES6
+let fn = (a,b) =&gt; &#123;
+    return a + b;
+&#125;</code></pre>
+<p>特性：</p>
+<p>（1）this 是静态的，this始终指向函数声明时所在作用域下的 this 值</p>
+<pre><code>function getName()&#123;
+    console.log(this.name);
+&#125;
+let getName1 = () =&gt; &#123;
+    console.log(this.name);
+&#125;
+window.name = &#39;aaa&#39;;
+const obj = &#123;
+    name: &#39;bbb&#39;;
+&#125;
+getName();  //输出 aaa
+getName1();  //输出 aaa
+getName.call(obj);  //输出 bbb
+getName1.call(obj);  //输出 aaa</code></pre>
+<p>（2）不能作为构造函数实例化对象</p>
+<pre><code>let Person = (name,age) =&gt; &#123;
+    this.name = name;
+    this.age = age;
+&#125;
+let p = new Person(&#39;xx&#39;,12);
+console.log(p);    //报错 Person is not a constructor</code></pre>
+<p>（3）不能使用 arguments 变量</p>
+<pre><code>let fn = () =&gt; &#123;
+    console.log(arguments);
+&#125;
+fn(1,2,3);  //报错 arguments is not defined</code></pre>
+<p>（4）箭头函数的简写</p>
+<p>省略小括号 ———— 当形参只有一个的时候</p>
+<pre><code>let add = n =&gt; &#123;return n+n;&#125;
+console.log(add(1));</code></pre>
+<p>省略大括号 ———— 当代码体只有一条语句时可省略大括号，此时 return 语句必须省略，语句的执行结果就是函数的返回值</p>
+<pre><code>let pow = n =&gt; n * n;
+console.log(pow(2));</code></pre>
+<h3 id="箭头函数的使用例子"><a href="#箭头函数的使用例子" class="headerlink" title="箭头函数的使用例子"></a>箭头函数的使用例子</h3><h4 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a>例子1</h4><pre><code>let ele = document.getElementById(&#39;div1&#39;);
+ele.addEventListener(&quot;click&quot;,function()&#123;
+    setTimeout(function()&#123;
+        this.style.background = &#39;red&#39;;
+    &#125;,2000)
+&#125;)</code></pre>
+<p>上述代码执行无效，因为定时器回调函数里的 this 指向 window，可改成如下</p>
+<pre><code>let ele = document.getElementById(&#39;div1&#39;);
+ele.addEventListener(&quot;click&quot;,function()&#123;
+    let _this = this;
+    setTimeout(function()&#123;
+        _this.style.background = &#39;red&#39;;
+    &#125;,2000)
+&#125;)</code></pre>
+<p>上述代码可实现相应效果，也可通过箭头函数来解决</p>
+<pre><code>let ele = document.getElementById(&#39;div1&#39;);
+ele.addEventListener(&quot;click&quot;,function()&#123;
+    setTimeout(() =&gt; &#123;
+        this.style.background = &#39;red&#39;;
+    &#125;,2000)
+&#125;)</code></pre>
+<p>因为箭头函数中的 this 始终指向 函数声明时作用域下（addEventListener 的回调函数作用域）的 this，因此定时器回调函数中的 this 指向事件元素</p>
+<h4 id="例子2"><a href="#例子2" class="headerlink" title="例子2"></a>例子2</h4><p>返回数组中的偶数元素</p>
+<pre><code>const arr = [1,2,3,4,5,6]
+//不使用箭头函数
+const result = arr.filter(function(item)&#123;
+    if(item % 2 === 0)&#123;
+        return true;
+    &#125;else&#123;
+        return false;
+    &#125;
+&#125;);
+//使用箭头函数
+const result = arr.filter(item =&gt; item % 2 === 0)</code></pre>
+<p><strong>总结：箭头函数适合与 this 无关的回调，如定时器中回调函数、数组的方法回调；箭头函数不适合与 this 有关的回调，如事件回调（this 一般需要指向事件元素）、对象的方法</strong></p>
+<pre><code>var obj = &#123;
+    name: &#39;xx&#39;;
+    getName: function()&#123;
+        this.name;  //这里 this 指向该对象，若使用箭头函数，则 this 指向外层作用域的 this（如 window）
+    &#125;
+&#125;</code></pre>
+<h2 id="7、函数参数的默认值"><a href="#7、函数参数的默认值" class="headerlink" title="7、函数参数的默认值"></a>7、函数参数的默认值</h2><p>ES6 允许给函数参数赋值初始值</p>
+<p>（1）形参初始值</p>
+<p>具有默认值的参数一般位置要靠后</p>
+<p>（2）与解构赋值结合</p>
+<pre><code>function connect(&#123;host=&quot;127.0.0.1&quot;,username,password,port&#125;)&#123;&#125;
+connect(&#123;
+    username:&#39;root&#39;,
+    password:&#39;root&#39;,
+    port:3306
+&#125;)</code></pre>
+<h2 id="8、rest-参数"><a href="#8、rest-参数" class="headerlink" title="8、rest 参数"></a>8、rest 参数</h2><p>ES6 引入 rest 参数，形参中通过 <code>...标识符</code> 表示，用于获取函数的实参，返回数组，用来代替 arguments（返回的是对象），并且 rest 参数必须要放到参数最后</p>
+<pre><code>function fn(a,b,...args)&#123;
+    console.log(args);
+&#125;
+fn(1,2,3,4,5,6);  //输出数组[3,4,5,6]</code></pre>
+<h2 id="9、扩展运算符"><a href="#9、扩展运算符" class="headerlink" title="9、扩展运算符"></a>9、扩展运算符</h2><p>扩展运算符 <code>...</code> 能将数组转换为逗号分隔的参数序列</p>
+<pre><code>const arr = [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;];
+function fn()&#123;
+    console.log(arguments);
+&#125;
+fn(arr);  //输出实参数组中只有一个元素，该元素是个数组
+fn(...arr);  //输出实参数组中有三个元素，三个元素分别对应 arr 中三个元素</code></pre>
+<p>注意 rest 参数是将 <code>...</code> 用在函数形参中，而扩展运算符是用在函数调用的实参中</p>
+<p>扩展运算符的应用：</p>
+<p>（1）数组的合并</p>
+<pre><code>const arr1 = [1,2,3];
+const arr2 = [4,5,6];
+const arr = [...arr1,...arr2];</code></pre>
+<p>（2）数组的克隆</p>
+<pre><code>const arr1 = [1,2,3];
+const arr2 = [...arr1];  </code></pre>
+<p>注意：若元素中有引用类型数据是浅拷贝</p>
+<p>（3）将伪数组转为真正的数组</p>
+<pre><code>const divs = document.querySelectorAll(&#39;div&#39;);
+const divarr = [...divs];</code></pre>
+<h2 id="10、Symbol"><a href="#10、Symbol" class="headerlink" title="10、Symbol"></a>10、Symbol</h2><p>ES6 引入了新的原始数据类型 Symbol 表示独一无二的值，是一种类似于字符串的数据类型</p>
+<p>特点：</p>
+<p>（1）Symbol 的值是唯一的，用来解决命名冲突的问题</p>
+<p>（2）Symbol 值不能与其他数据进行运算（如加减乘除、拼接、比较等）</p>
+<p>（3）Symbol 定义的对象属性不能使用 for…in 循环遍历，但可以使用 Reflect.ownKeys 来获取对象的所有键名</p>
+<pre><code>let s1 = Symbol();       //这里把 Symbol 当成函数使用
+let s2 = Symbol(&#39;aaa&#39;);  //其中传入的字符串为描述字符串
+let s3 = Symbol(&#39;aaa&#39;);
+console.log(s2 === s3);  //false
+let s4 = Symbol.for(&#39;bbb&#39;);   //这里把 Symbol 当成函数对象，通过该方式创建，可通过描述字符串得出唯一的 Symbol 值
+let s5 = Symbol.for(&#39;bbb&#39;); 
+console.log(s4 === s5);  //true </code></pre>
+<h3 id="通过-Symbol-给对象添加属性-方法"><a href="#通过-Symbol-给对象添加属性-方法" class="headerlink" title="通过 Symbol 给对象添加属性/方法"></a>通过 Symbol 给对象添加属性/方法</h3><p>方式一：</p>
+<pre><code>let game = &#123;......&#125;
+let methods = &#123;
+    up: Symbol(),
+    down: Symbol()
+&#125;;
+game[methods.up] = function()&#123;&#125;
+game[methods.down] = function()&#123;&#125;</code></pre>
+<p>通过 Symbol 来添加属性或方法更安全，避免与对象可能已存在的属性或方法冲突</p>
+<p>方式二：</p>
+<pre><code>let game1 = &#123;
+    name:&#39;xxx&#39;,
+    [Symbol(&#39;up&#39;)]:function()&#123;&#125;,
+    [Symbol(&#39;down&#39;)]:function()&#123;&#125;
+&#125;</code></pre>
+<h3 id="Symbol-内置值"><a href="#Symbol-内置值" class="headerlink" title="Symbol 内置值"></a>Symbol 内置值</h3><p>除了定义自己使用的 Symbol 值以外，ES6 还提供了 11 个内置的 Symbol 值，指向语言内部使用的方法</p>
+<p><strong>Symbol.hasInstance</strong></p>
+<p>当其他对象使用 instanceof 运算符判断是否为该对象实例时会调用这个方法</p>
+<p><strong>Symbol.isConcatSpreadable</strong></p>
+<p>对象的 Symbol.isConcatSpreadable 属性是一个布尔值，表示该对象使用 Array.prototype.concat() 时是否可以展开</p>
+<p><strong>Symbol.unscopables</strong></p>
+<p>该对象指定了使用 with 关键字时，哪些属性会被 with 环境排除</p>
+<p><strong>Symbol.match</strong></p>
+<p>当执行 str.match(myObject) 时，若该属性存在，会调用它，返回该方法的返回值</p>
+<p><strong>Symbol.replace</strong></p>
+<p>当该对象被 str.replace(myObject) 方法调用时，会返回该方法的返回值 </p>
+<p><strong>Symbol.search</strong></p>
+<p>当该对象被 str.search(myObject) 方法调用时，会返回该方法的返回值</p>
+<p><strong>Symbol.split</strong></p>
+<p>当该对象被 str.split(myObject) 方法调用时，会返回该方法的返回值</p>
+<p><strong>Symbol.iterator</strong></p>
+<p>对象进行 for…of 循环时，会调用 Symbol.iterator 方法，返回该对象的默认遍历器</p>
+<p><strong>Symbol.toPrimitive</strong></p>
+<p>该对象被转为原始类型的值，会调用该方法，返回该对象对应的的原始类型值</p>
+<p><strong>Symbol.toStringTag</strong></p>
+<p>在该对象上调用 toString 方法时，返回该方法的返回值</p>
+<p><strong>Symbol.species</strong></p>
+<p>创建衍生对象时，会使用该属性</p>
+<h4 id="Symbol-hasInstance"><a href="#Symbol-hasInstance" class="headerlink" title="Symbol.hasInstance"></a>Symbol.hasInstance</h4><p>Symbol.hasInstance 这一个整体将作为其他普通对象的方法，可扩展对象功能，通过对它的设置可以改变对象在特定场景下的表现结果（其他内置值也是类似道理），当其他对象使用 instanceof 运算符判断是否为该对象实例时会调用这个方法</p>
+<pre><code>class Person&#123;
+    static [Symbol.hasInstance](param)&#123;
+        console.log(param);  //输出 &#123;&#125;
+        //return true;
+    &#125;
+&#125;
+let o = &#123;&#125;
+console.log(o instanceof Person);  //false，这个返回值会根据 Person 中 [Symbol.hasInstance](param)&#123;&#125; 方法的返回结果改变，若返回 true 则这里会输出 true</code></pre>
+<h4 id="Symbol-isConcatSpreadable"><a href="#Symbol-isConcatSpreadable" class="headerlink" title="Symbol.isConcatSpreadable"></a>Symbol.isConcatSpreadable</h4><p>对象的 Symbol.isConcatSpreadable 属性是一个布尔值，表示该对象使用 Array.prototype.concat() 时是否可以展开</p>
+<pre><code>const arr = [1,2,3];
+const arr2 = [4,5,6];
+console.log(arr.concat(arr2));  //输出[1,2,3,4,5,6]
+arr2[Symbol.isConcatSpreadable] = false;
+console.log(arr.concat(arr2));  //输出[1,2,3,[4,5,6]]</code></pre>
+<h2 id="11、迭代器"><a href="#11、迭代器" class="headerlink" title="11、迭代器"></a>11、迭代器</h2><p>迭代器（Iterator）是一种接口（就是对象里的一个属性 Symbol.iterator，这是一个函数），为各种不同的数据结构提供统一的访问机制，任何数据结构只要部署 Iterator 接口就可以完成遍历操作</p>
+<p>ES6 创造了一种新的遍历命令 <code>for...of</code> 循环，Iterator 接口主要提供 <code>for...of</code> 消费</p>
+<p>原生具备 iterator 接口（可用 for of 遍历）的数据有 Array、Arguments、Set、Map、String、TypedArray、NodeList</p>
+<p><strong>注意：需要自定义遍历数据时要想到迭代器</strong></p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><p>（1）创建一个指针对象，指向当前数据结构的起始位置</p>
+<p>（2）第一次调用对象的 next 方法，指针自动指向数据结构的第一个成员</p>
+<p>（3）接下来不断调用 next 方法，指针一直向后移动，直到指向最后一个成员</p>
+<p>（4）每调用 next 方法返回一个包含 value 和 done（布尔值，为 true 表示遍历完成） 属性的对象</p>
+<pre><code>const arr = [1,2,3,4]
+let iterator = arr[Symbol.iterator]();  //第（1）步
+console.log(iterator.next());  //第（2）步，返回&#123;value:1,done:false&#125;
+console.log(iterator.next());  //返回&#123;value:2,done:false&#125;
+console.log(iterator.next());  //返回&#123;value:3,done:false&#125;
+console.log(iterator.next());  //返回&#123;value:4,done:false&#125;
+console.log(iterator.next());  //返回&#123;value:undefined,done:true&#125;</code></pre>
+<h3 id="for…in-和-for…of区别"><a href="#for…in-和-for…of区别" class="headerlink" title="for…in 和 for…of区别"></a>for…in 和 for…of区别</h3><p>for(let i in items){} 遍历过程中这里的 i 表示键（数组中就是下标 0,1,2,…）</p>
+<p>for(let i of items){} 遍历过程中这里的 i 表示值</p>
+<h3 id="自定义遍历数据"><a href="#自定义遍历数据" class="headerlink" title="自定义遍历数据"></a>自定义遍历数据</h3><p>要遍历对象 obj 对象内的数组arr</p>
+<pre><code>const obj = &#123;
+    name:&#39;xx&#39;,
+    arr:[1,2,3,4],
+    [Symbol.iterator]()&#123;
+        let index = 0;
+        let _this = this;
+        return &#123;  //因为 iterator 工作原理中第一步创建一个指针对象，所以返回需要是一个对象
+            next:function()&#123;  //因为 iterator 工作原理中第二步调用对象的 next 方法，所以需要一个 next 方法
+                if(index &lt; _this.arr.length)&#123;
+                    const result = &#123;value: _this.arr[index], done:false&#125;
+                    index++;
+                    return result;
+                &#125;else&#123;
+                    return &#123;value: undefined, done:false&#125;;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+for(let o of obj)&#123;
+    console.log(o)
+&#125;</code></pre>
+<h2 id="12、生成器"><a href="#12、生成器" class="headerlink" title="12、生成器"></a>12、生成器</h2><p>生成器函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同</p>
+<p>异步操作有如文件操作、网络操作（ajax、request）、数据库操作等</p>
+<p>在 ES6 之前异步编程是通过纯回调函数实现</p>
+<pre><code>function * gen()&#123;
+    console.log(&#39;hello&#39;)
+&#125;
+let iterator = gen();  //返回的是一个迭代器对象
+console.log(iterator);   //此处并没有输出 hello
+iterator.next();  //输出 hello</code></pre>
+<p>在生成器中可以出现 yield 语句</p>
+<pre><code>function * gen()&#123;
+    console.log(&#39;111&#39;);
+    yield &#39;aa&#39;;
+    console.log(&#39;222&#39;);
+    yield &#39;bb&#39;;
+    console.log(&#39;333&#39;);
+    yield &#39;cc&#39;;
+    console.log(&#39;444&#39;);
+&#125;
+et iterator = gen();
+iterator.next();  //输出 111
+iterator.next();  //输出 222
+iterator.next();  //输出 333
+iterator.next();  //输出 444
+
+function * gen()&#123;
+    console.log(&#39;111&#39;);
+    yield &#39;aa&#39;;
+    console.log(&#39;222&#39;);
+    yield &#39;bb&#39;;
+    console.log(&#39;333&#39;);
+    yield &#39;cc&#39;;
+    console.log(&#39;444&#39;);
+&#125;
+et iterator = gen();
+console.log(iterator.next());  //输出&#123;value:&#39;aa&#39;,done:false&#125;
+console.log(iterator.next());  //输出&#123;value:&#39;bb&#39;,done:false&#125;
+console.log(iterator.next());  //输出&#123;value:&#39;cc&#39;,done:false&#125;
+console.log(iterator.next());  //输出&#123;value:&#39;undefined&#39;,done:true&#125;
+
+for(let g of gen())&#123;
+    console.log(g);  //会分别输出aa bb cc
+&#125;</code></pre>
+<p>next 方法可以传入实参，该实参将作为上一个 yield 语句的返回结果</p>
+<pre><code>function * gen(arg)&#123;
+    console.log(arg);
+    let one = yield 111;
+    console.log(one);
+    let two = yield 222;
+    console.log(two);
+    let three = yield 333;
+    console.log(three);
+&#125;
+et iterator = gen(&#39;AAA&#39;);
+console.log(iterator.next());  //输出 AAA &#123;value:111,done:false&#125;
+console.log(iterator.next(&#39;BBB&#39;));  //输出 BBB &#123;value:222,done:false&#125;
+console.log(iterator.next(&#39;CCC&#39;));  //输出 CCC&#123;value:333,done:false&#125;
+console.log(iterator.next(&#39;DDD&#39;));  //输出 DDD&#123;value:&#39;undefined&#39;,done:true&#125;</code></pre>
+<h3 id="生成器实例"><a href="#生成器实例" class="headerlink" title="生成器实例"></a>生成器实例</h3><h4 id="例子1-1"><a href="#例子1-1" class="headerlink" title="例子1"></a>例子1</h4><p>1s 后控制台输出 111，2s 后输出 222，3s 后输出 333</p>
+<p>方式一：使用定时器</p>
+<pre><code>setTimeout(() =&gt; &#123;
+    console.log(111);
+    setTimeout(() =&gt; &#123;
+        console.log(222);
+        setTimeout(() =&gt; &#123;
+            console.log(333);
+        &#125;,3000);
+    &#125;,2000);
+&#125;,1000);</code></pre>
+<p>若使用定时器实现会出现回调地狱，一层层不停回调，阅读、调试不方便，且容易重名</p>
+<p>方式二：使用生成器</p>
+<pre><code>function one()&#123;
+    setTimeout(() =&gt; &#123;
+        console.log(111);
+        iterator.next();
+    &#125;,1000)
+&#125;
+function two()&#123;
+    setTimeout(() =&gt; &#123;
+        console.log(222);
+        iterator.next();
+    &#125;,2000)
+&#125;
+function three()&#123;
+    setTimeout(() =&gt; &#123;
+        console.log(333);
+        iterator.next();
+    &#125;,3000)
+&#125;
+function * gen()&#123;
+    yield one();
+    yield two();
+    yield three();
+&#125;
+let iterator = gen();
+iterator.next();</code></pre>
+<h4 id="例子2-1"><a href="#例子2-1" class="headerlink" title="例子2"></a>例子2</h4><p>第一秒获取用户数据，下一秒获取订单数据，下一秒获取商品数据</p>
+<pre><code>function getUsers()&#123;
+    setTimeout(() =&gt; &#123;
+        let data = &#39;用户数据&#39;;
+        iterator.next(data);
+    &#125;,1000)
+&#125;
+function getOrders()&#123;
+    setTimeout(() =&gt; &#123;
+        let data = &#39;订单数据&#39;;
+        iterator.next(data);
+    &#125;,1000)
+&#125;
+function getGoods()&#123;
+    setTimeout(() =&gt; &#123;
+        let data = &#39;商品数据&#39;;
+        iterator.next(data);
+    &#125;,1000)
+&#125;
+function * gen()&#123;
+    let users = yield getUsers();
+    let orders = yield getOrders();
+    let goods = yield getGoods();
+&#125;
+let iterator = gen();
+iterator.next();</code></pre>
+<h2 id="13、Promise"><a href="#13、Promise" class="headerlink" title="13、Promise"></a>13、Promise</h2><p>Promise 是 ES6 引入的异步编程的新解决方案，语法上 Promise 是一个构造函数，用来封装异步操作并可以获取其成功或失败的结果</p>
+<p>（1）Promise 构造函数</p>
+<p>（2）Promise.prototype.then 方法</p>
+<p>（3）Promise.prototype.catch 方法</p>
+<pre><code>//实例化 Promise 对象
+const p = new Promise(function(resolve,reject)&#123;  //通过 resolve 和 reject 函数改变 Promise 实例对象的状态
+    setTimeout(function()&#123;  //把异步任务封装在 Promise 对象中
+        let data = &#39;xxx&#39;;
+        resolve(data); //调用 resolve 方法后 Promise 实例对象的状态就变为成功
+        let err = &#39;错误&#39;;        
+        reject(err);  //调用 resolve 方法后 Promise 实例对象的状态就变为失败
+    &#125;,1000);
+&#125;);
+//Promise 实例对象状态改变后调用 then 方法
+p.then(function(value)&#123;  //状态为成功时调用
+    console.log(value);
+&#125;,function(reason)&#123;     //状态为失败时调用
+    consle.error(reason);
+&#125;)</code></pre>
+<h2 id="Promise-封装读取文件"><a href="#Promise-封装读取文件" class="headerlink" title="Promise 封装读取文件"></a>Promise 封装读取文件</h2><p>Promise 读取文件会使用到 Node.js 的 API</p>
+<p>使用 fs 模块读取文件的原始方法：</p>
+<pre><code>const fs = require(&#39;fs&#39;);
+fs.readFile(&#39;./xxx.md&#39;, (err, data) =&gt; &#123;
+    if(err) throw err;  //若失败抛出错误
+    console.log(data.toString());  //若没有出错输出内容，其中 data 是一个 Buffer
+&#125;);</code></pre>
+<p>使用 Promise 封装</p>
+<pre><code>const p = new Promise(function(resolve,reject)&#123;
+    fs.readFile(&#39;./xxx.md&#39;, (err, data) =&gt; &#123;
+        if(err) reject(err);
+        resolve(data)
+    &#125;);
+&#125;);
+p.then(function(value)&#123;  //状态为成功时调用
+    console.log(value.toString());
+&#125;,function(reason)&#123;     //状态为失败时调用
+    consle.log(&quot;读取失败&quot;);
+&#125;)</code></pre>
+<h2 id="Promise-封装-AJAX-请求"><a href="#Promise-封装-AJAX-请求" class="headerlink" title="Promise 封装 AJAX 请求"></a>Promise 封装 AJAX 请求</h2><pre><code>const p = new Promise(function(resolve,reject)&#123;
+    const xhr = new XMLHttpRequest(); 
+    xhr.open(&#39;POST&#39;,&#39;http://127.0.0.1:8000/server);
+    xhr.send();
+    xhr.onreadystatechange = function()&#123;
+        if(xhr.readyState === 4)&#123;
+            if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
+                resolve(xhr.response)
+            &#125;else&#123;
+                reject(xhr.status)
+            &#125;
+        &#125;
+    &#125;
+&#125;);
+p.then(function(value)&#123;  //状态为成功时调用
+    console.log(value);
+&#125;,function(reason)&#123;     //状态为失败时调用
+    consle.error(reason);
+&#125;)</code></pre>
+<h2 id="Promise-prototype-then-方法"><a href="#Promise-prototype-then-方法" class="headerlink" title="Promise.prototype.then 方法"></a>Promise.prototype.then 方法</h2><p>Promise.prototype.then 方法返回值也是一个 Promise 对象，该返回对象的状态由 then 里的回调函数的执行结果决定</p>
+<p>若回调函数中返回的结果是非 Promise 类型的属性，则状态为成功，返回的值为成功时回调函数的返回值</p>
+<p>若回调函数中返回 Promise 类型的对象，则内部的该 Promise 对象的返回状态就是外部 then 方法返回的 Promise 对象的状态</p>
+<p>若回调函数中抛出错误，则 then 方法返回的 Promise 对象状态也为失败，值为出错的值</p>
+<pre><code>const p = new Promise(function(resolve,reject)&#123;
+    setTimeout(function()&#123;
+        let data = &#39;xxx&#39;;
+        resolve(data);
+    &#125;,1000);
+&#125;);
+const result = p.then(value =&gt; &#123;
+    console.log(value);
+    //1、返回非 Promise 类型
+    //return 123; //或者直接没有 return 语句返回 undefined
+    //2、返回 Promise 对象，则内部的该 Promise 对象的返回状态就是外部 then 方法返回的 Promise 对象的状态
+    //return new Promise((resolve,reject)=&gt;&#123;
+    //    resolve(&#39;ok&#39;); //外部 then 方法返回的 Promise 对象状态也为成功，且值为 ok
+    //&#125;)
+    //3、抛出错误，外部 then 方法返回的 Promise 对象状态也为失败，值为出错的值
+    //throw new Error(&#39;出错&#39;);
+&#125;, reason =&gt; &#123;
+    consle.error(reason);
+&#125;)</code></pre>
+<p>因为 then 方法返回值也是一个 Promise 对象，所以可以进行链式调用，从而杜绝回调地狱</p>
+<pre><code>p.then(value =&gt; &#123;
+
+&#125;, reason =&gt; &#123;
+
+&#125;).then(value =&gt;&#123;
+
+&#125;, reason =&gt;&#123;
+
+&#125;)</code></pre>
+<h3 id="then-方法的链式调用"><a href="#then-方法的链式调用" class="headerlink" title="then 方法的链式调用"></a>then 方法的链式调用</h3><p>例子：按顺序读三个文件，并把三个文件内容合在一起后做输出</p>
+<p>可通过 Promise 读取多个文件，Promise 可解决回调地狱</p>
+<pre><code>const p = new Promise((resolve,reject) =&gt; &#123;
+    fs.readFile(&#39;./文件1.md&#39;, (err, data) =&gt; &#123;
+        resolve(data)
+    &#125;);
+&#125;);
+p.then(value =&gt; &#123;  //状态为成功时调用
+    return new Promise((resolve,reject) =&gt; &#123;
+        fs.readFile(&#39;./文件2.md&#39;, (err, data) =&gt; &#123;
+            resolve([value,data])
+        &#125;);
+    &#125;);
+&#125;).then(value =&gt; &#123;
+    return new Promise((resolve,reject) =&gt; &#123;
+        fs.readFile(&#39;./文件3.md&#39;, (err, data) =&gt; &#123;
+            value.push(data);
+            resolve(value);
+        &#125;);
+    &#125;);
+&#125;).then(value =&gt; &#123;
+    console.log(value.join(&#39;\r\n&#39;));
+&#125;)</code></pre>
+<h2 id="Promise-prototype-catch-方法"><a href="#Promise-prototype-catch-方法" class="headerlink" title="Promise.prototype.catch 方法"></a>Promise.prototype.catch 方法</h2><p>Promise.prototype.catch 方法其实算是一个语法糖，其实由 then 方法不指定第一个参数结果和 catch 方法一样</p>
+<pre><code>const p = new Promise(function(resolve,reject)&#123;
+    setTimeout(function()&#123;
+        let err = &#39;错误&#39;;        
+        reject(err); 
+    &#125;,1000);
+&#125;);
+p.catch(function(reason)&#123;  //只需指定失败的回调
+    console.warn(reason);
+&#125;)</code></pre>
+<h2 id="14、Set"><a href="#14、Set" class="headerlink" title="14、Set"></a>14、Set</h2><p>ES6 提供了新的数据结构 Set（集合），它类似于数组，但成员的值都是唯一的</p>
+<p>集合实现了 iterator 接口，所以可使用扩展运算符和 for…of 进行遍历</p>
+<p>集合的属性和方法：</p>
+<p>size 属性返回会集合元素个数</p>
+<p>add(xxx) 增加一个新元素，返回当前集合</p>
+<p>delete(xxx) 删除元素，返回 boolean 值</p>
+<p>has(xxx) 检测集合中是否包含某个元素，返回 boolean 值</p>
+<p>clear() 清空集合中元素</p>
+<pre><code>let s1 = new Set();
+let s2 = new Set([1,2,3,1])  //会自动去重
+console.loge(s2.size);  //输出3
+for(let s of s2)&#123;
+    console.log(s); //输出 1，2，3
+&#125;</code></pre>
+<h2 id="集合的使用"><a href="#集合的使用" class="headerlink" title="集合的使用"></a>集合的使用</h2><h3 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h3><pre><code>let arr = [1,2,3,4,5,4,3,2,1];
+let result = [...new Set(arr)]</code></pre>
+<h3 id="交集"><a href="#交集" class="headerlink" title="交集"></a>交集</h3><pre><code>let arr = [1,2,3,4,5,4,3,2,1];
+let arr1 = [4,5,6,5,6];
+let result = [...new Set(arr)].filter(item =&gt; &#123;
+    let s = new Set(arr1);  //4 5 6
+    if(s.has(item))&#123;
+        return true;
+    &#125;else&#123;
+        return false;
+    &#125;
+&#125;)
+//上述代码可简化为let result = [...new Set(arr)].filter(item =&gt; new Set(arr1).has(item));</code></pre>
+<h3 id="并集"><a href="#并集" class="headerlink" title="并集"></a>并集</h3><pre><code>let arr = [1,2,3,4,5,4,3,2,1];
+let arr1 = [4,5,6,5,6];
+let union = [...new Set([...arr,...arr2])]</code></pre>
+<h3 id="差集"><a href="#差集" class="headerlink" title="差集"></a>差集</h3><p>差集即对交集取反</p>
+<pre><code>//arr - arr1
+let arr = [1,2,3,4,5,4,3,2,1];
+let arr1 = [4,5,6,5,6];
+let diff = [...new Set(arr)].filter(item =&gt; !(new Set(arr1).has(item)));</code></pre>
+<h2 id="15、Map"><a href="#15、Map" class="headerlink" title="15、Map"></a>15、Map</h2><p>ES6 提供了 Map 数据结构，它类似于对象，也是键值对的集合，但是键的范围不限于字符串，各种类型的值（包括对象）都可以当作键</p>
+<p>Map 也实现了 iterator 接口，所以可使用扩展运算符和 for…of 进行遍历</p>
+<p>Map 的属性和方法：</p>
+<p>size 属性返回会 Map 元素个数</p>
+<p>set(键,值) 增加一个新元素，返回当前 Map</p>
+<p>delete(键) 删除元素</p>
+<p>get(键) 返回键名对象的键值</p>
+<p>has(xxx) 检测 Map 中是否包含某个元素，返回 boolean 值</p>
+<p>clear() 清空集合中，返回 undefined</p>
+<p>使用 iterator 遍历返回的结果每个元素是个数组 [键,值]</p>
+<h2 id="16、class-类"><a href="#16、class-类" class="headerlink" title="16、class 类"></a>16、class 类</h2><p>ES6 提供了更接近传统语言的写法，引入了 Class（类）作为对象的模板。通过 class 关键字可以定义类</p>
+<p>基本上 ES6 的 class 可以看作只是一个语法糖，它绝对部分功能 ES5 都能做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已</p>
+<p>class 声明类</p>
+<p>constructor 定义构造函数初始化</p>
+<p>extends 继承父类</p>
+<p>super 调用父级构造方法</p>
+<p>static 定义静态方法和属性</p>
+<p>父类方法可以重写</p>
+<pre><code>//ES5 构造类
+function Phone (brand,price)&#123;
+    this.brand = brand;
+    this.price = price;
+&#125;
+Phone.prototype.call = function()&#123;&#125;
+let huawei = new Phone(&#39;华为&#39;,6000);
+huawei.call()
+
+//ES6
+class Phone&#123;
+    constructor(brand,price)&#123;  //构造方法，new 创建实例对象时会自动执行
+        this.brand = brand;
+        this.price = price;
+    &#125;
+    call()&#123;  //方法必须使用该语法，不能使用 ES5 中的 call: function()&#123;&#125;
+    &#125;
+&#125;
+let oneplus = new Phone(&#39;1+&#39;,2000);</code></pre>
+<h3 id="class-的静态成员"><a href="#class-的静态成员" class="headerlink" title="class 的静态成员"></a>class 的静态成员</h3><p>函数对象和实例对象的属性是不相通的，属于类的属性但不属于类实例的属性这种属性称为静态成员</p>
+<p>ES5 中</p>
+<pre><code>function Phone (brand,price)&#123;
+    this.brand = brand;
+    this.price = price;
+&#125;
+Phone.name = name; //静态成员
+Phone.size = size; //静态成员
+Phone.prototype.change = function()&#123;&#125;
+let nokia = new Phone();
+conosle.log(nokia.name);  //报错
+console.log(nokia.size);  //报错
+nokia.change();  //不报错</code></pre>
+<p>ES6 中，通过 static 标注的属性或方法属于类而不属于类实例对象</p>
+<pre><code>class Phone&#123;
+    //静态属性
+    static name = &quot;手机&quot;;
+    static change()&#123;&#125;
+&#125;
+let nokia = new Phone();
+conosle.log(nokia.name);  //输出 undefined
+console.log(Phone.size);  //输出 手机</code></pre>
+<h3 id="class-类对象继承"><a href="#class-类对象继承" class="headerlink" title="class 类对象继承"></a>class 类对象继承</h3><p>ES5 中使用原型链 + 借用构造函数的组合继承，可参考之前的<a target="_blank" rel="noopener" href="https://beingjay.com/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/#more">博客中 3.2 部分</a></p>
+<p>在 ES6 的 class 中使用 extends 继承父类</p>
+<pre><code>//父类
+class Phone&#123;
+    constructor(brand,price)&#123;
+        this.brand = brand;
+        this.price = price;
+    &#125;
+    //父类的成员属性
+    call()&#123;
+    &#125;
+&#125;
+//子类
+class SmartPhone extends Phone&#123;
+    //构造方法
+    constructor(brand,price,color,size)&#123;
+        super(brand,price);//super 就是父类中 constrctor 方法，通过 super 完成调用，相当于 ES5 中 Phone.call(this,brand,price);
+        this.color = color;
+        this.size = size;
+    &#125;
+    photo()&#123;&#125;
+&#125;
+const xiaomi = new SmartPhone(&#39;xx&#39;,1000,&#39;黑色&#39;,&#39;4.7inch&#39;);
+xiaoomi.call();
+xiaomi.photo();</code></pre>
+<h4 id="子类对父类方法的重写"><a href="#子类对父类方法的重写" class="headerlink" title="子类对父类方法的重写"></a>子类对父类方法的重写</h4><pre><code>//父类
+class Phone&#123;
+    constructor(brand,price)&#123;
+        this.brand = brand;
+        this.price = price;
+    &#125;
+    //父类的成员属性
+    call()&#123;
+        console.log(&#39;call&#39;)
+    &#125;
+&#125;
+//子类
+class SmartPhone extends Phone&#123;
+    //构造方法
+    constructor(brand,price,color,size)&#123;
+        super(brand,price);//super 就是父类中 constrctor 方法，通过 super 完成调用，相当于 ES5 中 Phone.call(this,brand,price);
+        this.color = color;
+        this.size = size;
+    &#125;
+    photo()&#123;&#125;
+    call()&#123;  //重写父类中 call 方法
+        console.log(&#39;call1&#39;);
+    &#125;
+&#125;
+const xiaomi = new SmartPhone(&#39;xx&#39;,1000,&#39;黑色&#39;,&#39;4.7inch&#39;);
+xiaomi.call();  //输出 call1</code></pre>
+<p>注意：在 js 的 class 中子类不能直接调用父类的同名方法，普通成员方法中也不能使用 super() 去调用父类的同名方法</p>
+<h3 id="class-中的-getter-和-setter"><a href="#class-中的-getter-和-setter" class="headerlink" title="class 中的 getter 和 setter"></a>class 中的 getter 和 setter</h3><pre><code>class Phone&#123;
+    get price()&#123;  //对 price 属性的读取绑定了一个函数，只要读取实例对象里的 price 属性就会执行该函数，函数的返回值就是 price 属性的值
+        console.log(&#39;price属性被读取了&#39;)
+        return &#39;xxx&#39;
+    &#125;
+    get price(newVal)&#123;  //对 price 属性的进行赋值时就会调用该函数，且 setter 中必须有一个参数
+        console.log(&#39;price属性被修改了&#39;)
+    &#125;
+&#125;
+let s = new Phone();
+console.log(s.price);  //，输出 “price属性被读取了” 以及 “xxx”
+s.price = &#39;free&#39;;  //输出 “price属性被修改了”</code></pre>
+<p>get 的使用场景：get 常用来对对象的动态属性（即属性值是变化的）做封装，如求整数、求平均数时</p>
+<p>set：通过 set 可以添加更多的控制和判断，如判断给属性设置的值是否合法（如得是数字，结果传了字符串）若成功则赋值否则不赋值</p>
+<h2 id="17、数值扩展"><a href="#17、数值扩展" class="headerlink" title="17、数值扩展"></a>17、数值扩展</h2><h3 id="Number-EPSILON"><a href="#Number-EPSILON" class="headerlink" title="Number.EPSILON"></a>Number.EPSILON</h3><p>Number.EPSILON 属性值为 2.2204460492503130808472633361816-16 是 JavaScript 表示的最小精度</p>
+<p>若两个数的差值小于 Number.EPSILON 则相等</p>
+<pre><code>console.log(0.1 + 0.2 === 0.3)  //false
+//0.1 + 0.2 的结果为 0.30000000000000004
+
+function equal(a, b)&#123;
+    if(Math.abs(a-b) &lt; Number.EPSILON)&#123;
+        return true;
+    &#125;else&#123;
+        return false;
+    &#125;
+&#125;
+console.log(equal(0.1 + 0.2, 0.3))  //true</code></pre>
+<h3 id="进制"><a href="#进制" class="headerlink" title="进制"></a>进制</h3><p>二进制 <code>0b</code> 开头，八进制 <code>0o</code> 开头，十六进制 <code>0x</code> 开头</p>
+<h3 id="Number-isFinite"><a href="#Number-isFinite" class="headerlink" title="Number.isFinite"></a>Number.isFinite</h3><p>Number.isFinite 检测一个数值是否为有限数</p>
+<pre><code>console.log(Number.isFinite(100/0))  //false
+console.log(Number.isFinite(Infinity))  //false</code></pre>
+<h3 id="Number-isNaN"><a href="#Number-isNaN" class="headerlink" title="Number.isNaN"></a>Number.isNaN</h3><p>Number.isNaN 检测一个数值是否为 NaN</p>
+<p>在 ES5 中 isNaN() 是个单独的函数，在 ES6 中把它作为 Number 中的一个方法</p>
+<pre><code>console.log(Number.isNaN(10))  //false</code></pre>
+<h3 id="Number-parseInt-和-Number-parseFloat"><a href="#Number-parseInt-和-Number-parseFloat" class="headerlink" title="Number.parseInt 和 Number.parseFloat"></a>Number.parseInt 和 Number.parseFloat</h3><p>Number.parseInt 和 Number.parseFloat 把字符串转为整数、浮点数</p>
+<p>在 ES5 中 parseInt() 和 parseFloat() 是个单独的函数，在 ES6 中也把它们作为 Number 中的一个方法</p>
+<pre><code>console.log(Number.parseInt(&#39;10hello&#39;))  //输出 10</code></pre>
+<h3 id="Number-isInteger"><a href="#Number-isInteger" class="headerlink" title="Number.isInteger"></a>Number.isInteger</h3><p>Number.isInteger 判断一个数是否为整数</p>
+<pre><code>console.log(Number.isInteger(10))  //true</code></pre>
+<h3 id="Math-trunc"><a href="#Math-trunc" class="headerlink" title="Math.trunc"></a>Math.trunc</h3><p>Math.trunc 将数字的小数部分抹掉</p>
+<pre><code>console.log(Math.trunc(3.5))  //输出 3</code></pre>
+<h3 id="Math-sign"><a href="#Math-sign" class="headerlink" title="Math.sign"></a>Math.sign</h3><p>Math.sign 判断一个数为正数、负数还是零，分别输出1、0、-1</p>
+<pre><code>console.log(Math.sign(100))  //输出 1
+console.log(Math.sign(0))  //输出 0
+console.log(Math.sign(-200))  //输出 -1</code></pre>
+<h2 id="18、ES6-的对象方法扩展"><a href="#18、ES6-的对象方法扩展" class="headerlink" title="18、ES6 的对象方法扩展"></a>18、ES6 的对象方法扩展</h2><h3 id="Object-is"><a href="#Object-is" class="headerlink" title="Object.is"></a>Object.is</h3><p>Object.is 判断两个值是否完全相等</p>
+<pre><code>console.log(Object.is(10,10))  //true
+console.log(Object.is(NaN,NaN))  //true
+console.log(NaN === NaN)  //false</code></pre>
+<h3 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign"></a>Object.assign</h3><p>Object.assign(被覆盖的对象,覆盖的对象) 对象的合并，后者会覆盖前者的同名属性，若前者中有后者没有的属性则覆盖后依然存在，若后者有前者没有的属性则不会出现在合并后新对象中</p>
+<pre><code>const config1 = &#123;
+    host:&#39;localhost&#39;,
+    port: 3306,
+    name: &#39;root&#39;,
+    pass: &#39;root&#39;,
+    test: &#39;test&#39;
+&#125;
+const config2 = &#123;
+    host:&#39;http://127.0.0.1&#39;,
+    port: 33060,
+    name: &#39;root1&#39;,
+    pass: &#39;root1&#39;
+&#125;
+console.log(Object.assign(config1,config2))</code></pre>
+<h3 id="Object-setPrototypeOf"><a href="#Object-setPrototypeOf" class="headerlink" title="Object.setPrototypeOf"></a>Object.setPrototypeOf</h3><p>Object.setPrototypeOf(对象实例, 原型对象) 设置原型对象</p>
+<p>Object.getPrototypeOf(对象实例) 获取原型对象</p>
+<pre><code>const obj1 = &#123;
+    name:&#39;xx1&#39;
+&#125;
+const obj2 = &#123;
+    arr: [1,2,3]
+&#125;
+Object.setPrototypeOf(obj1, obj2);
+console.log(Object.getPrototypeOf(obj1)) //会输出 obj2</code></pre>
+<h2 id="19、模块化"><a href="#19、模块化" class="headerlink" title="19、模块化"></a>19、模块化</h2><p>模块化是指将一个大的程序文件拆分成许多小的文件，然后将小文件组合起来实现功能</p>
+<p>ES6 之前的模块化规范有 </p>
+<p>1）CommonJS =&gt; NodeJS、Browserify（浏览器端打包工具）</p>
+<p>2）AMD（针对浏览器） =&gt; requireJS</p>
+<ol start="3">
+<li>CMD（针对浏览器） =&gt; seaJS</li>
+</ol>
+<p>（左边是规范，右边是实现/产品）</p>
+<h3 id="模块化好处"><a href="#模块化好处" class="headerlink" title="模块化好处"></a>模块化好处</h3><p>（1）防止命名冲突</p>
+<p>（2）代码复用</p>
+<p>（3）高维护性（如不同人员间的修改不冲突，升级只需对某个或某些模块升级）</p>
+<h3 id="模块化语法"><a href="#模块化语法" class="headerlink" title="模块化语法"></a>模块化语法</h3><p>export 命令用于规定模块的对外接口，在模块文件中只需在需要暴露的数据或函数前添加 export 即可</p>
+<h4 id="暴露模块"><a href="#暴露模块" class="headerlink" title="暴露模块"></a>暴露模块</h4><p>方式一：分别暴露</p>
+<pre><code>export let school = &#39;xx&#39;;
+export function teach()&#123;&#125;</code></pre>
+<p>方式二：统一暴露</p>
+<pre><code>let school = &#39;xx&#39;;
+function teach()&#123;&#125;
+export &#123;school,teach&#125;;</code></pre>
+<p>方式三：默认暴露</p>
+<pre><code>export default &#123;
+    school: &#39;xx&#39;,
+    teach: function()&#123;&#125;
+&#125;</code></pre>
+<h4 id="引入模块"><a href="#引入模块" class="headerlink" title="引入模块"></a>引入模块</h4><p>import 命令用于输入其他模块提供的功能</p>
+<h5 id="通过-script-标签引入模块"><a href="#通过-script-标签引入模块" class="headerlink" title="通过 script 标签引入模块"></a>通过 script 标签引入模块</h5><p>方式一：通用的导入方式</p>
+<pre><code>//对于分别暴露和统一暴露
+&lt;script type=&quot;module&quot;&gt;
+    import * as m1 from &quot;./m1.js&quot;
+    console.log(m1)
+&lt;/script&gt;
+
+//对于默认暴露
+&lt;script type=&quot;module&quot;&gt;
+    import * as m3 from &quot;./m3.js&quot;
+    m3.default.teach();  //注意使用方式
+&lt;/script&gt;</code></pre>
+<p>方式二：解构赋值形式</p>
+<pre><code>//对于分别暴露和统一暴露
+&lt;script type=&quot;module&quot;&gt;
+    import &#123;school,teach&#125; from &quot;./m1.js&quot;
+    import &#123;school as xx,teach&#125; from &quot;./m2.js&quot;
+&lt;/script&gt;
+
+//对于默认暴露
+&lt;script type=&quot;module&quot;&gt;
+    import &#123;default as m3&#125; from &quot;./m3.js&quot;
+    m3.default.teach();
+&lt;/script&gt;</code></pre>
+<p>方式三：简便形式（只能针对默认暴露）</p>
+<pre><code>&lt;script type=&quot;module&quot;&gt;
+    import m3 from &quot;./m3.js&quot;
+&lt;/script&gt;</code></pre>
+<h5 id="通过入口文件引入模块"><a href="#通过入口文件引入模块" class="headerlink" title="通过入口文件引入模块"></a>通过入口文件引入模块</h5><p>新建一个入口文件 xxx.js，在该文件中对各模块进行引入和做一些操作</p>
+<pre><code>import * as m1 from &quot;./m1.js&quot;;
+import * as m2 from &quot;./m2.js&quot;;
+import * as m3 from &quot;./m3.js&quot;;
+console.log(m1);
+m2.teach();
+m3.default.change();</code></pre>
+<p>然后在 html 文件中引入该入口文件</p>
+<pre><code>&lt;script src=&quot;./xxx.js&quot; type=&quot;module&quot;&gt;&lt;/script&gt;</code></pre>
+<h5 id="引入-npm-安装的模块"><a href="#引入-npm-安装的模块" class="headerlink" title="引入 npm 安装的模块"></a>引入 npm 安装的模块</h5><p>和上面一样使用入口文件的方式引入模块，并在入口文件中编写相关操作的代码</p>
+<p>如通过 <code>npm i jquery</code> 安装 jquery 包，在入口文件中引入并使用：</p>
+<pre><code>import $ from &#39;jquery&#39;; //ES6 中的引入方式，相当于 CommonJS 中 const $ = require(&quot;jquery&quot;);
+$(&#39;body&#39;).css(&#39;background&#39;,&#39;red&#39;);</code></pre>
+<h3 id="ES6-模块化代码转换"><a href="#ES6-模块化代码转换" class="headerlink" title="ES6 模块化代码转换"></a>ES6 模块化代码转换</h3><p>因为并不是所有浏览器都兼容 ES6 新特性，所以需要对代码进行转换</p>
+<p>babel 是一个 JavaScript 编译器，可以把 ES6 代码转换为 ES5</p>
+<p>步骤：</p>
+<p>（1）安装工具 babel-cli（babel 的命令行工具）、babel-preset-env（预设包，能把最新的 ECMAScript 特性转换为 ES5 语法）、browserify（打包工具）</p>
+<pre><code>npm init --yes
+npm i babel-cli babel-preset-env browserify -D</code></pre>
+<p>-D 为开发依赖，为局部安装</p>
+<p>（2）编译</p>
+<p>前提：入口js文件、其他js源码放在一个目录下</p>
+<pre><code>npx babel js代码文件夹 -d dist/js --presets=babel-preset-env</code></pre>
+<p>其中 dist/js 为输出的文件夹</p>
+<p>因为这里 babel 是局部安装，所以使用 npx babel 命令，若全局安装可直接使用 babel…</p>
+<p>（3）打包</p>
+<pre><code>npx browserify dist/js/入口文件.js -o dist/bundle.js</code></pre>
+<p>（4）引入编译打包好的文件</p>
+<pre><code>&lt;script src=&quot;dist/bundle.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h1 id="三、ES7-新特性"><a href="#三、ES7-新特性" class="headerlink" title="三、ES7 新特性"></a>三、ES7 新特性</h1><h2 id="1、Array-prototype-includes"><a href="#1、Array-prototype-includes" class="headerlink" title="1、Array.prototype.includes"></a>1、Array.prototype.includes</h2><p>数组.includes(xxx) 方法用来检测数组中是否包含某个元素，返回布尔值</p>
+<h2 id="2、指数操作符"><a href="#2、指数操作符" class="headerlink" title="2、指数操作符"></a>2、指数操作符</h2><p>在 ES7 中引入指数运算符 <code>**</code> 实现幂运算，相当于 Math.pow</p>
+<pre><code>console.log(2 ** 10);  //1024</code></pre>
+<h1 id="四、ES8-新特性"><a href="#四、ES8-新特性" class="headerlink" title="四、ES8 新特性"></a>四、ES8 新特性</h1><h2 id="1、async-和-await"><a href="#1、async-和-await" class="headerlink" title="1、async 和 await"></a>1、async 和 await</h2><p>async 和 await 两种语法结合可以让异步代码像同步代码一样</p>
+<h3 id="async"><a href="#async" class="headerlink" title="async"></a>async</h3><p>async 函数的返回值为 promise 对象，promise 对象的结果由 async 函数执行的返回值决定</p>
+<p>async 函数里 return 一个非 Promise 类型的值结果都是一个 Promise 对象，对象的值为 return 的相应的值</p>
+<p>并且只要 async 函数 return 的不是一个 Promise 类型对象，都会返回成功的状态，即返回一个成功的 Promise 对象</p>
+<p>若在 async 函数中抛出错误，则会返回一个失败的 Promise 对象</p>
+<p>若在 async 函数中返回一个 Promise 对象，若 Promise 对象是成功的，则 async 函数也是成功的，且返回的 Promise 中 resolve 的值即为 async 函数返回对象成功的值，若 Promise 对象是失败的，则 async 函数也是失败的</p>
+<pre><code>//return 一个非 Promise 类型的对象
+async function fn1()&#123;
+    return; //只要这里 return 的不是一个 Promise 类型对象，最后函数执行完都会返回一个成功的 Promise 对象
+&#125;
+//抛出错误
+async function fn2()&#123;
+    throw new Error(&#39;出错&#39;); //函数执行完会返回一个失败的 Promise 对象
+&#125;
+//return一个 Promise 对象
+async function fn3()&#123;
+    return new Promise((resolve,reject)=&gt;&#123;
+        resolve(&#39;成功&#39;);  //fn3 返回的结果也是成功的
+    &#125;)
+&#125;
+//return一个 Promise 对象
+async function fn4()&#123;
+    return new Promise((resolve,reject)=&gt;&#123;
+        reject(&#39;失败&#39;);  //fn3 返回的结果也是失败的
+    &#125;)
+&#125;
+const result = fn3();
+result.then(value=&gt;&#123;
+    console.log(value);  //输出 “成功”
+&#125;,reason=&gt;&#123;
+    console.log(reason);
+&#125;)</code></pre>
+<h3 id="await"><a href="#await" class="headerlink" title="await"></a>await</h3><p>await 必须写在 async 函数中，但 async 中可以没有 await</p>
+<p>await 右侧的表达式一般为 promise 对象，await 返回的是 promise 成功的值，await 的 promise 失败了就会抛出异常，需要通过 try…catch 捕获处理</p>
+<pre><code>const p = new Promise((resolve, reject) =&gt; &#123;
+    resolve(&quot;xxxx&quot;)
+&#125;)
+async function main() &#123;
+    try&#123;
+        let result = await p;
+        console.log(result);  //输出的就是 p 成功时的 xxx
+    &#125;catch(e)&#123;
+        console.log(e)
+    &#125;
+&#125;
+main();</code></pre>
+<h3 id="async-和-await-结合读取文件"><a href="#async-和-await-结合读取文件" class="headerlink" title="async 和 await 结合读取文件"></a>async 和 await 结合读取文件</h3><p>分别读取 3 个文件并输出</p>
+<pre><code>const fs = require(&#39;fs&#39;);
+function fn1()&#123;
+    return new Promise(function(resolve,reject)&#123;
+        fs.readFile(&#39;./文件1.md&#39;, (err, data) =&gt; &#123;
+            if(err) reject(err);
+            resolve(data)
+        &#125;);
+    &#125;);
+&#125;
+
+function fn2()&#123;
+    return new Promise(function(resolve,reject)&#123;
+        fs.readFile(&#39;./文件2.md&#39;, (err, data) =&gt; &#123;
+            if(err) reject(err);
+            resolve(data)
+        &#125;);
+    &#125;);
+&#125;
+
+function fn3()&#123;
+    return new Promise(function(resolve,reject)&#123;
+        fs.readFile(&#39;./文件3.md&#39;, (err, data) =&gt; &#123;
+            if(err) reject(err);
+            resolve(data)
+        &#125;);
+    &#125;);
+&#125;
+
+async function main()&#123;
+    let data1 = await fn1();
+    let data2 = await fn2();
+    let data3 = await fn3();
+    console.log(data1.toString());
+    console.log(data2.toString());
+    console.log(data3.toString());
+&#125;
+main();</code></pre>
+<h3 id="async-和-await-结合发送-AJAX-请求"><a href="#async-和-await-结合发送-AJAX-请求" class="headerlink" title="async 和 await 结合发送 AJAX 请求"></a>async 和 await 结合发送 AJAX 请求</h3><pre><code>function fn(url)&#123;
+    return new Promise(function(resolve,reject)&#123;
+        const xhr = new XMLHttpRequest(); 
+        xhr.open(&#39;GET&#39;,url);
+        xhr.send();
+        xhr.onreadystatechange = function()&#123;
+            if(xhr.readyState === 4)&#123;
+                if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)&#123;
+                    resolve(xhr.response)
+                &#125;else&#123;
+                    reject(xhr.status)
+                &#125;
+            &#125;
+        &#125;
+    &#125;);
+&#125;
+
+async function main()&#123;
+    let result = await fn(&#39;http://127.0.0.1/server&#39;);
+    console.log(result);
+&#125;
+main();</code></pre>
+<p>注意：axios 发送 AJAX 请求的返回结果就是一个 Promise 对象，所以通过 axios 发送请求，并利用 await 接收结果非常方便</p>
+<h2 id="2、ES8-中对象方法的扩展"><a href="#2、ES8-中对象方法的扩展" class="headerlink" title="2、ES8 中对象方法的扩展"></a>2、ES8 中对象方法的扩展</h2><h3 id="Object-value-和-Object-entries"><a href="#Object-value-和-Object-entries" class="headerlink" title="Object.value 和 Object.entries"></a>Object.value 和 Object.entries</h3><p>Object.values() 方法返回一个给定对象的所有可枚举属性值的数组</p>
+<p>Object.entries() 方法返回一个给定对象的自身可遍历属性的数组，数组中每个元素又是一个数组 [key,value]</p>
+<pre><code>const obj = &#123;
+    name: &#39;xx&#39;,
+    arr1:[1,2,3]
+&#125;
+console.log(Object.entries(obj));  //输出 [[&#39;name&#39;, &#39;xx&#39;],[&#39;arr&#39;,[1,2,3]]]
+const m = new Map(Object.entries(obj));
+conosle.log(m.get(&#39;arr1&#39;));  //输出 [1,2,3]</code></pre>
+<h3 id="Object-getOwnPropertyDescriptors"><a href="#Object-getOwnPropertyDescriptors" class="headerlink" title="Object.getOwnPropertyDescriptors"></a>Object.getOwnPropertyDescriptors</h3><p>Object.getOwnPropertyDescriptors 返回指定对象所有自身属性的描述对象，通过描述对象可以对对象进行深拷贝</p>
+<h1 id="五、ES9-新特性"><a href="#五、ES9-新特性" class="headerlink" title="五、ES9 新特性"></a>五、ES9 新特性</h1><h2 id="1、ES9-的扩展运算符与-rest-参数"><a href="#1、ES9-的扩展运算符与-rest-参数" class="headerlink" title="1、ES9 的扩展运算符与 rest 参数"></a>1、ES9 的扩展运算符与 rest 参数</h2><p>rest 参数与 spread 扩展运算符在 ES6 中已经引入，但是 ES6 中只针对数组，在 ES9 中为对象提供了像数组一样的 rest 参数和扩展运算符</p>
+<pre><code>function connect(&#123;host,port,...user&#125;)&#123;
+    console.log(user)  //除了 host 和 port 以外的参数都会存到 user 中，user 是个对象
+&#125;
+connect(&#123;
+    host:&#39;127.0.0.1&#39;,
+    port:3306,
+    username: &#39;root&#39;,
+    password:&#39;root&#39;,
+    type:&#39;master&#39;
+&#125;)
+
+
+const obj1 = &#123;att1:&#39;1&#39;&#125;
+const obj2 = &#123;att2:&#39;2&#39;&#125;
+const obj3 = &#123;att3:&#39;3&#39;&#125;
+const obj = &#123;...obj1,...obj2,...obj3&#125; //把三个对象中的属性都合并到对象 obj 中</code></pre>
+<h2 id="2、ES9-的正则扩展"><a href="#2、ES9-的正则扩展" class="headerlink" title="2、ES9 的正则扩展"></a>2、ES9 的正则扩展</h2><h3 id="命名捕获分组"><a href="#命名捕获分组" class="headerlink" title="命名捕获分组"></a>命名捕获分组</h3><p>命名捕获分组就是可以给分组匹配的结果命名，方便对结果进行处理</p>
+<pre><code>let str = &#39;&lt;a href=&quot;http://127.0.0.1&quot;&gt;标签文本&lt;/a&gt;&#39;
+//没有命名捕获分组时
+const reg = /&lt;a href=&quot;(.*)&quot;&gt;(.*)&lt;\/a&gt;/;
+const result = reg.exec(str);
+console.log(result);  //result 是个数组，result[0]是str，result[1]是 “http://127.0.0.1”，result[2]是 “标签文本”
+
+//有命名捕获分组时
+const reg = /&lt;a href=&quot;(?&lt;url&gt;.*)&quot;&gt;(?&lt;text&gt;.*)&lt;\/a&gt;/;
+const result = reg.exec(str);
+console.log(result);  //result 中有个 groups 对象属性，该属性中有 url 和 text
+console.log(result.groups.url);  //http://127.0.0.1
+console.log(result.groups.text); //标签文本</code></pre>
+<h3 id="反向断言"><a href="#反向断言" class="headerlink" title="反向断言"></a>反向断言</h3><p>断言：可以根据目标内容的前边和后边来做唯一性识别</p>
+<p>正向断言：根据当前匹配的后边的内容来判断匹配的内容是否合法</p>
+<pre><code>let str = &#39;JS12345哈哈哈789啦啦啦&#39;
+//正向断言：提取789
+const reg = /\d+(?=啦)/;  //通过789后边跟着 “啦” 判断
+const result = reg.exec(str);</code></pre>
+<p>正向断言：根据当前匹配的前边的内容来判断匹配的内容是否合法</p>
+<pre><code>let str = &#39;JS12345哈哈哈789啦啦啦&#39;
+//正向断言：提取789
+const reg = /(?&lt;=哈)\d+/;  //通过789前边跟着 “哈” 判断
+const result = reg.exec(str);</code></pre>
+<h3 id="dotAll-模式"><a href="#dotAll-模式" class="headerlink" title="dotAll 模式"></a>dotAll 模式</h3><p>dot即 <code>.</code>，<code>.</code> 是元字符，表示除换行符以外的任意单个字符</p>
+<p>通过添加模式修正符 <code>\\s</code> 可使 <code>.</code> 匹配任意字符，包括空格和换行，若用模式修正符 <code>\\gs</code> 则会全局匹配，这样方便通配可能出现多个空格多个换行的情况</p>
+<p>例子：提取 a 标签和 p 标签中标签文本</p>
+<pre><code>let str = `&lt;ul&gt;
+                &lt;li&gt;
+                    &lt;a&gt;xxx&lt;/a&gt;
+                    &lt;p&gt;xxx&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;a&gt;xxx&lt;/a&gt;
+                    &lt;p&gt;xxx&lt;/p&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;`;
+//没有使用dotAll
+const reg = /&lt;li&gt;\s+&lt;a&gt;(.*?)&lt;\/a&gt;\s+&lt;p&gt;(.*?)&lt;\/p&gt;/;
+const result = reg.exec(str);
+console.log(result);
+//使用dotAll
+const reg = /&lt;li&gt;.*?&lt;a&gt;(.*?)&lt;\/a&gt;.*?&lt;p&gt;(.*?)&lt;\/p&gt;/gs;  //加 ? 是为了禁止贪婪
+let result;
+let data = [];
+while(result = reg.exec(str))&#123;
+    console.log(result);  //当匹配不到时是 NaN
+    data.push(&#123;a:result[1],p:result[2]&#125;)
+&#125;
+console.log(data)</code></pre>
+<h1 id="六、ES10-新特性"><a href="#六、ES10-新特性" class="headerlink" title="六、ES10 新特性"></a>六、ES10 新特性</h1><h2 id="1、ES10-的对象扩展方法-————-Object-fromEntries"><a href="#1、ES10-的对象扩展方法-————-Object-fromEntries" class="headerlink" title="1、ES10 的对象扩展方法 ———— Object.fromEntries"></a>1、ES10 的对象扩展方法 ———— Object.fromEntries</h2><p>Object.fromEntries 用于创建对象，参数为二维数组或 Map</p>
+<pre><code>const result = Object.fromEntries([
+    [&#39;name&#39;,&#39;xx&#39;],
+    [&#39;arr&#39;,&#39;1,2,3,4&#39;]
+])
+const m = new Map()
+m.set(&#39;name&#39;,&#39;xxx&#39;)
+const result = Object.fromEntries(m);</code></pre>
+<p>ES8 中 Object.entries 可将对象转化为二维数组</p>
+<pre><code>cosnt arr = Object.entries(&#123;
+    name: &#39;xxx&#39;
+&#125;);  //返回一个数组，第一个元素为键名，第二个元素为键值</code></pre>
+<p>因此 Object.fromEntries 和 Object.entries 相当于逆运算，前者将二维数组转化为对象，后者将对象转化为二维数组</p>
+<h2 id="2、ES10-的字符串扩展方法-————-trimStart-和-trimEnd"><a href="#2、ES10-的字符串扩展方法-————-trimStart-和-trimEnd" class="headerlink" title="2、ES10 的字符串扩展方法 ———— trimStart 和 trimEnd"></a>2、ES10 的字符串扩展方法 ———— trimStart 和 trimEnd</h2><p>trimStart 和 trimEnd 用于指定清除字符串左侧或右侧空白字符</p>
+<pre><code>let str = &#39;   hello   &#39;
+console.log(str.trimStart());
+console.log(str.trimEnd());</code></pre>
+<h2 id="3、ES10-的数组扩展方法-————-flat-和-flatMap"><a href="#3、ES10-的数组扩展方法-————-flat-和-flatMap" class="headerlink" title="3、ES10 的数组扩展方法 ———— flat 和 flatMap"></a>3、ES10 的数组扩展方法 ———— flat 和 flatMap</h2><p>flat(深度) 能将多维数组转化为低维数组，深度默认是 1</p>
+<pre><code>const arr = [1,2,3,[4,5,6]];  //二维数组
+console.log(arr.flat());  //输出[1,2,3,4,5,6]
+const arr = [1,2,3,[4,5,6,[7,8,9]]];  //三维数组
+console.log(arr.flat()); //输出二维数组[1,2,3,4,5,6,[7,8,9]]
+console.log(arr.flat(2)); //输出一维数组[1,2,3,4,5,6,7,8,9]</code></pre>
+<p>flatMap 是对 Map 结果作维度降低</p>
+<pre><code>const arr1 = [1,2,3,4];
+const result = arr1.map(item =&gt; item * 10);
+console.log(result); //输出[10,20,30,40]
+
+const result = arr1.map(item =&gt; [item * 10]);
+console.log(result); //输出二维数组[[10],[20],[30],[40]]
+
+const result = arr1.flatMap(item =&gt; [item * 10]);
+console.log(result); //输出一维数组[10,20,30,40]</code></pre>
+<h2 id="4、ES10-的-Symbol-扩展方法-————-Symbol-prototype-description"><a href="#4、ES10-的-Symbol-扩展方法-————-Symbol-prototype-description" class="headerlink" title="4、ES10 的 Symbol 扩展方法 ———— Symbol.prototype.description"></a>4、ES10 的 Symbol 扩展方法 ———— Symbol.prototype.description</h2><pre><code>let s = Symbol(&#39;hello&#39;);
+console.log(s.description);  //输出 hello</code></pre>
+<h1 id="七、ES11-新特性"><a href="#七、ES11-新特性" class="headerlink" title="七、ES11 新特性"></a>七、ES11 新特性</h1><h2 id="1、私有属性"><a href="#1、私有属性" class="headerlink" title="1、私有属性"></a>1、私有属性</h2><p>私有属性在类的外部无法得到其结果，只能通过类内的方法来访问</p>
+<pre><code>class Person&#123;
+    //公有属性
+    name;
+    //私有属性
+    #age;
+    #weight;
+    //构造方法
+    constructor(name,age,weight)&#123;
+        this.name = name;
+        this.#age = age;
+        this.#weight = weight;    
+    &#125;
+    intor()&#123;
+        console.log(this.name);
+        console.log(this.#age);
+        console.log(this.#weight);
+    &#125;
+&#125;
+const girl = new Person(&#39;xxx&#39;,18,&#39;50kg&#39;);
+console.log(girl.#age);  //报错 Private field &#39;#age&#39; must be declared in an enclosing class
+girl.intro();  //不报错</code></pre>
+<h2 id="2、Promise-allSettled"><a href="#2、Promise-allSettled" class="headerlink" title="2、Promise.allSettled"></a>2、Promise.allSettled</h2><p>Promise.allSettled 接收 Promise 数组，总是返回成功的 Promise 对象，成功的值是个数组，数组中每个元素是对象{status,value 或 reason}</p>
+<pre><code>const p1 = new Promise((resolve,reject) =&gt; &#123;
+    setTimeout(() =&gt; &#123;
+        resolve(&#39;商品数据1&#39;);
+    &#125;,1000)
+&#125;);
+const p2 = new Promise((resolve,reject) =&gt; &#123;
+    setTimeout(() =&gt; &#123;
+        resolve(&#39;商品数据2&#39;);
+    &#125;,1000)
+&#125;);
+const result = Promise.allSettled([p1,p2]);
+console.log(result);</code></pre>
+<p>类似的方法有 Promise.all，也是接收 Promise 数组，返回 Promise 对象，但返回的 Promise 对象是否为成功由数组中每个 Promise 对象的状态决定，只要有一个 Promise 对象失败则 all 方法返回的 Promise 对象也是失败</p>
+<p>all 方法成功的值为数组，数组中的元素是接收的 Promise 对象成功的值，all 方法失败的值为接收的 Promise 对象中失败的那个的失败的值</p>
+<pre><code>const p1 = new Promise((resolve,reject) =&gt; &#123;
+    setTimeout(() =&gt; &#123;
+        resolve(&#39;商品数据1&#39;);
+    &#125;,1000)
+&#125;);
+const p2 = new Promise((resolve,reject) =&gt; &#123;
+    setTimeout(() =&gt; &#123;
+        resolve(&#39;商品数据2&#39;);
+    &#125;,1000)
+&#125;);
+const result = Promise.all([p1,p2]);</code></pre>
+<h2 id="3、ES11-的字符串扩展方法-————-Sting-prototype-matchAll"><a href="#3、ES11-的字符串扩展方法-————-Sting-prototype-matchAll" class="headerlink" title="3、ES11 的字符串扩展方法 ———— Sting.prototype.matchAll"></a>3、ES11 的字符串扩展方法 ———— Sting.prototype.matchAll</h2><p>Sting.prototype.matchAll 用于得到正则批量匹配的结果</p>
+<pre><code>let str = `&lt;ul&gt;
+                &lt;li&gt;
+                    &lt;a&gt;xxx&lt;/a&gt;
+                    &lt;p&gt;xxx&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;a&gt;xxx&lt;/a&gt;
+                    &lt;p&gt;xxx&lt;/p&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;`;
+const reg = /&lt;li&gt;.*?&lt;a&gt;(.*?)&lt;\/a&gt;.*?&lt;p&gt;(.*?)&lt;\/p&gt;/gs;
+const result = str.matchAll(reg); //返回的结果是一个可迭代对象
+for(let v of result)&#123;  //或者使用扩展运算符 const arr = [...result];
+    console.log(v);
+&#125;</code></pre>
+<h2 id="4、可选链操作符"><a href="#4、可选链操作符" class="headerlink" title="4、可选链操作符"></a>4、可选链操作符</h2><p>可选链操作符 <code>?.</code>，当面对对象类型的参数时，若对象深度较深，则通过可选链操作符后无需作层级判断</p>
+<p>例子：获取 db 中的 host</p>
+<pre><code>function main(config)&#123;
+    //原先的方法
+    const dbHost = config &amp;&amp; config.db &amp;&amp; config.db.host; //但是当没有db对象或 db 中没有 host 属性时会报错
+    //使用可选链操作符
+    const dbHost = config?.db?.host;  //此时若没有db对象或 db 中没有 host 属性时也不会报错会输出 undefined，只有当前的属性存在时才会读后面的属性
+&#125;
+main(&#123;
+    db: &#123;
+        host:&#39;192.168.1.100&#39;
+        username: &#39;root&#39;
+    &#125;,
+    cahce: &#123;
+        host:&#39;192.168.1.200&#39;
+        username: &#39;admin&#39;
+    &#125;
+&#125;)</code></pre>
+<h2 id="5、动态-import"><a href="#5、动态-import" class="headerlink" title="5、动态 import"></a>5、动态 import</h2><p>通过动态 import 可实现按需加载，提高加载效率，import 方法返回的是 Promise 对象，语法：<code>import(文件).then(module =&gt; &#123;&#125;)</code></p>
+<pre><code>//文件hello.js
+export function hello()&#123;
+    alert(&#39;hello&#39;);
+&#125;
+//入口文件app.js
+//在 ES11 之前使用 import * as m1 from &#39;./hello.js&#39; 静态导入模块
+cosnt btn = document.getElementById(&#39;#btn&#39;);
+btn.onclick = function()&#123;
+    //ES11 中动态导入模块
+    import(&#39;./hello.js&#39;).then(module =&gt; &#123;
+        module.hello();
+    &#125;)
+&#125;</code></pre>
+<h2 id="6、ES11-引入的数据类型-————-BigInt"><a href="#6、ES11-引入的数据类型-————-BigInt" class="headerlink" title="6、ES11 引入的数据类型 ———— BigInt"></a>6、ES11 引入的数据类型 ———— BigInt</h2><p>大整型通过 <code>整数n</code> 表示</p>
+<p>通过 BigInt() 函数可将整数转为大整型</p>
+<pre><code>let n = 123;
+console.log(BigInt(n));  //输出 123n</code></pre>
+<p>BigInt() 函数可用于大数值运算，注意 BigInt 类型数据不能直接和普通 int 作运算</p>
+<pre><code>let max = NUMBER.MAX_SAFE_INTEGER;
+console.log(max);  //9007199254740991
+console.log(max + 1);  //9007199254740992
+console.log(max + 2);  //9007199254740992
+
+console.log(BinInt(max));  //9007199254740991n
+console.log(BinInt(max) + BigInt(1));  //9007199254740992n
+console.log(BinInt(max) + BigInt(2));  //9007199254740993n</code></pre>
+<h2 id="7、绝对全局对象-globalThis"><a href="#7、绝对全局对象-globalThis" class="headerlink" title="7、绝对全局对象 globalThis"></a>7、绝对全局对象 globalThis</h2><p>globalThis 始终指向全局对象，无论执行环境是什么（如浏览器、Nodejs 等）</p>
+<pre><code>//在浏览器中
+console.log(globalThis);  //window 对象
+//在 Nodejs 中
+console.log(globalThis);  //输出 Object [global]</code></pre>
+
     </div>
 
     
@@ -304,6 +1497,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/01/12/AngularJS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="AngularJS学习笔记">
+                  AngularJS学习笔记 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
