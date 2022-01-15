@@ -31,7 +31,7 @@
 <meta property="og:description" content="网页特点优点：（1）无需安装（2）无需更新（3）跨平台">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-08T06:39:38.000Z">
-<meta property="article:modified_time" content="2021-12-23T11:45:52.008Z">
+<meta property="article:modified_time" content="2022-01-15T09:39:19.270Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
 
@@ -201,7 +201,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1318,6 +1318,51 @@ html&#123;
 <p>方式二：通过 animation 属性</p>
 <p>10、一般给 <code>&lt;body&gt;</code> 设置 background-color 是给 <code>&lt;html&gt;</code> 设置，因此要看 body 的真实大小要通过 border</p>
 <p>11、设置透明度可通过 <code>opacity:0.5;</code>，但在 IE8 中需要使用 <code>filter: alpha(opacity=50)</code></p>
+<p>12、H5 本地存储技术</p>
+<p>（1）sessionStorage（会话存储）</p>
+<p>特点：</p>
+<pre><code>--- 生命周期：浏览器打开到关闭的过程
+
+--- 大小：5M
+
+--- 保存的位置：浏览器端
+
+--- 写：setItem(&#39;key&#39;,value)
+
+--- 读：getItem(&#39;key&#39;)
+
+--- 删除：removeItem(&#39;key&#39;)</code></pre>
+<p>（2）localStorage（永久存储）</p>
+<p>特点：</p>
+<pre><code>--- 生命周期：永久，除非人为删除
+
+--- 大小：5M 甚至更大
+
+--- 保存的位置：浏览器端
+
+--- 写：setItem(&#39;key&#39;,value)
+
+--- 读：getItem(&#39;key&#39;)
+
+--- 删除：removeItem(&#39;key&#39;)</code></pre>
+<p>（3）cookie</p>
+<p>作用：用于浏览器和服务器端进行通信的</p>
+<p>特点：</p>
+<pre><code>--- 生命周期：
+
+    --- 会话 cookie：浏览器打开到关闭的过程
+
+    --- 人为设置 cookie：人为设置的时间
+
+--- 大小：4kb
+
+--- 每次发送请求都携带，导致占用带宽
+
+--- 保存的位置：浏览器端
+
+--- cookie 容易被截获，不安全</code></pre>
+<p>若 sessionStorage、localStorage 中不存在某对象，会返回 null，处理使用 JSON 转化读取除的内容不存在的情况：</p>
+<pre><code>JSON.parse(localStorage.getItem(&#39;xxx&#39;) || &#39;[]&#39;);</code></pre>
 </head>
     </div>
 

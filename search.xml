@@ -2951,6 +2951,51 @@ html&#123;
 <p>方式二：通过 animation 属性</p>
 <p>10、一般给 <code>&lt;body&gt;</code> 设置 background-color 是给 <code>&lt;html&gt;</code> 设置，因此要看 body 的真实大小要通过 border</p>
 <p>11、设置透明度可通过 <code>opacity:0.5;</code>，但在 IE8 中需要使用 <code>filter: alpha(opacity=50)</code></p>
+<p>12、H5 本地存储技术</p>
+<p>（1）sessionStorage（会话存储）</p>
+<p>特点：</p>
+<pre><code>--- 生命周期：浏览器打开到关闭的过程
+
+--- 大小：5M
+
+--- 保存的位置：浏览器端
+
+--- 写：setItem(&#39;key&#39;,value)
+
+--- 读：getItem(&#39;key&#39;)
+
+--- 删除：removeItem(&#39;key&#39;)</code></pre>
+<p>（2）localStorage（永久存储）</p>
+<p>特点：</p>
+<pre><code>--- 生命周期：永久，除非人为删除
+
+--- 大小：5M 甚至更大
+
+--- 保存的位置：浏览器端
+
+--- 写：setItem(&#39;key&#39;,value)
+
+--- 读：getItem(&#39;key&#39;)
+
+--- 删除：removeItem(&#39;key&#39;)</code></pre>
+<p>（3）cookie</p>
+<p>作用：用于浏览器和服务器端进行通信的</p>
+<p>特点：</p>
+<pre><code>--- 生命周期：
+
+    --- 会话 cookie：浏览器打开到关闭的过程
+
+    --- 人为设置 cookie：人为设置的时间
+
+--- 大小：4kb
+
+--- 每次发送请求都携带，导致占用带宽
+
+--- 保存的位置：浏览器端
+
+--- cookie 容易被截获，不安全</code></pre>
+<p>若 sessionStorage、localStorage 中不存在某对象，会返回 null，处理使用 JSON 转化读取除的内容不存在的情况：</p>
+<pre><code>JSON.parse(localStorage.getItem(&#39;xxx&#39;) || &#39;[]&#39;);</code></pre>
 </head>]]></content>
       <categories>
         <category>前端</category>
@@ -4207,6 +4252,7 @@ $(&#39;#div1&#39;).animate(&#123;  //移动距离为（-100，-20）
 <p><code>$(document).ready(function()&#123;&#125;)</code></p>
 <p><code>window.onload = function()&#123;&#125;</code></p>
 <p>上面三种方式基本等价，其中回调函数会在 DOM 加载完成时运行</p>
+<p>注意 <code>$(function($)&#123;&#125;)</code> 和 document.ready 等价，表示文档（结构）加载完毕，而 window.onload 表示整个页面（包括图片等）加载完毕</p>
 <h2 id="window-load-与-document-ready-区别"><a href="#window-load-与-document-ready-区别" class="headerlink" title="window.load 与 $(document).ready()区别"></a>window.load 与 $(document).ready()区别</h2><p>window.load 中包括页面的图片加载完后才会回调（晚），且只能有一个监听回调，后面加的监听回调会覆盖前面的</p>
 <p>$(document).ready() 等同于 $(function(){})，页面加载完就回调（早），且可以有多个监听回调</p>
 <pre><code>window.onload = function()&#123;  //不执行，被下面的 window.onload 覆盖
@@ -6287,6 +6333,294 @@ console.log(globalThis);  //输出 Object [global]</code></pre>
   <entry>
     <title>AngularJS学习笔记</title>
     <url>/2022/01/12/AngularJS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="一、AngularJS"><a href="#一、AngularJS" class="headerlink" title="一、AngularJS"></a>一、AngularJS</h1><a id="more"></a>
+
+<p>AngularJS 是谷歌开源的前端 JS 结构化框架，<a href="https://angularjs.org/">官网</a></p>
+<p>为了方便开发可安装 chrome 插件 ng-inspector</p>
+<p>AngularJS 版本有 1.x、2.x、4.x，其中 1.x 是基于 JavaScript，2.x、4.x 是基于 typescript，4.x 是在 2.x 基础上扩展的</p>
+<h2 id="1、AngularJS-的特性和优点"><a href="#1、AngularJS-的特性和优点" class="headerlink" title="1、AngularJS 的特性和优点"></a>1、AngularJS 的特性和优点</h2><p>（1）双向数据绑定</p>
+<p>（2）声明式依赖注入</p>
+<p>（3）解耦应用逻辑，数据模型和视图</p>
+<p>（4）完善的页面指令</p>
+<p>（5）定制表单验证</p>
+<p>（6）Ajax 封装</p>
+<h2 id="2、AngularJS-和-jQuery-的比较"><a href="#2、AngularJS-和-jQuery-的比较" class="headerlink" title="2、AngularJS 和 jQuery 的比较"></a>2、AngularJS 和 jQuery 的比较</h2><p>jQuery 是 JS 函数库，作用是封装简化 DOM 操作</p>
+<p>angular 是 JS 结构化框架，主体不再是 DOM ，而是页面中的动态数据</p>
+<h2 id="3、AngularJS-应用场景"><a href="#3、AngularJS-应用场景" class="headerlink" title="3、AngularJS 应用场景"></a>3、AngularJS 应用场景</h2><p>AngularJS 用于构建单页面（SPA）Web 应用或 Web App 应用，如<a href="https://www.ele.me/home/">饿了么</a>、<a href="https://wx.qq.com/">微信网页版</a>、<a href="https://zhuanlan.zhihu.com/Weekly">知乎周报</a>、后台管理应用（如阿里云、土豆后台、唯品会等）</p>
+<p>单页面应用 SPA（Single Page Application）特点：</p>
+<p>— 将所有活动局限于一个页面</p>
+<p>— 当页面中有部分数据发生变化时不会刷新整个页面，而是局部刷新</p>
+<p>— 利用的是 ajax 技术、路由</p>
+<h1 id="二、AngularJS-语法"><a href="#二、AngularJS-语法" class="headerlink" title="二、AngularJS 语法"></a>二、AngularJS 语法</h1><h2 id="1、hello-world"><a href="#1、hello-world" class="headerlink" title="1、hello world"></a>1、hello world</h2><p>例子：输入框中输入的文本在下方实时显示</p>
+<pre><code>&lt;body ng-app&gt;
+    &lt;input type=&quot;text&quot; ng-model=&quot;username&quot;&gt;
+    &lt;p&gt;&lt;span&gt;&#123;&#123;username&#125;&#125;&lt;/span&gt;&lt;/p&gt;
+    &lt;script src=&quot;./angular-1.2.29/angular.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;    </code></pre>
+<p>ng-app 指令：告诉 angular 核心它管理当前标签所包含的整个区域，并会自动创建 $rootScope 根作用域对象</p>
+<p>ng-model 指令：ng-model 指向属性名，将当前输入框的值与当前作用域对象关联（属性名：属性值），并作为当前作用域对象（$rootScope）的属性</p>
+<p><code>&#123;&#123; &#125;&#125;</code> 表达式：显示数据，从当前作用域对象的指定属性名上获取，只能用于显示不能操作更改</p>
+<h2 id="2、双向数据绑定"><a href="#2、双向数据绑定" class="headerlink" title="2、双向数据绑定"></a>2、双向数据绑定</h2><p>数据绑定：数据从一个地方 A 转移（传递）到另一个地方 B，且该操作由框架完成</p>
+<p>双向数据绑定：数据可以从 View（视图层）流向 Model（模型），也可以从 Model 流向 View</p>
+<p>— 视图（View）：就是页面（主要是 angular 指令和表达式）</p>
+<p>— 模型（Model）：作用域对象，它可以包含一些属性或方法</p>
+<p>— 当改变 View 中的数据，Model 对象的对于属性也会随之改变：ng-model 指令数据从 View ==&gt; Model</p>
+<p>— 当 Model 域对象的属性发生改变时，页面对象数据随之更新：<code>&#123;&#123; &#125;&#125;</code> 表达式数据从 Model ==&gt; View</p>
+<p>— ng-model 是双向数据绑定（View &lt;==&gt; Model），而 <code>&#123;&#123; &#125;&#125;</code> 是单向数据绑定（Model ==&gt; View）</p>
+<p>ng-init 用来初始化当前作用域变量，是单向数据绑定（View ==&gt; Model）</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>两个输入框，每个输入框下显示输入框中的文本，更改其中一个输入框，另一个输入框以及两个输入框下的文本都改变，初始时输入框和文本为 “xxx”</p>
+<pre><code>&lt;body ng-app ng-init=&quot;username=&#39;xxx&#39;&quot;&gt;
+    &lt;input type=&quot;text&quot; ng-model=&quot;username&quot;&gt;
+    &lt;p&gt;&#123;&#123;username&#125;&#125;&lt;/p&gt;
+    &lt;input type=&quot;text&quot; ng-model=&quot;username&quot;&gt;
+    &lt;p&gt;&#123;&#123;username&#125;&#125;&lt;/p&gt;
+    &lt;script src=&quot;./angular-1.2.29/angular.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;    </code></pre>
+<h2 id="3、依赖注入"><a href="#3、依赖注入" class="headerlink" title="3、依赖注入"></a>3、依赖注入</h2><p>依赖对象：完成某个特定功能需要某个对象才能实现，该对象就是依赖对象</p>
+<p>依赖注入：依赖的对象以形参的形式被注入进来使用，这种方式就是声明式依赖注入</p>
+<p>注意：形参必须是特定的名称，否则 angular 无法注入，抛出异常</p>
+<p>angular 的 <code>$scope</code> 对象就是依赖对象，并且是依赖注入的形式进行使用</p>
+<p>回调函数的 event 就是依赖对象，回调函数有形参就是依赖注入</p>
+<h1 id="三、三个重要对象"><a href="#三、三个重要对象" class="headerlink" title="三、三个重要对象"></a>三、三个重要对象</h1><h2 id="1、作用域对象与控制器对象"><a href="#1、作用域对象与控制器对象" class="headerlink" title="1、作用域对象与控制器对象"></a>1、作用域对象与控制器对象</h2><h3 id="作用域对象"><a href="#作用域对象" class="headerlink" title="作用域对象"></a>作用域对象</h3><p>作用域对象是一个 js 实例对象，ng-app 指令默认会创建一个根作用域对象（$rootScope）</p>
+<p>它的属性和方法与页面中的指令或表达式是关联的</p>
+<h3 id="控制器对象"><a href="#控制器对象" class="headerlink" title="控制器对象"></a>控制器对象</h3><p>控制器对象用来控制 AngularJS 应用数据的实例对象的</p>
+<p>ng-controller：指定控制器构造函数，Angular 会自动 new 此函数创建控制器对象</p>
+<p>同时 Angular 还有创建一个新的作用域对象 $scope，它是 $rootScope 的子对象</p>
+<p>在控制器函数中声明 $scope 形参，Angular 会自动将 $scope 对象传入</p>
+<pre><code>&lt;body ng-app ng-init=&quot;age=12&quot;&gt;
+    &lt;div ng-controller=&quot;MyController&quot;&gt;
+        &lt;input type=&quot;text&quot; ng-model=&quot;firstName&quot;&gt;
+        &lt;input type=&quot;text&quot; ng-model=&quot;lastName&quot;&gt;
+        &lt;p&gt;&#123;&#123;firstName + '-' + lastName&#125;&#125;&lt;/p&gt;
+        &lt;p&gt;&#123;&#123;getName()&#125;&#125;&lt;/p&gt;
+        &lt;p&gt;&#123;&#123;age&#125;&#125;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;./angular-1.2.29/angular.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        //老版本 angular 生成作用域对象的方式
+        function MyController($scope)&#123;  //形参必须是$scope
+            $scope.firstName = &#39;aa&#39;;
+            $scope.lastName = &#39;bb&#39;;
+            $scope.getName = function()&#123;
+                return this.firstName + &#39; &#39; + this.lastName;  //也可以是 $scope.firstName + &#39; &#39; + $scope.lastName
+            &#125;
+        &#125;
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre>
+<h2 id="2、模块与控制器对象"><a href="#2、模块与控制器对象" class="headerlink" title="2、模块与控制器对象"></a>2、模块与控制器对象</h2><p><code>angular.module</code> 可在全局创建、注册、获取 Angular 模块，所有模块（angular 核心或第三方）都必须使用这个机制注册才能在应用中生效</p>
+<p>模块对象可链式调用，<code>模块对象.controller</code> 返回值是模块对象</p>
+<pre><code>&lt;body ng-app=&quot;MyApp&quot;&gt;
+    &lt;div ng-controller=&quot;MyController1&quot;&gt;
+        &lt;input type=&quot;text&quot; ng-model=&quot;empName&quot;&gt;
+        &lt;p&gt;&#123;&#123;empName&#125;&#125;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div ng-controller=&quot;MyController2&quot;&gt;
+        &lt;input type=&quot;text&quot; ng-model=&quot;empName&quot;&gt;
+        &lt;p&gt;&#123;&#123;empName&#125;&#125;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;./angular-1.5.5/angular.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        //创建模块对象
+        var myModule = angular.module(&#39;MyApp&#39;,[]);
+        //生成作用域对象（新版本 angular）
+        myModule.controller(&#39;MyController1&#39;,function($scope)&#123;   //隐式声明依赖注入
+            $scope.empName = &#39;aaa&#39;
+        &#125;)
+        myModule.controller(&#39;MyController2&#39;,function($scope)&#123;
+            $scope.empName = &#39;bbb&#39;
+        &#125;)
+        //或使用链式调用
+        //angular.module(&#39;MyApp&#39;,[])
+        //    .controller(&#39;MyController1&#39;,function($scope)&#123;   //隐式声明依赖注入
+        //        $scope.empName = &#39;aaa&#39;
+        //    &#125;)
+        //    .controller(&#39;MyController2&#39;,function($scope)&#123;
+        //        $scope.empName = &#39;bbb&#39;
+        //    &#125;)
+
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre>
+<p>注意：当代码压缩时，$scope 会被 abcd等字母代替，导致 angular 解析不了，因此需要使用显式声明依赖注入，开发时需要使用该方式</p>
+<pre><code>angular.module(&#39;MyApp&#39;,[])
+    .controller(&#39;MyController1&#39;,[&#39;$scope&#39;,function($scope)&#123;   //显式声明依赖注入
+        $scope.empName = &#39;aaa&#39;
+    &#125;])
+    .controller(&#39;MyController2&#39;,[&#39;$scope&#39;,function($scope)&#123;
+        $scope.empName = &#39;bbb&#39;
+    &#125;])</code></pre>
+<h1 id="四、表达式"><a href="#四、表达式" class="headerlink" title="四、表达式"></a>四、表达式</h1><p><code>&#123;&#123;表达式&#125;&#125;</code> 用于显示表达式的结果数据</p>
+<p>表达式中引用的变量必须是当前作用域对象有的属性（包括其原型属性）</p>
+<p>可操作的数据有：</p>
+<p>— 基本类型数据：number、string（需加引号）、boolean</p>
+<p>— undefined、Infinity、NaN、null解析为空串，不显示任何效果</p>
+<p>— 对象的属性或方法</p>
+<p>— 数组</p>
+<h1 id="五、指令"><a href="#五、指令" class="headerlink" title="五、指令"></a>五、指令</h1><p>Angular 指令是 Angular 为 HTML 页面扩展的自定义标签属性或标签</p>
+<p>Angular 指令与 Angular 的作用域对象（scope）交互，扩展页面的动态表现力</p>
+<p>常用指令有</p>
+<p>ng-app：指定模块名，angular 管理的区域</p>
+<p>ng-model：双向数据绑定，输入相关标签</p>
+<p>ng-init：初始化数据</p>
+<p>ng-click：点击时调用作用域对象的方法</p>
+<p>ng-controller：指定控制器构造函数名，内部会自动创建一个新的子作用域（外部的）</p>
+<p>ng-bind：解决使用 <code>&#123;&#123; &#125;&#125;</code> 显示数据闪屏（在很短时间内显示 <code>&#123;&#123; &#125;&#125;</code>）</p>
+<p>ng-repeat：遍历数组显示数据，数组有几个元素就会产生几个新的作用域，自动携带的属性有 $index（下标）、$first（布尔值）、$last（布尔值）、$middle（布尔值）、$odd（布尔值，下标为奇数时为 true）、$even（布尔值）</p>
+<p>ng-show：布尔类型，为 true 才显示</p>
+<p>ng-hide：布尔类型，为 true 就隐藏</p>
+<pre><code>&lt;body ng-app=&quot;MyApp&quot;&gt;
+    &lt;div ng-controller=&quot;MyController&quot;&gt;
+        &lt;div&gt;
+            数量：&lt;input type=&quot;number&quot; ng-model=&quot;count&quot;&gt;
+            价格：&lt;input type=&quot;number&quot; ng-model=&quot;price&quot;&gt;
+            &lt;button ng-click=&quot;getTotalPrice()&quot;&gt;计算&lt;/button&gt;
+            &lt;p&gt;&#123;&#123;totalPrice&#125;&#125;&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div&gt;
+            &lt;ul&gt;
+                &lt;li ng-repeat=&quot;person in persons&quot;&gt;
+                    &#123;&#123;$index&#125;&#125;---&#123;&#123;$even&#125;&#125;---&#123;&#123;person.username&#125;&#125;---&#123;&#123;person.age&#125;&#125;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+
+        &lt;div&gt;
+            &lt;p&gt;&#123;&#123;123&#125;&#125;&lt;/p&gt;
+            &lt;p ng-bind=&quot;123&quot;&gt;&lt;/p&gt;&lt;!--与上行使用表达式&#123;&#123;&#125;&#125;等价-->
+			
+	
+			<div>
+				<button ng-click="switchShow()">显示/隐藏</button>
+				<p ng-show="isShow">aaa</p>
+				<p ng-hide="isShow">aaa</p>
+			</div>
+			
+		
+		<script type="text/javascript" src="./angular-1.5.5/angular.js"></script>
+		<script type="text/javascript">
+			angular.module('MyApp',[])
+				.controller('MyController',['$scope',function($scope)&#123;
+					$scope.count = 2;
+					$scope.price = 10;
+					$scope.totalPrice = 20;
+					$scope.getTotalPrice = function()&#123;
+						$scope.totalPrice = $scope.count * $scope.price;
+					&#125;
+					
+					$scope.persons = [
+						&#123;username:'a',age:12&#125;,
+						&#123;username:'b',age:12&#125;,
+						&#123;username:'c',age:12&#125;,
+					]
+
+					$scope.isShow = true;
+					$scope.switchShow = function()&#123;
+						$scope.isShow = !$scope.isShow;
+					&#125;
+				&#125;])
+		</script>
+	
+
+ng-class：动态引用定义的样式 &#123;aClass:true, bClass:false&#125;
+
+ng-style：动态应用通过 js 指定的样式对象 `ng-style="&#123;color:'red', background:'green'&#125;"` 或 `ng-style="作用域变量"`
+
+ng-click：点击监听，值为函数调用，可以传 $event
+
+ng-mouseenter：鼠标移入监听，值为函数调用，可以传 $event
+
+ng-mouseleave：鼠标移出监听，值为函数调用，可以传 $event
+
+	<style>
+		.evenB&#123;
+			background-color: red;
+		&#125;
+		.oddB&#123;
+			background-color: green;
+		&#125;
+	</style>
+	<body ng-app="MyApp">
+		<div ng-controller="MyController">
+			<div style="width:100px;height:100px;" ng-style="myStyle" ng-mouseenter="enter()" ng-mouseleave="leave()"></div>
+
+			<!--奇偶行显示不同颜色-->
+			<ul>
+				<li ng-class="&#123;oddB:$odd,evenB:$even&#125;" ng-repeat="person in persons">
+					&#123;&#123;person.username&#125;&#125;---&#123;&#123;person.age&#125;&#125;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;./angular-1.5.5/angular.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        angular.module(&#39;MyApp&#39;,[])
+            .controller(&#39;MyController&#39;,[&#39;$scope&#39;,function($scope)&#123;
+                $scope.myStyle = &#123;
+                    background: &#39;red&#39;
+                &#125;
+                $scope.enter = function()&#123;
+                    this.myStyle.background = &#39;green&#39;;
+                &#125;
+                $scope.leave = function()&#123;
+                    this.myStyle.background = &#39;red&#39;;
+                &#125;
+                $scope.persons = [
+                    &#123;username:&#39;a&#39;,age:12&#125;,
+                    &#123;username:&#39;b&#39;,age:12&#125;,
+                    &#123;username:&#39;c&#39;,age:12&#125;,
+                ]
+            &#125;])
+    &lt;/script&gt;
+&lt;/body&gt;</li></ul></div></body></code></pre>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>1、开发的两种方式</p>
+<p>（1）命令式</p>
+<p>更加注重的是执行的过程</p>
+<p>（2）声明式</p>
+<p>更加注重的是执行的结果，至于中间是如何执行的并不关心</p>
+<p>声明式是对命令式的局部包装</p>
+<p>命令式如同考试的解答题，声明式如同选择填空题</p>
+<p>例子：对数组中的每个元素加 10</p>
+<pre><code>var arr = [1,2,3,4,5]
+//命令式
+var arr1 = []
+for(var i = 0; i &lt; arr.length; i++)&#123;
+    var value = arr[i] + 10;
+    arr1.push(value);
+&#125;
+console.log(arr1);
+//声明式
+var arr2 = arr.map(function(item, index)&#123;
+    return item + 10;
+&#125;)
+console.log(arr2);</code></pre>
+<p>2、多选框绑定数据</p>
+<p>多选框绑定的数据会是布尔值，表示是否选中</p>
+<pre><code>&lt;body ng-app=&quot;MyApp&quot;&gt;
+    &lt;div ng-controller=&quot;MyController&quot;&gt;
+        &lt;div ng-repeat=&quot;todo in todos&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; ng-model=&quot;todo.isChecked&quot;&gt;
+            &lt;span&gt;&#123;&#123;todo.name&#125;&#125;&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;./angular-1.5.5/angular.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        angular.module(&#39;MyApp&#39;,[])
+            .controller(&#39;MyController&#39;,[&#39;$scope&#39;,function($scope)&#123;
+                $scope.todos = [
+                    &#123;name:&#39;aa&#39;, isChecked: false&#125;,
+                    &#123;name:&#39;bb&#39;, isChecked: true&#125;,
+                    &#123;name:&#39;cc&#39;, isChecked: false&#125;
+                ]
+            &#125;])
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Node.js学习笔记</title>
+    <url>/2022/01/15/Node-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[]]></content>
   </entry>
 </search>
