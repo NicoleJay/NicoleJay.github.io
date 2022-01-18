@@ -43,7 +43,7 @@
 <meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%A8%A1%E5%9E%8B.png">
 <meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/webworker.png">
 <meta property="article:published_time" content="2021-12-23T13:45:31.000Z">
-<meta property="article:modified_time" content="2021-12-29T12:29:00.508Z">
+<meta property="article:modified_time" content="2022-01-16T09:27:44.849Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1.png">
@@ -214,7 +214,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1108,6 +1108,15 @@ s.setPrice(12000)
 console.log(s.name,s.age,s.price)  //输出 yyy 12 12000</code></pre>
 <h1 id="四、线程机制与事件机制"><a href="#四、线程机制与事件机制" class="headerlink" title="四、线程机制与事件机制"></a>四、线程机制与事件机制</h1><h2 id="1、进程与线程"><a href="#1、进程与线程" class="headerlink" title="1、进程与线程"></a>1、进程与线程</h2><p>进程（process）：程序的一次执行，占有独有的内存空间，各个应用程序间内存空间相互独立，可通过 Windows 任务管理器查看进程</p>
 <p>线程（thread）：线程是进程内一个独立的执行单元，是程序执行的一个完整流程，是 CPU的最小调度单元</p>
+<pre><code>进程负责为程序的运行提供必备的环境
+
+（进程相当于工厂中的车间）
+
+线程是计算机中的最小计算单位，线程负责执行进程中的程序
+
+（线程相当于工厂的工人）
+
+JS、浏览器是单线程</code></pre>
 <p>程序是单线程还是多线程是看一个进程内有多少线程</p>
 <p>应用程序必须运行在某个进程的某个线程上</p>
 <p>一个进程中至少有一个运行的线程，主线程，进程启动后自动创建</p>
