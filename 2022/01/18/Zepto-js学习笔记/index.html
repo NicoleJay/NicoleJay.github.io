@@ -23,13 +23,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"nicolejay.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
+<meta name="description" content="一、zepto 基础zepto 是轻量级的 JavaScript 库，专门为移动端定制的框架">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zepto.js学习笔记">
 <meta property="og:url" content="http://nicolejay.github.io/2022/01/18/Zepto-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="X 的笔记">
+<meta property="og:description" content="一、zepto 基础zepto 是轻量级的 JavaScript 库，专门为移动端定制的框架">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-18T06:47:10.000Z">
-<meta property="article:modified_time" content="2022-01-18T06:47:10.314Z">
+<meta property="article:modified_time" content="2022-01-18T12:53:45.511Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
 
@@ -170,7 +172,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -183,6 +185,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81zepto-%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">一、zepto 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hello-world"><span class="nav-number">1.2.</span> <span class="nav-text">hello world</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81zepto-%E5%92%8C-jQuery"><span class="nav-number">2.</span> <span class="nav-text">二、zepto 和 jQuery</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%90%8C%E7%82%B9"><span class="nav-number">2.1.</span> <span class="nav-text">相同点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%92%8C-jQuery-%E7%9B%B8%E5%90%8C%E7%9A%84-API"><span class="nav-number">2.1.1.</span> <span class="nav-text">和 jQuery 相同的 API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">不同点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89-attr-%E5%92%8C-prop"><span class="nav-number">2.2.1.</span> <span class="nav-text">（1） attr 和 prop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89DOM-%E6%93%8D%E4%BD%9C"><span class="nav-number">2.2.2.</span> <span class="nav-text">（2）DOM 操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%883%EF%BC%89each-%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.3.</span> <span class="nav-text">（3）each 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%884%EF%BC%89offset"><span class="nav-number">2.2.4.</span> <span class="nav-text">（4）offset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%885%EF%BC%89height-%E5%92%8C-width"><span class="nav-number">2.2.5.</span> <span class="nav-text">（5）height() 和 width()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%886%EF%BC%89%E9%9A%90%E8%97%8F%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%BD%E9%AB%98"><span class="nav-number">2.2.6.</span> <span class="nav-text">（6）隐藏元素的宽高</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%887%EF%BC%89%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98"><span class="nav-number">2.2.7.</span> <span class="nav-text">（7）事件委托</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%888%EF%BC%89touch-Event"><span class="nav-number">2.2.8.</span> <span class="nav-text">（8）touch Event</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81zepto-%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">三、zepto 事件机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81form-%E8%A1%A8%E5%8D%95"><span class="nav-number">4.</span> <span class="nav-text">四、form 表单</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#serialize"><span class="nav-number">4.1.</span> <span class="nav-text">serialize()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#serializeArray"><span class="nav-number">4.2.</span> <span class="nav-text">serializeArray()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#submit"><span class="nav-number">4.3.</span> <span class="nav-text">submit()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81ajax-%E7%BB%86%E8%8A%82%E5%89%96%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">五、ajax 细节剖析</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -198,7 +201,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -275,6 +278,15 @@
 
       <time title="创建时间：2022-01-18 14:47:10" itemprop="dateCreated datePublished" datetime="2022-01-18T14:47:10+08:00">2022-01-18</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -286,7 +298,241 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <h1 id="一、zepto-基础"><a href="#一、zepto-基础" class="headerlink" title="一、zepto 基础"></a>一、zepto 基础</h1><p>zepto 是轻量级的 JavaScript 库，专门为<strong>移动端</strong>定制的框架</p>
+<a id="more"></a>
+
+<p>zepto 与 jQuery 有类似的 API（“会 jQuery 就会用 zepto”）</p>
+<p><a target="_blank" rel="noopener" href="http://zeptojs.com/">zepto官网</a>和<a target="_blank" rel="noopener" href="https://github.com/madrobby/zepto">GitHub 上下载地址</a></p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>（1）针对移动端</p>
+<p>（2）轻量级，压缩版本只有 8kb 左右</p>
+<p>（3）响应、执行快</p>
+<p>（4）语法、API 大部分同 jQuery 一样，学习难度低，上手快</p>
+<p>（5）目前 API 完善的框架中体积最小的一个</p>
+<h2 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h2><pre><code>&lt;body&gt;
+    &lt;div id=&#39;btn&#39;&gt;hello world&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;./js/zepto.js&quot;&gt;&lt;/script&gt;  &lt;!--引入 zepto--&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;./js/touch.js&quot;&gt;&lt;/script&gt;  &lt;!--引入 移动端触屏事件相关函数--&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        $(function()&#123;
+            $(&#39;#btn&#39;).on(&#39;touchstart&#39;, function()&#123;
+                alert(&#39;hello world&#39;);
+            &#125;)
+        &#125;);
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre>
+<h1 id="二、zepto-和-jQuery"><a href="#二、zepto-和-jQuery" class="headerlink" title="二、zepto 和 jQuery"></a>二、zepto 和 jQuery</h1><h2 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h2><p>（1）都是优秀的 js 函数库</p>
+<p>（2）语法、API 大部分都一样（zepto 是按照 jQuery 的思路来设计的）</p>
+<p>（3）zepto 相当于 jQuery 的子集</p>
+<p>（4）和 jQuery 一样都是以 $ 为核心</p>
+<h3 id="和-jQuery-相同的-API"><a href="#和-jQuery-相同的-API" class="headerlink" title="和 jQuery 相同的 API"></a>和 jQuery 相同的 API</h3><p>jQuery 核心： $</p>
+<p>— 作为函数调用（一般关注参数），参数可以是</p>
+<pre><code>function()&#123;&#125;
+选择器字符串
+DOM 节点
+html 字符串</code></pre>
+<p>— 作为对象使用（一般关注方法）</p>
+<pre><code>$.isArray()
+$.ajax() $.get() $.post()
+$.each()
+...</code></pre>
+<p>jQuery 对象：核心函数 $ 调用返回的就是 jQuery 对象，而且是一个伪数组，方法有</p>
+<pre><code>append()
+find()
+show()
+...</code></pre>
+<p>以上 jQuery 的概念 zepto 同样适用</p>
+<h2 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h2><h3 id="（1）-attr-和-prop"><a href="#（1）-attr-和-prop" class="headerlink" title="（1） attr 和 prop"></a>（1） attr 和 prop</h3><p>在 zepto 中用 attr 也可以获取布尔值属性，prop 在读取属性时优先级高于 attr，布尔值属性的读取还是建议用 prop</p>
+<p>如对于下拉框 <select><option></option></select> 中，选中的选中标签中属性 selected=”selected”</p>
+<pre><code>在 jQuery 中
+    使用 attr 读取时
+    有 selected 属性的返回 selected，没有的返回 undefined
+    若用 prop 读取时
+    有 selected 属性的返回 true，没有的返回 false，若有多个 selected=&quot;selected&quot; 则只有最下面的选项返回为 true
+在 zepto 中
+    使用 attr 读取时
+    有 selected 属性的返回 selected，没有的返回 false
+    若用 prop 读取时
+    有 selected 属性的返回 true，没有的返回 false，若有多个 selected=&quot;selected&quot; 则只有最下面的选项返回为 true，和 jQuery 中相同</code></pre>
+<p>注意：zepto 中 removeProp() 方法在 1.2+ 版本才支持</p>
+<h3 id="（2）DOM-操作"><a href="#（2）DOM-操作" class="headerlink" title="（2）DOM 操作"></a>（2）DOM 操作</h3><p>jQuery 中插入 DOM 元素时添加配置对象（如 id、class 等）不起作用</p>
+<p>zepto 中插入 DOM 元素时添加配置对象（如 id、class 等）可以添加进去，并且会直接显示在</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;./js/zepto.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(function()&#123;
+        var $p = $(&#39;&lt;p&gt;文本&lt;/p&gt;&#39;, &#123;
+            id:&#39;xxx&#39;
+        &#125;)
+        $(&#39;#box&#39;).append($p);
+    &#125;);
+&lt;/script&gt;</code></pre>
+<h3 id="（3）each-方法"><a href="#（3）each-方法" class="headerlink" title="（3）each 方法"></a>（3）each 方法</h3><p>在 jQuery 中 $each() 可以遍历数组（以 index,item 的形式）、对象（以 key,value 的形式），但不可以遍历字符串，也意味着不能遍历 json 的对象和数组</p>
+<p>在 zepto 中 $each() 可以遍历数组（以 index,item 的形式）、对象（以 key,value 的形式），也可以遍历字符串，也可以以字符串形式遍历 json 的对象和数组</p>
+<h3 id="（4）offset"><a href="#（4）offset" class="headerlink" title="（4）offset()"></a>（4）offset()</h3><p>在 jQuery 中 offset() 获取匹配元素在当前视口的相对偏移量，返回的对象包含 top 和 left 两个整型属性</p>
+<p>在 zepto 中 offset() 返回的对象包含 top、left、width、height 四个整型属性，其中 width 和 height 是元素可见区（宽/高 + padding + border）的宽高</p>
+<h3 id="（5）height-和-width"><a href="#（5）height-和-width" class="headerlink" title="（5）height() 和 width()"></a>（5）height() 和 width()</h3><p>在 jQuery 中获取宽高的方法：</p>
+<pre><code>width() 和 height() ———— content 内容区的宽高，没有单位 px
+.css(&#39;width&#39;)、.css(&#39;height&#39;) ———— 获取 content 内容区宽高 + padding + border，有单位 px
+innerHeight()、innerWidth() ———— 获取 content 内容区宽高 + padding，没有单位
+outerHeight()、outerWidth() ———— 获取 content 内容区宽高 + padding + border，没有单位</code></pre>
+<p>在 zepto 中获取宽高：</p>
+<pre><code>width() 和 height() ———— 根据盒模型取值，获取 content 内容区宽高 + padding + border，没有单位 px
+.css(&#39;width&#39;)、.css(&#39;height&#39;) ———— 获取 content 内容区宽高，有单位 px
+.css(&#39;padding&#39;) ———— 获取 padding 值，有单位 px
+.css(&#39;border&#39;)、.css(&#39;border-width&#39;) ———— 获取 border 相关值，有单位 px
+没有 innerHeight()、innerWidth()、outerHeight()、outerWidth() 方法</code></pre>
+<h3 id="（6）隐藏元素的宽高"><a href="#（6）隐藏元素的宽高" class="headerlink" title="（6）隐藏元素的宽高"></a>（6）隐藏元素的宽高</h3><p>在 jQuery 中对于 display:none 的元素使用 .width() 和 .height() 依然可以得到元素宽高</p>
+<p>在 zepto 中对于 display:none 的元素使用 .width() 和 .height() 得到结果为 0</p>
+<h3 id="（7）事件委托"><a href="#（7）事件委托" class="headerlink" title="（7）事件委托"></a>（7）事件委托</h3><p>在 jQuery 中设置事件委托：</p>
+<p>（1）$(父元素选择器).delegate(子元素选择器,事件名,回调函数)</p>
+<p>（2）$(父元素选择器).on(事件名,子元素选择器,回调函数)</p>
+<p>（3）在 1.7 及以下还可以使用 live 函数，但在 1.7 以上已被废除</p>
+<p>在 zepto 官网表示已经要废除 live、delegate 等</p>
+<p>在 zepto 中委托的事件先被依次放入数组队列里，然后由自身开始往后找直到找到最后，期间符合条件的元素委托的事件都会执行，条件有</p>
+<pre><code>（1）委托在同一个父元素，或者触发的元素的事件范围小于同类型事件（冒泡能冒到自身范围）
+（2）是同一个事件
+（3）委托关联，即操作的类要进行关联
+（4）绑定顺序————从当前的代码位置往后看</code></pre>
+<p>如</p>
+<pre><code>&lt;head&gt;
+    &lt;style&gt;
+        .a&#123;
+            width:100px;
+            height:100px;
+            background:red;
+        &#125;
+        .b&#123;
+            width:200px;
+            height:200px;
+            background:green;
+        &#125;
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&#39;box&#39;&gt;
+        &lt;div class=&quot;a&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;b&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;./js/zepto.js&quot;&gt;&lt;/script&gt;  &lt;!--引入 zepto--&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;./js/touch.js&quot;&gt;&lt;/script&gt;  &lt;!--引入 移动端触屏事件相关函数--&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        $(&#39;#box&#39;).on(&#39;touchstart&#39;, &#39;.a&#39;, function()&#123;
+            alert(&#39;a触发的事件&#39;);
+            $(this).removeClass().addClass(&#39;b&#39;); //和 b 关联
+        &#125;)
+        $(&#39;#box&#39;).on(&#39;touchstart&#39;, &#39;.b&#39;, function()&#123;
+            alert(&#39;b触发的事件&#39;);
+            $(this).removeClass().addClass(&#39;a&#39;);
+        &#125;)
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre>
+<p>上述代码中当点击 a 的 div 时，会弹出 “a触发的事件”、“b触发的事件”，但 div 的样式没有变化，而当点击 b 的 div 时，会弹出 “b触发的事件”，div 的样式变为 a 类的 div</p>
+<p>— 若把 a 绑定的事件中 $(‘#box’) 改为 $(‘#body’) 就不会发生这种情况，因为不符合第（1）个条件</p>
+<p>— 若把 a 绑定的事件中 touchstart 改为 click 就不会发生这种情况，因为不符合第（2）个条件</p>
+<p>— 若把 a 绑定的事件中 <code>$(this).removeClass().addClass(&#39;b&#39;);</code> 删除就不会发生这种情况，因为不符合第（3）个条件</p>
+<p>— 若把 a 绑定的事件相关代码移到 b 绑定的事件之后就不会发生这种情况，因为不符合第（4）个条件</p>
+<p>而点击 a 样式没有变化（没有按预期变为 b）是因为当 class 变为 b 后会启动一个新线程用于重排，但 js 代码执行比重排快，此时会执行 b 绑定的事件，且 alert 会阻断代码执行，而当关闭 alert 窗口后 class 又变回 a 因此样式没有变化</p>
+<h3 id="（8）touch-Event"><a href="#（8）touch-Event" class="headerlink" title="（8）touch Event"></a>（8）touch Event</h3><p>同 jQuery 类似的事件：</p>
+<pre><code>on() 绑定事件处理程序
+off() 移除用目标元素 on 绑定的事件处理程序
+one() 为每一个匹配元素的特定事件（如 click）绑定一个一次性事件处理函数，只执行一次
+bind() 为每个匹配元素的特定事件绑定事件处理函数，可同时绑定多个事件，也可自定义事件
+trigger() 触发由 bind 定义的事件（通常是自定义事件）
+unbind() bind 的反向操作，删除匹配元素绑定的 bind 事件</code></pre>
+<p>如自定义事件</p>
+<pre><code>$(&#39;#btn&#39;).bind(&#39;myTouch&#39;,function()&#123;
+    alert(&#39;xx&#39;);
+&#125;)
+$(&#39;#btn&#39;).trigger(&#39;myTouch&#39;)</code></pre>
+<p>zepto touch 方法</p>
+<p>tap() 点击事件，利用在 document 上绑定 touch 事件来模拟 tap 事件的，并且 tap 事件会冒泡到 document 上</p>
+<p>singleTap() 单击事件</p>
+<p>doubleTap() 双击事件</p>
+<p>longTap() 当一个元素被按住超过 750ms 触发</p>
+<p>swipe、swipeLeft、swipeRight、swipeUp、swipeDown 当元素被划过（同一个方向大于 30px）时触发（可选择给定的方向在一个方向滑动大于 30px 即为滑动，否则算点击）</p>
+<p>注意：在给元素设置滑动事件时需要通过 <code>touch-action:none;</code> 将默认的元素上滑动翻页行为禁掉</p>
+<pre><code>&lt;head&gt;
+    &lt;style&gt;
+        #btn&#123;
+            touch-action: none;
+        &#125;
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&#39;btn&#39;&gt;xxx&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;./js/zepto.js&quot;&gt;&lt;/script&gt;  &lt;!--引入 zepto--&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;./js/touch.js&quot;&gt;&lt;/script&gt;  &lt;!--引入 移动端触屏事件相关函数--&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        $(&#39;#btn&#39;).swipe(function()&#123;
+            alert(&#39;xxx&#39;);
+        &#125;)
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre>
+<h1 id="三、zepto-事件机制"><a href="#三、zepto-事件机制" class="headerlink" title="三、zepto 事件机制"></a>三、zepto 事件机制</h1><p>zepto 有自己的一套事件机制，并对不同的浏览器做了兼容的内部封装处理</p>
+<p>新版本的 zepto 中已经舍弃了 bind、delegate、die（live 的反向操作），同样 jQuery 中舍弃了 live 等</p>
+<p>现在统一使用 on、off 标准事件来绑定事件</p>
+<h1 id="四、form-表单"><a href="#四、form-表单" class="headerlink" title="四、form 表单"></a>四、form 表单</h1><h2 id="serialize"><a href="#serialize" class="headerlink" title="serialize()"></a>serialize()</h2><p>在 Ajax post 请求中将用作提交的表单元素的值编译成 URL-encoded 字符串 ———— name=value</p>
+<p>不能使用的表单元素、buttons、未选中的 radio buttons、checkboxs 将会被跳过</p>
+<h2 id="serializeArray"><a href="#serializeArray" class="headerlink" title="serializeArray()"></a>serializeArray()</h2><p>将用作提交的表单元素的值编译成拥有 {name,value} 对象组成的数组</p>
+<p>不能使用的表单元素、buttons、未选中的 radio buttons、checkboxs 将会被跳过</p>
+<h2 id="submit"><a href="#submit" class="headerlink" title="submit()"></a>submit()</h2><p>为 “submit” 事件绑定一个处理函数，或者触发元素上的 “submit” 事件</p>
+<p>当参数 function 没有给出时，触发当前表单 “submit” 事件，并且执行默认的提交表单行为，除非阻止默认行为</p>
+<pre><code>&lt;form method=&quot;post&quot;&gt;
+    &lt;input type=&quot;text&quot; name=&quot;val&quot; value=&quot;aaa&quot;&gt;
+    &lt;input type=&quot;password&quot; name=&quot;pw&quot; value=&quot;123&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;item&quot; checked=&quot;checked&quot;&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;按钮&quot; name=&quot;btn&quot;&gt;
+&lt;/form&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./js/zepto.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./js/touch.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(function()&#123;
+        var result = $(&#39;form&#39;).serialize();
+        console.log(result);  //输出 val=aaa&amp;pw=123&amp;item=on
+        $(&#39;form&#39;).submit(function(event)&#123;
+            event.preventDefault();  //取消默认提交
+            console.log(&quot;暂时不想提交&quot;)
+        &#125;)
+    &#125;)
+&lt;/script&gt;</code></pre>
+<h1 id="五、ajax-细节剖析"><a href="#五、ajax-细节剖析" class="headerlink" title="五、ajax 细节剖析"></a>五、ajax 细节剖析</h1><p>abort() 在 zepto 中取消 ajax 请求</p>
+<p>问题：点击获取验证码的按钮，用户十秒后可再次获取，当十秒过后第一次请求没有返回，然后因为网速好或其他原因，两次请求同时返回该如何解决？</p>
+<p>用户再次点击时取消之前的请求，注意 disabled 禁止用户点击操作按钮、表单项，但只是针对 click 事件，并没有对 touch 事件做处理</p>
+<pre><code>$(function()&#123;
+    var isSend = false;  //通过该变量控制间隔相应时间后才能再次点击
+    var xmlHttp = null;
+    $(&#39;#btn&#39;).on(&#39;touchstart&#39;,function()&#123;
+        if(isSend)&#123;  //用户点击失效
+            return;
+        &#125;
+        isSend = true;
+        $(this).css(&#39;background&#39;,&#39;gray&#39;);
+        setTimeout(function()&#123;
+            $(&#39;#btn&#39;).css(&#39;background&#39;,&#39;red&#39;);
+            isSend = false;
+        &#125;,2000);
+        if(!xmlHttp)&#123;  //用户没发过请求
+            xmlHttp = sendXml();
+        &#125;else&#123;
+            xmlHttp.abort();  //取消上一次请求
+            xmlHttp = sendXml();
+        &#125;
+    &#125;)
+&#125;);
+function sendXml()&#123;
+    var xmlHttp = $.ajax(&#123;
+        &quot;method&quot;:&#39;GET&#39;,
+        &quot;url&quot;:&#39;http://127.0.0.1&#39;
+        dataType:&#39;json&#39;;
+        success: function(data)&#123;
+            console.log(data);
+        &#125;,
+        error: function(error)&#123;
+            console.log(error);
+        &#125;
+    &#125;)
+    return xmlHttp;
+&#125;</code></pre>
+
     </div>
 
     
@@ -304,6 +550,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/01/19/MongoDB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="MongoDB学习笔记">
+                  MongoDB学习笔记 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>

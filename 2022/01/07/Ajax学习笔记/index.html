@@ -31,7 +31,7 @@
 <meta property="og:description" content="一、AJAXAJAX（Asynchronous JavaScript and XML）即异步的 JS 和 XML 通过 AJAX 可在浏览器中向服务器发送异步请求，最大的优势：无刷新获取数据">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-07T04:17:58.000Z">
-<meta property="article:modified_time" content="2022-01-07T14:55:03.095Z">
+<meta property="article:modified_time" content="2022-01-18T12:31:50.569Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
 
@@ -201,7 +201,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -333,7 +333,7 @@
 空行
 体  username=admin&amp;password=admin</code></pre>
 <h2 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h2><p>响应报文包括四部分：行、头、空行、体</p>
-<p>响应行：HTTP 协议版本（如 HTTP/1.1）、响应状态码（如 200、404 找不到页面、403 Forbidden、401 未授权、500 内部错误等，2xx都表示成功）、响应状态字符串（如 OK，与状态码对应）</p>
+<p>响应行：HTTP 协议版本（如 HTTP/1.1）、响应状态码（如 200、301、302、303（301 - 303 重定向到服务器）、304（重定向到缓存）、404 找不到页面、403 Forbidden、401 未授权、500 服务器内部错误等，2xx都表示成功）、响应状态字符串（如 OK，与状态码对应）</p>
 <p>响应头（对响应体作描述）：Content-type、Content-length、Content-encoding</p>
 <pre><code>行  HTTP/1.1 200 OK
 头  Content-type: text/html;charset=utf-8  表示请求体内容的类型
@@ -647,7 +647,7 @@ axios.get(&#39;/server&#39;,&#123;
 <p>在同源情况下的请求中 url 可不用加协议、域名、端口（浏览器会自动加上），可简写为 <code>/xxx</code></p>
 <h2 id="2、跨域的解决方案"><a href="#2、跨域的解决方案" class="headerlink" title="2、跨域的解决方案"></a>2、跨域的解决方案</h2><h3 id="（1）JSONP"><a href="#（1）JSONP" class="headerlink" title="（1）JSONP"></a>（1）JSONP</h3><p>JSONP（JSON with Padding）是一个非官方的跨域解决方案，只支持 get 请求</p>
 <h4 id="JSONP-如何工作"><a href="#JSONP-如何工作" class="headerlink" title="JSONP 如何工作"></a>JSONP 如何工作</h4><p>在网页有一些标签天生具有跨域能力，如 img、link、iframe、script</p>
-<p>JSONP 就是利用 script 标签的跨域能力来发送请求的</p>
+<p>JSONP 就是利用 script 标签的跨域能力来发送请求的，script 标签发送的是普通的 http 请求而非 ajax 请求，因此可以跨域</p>
 <p>JSONP 的返回结果是一个定义好的函数的调用（即 js 代码，不能是字符串等数据），这样浏览器引擎才能解析并执行，若是自定义函数，需在前端代码中定义好，函数中的参数一般放要返回的数据内容</p>
 <p>前端</p>
 <pre><code>&lt;script&gt;
