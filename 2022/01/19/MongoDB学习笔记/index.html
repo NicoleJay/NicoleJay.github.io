@@ -23,15 +23,19 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"nicolejay.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
+<meta name="description" content="一、数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MongoDB学习笔记">
 <meta property="og:url" content="http://nicolejay.github.io/2022/01/19/MongoDB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="X 的笔记">
+<meta property="og:description" content="一、数据库">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://nicolejay.github.io/2022/01/19/MongoDB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9B%86%E5%90%88%E6%96%87%E6%A1%A3.png">
 <meta property="article:published_time" content="2022-01-19T09:26:23.000Z">
-<meta property="article:modified_time" content="2022-01-19T09:26:23.436Z">
+<meta property="article:modified_time" content="2022-01-24T14:36:43.944Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://nicolejay.github.io/2022/01/19/MongoDB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9B%86%E5%90%88%E6%96%87%E6%A1%A3.png">
 
 
 <link rel="canonical" href="http://nicolejay.github.io/2022/01/19/MongoDB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
@@ -170,7 +174,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -183,6 +187,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">一、数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">数据库分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%81%E9%9B%86%E5%90%88%E3%80%81%E6%96%87%E6%A1%A3"><span class="nav-number">1.2.</span> <span class="nav-text">数据库、集合、文档</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.2.1.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E5%90%88"><span class="nav-number">1.2.2.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%A1%A3"><span class="nav-number">1.2.3.</span> <span class="nav-text">文档</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81MongoDB"><span class="nav-number">2.</span> <span class="nav-text">二、MongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E4%B8%8B%E8%BD%BD%E5%92%8C%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">1、下载和安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MongoDB-%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="nav-number">2.1.1.</span> <span class="nav-text">MongoDB 自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">2.2.</span> <span class="nav-text">2、注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4"><span class="nav-number">2.3.</span> <span class="nav-text">3、基本指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%EF%BC%88CRUD%EF%BC%89%E6%93%8D%E4%BD%9C"><span class="nav-number">2.3.1.</span> <span class="nav-text">数据库的增删改查（CRUD）操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%91%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%8F%92%E5%85%A5%E6%96%87%E6%A1%A3"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">向数据库中插入文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">查询文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E6%A1%A3"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">修改文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">2.3.1.4.</span> <span class="nav-text">删除</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E6%96%87%E6%A1%A3%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.4.</span> <span class="nav-text">3、文档间的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%AF%B9%E4%B8%80%EF%BC%88one-to-one%EF%BC%89"><span class="nav-number">2.4.1.</span> <span class="nav-text">一对一（one to one）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%AF%B9%E5%A4%9A%EF%BC%88one-to-many%EF%BC%89-%E5%A4%9A%E5%AF%B9%E4%B8%80%EF%BC%88many-to-one%EF%BC%89"><span class="nav-number">2.4.2.</span> <span class="nav-text">一对多（one to many）&#x2F; 多对一（many to one）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%AF%B9%E5%A4%9A%EF%BC%88many-to-many%EF%BC%89"><span class="nav-number">2.4.3.</span> <span class="nav-text">多对多（many to many）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81sort"><span class="nav-number">2.5.</span> <span class="nav-text">4、sort</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E6%8A%95%E5%BD%B1"><span class="nav-number">2.6.</span> <span class="nav-text">5、投影</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81Mongoose"><span class="nav-number">3.</span> <span class="nav-text">三、Mongoose</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.1.</span> <span class="nav-text">1、介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81Mongoose-%E4%BC%98%E7%82%B9"><span class="nav-number">3.2.</span> <span class="nav-text">2、Mongoose 优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%AE%89%E8%A3%85-Mongoose"><span class="nav-number">3.3.</span> <span class="nav-text">3、安装 Mongoose</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81Mongoose-%E4%B8%AD%E6%96%B0%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.4.</span> <span class="nav-text">4、Mongoose 中新的对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">3.4.1.</span> <span class="nav-text">Model 的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.4.1.2.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9"><span class="nav-number">3.4.1.3.</span> <span class="nav-text">修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4-1"><span class="nav-number">3.4.1.4.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">3.4.1.5.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.4.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Document-%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">3.4.3.</span> <span class="nav-text">Document 中的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.4.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81Mongoose-%E6%A8%A1%E5%9D%97%E5%8C%96"><span class="nav-number">3.5.</span> <span class="nav-text">5、Mongoose 模块化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96-1"><span class="nav-number">4.</span> <span class="nav-text">其他</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -275,6 +280,15 @@
 
       <time title="创建时间：2022-01-19 17:26:23" itemprop="dateCreated datePublished" datetime="2022-01-19T17:26:23+08:00">2022-01-19</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -286,7 +300,413 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <h1 id="一、数据库"><a href="#一、数据库" class="headerlink" title="一、数据库"></a>一、数据库</h1><a id="more"></a>
+
+<p>数据库是按照数据结构来组织、存储和管理数据的仓库</p>
+<p>程序都是在内存中运行的，一旦程序运行结束或计算机断电，程序运行中的数据都会丢失，所以需要将一些程序运行的数据持久化到硬盘中，以确保数据的安全性，而数据库是数据持久化的最佳选择</p>
+<p>数据库包含数据库服务器和数据库客户端：</p>
+<p>— 数据库服务器用来保存数据</p>
+<p>— 数据库客户端用来操作服务器，对数据进行增删改查的操作</p>
+<h2 id="数据库分类"><a href="#数据库分类" class="headerlink" title="数据库分类"></a>数据库分类</h2><p>数据库分为两种：</p>
+<p>— 关系型数据库（RDBMS）</p>
+<p>关系型数据库中全都是表，如 MySQL、Oracle、DB2、SQL Server…</p>
+<p>所有关系型数据库使用 SQL（结构化查询语言）来操作</p>
+<p>关系型数据库每操作一次就要连接一次（因为有事务控制）</p>
+<p>— 非关系型数据库（No SQL ———— Not Only SQL）</p>
+<p>键值对数据库，如 MongoDB（文档数据库）、Redis…</p>
+<p>只需连接一次，连接一次后，除非项目停止服务器关闭，否则连接一般不会断开</p>
+<h2 id="数据库、集合、文档"><a href="#数据库、集合、文档" class="headerlink" title="数据库、集合、文档"></a>数据库、集合、文档</h2><p><img src="/2022/01/19/MongoDB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9B%86%E5%90%88%E6%96%87%E6%A1%A3.png" alt="数据库集合文档"></p>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p>数据库是一个仓库，仓库中可以存放集合</p>
+<p>一个数据库服务器中可以有多个数据库</p>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>集合类似于数组，集合就是一组文档，集合是用来存放文档的</p>
+<p>集合中存储的文档可以是各种各样的，没有格式要求</p>
+<h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><p>文档是文档数据库中的最小单位，我们存储和操作的内容都是文档</p>
+<p>文档类似于 JS 中的对象，在 MongoDB 中每一条数据都是一个文档</p>
+<h1 id="二、MongoDB"><a href="#二、MongoDB" class="headerlink" title="二、MongoDB"></a>二、MongoDB</h1><p>MongoDB 是为快速开发互联网 Web 应用而设计的数据库系统</p>
+<p>MongoDB 的设计目标是极简、灵活、作为 Web 应用栈的一部分</p>
+<p>MongoDB 的数据模型是面向文档的，所谓文档是一种类似于 JSON 的结构，MongoDB 中存的是 JSON 和 二进制数据（BSON）</p>
+<p>MongoDB 版本中偶数版为稳定版，奇数版为开发版，MongoDB 对 32 位系统支持不佳，在 3.2 版本后没有再对 32 位系统的支持</p>
+<h2 id="1、下载和安装"><a href="#1、下载和安装" class="headerlink" title="1、下载和安装"></a>1、下载和安装</h2><p>（1）在官网下载并安装 –&gt; </p>
+<p>（2）配置环境变量（添加安装包的 bin 目录到 path 中） –&gt; </p>
+<p>（3）在磁盘创建 data/db 文件夹 –&gt;</p>
+<p>（4）在命令行输入 <code>mongod</code> 启动数据库服务器（32 位第一次启动需输入 <code>mongod --storageEngine=mmapvl</code>） –&gt;</p>
+<p>（5）在命令行输入 <code>mongo</code> 启动数据库客户端连接 mongodb</p>
+<p>也可通过 <code>mongod --dbpath 路径 --port 端口号</code> 指定 data/db 文件夹路径和端口</p>
+<h3 id="MongoDB-自启动"><a href="#MongoDB-自启动" class="headerlink" title="MongoDB 自启动"></a>MongoDB 自启动</h3><p>将 MongoDB 设置为系统服务，可以自动在后台启动，无需每次手动启动</p>
+<p>（1）创建 data/db 和 data/log 文件夹</p>
+<p>（2）在安装路径 xxx\MongoDB\Server\x.x 下新建文件 mongod.cfg，在文件中添加如下内容</p>
+<pre><code>systemLog:
+    destination: file
+    path: xxx\data\log\mongod.log
+storage:
+    dbPath: xxx\data\db</code></pre>
+<p>（3）以管理员身份打开命令行，执行</p>
+<pre><code>sc.exe create MongoDB binPath=&quot;\&quot;xxxx\MongoDB\Server\x.x\bin\mongod.exe\&quot; --service --config=\&quot;xxx\MongoDB\Server\x.x\mongod.cfg\&quot;&quot; DisplayName=&quot;MongoDB&quot; start=&quot;auto&quot;</code></pre>
+<p>（4）在任务管理启动右键 “MongoDB” 点击 “启动”</p>
+<p>注意若启动失败，在命令行输入 <code>sc delete MongoDB</code> 删除之前配置的服务，从第一步再来一遍</p>
+<h2 id="2、注意事项"><a href="#2、注意事项" class="headerlink" title="2、注意事项"></a>2、注意事项</h2><p>在 MongoDB 中，数据库和集合都不需要手动创建，当创建文档时，若文档所在的集合或数据库不存在会自动创建数据库和集合</p>
+<p>所以在 MongoDB 中，即使数据库不存在也能使用 use 指令进入数据库，当向该数据库中插入第一条文档时会自动创建该数据库和集合</p>
+<p>MongoDB 的文档的属性值也可以是一个文档，当一个文档的属性值为一个文档时，称属性值的这个文档为内嵌文档</p>
+<h2 id="3、基本指令"><a href="#3、基本指令" class="headerlink" title="3、基本指令"></a>3、基本指令</h2><p><code>show dbs</code> 或 <code>show databases</code> 显示所有数据库</p>
+<p><code>use 数据库名</code> 进入指定数据库</p>
+<p><code>db</code> 显示当前所处的数据库</p>
+<p><code>show collections</code> 显示数据库中所有的集合</p>
+<h3 id="数据库的增删改查（CRUD）操作"><a href="#数据库的增删改查（CRUD）操作" class="headerlink" title="数据库的增删改查（CRUD）操作"></a>数据库的增删改查（CRUD）操作</h3><h4 id="向数据库中插入文档"><a href="#向数据库中插入文档" class="headerlink" title="向数据库中插入文档"></a>向数据库中插入文档</h4><p><code>db.集合名.insert(doc)</code> 向集合中插入一个或多个文档，db 即可表示当前数据库，当向集合中插入文档时，若没有给文档指定 _id 属性，则数据库会自动为文档添加 _id，该属性是根据时间戳生成，作为文档的唯一标识，若自己指定 _id 也要确保唯一性</p>
+<pre><code>向 test 数据库 stus 集合中插入一个新的对象
+use test
+db.stus.insert(&#123;name:&quot;xxx&quot;,age:18,gende:&quot;female&quot;,hobby:&#123;movies:[&#39;hero&#39;,&#39;xxxxx&#39;]&#125;&#125;);
+db.stus.insert([
+    &#123;name:&quot;xxx&quot;,age:18,gende:&quot;female&quot;&#125;,
+    &#123;name:&quot;xxx1&quot;,age:18,gende:&quot;male&quot;&#125;
+]);
+db.stus.insert(&#123;_id:&quot;hello&quot;,name:&quot;xxx&quot;,age:18,gende:&quot;female&quot;&#125;);</code></pre>
+<p><code>db.集合名.insertOne(doc)</code> 插入一个文档对象</p>
+<p><code>db.集合名.insertMany(doc)</code> 插入多个文档对象  </p>
+<h4 id="查询文档"><a href="#查询文档" class="headerlink" title="查询文档"></a>查询文档</h4><p><code>db.集合名.find(&#123;字段名1:值,字段名2:值&#125;)</code> 查询当前集合中的所有符合条件的文档，也可不传参或对象为空表示查询集合中所有文档，返回数组</p>
+<pre><code>db.stus.find(&#123;_id:&quot;hello&quot;&#125;)</code></pre>
+<p><code>db.集合名.find(&#123;&#125;).count()</code> 查询所有结果的数量</p>
+<p><code>db.集合名.findOne(&#123;字段名1:值,字段名2:值&#125;)</code> 查询当前集合中符合条件的第一个文档，返回的是一个文档对象</p>
+<p>MongoDB 支持直接通过内嵌文档的属性进行查询，通过 <code>&quot;xxx.xxx&quot;:&#39;xxx&#39;</code> 查询内嵌文档，但属性名必须使用引号，若要查询的是内嵌文档中数组的某个元素也可直接使用 <code>:&quot;xxx&quot;</code> 查询数组中是否存在该元素</p>
+<pre><code>查询喜欢 hero 电影的人
+db.stus.find(&#123;&quot;hobby.movies&quot;:&quot;hero&quot;&#125;)</code></pre>
+<p>查询的相关操作符：</p>
+<pre><code>$eq 等于
+$gt 大于
+$gte 大于等于
+$lt 小于
+$lte 小于等于
+$or:[&#123;&#125;,&#123;&#125;] 或
+.limit(条数)  设置显示数据的上限
+.skip(条数)  跳过指定数量的数据
+.skip((页码-1)*每页显示的条数).limit(每页显示的条数)  显示指定数据，顺序无要求，MongoDB 会自动调整 skip 和 limit 位置
+
+db.numbers.find(&#123;num:&#123;$gt:500&#125;&#125;)  查询大于500的文档
+db.numbers.find(&#123;num:&#123;$gt:500, $lt:600&#125;&#125;)  查询大于500小于600的文档
+db.numbers.find(&#123;$or:[&#123;num:&#123;$lt:100&#125;&#125;,&#123;num:&#123;$gt:200&#125;&#125;]&#125;)  查询小于100或大于200的文档
+db.numbers.find().limit(10)  查询前10条数据
+db.numbers.find().skip(10).limit(10)  查询前11-20条数据</code></pre>
+<h4 id="修改文档"><a href="#修改文档" class="headerlink" title="修改文档"></a>修改文档</h4><p><code>db.集合名.update(查询条件,新对象)</code> 默认会使用新对象替换旧对象，并且只会修改第一个符合条件的文档，若需要修改指定的属性而不是替换则需要使用修改操作符，如 </p>
+<pre><code>$set 来完成修改文档中指定属性
+$unset 用来删除文档中指定属性
+$push 用于向数组中添加一个新的元素
+$addToSet 向数组中添加一个新的元素，若数组中已存在该元素，则不会添加
+$inc 在原来的数据上自增</code></pre>
+<p><code>db.集合名.update(查询条件,新对象,&#123;multi:true&#125;)</code> 修改多个符合条件的文档</p>
+<pre><code>db.stuts.update(
+    &#123;_id:&quot;hello&quot;&#125;,
+    &#123;
+        $set:&#123;
+            gender:&quot;女&quot;,
+            address:&quot;xxxxx&quot;
+        &#125;
+    &#125;
+);
+
+db.stuts.update(
+    &#123;_id:&quot;hello&quot;&#125;,
+    &#123;
+        $unset:&#123;
+            address:1
+        &#125;
+    &#125;
+);
+注意要删除的属性值写啥无所谓
+
+db.stuts.update(
+    &#123;name:&quot;xxx&quot;&#125;,
+    &#123;
+        $push:&#123;
+            &quot;hobby.movies&quot;:&quot;1111&quot;
+        &#125;
+    &#125;
+);
+
+db.emp.updataMany(&#123;sal:&#123;$lte:1000&#125;&#125;,&#123;$inc:&#123;sal:400&#125;&#125;); 给薪资低于1000的员工增加400元</code></pre>
+<p><code>db.集合名.updateOne(查询条件,新对象)</code> 修改一个符合条件的文档</p>
+<p><code>db.集合名.updateMany(查询条件,新对象)</code> 修改多个符合条件的文档</p>
+<p><code>db.集合名.replaceOne(查询条件,新对象)</code> 替换一个文档</p>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><p><strong>注意：删除属性依然使用 update</strong></p>
+<p><code>db.集合名.remove(查询条件)</code> 根据条件删除符合条件的所有文档，传递条件的方式和 find 一样，若第二个参数传递一个 true 则只会删除第一个符合条件的文档</p>
+<pre><code>db.stuts.remove(&#123;_id:&quot;hello&quot;&#125;,true);</code></pre>
+<p><code>db.集合名.deleteOne(查询条件,新对象)</code></p>
+<p><code>db.集合名.deleteMany(查询条件,新对象)</code></p>
+<p><code>db.集合名.remove(&#123;&#125;)</code> 清空集合，集合还在，但性能略差（因为先匹配然后一个个删） </p>
+<p><code>db.集合名.drop()</code> 删除集合，若数据库中只有一个集合，则删除该集合后数据库也会自动删除</p>
+<p><code>db.dropDatabase()</code> 删除数据库</p>
+<h2 id="3、文档间的关系"><a href="#3、文档间的关系" class="headerlink" title="3、文档间的关系"></a>3、文档间的关系</h2><h3 id="一对一（one-to-one）"><a href="#一对一（one-to-one）" class="headerlink" title="一对一（one to one）"></a>一对一（one to one）</h3><p>MongoDB 中可通过内嵌文档的形式体现一对一的关系</p>
+<pre><code>db.wifeAndHusband.insert([
+    &#123;
+        name:&#39;xx&#39;,
+        husband:&#123;
+            name;&#39;xxx&#39;
+        &#125;
+    &#125;
+])</code></pre>
+<h3 id="一对多（one-to-many）-多对一（many-to-one）"><a href="#一对多（one-to-many）-多对一（many-to-one）" class="headerlink" title="一对多（one to many）/ 多对一（many to one）"></a>一对多（one to many）/ 多对一（many to one）</h3><p>也可通过内嵌文档的形式体现一对多的关系（使用数组）</p>
+<pre><code>db.users.insert([
+    &#123;
+        username:&#39;xx&#39;
+    &#125;,&#123;
+        username:&#39;xx1&#39;
+    &#125;
+])
+db.order.insert(&#123;
+    list:[&quot;aa&quot;,&quot;bb&quot;,&quot;cc&quot;],
+    user_id:ObjectId(&quot;xxxxxxxxxxxxxxxxx&quot;)
+&#125;)
+var user_id = db.users.findOne(&#123;username:&quot;xx&quot;&#125;)._id
+db.order.find(&#123;user_id:user_id&#125;);</code></pre>
+<h3 id="多对多（many-to-many）"><a href="#多对多（many-to-many）" class="headerlink" title="多对多（many to many）"></a>多对多（many to many）</h3><pre><code>db.teachers.insert([
+    &#123;name:&#39;aaa&#39;&#125;,
+    &#123;name:&#39;bbb&#39;&#125;,
+    &#123;name:&#39;ccc&#39;&#125;,
+])
+db.stus.insert([
+    &#123;
+        name:&#39;ddd&#39;,
+        teach_ids:[
+            ObjectId(&quot;xxxxxxxxxxxx&quot;),
+            ObjectId(&quot;xxxxxxxxxxxx&quot;)
+        ]
+    &#125;,
+    &#123;
+        name:&#39;eee&#39;,
+        teach_ids:[
+            ObjectId(&quot;xxxxxxxxxxxx&quot;),
+            ObjectId(&quot;xxxxxxxxxxxx&quot;)
+        ]
+    &#125;
+])</code></pre>
+<h2 id="4、sort"><a href="#4、sort" class="headerlink" title="4、sort"></a>4、sort</h2><p>查询文档时默认是按照 _id 的值进行排列（升序）</p>
+<p><code>sort(&#123;对象&#125;)</code> 可以用来指定文档的排序规则，需要传递一个对象来指定排序规则，1 表示升序，-1 表示降序</p>
+<pre><code>db.emp.find(&#123;&#125;).sort(&#123;sal:1&#125;);  按 sal 字段升序排列
+db.emp.find(&#123;&#125;).sort(&#123;sal:1,empno:-1&#125;);  先按 sal 字段升序再按 empno 降序排列</code></pre>
+<p>limit、skip、sort 可以以任意顺序进行调用，都会自动先调用 sort</p>
+<h2 id="5、投影"><a href="#5、投影" class="headerlink" title="5、投影"></a>5、投影</h2><p>在查询时可以在第二个参数设置查询结果的投影，默认都会显示 _id</p>
+<pre><code>db.emp.find(&#123;&#125;,&#123;ename:1&#125;)  会显示 _id 和 ename
+db.emp.find(&#123;&#125;,&#123;ename:1, _id:0&#125;)  只显示 ename
+db.emp.find(&#123;&#125;,&#123;ename:1, _id:0, sal:1&#125;)  显示 ename 和 sal</code></pre>
+<h1 id="三、Mongoose"><a href="#三、Mongoose" class="headerlink" title="三、Mongoose"></a>三、Mongoose</h1><h2 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h2><p>之前都是通过 shell 来完成对数据库的操作，在开发中大部分时候都需要通过程序来完成对数据库的操作</p>
+<p>Mongoose 是一个 Node 中的模块，让我们可以通过 Node 来操作 MongoDB 数据库</p>
+<p>Mongoose 是一个对象文档模型（ODM）库，Node 原生的 MongoDB 模块也可以操作 MongoDB 数据库，Mongoose 对 Node 原生的 MongoDB 模块进行进一步优化封装，并提供了更多的功能</p>
+<p>在大多数情况下，它被用来把结构化的模式应用到一个 MongoDB 集合，并提供了验证和类型转换等好处</p>
+<h2 id="2、Mongoose-优点"><a href="#2、Mongoose-优点" class="headerlink" title="2、Mongoose 优点"></a>2、Mongoose 优点</h2><p>（1）可以为文档创建一个模式结构（Schema，即约束），如必须要几个字段、字段类型等</p>
+<p>（2）可以对模型中的对象/文档进行验证（因为有约束）</p>
+<p>（3）数据可通过类型转换转换为对象模型（因为有约束）</p>
+<p>（4）可使用中间件来应用业务逻辑挂钩</p>
+<p>（5）比 Node 原生的 MongoDB 驱动更容易</p>
+<h2 id="3、安装-Mongoose"><a href="#3、安装-Mongoose" class="headerlink" title="3、安装 Mongoose"></a>3、安装 Mongoose</h2><p>（1）下载安装 Mongoose</p>
+<pre><code>npm -i mongoose --save</code></pre>
+<p>（2）项目中引入 mongoose</p>
+<pre><code>const mongoose = require(&quot;mongoose&quot;);</code></pre>
+<p>（3）连接 MongoDB 数据库，可在<a target="_blank" rel="noopener" href="https://mongoosejs.com/">官网</a>查看方法</p>
+<pre><code>mongoose.connect(&#39;mongodb://数据库ip地址:端口号/数据库名&#39;);  端口号默认是 27017</code></pre>
+<p>在 mongoose 对象中有个属性 connection，该对象表示的就是数据库连接，通过监该对象的状态可以来</p>
+<p>一旦连接了 MongoDB 数据库后，底层的 Connection 对象就可以通过 mongoose 模块的 connection 属性来访问</p>
+<p>connection 对象就是数据库连接的抽象，它提供了对象连接、底层的 Db 对象和表示结合的 Model 对象的访问</p>
+<p>并可对 connection 对象上的事件进行监听，来获悉数据库连接的开始与断开，如通过 open 和 close 事件来监控连接的打开和关闭</p>
+<pre><code>数据库连接成功的事件
+mongoose.connection.once(&quot;open&quot;,function()&#123;&#125;);
+数据库断开的事件
+mongoose.connection.once(&quot;close&quot;,function()&#123;&#125;);</code></pre>
+<p>（4）断开连接（一般不需要）</p>
+<pre><code>mongoose.disconnect();</code></pre>
+<p>MongoDB 数据库一般情况下只需连接一次，连接一次后，除非项目停止服务器关闭，否则连接一般不会断开</p>
+<h2 id="4、Mongoose-中新的对象"><a href="#4、Mongoose-中新的对象" class="headerlink" title="4、Mongoose 中新的对象"></a>4、Mongoose 中新的对象</h2><p>（1）Schema（模式对象）</p>
+<p>Schema 对象定义约束了数据库中的文档结构，如文档中有几个字段，哪些必须哪些可选等</p>
+<p>（2）Model</p>
+<p>Model 对象作为集合中的所有文档的表示，相当于 MongoDB 数据库中的集合 collection</p>
+<p>通过 Schema 来创建 Model，Model 代表的是数据库中的集合，通过 Model 才能对数据库进行操作</p>
+<pre><code>mongoose.model(要映射的集合名, 模式)</code></pre>
+<p>注意：mongoose 会自动将集合名变成复数，即“要映射的集合名”中若为单数，在数据库中创建的集合会自动变为复数</p>
+<p>（3）Document</p>
+<p>Document 表示集合中的具体文档，相当于集合中的一个具体的文档</p>
+<pre><code>模型.create(文档对象,function(err)&#123;&#125;)</code></pre>
+<p>注意：三者有顺序要求，先有 Schema 再有 Model 再有 Document</p>
+<h3 id="Model-的方法"><a href="#Model-的方法" class="headerlink" title="Model 的方法"></a>Model 的方法</h3><p>有了 Model 就可以对数据库进行增删改查操作</p>
+<h4 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h4><p><code>Model.create(doc(s), [callback])</code> 用创建一个或多个文档并添加到数据库中</p>
+<pre><code>参数：
+    -doc(s) 可以是一个文档对象，也可以是一个文档对象的数组
+    -callback 当操作完成后调用的回调函数</code></pre>
+<h4 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h4><p><code>Model.find(conditions, [projection], [options], [callback])</code> 查询所有符合条件的文档，返回数组</p>
+<p><code>Model.findById(id, [projection], [options], [callback])</code> 根据文档的 id 属性查询文档，返回一个具体的文档对象</p>
+<p><code>Model.findOne([conditions], [projection], [options], [callback])</code> 查询符合条件的第一个文档，返回一个具体的文档对象</p>
+<pre><code>参数
+    -conditions 查询的条件
+    -projection 投影（需要获取到的字段）
+        -例：显示字段1，不显示字段2
+        -方式一：&#123;字段1:1,字段2;0&#125;
+        -方式二：&quot;字段1 -字段2&quot;
+    -options 查询选项（skip、limit）
+    -callback 回调函数，查询结果通过回调函数返回，一般回调函数必须传，若不传就不会查询。回调函数的第一个参数是错误，第二个参数就是查询到的数据</code></pre>
+<p>find 查询返回的结果就是 Document 文档对象，<strong>Document 对象就是 Model 的实例</strong></p>
+<h4 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h4><p><code>Model.update(conditions, doc, [options], [callback])</code> 修改一个或多个文档</p>
+<p><code>Model.updateMany(conditions, doc, [options], [callback])</code></p>
+<p><code>Model.updateOne(conditions, doc, [options], [callback])</code></p>
+<p><code>Model.replaceOne(conditions, doc, [options], [callback])</code></p>
+<pre><code>参数：
+    -conditions 查询条件
+    -doc 修改后的对象
+    -options 配置参数，如 &#123;multi:true&#125; 一次修改多个
+    -callback 回调函数</code></pre>
+<h4 id="删除-1"><a href="#删除-1" class="headerlink" title="删除"></a>删除</h4><p><code>Model.remove(conditions, [callback])</code></p>
+<p><code>Model.deleteMany(conditions, [callback])</code></p>
+<p><code>Model.deleteOne(conditions, [callback])</code></p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p><code>Model.count(conditions, [callback])</code> 统计文档数量</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><pre><code>//连接数据库
+const mongoose = require(&quot;mongoose&quot;);
+mongoose.connect(&#39;mongodb://127.0.0.1:27017/test&#39;);
+
+var Schema = mongoose.Schema;
+//创建 Schema（模式）对象
+var stuSchema = new Schema(&#123;
+  name:  Number,
+  gender: &#123;
+        type:String,
+        default:&quot;female&quot;
+    &#125;,
+  address: String,
+&#125;);
+//通过 Schema 来创建 Model
+var StuModel = mongoose.model(&#39;students&#39;, stuSchema);
+//向数据库中插入一个文档
+StuModel.create(&#123;
+    name:&quot;xxx&quot;,
+    age:18,
+    gender:&quot;male&quot;,
+    address:&quot;ddddd&quot;
+&#125;,function(err)&#123;
+    if(!err)&#123;
+        console.log(&quot;插入成功&quot;)
+    &#125;
+&#125;);
+//查询
+StuModel.find(&#123;name:&#39;xxx&#39;&#125;,&quot;name -_id&quot;, &#123;skip:2,limit:!&#125;,function(err,docs)&#123;  
+//&quot;name -_id&quot;相当于 &#123;name:1,_id:0&#125; ，表示查询 name，不显示 _id（默认会显示 _id）
+    if(!err)&#123;
+        console.log(docs);
+    &#125;
+&#125;);
+StuModel.findById(&quot;_id的值&quot;,function(err,doc)&#123;  
+    if(!err)&#123;
+        console.log(doc);
+    &#125;
+&#125;);
+StuModel.findOne(&#123;&#125;,function(err,doc)&#123;  
+    if(!err)&#123;
+        console.log(doc);
+    &#125;
+&#125;);
+//修改
+StuModel.update(&#123;name:&#39;xxx&#39;&#125;,&#123;$set:&#123;age:20&#125;&#125;,&#123;multi:true&#125;,function()&#123;
+    if(!err)&#123;
+        console.log(&quot;修改成功&quot;);
+    &#125;
+&#125;)
+//删除
+StuModel.remove(&#123;name:&#39;xxx&#39;&#125;,function(err)&#123;
+    if(!err)&#123;
+        console.log(&quot;删除成功&quot;);
+    &#125;
+&#125;)
+//统计文档数量
+StuModel.count(&#123;&#125;,function(err,count)&#123;
+    if(!err)&#123;
+        console.log(count);
+    &#125;
+&#125;)</code></pre>
+<h3 id="Document-中的方法"><a href="#Document-中的方法" class="headerlink" title="Document 中的方法"></a>Document 中的方法</h3><p>Document 和集合中的文档一一对应，Document 是 Model 的实例，通过 Model 查询到的结果都是 Document</p>
+<p>因此可以通过 Model 的构造函数 <code>new Model对象</code> 来创建一个 Document 对象</p>
+<p><code>Model#save([options], [options.safe], [options.validateBeforeSave], [fn])</code> 将文档插入数据库中</p>
+<p><code>Document对象.update(修改内容,[options],[callback])</code> 修改对象</p>
+<p><code>Document对象.remove([callback])</code> 删除对象</p>
+<p><code>Document对象.get(属性)</code> 或 <code>Document对象.属性</code> 获取文档中的指定属性值</p>
+<p><code>Document对象.set(属性名,新属性值)</code> 设置文档中的指定属性值</p>
+<p><code>Document对象.id</code> 获取文档的 _id 属性值</p>
+<p><code>Document对象.equal(doc)</code> 比较两个文档是否相同</p>
+<p><code>Document对象.isNew</code> 是否为一个新的文档，即是否存入，是布尔值</p>
+<p><code>isInit(path)</code> 属性是否初始化</p>
+<p><code>toJSON()</code> 转换为一个 JSON 对象</p>
+<p><code>toObject()</code> 将 Document 对象转换为一个普通的 JS 对象，转换后所有的 Document 对象的方法或属性都不能使用了</p>
+<pre><code>//创建一个 Document，但并没有插入数据库中
+var stu = new StuModel(&#123;
+    name:&quot;xxx1&quot;,
+    age:12,
+    gender:&quot;female&quot;,
+    address:&quot;ddddd&quot;
+&#125;)
+//将上面的文档插入数据库中
+stu.save(function(err)&#123;
+    if(!err)&#123;
+        console.log(&quot;保存成功&quot;)
+    &#125;
+&#125;)
+//
+StuModel.findOne(&#123;&#125;,function(err,doc)&#123;  
+    if(!err)&#123;
+        //修改方式一
+        doc.update(&#123;$set:&#123;age:28&#125;&#125;,function(err)&#123;
+            if(!err)&#123;
+                console.log(&quot;修改成功&quot;)
+            &#125;
+        &#125;)
+        //修改方式二
+        doc.age = 18;
+        doc.save();
+        //删除
+        doc.remove(function(err)&#123;
+            if(!err)&#123;
+                console.log(&quot;删除成功&quot;)
+            &#125;
+        &#125;
+        console.log(doc.get(&quot;age&quot;));  //相当于doc.age
+        doc.set(&quot;name&quot;,&quot;aaa&quot;);  //相当于doc.name=&quot;aaa&quot;
+        doc.save();
+        console.log(doc.id);  //相当于doc._id
+    &#125;
+&#125;);</code></pre>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>向数据库中添加数据可以使用 <code>Model.create</code> 或 <code>Model#save</code>（# 表示是 Model 实例对象的方法）</p>
+<h2 id="5、Mongoose-模块化"><a href="#5、Mongoose-模块化" class="headerlink" title="5、Mongoose 模块化"></a>5、Mongoose 模块化</h2><p>（1）定义一个模块（如 conn_mongo.js），用来连接 MongoDB 数据库</p>
+<pre><code>var mongoose = require(&quot;mongoose&quot;);
+mongoose.connect(&quot;mongodb://127.0.0.1/test&quot;);
+mongoose.connection.once(&quot;open&quot;,function()&#123;
+    console.log(&quot;数据库连接成功&quot;);
+&#125;);</code></pre>
+<p>（2）定义模型对象（如 student.js）</p>
+<pre><code>var mongoose = require(&quot;mongoose&quot;);
+var Schema = mongoose.Schema;
+var stuSchema = new Schema(&#123;
+  name:  Number,
+  gender: &#123;
+        type:String,
+        default:&quot;female&quot;
+    &#125;,
+  address: String,
+&#125;);
+//定义模型
+var StuModel = mongoose.model(&#39;students&#39;, stuSchema);
+//暴露方式一
+exports.model = StuModel;
+//暴露方式二：module.exports = StuModel;</code></pre>
+<p>（3）使用</p>
+<pre><code>require(&quot;./conn_mongo&quot;);
+var Student = require(&quot;./student&quot;).model; //使用方式一暴露时
+//使用方式一暴露时：var Student = require(&quot;./student&quot;);
+//两种方式引入后，Student 就是表示模型对象</code></pre>
+<h1 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h1><p>1、数据库相关操作速度较慢，应尽量少用数据库操作相关语句，在操作数据库前将数据整理好，如插入 20000 条数据</p>
+<p>方式一：</p>
+<pre><code>for(var i=1; i&lt;=20000; i++)&#123;
+    db.numbers.insert(&#123;num:i&#125;);
+&#125;
+执行 7.2s</code></pre>
+<p>方式二：</p>
+<pre><code>var arr = [];
+for(var i=1; i&lt;=20000; i++)&#123;
+    arr.push(&#123;num:i&#125;);
+&#125;
+db.numbers.insert(arr);
+执行 0.4s</code></pre>
+
     </div>
 
     
