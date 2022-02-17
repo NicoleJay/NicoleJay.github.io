@@ -9698,6 +9698,511 @@ cache: &#123;
   <entry>
     <title>TypeScript学习笔记</title>
     <url>/2022/02/13/TypeScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="一、TypeScript-是什么"><a href="#一、TypeScript-是什么" class="headerlink" title="一、TypeScript 是什么"></a>一、TypeScript 是什么</h1><p>TypeScript 以 JavaScript 为基础构建的语言，是一个 JavaScript 的超集</p>
+<a id="more"></a>
+
+<p>TypeScript 完全支持 JavaScript，并进行扩展，添加了类型</p>
+<p>TypeScript 可在任何支持 JavaScript 的平台中执行</p>
+<p>但 TypeScript 不能被 JavaScript 解析器直接执行，需要将 TypeScript 编译为 JavaScript</p>
+<p>一般大型项目使用 TypeScript，相比 JavaScript，更易于维护（因为变量有类型了）</p>
+<h1 id="二、TypeScript-增加了什么"><a href="#二、TypeScript-增加了什么" class="headerlink" title="二、TypeScript 增加了什么"></a>二、TypeScript 增加了什么</h1><p>（1）类型</p>
+<p>（2）支持 ES 的新特性</p>
+<p>（3）添加 ES 不具备的新特性，如抽象类、接口等</p>
+<p>（4）丰富的配置选项（可被编译成任意版本的 JS）</p>
+<p>（5）强大的开发工具</p>
+<h1 id="三、TypeScript-开发环境搭建"><a href="#三、TypeScript-开发环境搭建" class="headerlink" title="三、TypeScript 开发环境搭建"></a>三、TypeScript 开发环境搭建</h1><p>（1）下载并安装 Node.js</p>
+<p>（2）使用 npm 全局安装 TypeScript 解析器</p>
+<pre><code>npm i -g typescript</code></pre>
+<p>（3）编写 ts 文件</p>
+<p>（4）进入 ts 文件所在目录，使用 tsc 对 ts 文件进行编译</p>
+<pre><code>tsc xxx.ts</code></pre>
+<h1 id="四、TypeScript-类型"><a href="#四、TypeScript-类型" class="headerlink" title="四、TypeScript 类型"></a>四、TypeScript 类型</h1><h2 id="类型声明"><a href="#类型声明" class="headerlink" title="类型声明"></a>类型声明</h2><p>类型声明是 TS 非常重要的一个特点</p>
+<p>通过类型声明可指定 TS 中变量（参数<br>形参）的类型</p>
+<p>指定类型后，当为变量复制时，TS 编译器会自动检查值是否符合类型声明，符合则赋值，否则报错</p>
+<p>语法：</p>
+<pre><code>let 变量: 类型;
+let 变量: 类型 = 值;
+(形参: 类型, 形参: 类型, ...) =&gt; 返回值类型
+function fn(参数: 类型, 参数: 类型): 返回值类型&#123;...&#125;
+fn(参数: 赋值, 参数: 赋4值)</code></pre>
+<h2 id="自动类型判断"><a href="#自动类型判断" class="headerlink" title="自动类型判断"></a>自动类型判断</h2><p>TS 拥有自动类型判断机制</p>
+<p>当对变量的声明和赋值是同时进行的，TS 编译器会自动判断变量的类型，所以若变量的声明和赋值同时进行的，可省略类型声明</p>
+<h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><p>number：任意数字</p>
+<p>string：任意字符串</p>
+<p>boolean：布尔值</p>
+<p>字面量：限制变量的值就是该字面量的值，如 <code>let a: 10;</code>，<code>let b: &quot;mail&quot; | &quot;female&quot;</code>，<code>let c: boolean | string</code></p>
+<p>any：任意类型，一个变量设置类型为 any 后相当于对改变了关闭了 TS 的类型检测，</p>
+<pre><code>若声明变量不指定类型，则 TS 解析器会自动判断变量类型为 any（隐式的 any）
+let d: any; //或 let d;
+d = 10;
+d = &#39;a&#39;;
+d = true
+
+any 类型可赋值给任意变量
+let s: string;
+s = d; //不报错</code></pre>
+<p>unknown：类型安全的 any，unknown 类型不能直接赋值给其他类型变量</p>
+<pre><code>let e: unknown;
+e = 10;
+e = &#39;a&#39;;
+e = true
+
+unknown 类型不能赋值给其他类型变量
+let s: string;
+s = e; //报错
+if(typeof e === &quot;string&quot;)&#123;
+    s = e;  //不报错
+&#125;
+s = e as string;  //不报错，通过类型断言（用来告诉解析器变量的实际类型）后可赋值
+//或
+s = &lt;string&gt;e;  //类型断言的另一种写法</code></pre>
+<p>void：没有值（或 undefined、null），以函数为例，表示没有返回值的函数</p>
+<p>never：不能是任何值，表示永远不会返回结果（连空都不是），可用于函数报错</p>
+<pre><code>function fn():never&#123;
+    throw new Error(&#39;报错&#39;);
+&#125;</code></pre>
+<p>object：任意的 JS 对象，<code>&#123;&#125;</code> 用来指定对象中可以包含哪些属性，在属性后加上？，<code>属性？</code>表示属性是可选的；</p>
+<pre><code>let a: object;
+let b: &#123;name: string&#125;;  //只能有个 name 属性
+let c: &#123;name: tring, age?: number&#125;; //必须有 name 属性，age 属性可有可无
+let d: &#123;name: string, [propName: string]: any&#125;;  //对象中需要有 name 属性，其他属性不一定，[propName: string]: any 表示任意类型的属性
+let k:&#123;name: string&#125; &amp; &#123;age: number&#125;; //对象需要同时有 name 和 age 属性</code></pre>
+<p>array：任意 JS 数组，方式一 <code>类型[]</code>，方式二 <code>Array&lt;类型&gt;</code></p>
+<pre><code>let e: string[]; //字符串数组
+let g: Array&lt;number&gt;; //数字数组，相当于 let g: number[];</code></pre>
+<p>tuple：元组，即固定长度数组，TS 新增类型</p>
+<pre><code>let h: [string, string]; //长度为2
+h = [&#39;a&#39;,&#39;b&#39;];
+let i: [string, number]; //长度为2，第一个元素为字符串，第二个元素为数字</code></pre>
+<p>enum：枚举，TS 中新增类型，如 enum(A,B)</p>
+<pre><code>enum Gender&#123;
+    Male = 0,
+    Female = 1
+&#125;
+let j:&#123;name: string, gender: Gender&#125;
+j = &#123;
+    name:&#39;xx&#39;,
+    gender: Gender.Male
+&#125;
+console.log(j.gender === Gender.Male)</code></pre>
+<p>联合类型：可使用 <code>|</code> 连接多个类型</p>
+<p>函数结构的类型声明：(形参: 类型, 形参: 类型…) =&gt; 返回值类型</p>
+<pre><code>let d: (a:number, b:number) =&gt; number;
+d = function(n1:string, n2:string):number&#123;
+    return 10;
+&#125;</code></pre>
+<p>类型别名：<code>type 别名 = 类型</code></p>
+<pre><code>let myType = string;
+let myType = 1 | 2 | 3 | 4 | 5;
+let m: myType;  //相当于 let m: 1 | 2 | 3 | 4 | 5;</code></pre>
+<p>html 标签：HTMLElement、HTMLCollection</p>
+<h1 id="五、TypeScript-编译选项"><a href="#五、TypeScript-编译选项" class="headerlink" title="五、TypeScript 编译选项"></a>五、TypeScript 编译选项</h1><h2 id="自动编译文件"><a href="#自动编译文件" class="headerlink" title="自动编译文件"></a>自动编译文件</h2><p>编译文件时，使用 -w 指令后，TS 编译器会自动监视文件的变化，并在文件发生变化时对文件进行重新编译</p>
+<pre><code>tsc xxx.ts -w</code></pre>
+<h2 id="自动编译整个项目"><a href="#自动编译整个项目" class="headerlink" title="自动编译整个项目"></a>自动编译整个项目</h2><p>直接使用 <code>tsc</code> 或 <code>tsc -w</code> 指令，可自动将当前项目下的所有 ts 文件编译为 js 文件</p>
+<p>但能直接使用 <code>tsc</code> 命令的前提是在项目根目录下创建 ts 编译器的配置文件 tsconfig.json</p>
+<p>tsconfig.json 是一个 JSON 文件，添加配置文件后，只需 tsc 命令即可对整个项目编译</p>
+<p>在 tsconfig.json 中配置选项如下：</p>
+<pre><code> //定义希望被编译文件所在的目录，默认值是 [&quot;**/*&quot;]，** 表示任意目录，* 表示任意文件
+&quot;include&quot;: [
+    &quot;src/**/*&quot;, 
+    &quot;tests/**/*&quot;
+],
+ //定义需要排除在外的目录，默认值 [&quot;node_modules&quot;,&quot;bower_components&quot;,&quot;jspm_packages&quot;]
+&quot;exclude&quot;: [&quot;./src/hello/**/*&quot;],
+//定义被继承的配置文件
+&quot;extends&quot;: &quot;./configs/base&quot;,
+//指定被编译文件的列表，只有需要编译文件少时才会用到
+&quot;files&quot;: [
+    &quot;core.ts&quot;,
+    &quot;sys.ts&quot;,
+    &quot;types.ts&quot;,
+    &quot;scanner.ts&quot;,
+    &quot;parser.ts&quot;,
+    &quot;utilities.ts&quot;,
+    &quot;binder.ts&quot;,
+    &quot;checker.ts&quot;,
+    &quot;tsc.ts&quot;
+],
+//编译器选项 compilerOptions 包含多个子选项，用来完成编译的配置
+&quot;compilerOptions&quot;:&#123;
+    //设置 ts 代码编译为的 ES 版本，可选值有 ES3（默认）、ES5、ES6/ES2015、ES7/ES2016、ES2017、ES2018、ES2019、ES2020、ESNext（表示最新版本 js）
+    &quot;target&quot;: &quot;ES6&quot;,
+
+    //设置编译后代码使用的模块化规范，可选值：CommonJS、UMD、AMD、System、ES2020、ESNext、None
+    &quot;module&quot;: &quot;ES2015&quot;,
+
+    //指定代码运行时所包含的库（宿主环境），默认值是浏览器中运行所需库，一般不需要改，可选值有 ES5、ES6/ES2015、ES7/ES2016、ES2017、ES2018、ES2019、ES2020、ESNext、DOM、WebWorker、ScriptHost...
+    //&quot;lib&quot;: [&quot;ES6&quot;,&quot;DOM&quot;],
+
+    //编译后文件的所在目录，默认编译后的 js 文件会和 ts 文件位于相同的目录
+    &quot;outDir&quot;: &quot;./dist&quot;,
+
+    //将代码合并为一个文件，所有的全局作用域中的代码合并到同一个文件中
+    &quot;outFile&quot;: &quot;./dist/xxx.js&quot;,
+
+    //是否对 js 文件进行编译，默认为 false
+    &quot;allowJs&quot;: true,
+
+    //是否检查 js 代码是否符合语法规范，默认是 false
+    &quot;checkJS&quot;: true,
+
+    //是否移除注释
+    &quot;removeComments&quot;: true,
+
+    //不生成编译后的文件，默认为 false
+    &quot;noEmit&quot;: false,
+
+    //当有错误时不生成编译后的文件
+    &quot;noEmitOnError&quot;: true,
+
+    //所有严格检查的总开关，设置为 true 或 false 后下面的各选项都会跟着它的值
+    &quot;strict&quot;: true,
+
+    //设置编译后的文件是否使用严格模式，默认是 false，为true 时会在编译后 js 中第一行添加 &#39;use strict&#39;，使用严格模式语法更严格，性能也更好
+    &quot;alwaysStrict&quot;: true,
+
+    //不允许隐式 any 类型（如函数形参中忘记写类型了）
+    &quot;noImplicitAny&quot;: true,
+
+    //不允许不明确类型的 this，如需要指定 this:Window
+    &quot;noImplicitThis&quot;: true,
+
+    //严格的检查空值，如有时使用 getElementById 可能会获取到空值是否需要关注
+    &quot;strictNullChecks&quot;:true,
+&#125;</code></pre>
+<h1 id="六、使用-Webpack-打包-ts-代码"><a href="#六、使用-Webpack-打包-ts-代码" class="headerlink" title="六、使用 Webpack 打包 ts 代码"></a>六、使用 Webpack 打包 ts 代码</h1><p>（1）首先初始化项目</p>
+<pre><code>npm init -y</code></pre>
+<p>（2）安装依赖</p>
+<pre><code>npm i -D webpack webpack-cli typescript ts-loader</code></pre>
+<p>帮助自动生成 html 文件</p>
+<pre><code>npm i -D html-webpack-plugin</code></pre>
+<p>webpack 开发服务器</p>
+<pre><code>npm i -D webpack-dev-server</code></pre>
+<p>打包时先清除 dist 目录的插件</p>
+<pre><code>npm i -D clean-webpack-plugin</code></pre>
+<p>处理浏览器兼容性问题</p>
+<pre><code>npm i -D @babel/core @babel/preset-env babel-loader core-js</code></pre>
+<p>（3）设置 webpack.config.js 配置文件</p>
+<pre><code>const path = require(&#39;path&#39;);
+const HTMLWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
+const &#123; CleanWebpackPlugin &#125; = require(&#39;clean-webpack-plugin&#39;);
+module.exports = &#123;
+    //入口文件
+    entry: &quot;./src/index.ts&quot;,
+
+    //打包文件所在目录
+    output: &#123;
+        //打包文件的目录
+        path: path.resolve(__dirname, &#39;dist&#39;),
+        //打包后文件的名字
+        filename: &quot;bundle.js&quot;,
+        //配置打包环境，告诉 webpack 不使用箭头函数，不使用 const
+        environment: &#123;
+            arrowFunction:false,
+            const: false
+        &#125;
+    &#125;,
+
+    //打包时要使用的模块
+    module: &#123;
+        rules: [
+            &#123;
+                test: /\.ts$/,
+                use: [
+                    &#123;
+                        loader: &#39;babel-loader&#39;,
+                        options: &#123;
+                            presets:[
+                                [
+                                    &quot;@babel/preset-env&quot;,
+                                    &#123;
+                                        //要兼容的目标浏览器
+                                        targets:&#123;
+                                            &quot;chrome&quot;:&quot;58&quot;, //兼容到 chrome 58
+                                            &quot;ie&quot;:&quot;11&quot;
+                                        &#125;,
+                                        &quot;corejs&quot;:&quot;3&quot;, //core-js 的版本开头，使得 IE 可以使用 promise
+                                        &quot;useBuiltIns&quot;:&quot;usage&quot; //按需加载
+                                    &#125;
+                                ]
+                            ]
+                        &#125;
+                    &#125;,
+                    &#39;ts-loader&#39;
+                ],
+                exclude: /node_modules/
+            &#125;
+        ]
+    &#125;,
+    plugins: [
+        new CleanWebpackPlugin(),
+        new HTMLWebpackPlugin(options: &#123;
+            template: &quot;./src/index.html&quot;
+        &#125;);
+    ],
+
+    //用来设置引用模块，即哪些文件可作为模块
+    resolve: &#123;
+        extensions: [&#39;.ts&#39;,&#39;.js&#39;]
+    &#125;
+&#125;;</code></pre>
+<p>（4）设置 ts 编译规范，在 tsconfig.json 文件中写入如下内容</p>
+<pre><code>&#123;
+    &quot;compilerOptions&quot;: &#123;
+        &quot;module&quot;: &quot;ES2015&quot;,
+        &quot;target&quot;: &quot;ES2015&quot;,
+        &quot;strict&quot;: true
+    &#125;
+&#125;</code></pre>
+<p>（5）在 package.json 的 “script” 选项中添加命令</p>
+<pre><code>&quot;build&quot;: &quot;webpack&quot;,
+&quot;start&quot;: &quot;webpack serve --open chrome.exe&quot;</code></pre>
+<p>build 命令用于打包，start 命令在开发时使用 webpack-dev-serve</p>
+<p>（6）执行打包</p>
+<pre><code>npm run build</code></pre>
+<p>或在开发时运行 webpack 服务器</p>
+<pre><code>npm start</code></pre>
+<h1 id="七、面向对象"><a href="#七、面向对象" class="headerlink" title="七、面向对象"></a>七、面向对象</h1><p>在程序中所有对象都被分成数据和功能两部分</p>
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>要创建对象必须先定义类，类可以理解为对象的模型</p>
+<pre><code>class 类名&#123;
+    //定义实例属性
+    属性名: 类型;
+    属性名: 类型 = 值;
+    readonly: 属性名: 类型 = 值; //只读属性
+    //定义类属性/静态属性，在属性前使用 static
+    static 属性名: 类型 = 值;
+    static readonly 属性名: 类型 = 值; //只读静态属性
+
+    //定义实例方法
+    方法名()&#123;...&#125;
+    //定义类方法
+    static 方法名()&#123;...&#125;
+&#125;</code></pre>
+<p>直接定义的属性是实例实现，需要通过对象的实例去访问</p>
+<pre><code>const per = new Person();
+per.name</code></pre>
+<p>类属性/静态属性（或方法）是通过类直接访问，无需创建对象就可以使用的属性，在属性前使用 static</p>
+<pre><code>Person.age</code></pre>
+<p>readonly 开头的属性表示一个只读属性，无法修改</p>
+<h2 id="构造函数和-this"><a href="#构造函数和-this" class="headerlink" title="构造函数和 this"></a>构造函数和 this</h2><p>构造函数 constructor 会在对象创建时（即 new 时）调用</p>
+<pre><code>class 类名&#123;
+    属性名: 类型;
+    constructor(参数: 类型)&#123;
+        this.属性名 = 参数;
+    &#125;
+    方法名()&#123;...&#125;
+&#125;</code></pre>
+<p>在实例方法中，this 表示当前实例</p>
+<p>在构造函数中当前对象就是当前新建的实例对象，可通过 this 向新建的对象中添加属性</p>
+<p>属性在类中定义，在构造函数中赋值</p>
+<pre><code>class Dog&#123;
+    name: string; //定义属性
+    age: number; //定义属性
+    constructor(name:string,age:number)&#123;
+        this.name = name; //给属性赋值
+        this.age = age; //给属性赋值
+    &#125;
+    bark()&#123;
+        alert(&#39;xx&#39;);
+    &#125;
+&#125;
+const dog = new Dog(name:&#39;xx&#39;,age:2);</code></pre>
+<h2 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h2><p>使用继承后，子类将会拥有父类所有的方法和属性</p>
+<p>通过继承可以将多个类中共有的代码写在一个类中，只需写一次即可让所有子类同时拥有父类中的属性和方法</p>
+<p>若要在子类中添加父类中没有的属性或方法直接加就可以</p>
+<p>若在子类中添加了和父类相同的方法，则子类方法会覆盖掉父类的方法，这种子类覆盖父类方法的形式称为方法重写</p>
+<p>在类的方法中 super 就表示当前类的父类</p>
+<p>若在子类中写了构造函数，相当于把父类构造函数覆盖掉，因此<strong>在子类构造函数中必须对父类构造函数进行调用</strong></p>
+<pre><code>class Animal&#123; //父类
+    name: string;
+    constructor(name:string)&#123;
+        this.name = name;
+    &#125;
+    sayHello()&#123;
+        console.log(&#39;xx&#39;);
+    &#125;
+&#125;
+class Dog extends Animal&#123; //Dog 类继承 Animal 类
+    age: number;
+    constructor(name:string,age:number)&#123;
+        super(name); //调用父类构造函数
+        this.age = age;
+    &#125;
+    run()&#123;
+        console.log($&#123;this.name&#125;)
+    &#125;
+    sayHello()&#123;
+        super.sayHello();
+        console.log(&#39;www&#39;)
+    &#125;
+&#125;
+class Cat extends Animal&#123;
+    sayHello()&#123;
+        console.log(&#39;mmm&#39;)
+    &#125;
+&#125;
+const dog = new Dog(name:&#39;xx&#39;,age:2);
+dog.sayHello();
+dog.run();
+const cat = new Cat(name:&#39;xxx&#39;);
+cat.sayHello();</code></pre>
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><p>以 abstract 开头的类是抽象类，抽象类和其他类区别不大，只是不能用来继承</p>
+<p>抽象类就是专门用来被继承的类</p>
+<p>抽象类中可以添加抽象方法，抽象方法以 abstract 开头，没有方法体，抽象方法只能定义在抽象类中，子类必须对抽象方法进行重写</p>
+<pre><code>abstract class Animal&#123; //父类
+    name: string;
+    constructor(name:string)&#123;
+        this.name = name;
+    &#125;
+    abstract sayHello():void;  //抽象方法
+&#125;
+class Dog extends Animal&#123; //Dog 类继承 Animal 类
+    sayHello()&#123;
+        console.log(&#39;www&#39;);
+    &#125;
+&#125;
+const dog = new Dog(name:&#39;xx&#39;);</code></pre>
+<p>上述代码中不能使用 <code>new Animal</code> 创建 Animal 实例</p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>接口用来定义一个类结构，用来定义一个类中应该包含哪些属性和方法</p>
+<p>接口只定义对象的结构，而不考虑实际值，接口中的所有属性都不能有实际值</p>
+<p>接口中所有方法都是抽象方法</p>
+<p>定义类时，可使类去实现一个接口，实现接口就是使类满足接口的要求</p>
+<p>接口其实就是定义一个规范，对类做一些限制</p>
+<pre><code>interface myInter&#123;
+    name: string;
+    sayHello():void;
+&#125;
+class MyClass implements myInter&#123;
+    name: string;
+    constructor(name: string)&#123;
+        this.name = name;
+    &#125;
+    sayHello()&#123;
+        console.log(&#39;xxx&#39;);
+    &#125;
+&#125; </code></pre>
+<p>同时接口也可以当成类型声明去使用</p>
+<p>注意：接口可定义多个同名的接口，使用时是把多个同名接口的内容都加一块看，而 type 类型声明的类型名不能重复</p>
+<pre><code>interface myInterface&#123;
+    name: string,
+    age: number
+&#125;
+interface myInterface&#123;
+    gender: string
+&#125;
+const obj: myInterface = &#123;
+    name:&#39;xx&#39;,
+    age:111,
+    gender:&#39;male&#39;
+&#125;</code></pre>
+<p>上述代码相当于</p>
+<pre><code>type myType = &#123;
+    name: string,
+    age: number,
+    gender: string
+&#125;
+const obj: myType = &#123;
+    name:&#39;xx&#39;,
+    age:111,
+    gender:&#39;male&#39;
+&#125;</code></pre>
+<p>接口和抽象类的区别：</p>
+<p>（1）抽象类中可以有普通方法或抽象方法，而接口中都是抽象方法</p>
+<p>（2）抽象类通过 extends 继承，接口通过 implements 实现</p>
+<h2 id="属性的封装"><a href="#属性的封装" class="headerlink" title="属性的封装"></a>属性的封装</h2><p>之前是属性在对象中设置，属性可任意被修改，这会导致对象中的数据变得非常不安全</p>
+<p>TS 可在属性前添加属性的修饰符</p>
+<p>public 这是默认值，修饰的属性可在任意位置访问（修改），包括子类</p>
+<p>private 私有属性只能在类内部访问（修改），通过在类中添加方法使得私有属性可以被外部访问</p>
+<p>protected 受保护的属性，只能在当前类和当前类的子类中访问（修改），不能在实例对象中访问</p>
+<p>getter 方法用来读取属性，setter 方法用来设置属性，它们被称为属性的存取器</p>
+<pre><code>class Person&#123;
+    private _name:string;
+    private _age:number;
+    constructor(name:string,age:number)&#123;
+        this._name = name;
+        this._age = age;
+    &#125;
+    //设置 getter 方法
+    get name()&#123;
+        return this._name;
+    &#125;
+    //getName()&#123;  //也可以设置一个方法来获取属性
+    //    return this._name;
+    //&#125;
+    //设置 setter 方法
+    set name(value: string)&#123;
+        this._name = name;
+    &#125;
+    //setName(value: string)&#123;     //也可以设置一个方法来设置属性值
+    //    this._name = value;
+    //&#125;
+
+&#125;
+const per = new Person(name:&#39;xxx&#39;,age:1)
+console.log(per.name); //此处会调用 get name
+per.name = &#39;xxxx&#39;; //此时不是直接去访问 name 属性（因为 name 是私有属性），而是去调用 set name 方法</code></pre>
+<p>属性定义也可写在 constructor 中</p>
+<pre><code>class A&#123;
+    constructor(public name:string,public age:number)&#123;
+        this.name = name;
+        this.age = age;
+    &#125;
+&#125;
+
+相当于
+
+class A&#123;
+    name:string;
+    public age:number;
+    constructor(name:string,age:number)&#123;
+        this.name = name;
+        this.age = age;
+    &#125;
+&#125;</code></pre>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p>泛型就是不确定的类型，在定义函数或类时，若遇到类型不明确的情况就可以使用泛型</p>
+<p>泛型可以同时指定多个</p>
+<pre><code>function fn&lt;T&gt;(a:T):T&#123;
+    return a;
+&#125;
+
+function fn2&lt;T,K&gt;(a:T,b:K):T&#123;
+    return a;
+&#125;
+
+interface Inter&#123;
+    length: number;
+&#125;
+function fn3&lt;T extends Inter&gt;(a:T):number&#123; //这里泛型要实现接口 Inter，是 Inter 实现类（或子类）
+    return a.length;
+&#125;
+
+class MyClass&lt;T&gt;&#123;
+    name: T;
+    constructor(name: T)&#123;
+        this.name = name;
+    &#125;
+&#125;</code></pre>
+<p>可直接调用具有泛型的函数</p>
+<pre><code>let result = fn(a:10);  //不指定泛型，TS 可自动对类型进行推断
+let result1 = fn&lt;string&gt;(a:&#39;hello&#39;); //指定泛型
+fn2(a:123,b:&#39;hello&#39;)
+fn2&lt;number,string&gt;(a:123,b:&#39;hello&#39;)
+fn3(a:&#39;123&#39;);
+fn3(a: &#123;length:10&#125;);
+const mc = new MyClass&lt;string&gt;(name:&#39;xx&#39;);</code></pre>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="向一个-DOM-元素里的末尾添加一个-div"><a href="#向一个-DOM-元素里的末尾添加一个-div" class="headerlink" title="向一个 DOM 元素里的末尾添加一个 div"></a>向一个 DOM 元素里的末尾添加一个 div</h2><pre><code>DOM元素.insertAdjacentHTML(where:&quot;beforend&quot;, html:&quot;&lt;div&gt;&lt;/div&gt;&quot;)</code></pre>
+<h2 id="键盘事件处理函数"><a href="#键盘事件处理函数" class="headerlink" title="键盘事件处理函数"></a>键盘事件处理函数</h2><pre><code>函数(event: KeyboardEvent)&#123;...&#125;</code></pre>
+<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>bind 作用是创建一个新的函数，把调用 bind 的函数的 this 变为参数中的 this</p>
+<pre><code>document.addEventListener(type: &#39;keydown&#39;, 回调函数.bind(this));
+则回调函数中的 this 就不是正常情况下的发生事件的 DOM 元素，而是创建函数的当前对象（如外面的类或 window（视情况而定））</code></pre>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>React学习笔记</title>
+    <url>/2022/02/17/React%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[]]></content>
   </entry>
 </search>
