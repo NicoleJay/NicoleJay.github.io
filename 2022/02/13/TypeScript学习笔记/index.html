@@ -31,7 +31,7 @@
 <meta property="og:description" content="一、TypeScript 是什么TypeScript 以 JavaScript 为基础构建的语言，是一个 JavaScript 的超集">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-12T17:57:37.000Z">
-<meta property="article:modified_time" content="2022-02-17T12:14:18.704Z">
+<meta property="article:modified_time" content="2022-03-11T08:34:14.287Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
 
@@ -201,7 +201,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -317,14 +317,14 @@
 <p>（4）进入 ts 文件所在目录，使用 tsc 对 ts 文件进行编译</p>
 <pre><code>tsc xxx.ts</code></pre>
 <h1 id="四、TypeScript-类型"><a href="#四、TypeScript-类型" class="headerlink" title="四、TypeScript 类型"></a>四、TypeScript 类型</h1><h2 id="类型声明"><a href="#类型声明" class="headerlink" title="类型声明"></a>类型声明</h2><p>类型声明是 TS 非常重要的一个特点</p>
-<p>通过类型声明可指定 TS 中变量（参数<br>形参）的类型</p>
+<p>通过类型声明可指定 TS 中变量（参数/形参）的类型</p>
 <p>指定类型后，当为变量复制时，TS 编译器会自动检查值是否符合类型声明，符合则赋值，否则报错</p>
 <p>语法：</p>
 <pre><code>let 变量: 类型;
 let 变量: 类型 = 值;
 (形参: 类型, 形参: 类型, ...) =&gt; 返回值类型
 function fn(参数: 类型, 参数: 类型): 返回值类型&#123;...&#125;
-fn(参数: 赋值, 参数: 赋4值)</code></pre>
+fn(参数: 赋值, 参数: 赋值)</code></pre>
 <h2 id="自动类型判断"><a href="#自动类型判断" class="headerlink" title="自动类型判断"></a>自动类型判断</h2><p>TS 拥有自动类型判断机制</p>
 <p>当对变量的声明和赋值是同时进行的，TS 编译器会自动判断变量的类型，所以若变量的声明和赋值同时进行的，可省略类型声明</p>
 <h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><p>number：任意数字</p>
@@ -364,9 +364,9 @@ s = &lt;string&gt;e;  //类型断言的另一种写法</code></pre>
 <p>object：任意的 JS 对象，<code>&#123;&#125;</code> 用来指定对象中可以包含哪些属性，在属性后加上？，<code>属性？</code>表示属性是可选的；</p>
 <pre><code>let a: object;
 let b: &#123;name: string&#125;;  //只能有个 name 属性
-let c: &#123;name: tring, age?: number&#125;; //必须有 name 属性，age 属性可有可无
+let c: &#123;name: string, age?: number&#125;; //必须有 name 属性，age 属性可有可无
 let d: &#123;name: string, [propName: string]: any&#125;;  //对象中需要有 name 属性，其他属性不一定，[propName: string]: any 表示任意类型的属性
-let k:&#123;name: string&#125; &amp; &#123;age: number&#125;; //对象需要同时有 name 和 age 属性</code></pre>
+let k: &#123;name: string&#125; &amp; &#123;age: number&#125;; //对象需要同时有 name 和 age 属性</code></pre>
 <p>array：任意 JS 数组，方式一 <code>类型[]</code>，方式二 <code>Array&lt;类型&gt;</code></p>
 <pre><code>let e: string[]; //字符串数组
 let g: Array&lt;number&gt;; //数字数组，相当于 let g: number[];</code></pre>

@@ -32,7 +32,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://nicolejay.github.io/2022/01/24/Webpack%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%9D%99%E6%80%81%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85.png">
 <meta property="article:published_time" content="2022-01-24T14:50:30.000Z">
-<meta property="article:modified_time" content="2022-02-07T17:17:49.844Z">
+<meta property="article:modified_time" content="2022-03-11T03:15:37.883Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://nicolejay.github.io/2022/01/24/Webpack%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%9D%99%E6%80%81%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85.png">
@@ -203,7 +203,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -316,8 +316,8 @@
 <p>特点：能让代码本地调试运行的环境</p>
 <h4 id="production"><a href="#production" class="headerlink" title="production"></a>production</h4><p>production 会将 process.env.NODE_ENV 的值设置为 production，启用 FlagDependencyUsagePlugin、FlagIncludedChunksPlugin、ModuleConcatenationPlugin、NoEmitOnErrorsPlugin、OccurenceOrderPlugin、SideEffectsFlagPlugin、UglifyJsPlugin/TerserPlugin（压缩 js 代码）</p>
 <p>特点：能让代码优化上线运行的环境</p>
-<h4 id="开发环境和生产环境的异同"><a href="#开发环境和生产环境的异同" class="headerlink" title="开发环境和生产环境的异同"></a>开发环境和生产环境的异同</h4><p>生产环境和开发环境能将 ES6 模块化编译称浏览器能识别的模块化</p>
-<p>生产环境生产的打包文件压缩了 js 代码，而开发环境没有，因此生产环境打包后生成的文件较小</p>
+<h4 id="开发环境和生产环境的异同"><a href="#开发环境和生产环境的异同" class="headerlink" title="开发环境和生产环境的异同"></a>开发环境和生产环境的异同</h4><p>生产环境和开发环境能将 ES6 模块化编译成浏览器能识别的模块化</p>
+<p>生产环境生成的打包文件压缩了 js 代码，而开发环境没有，因此生产环境打包后生成的文件较小</p>
 <h2 id="2、使用-Webpack"><a href="#2、使用-Webpack" class="headerlink" title="2、使用 Webpack"></a>2、使用 Webpack</h2><p>新建项目文件夹，在文件夹下使用命令 <code>npm init</code> 初始化生成 package.json 文件</p>
 <p>全局安装 webpack 和 webpack-cli <code>npm i webpack webpack-cli -g</code></p>
 <p>本地安装 webpack 和 webpack-cli <code>npm i webpack webpack-cli -D</code></p>
@@ -950,7 +950,7 @@ module.exports = &#123;
             &#125;,
             //处理其他资源
             &#123;
-                exclude:/\.(css|js|html|less|jpg|png|gif)/,
+                exclude:/\.(css|js|html|less|jpg|png|gif)$/,
                 loader:&#39;file-loader&#39;,
                 options:&#123;
                     name:&#39;[hash:10].[ext]&#39;,

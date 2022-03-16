@@ -967,7 +967,7 @@ sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/</code></pre>
 <p>注意1：第一、二种方法把 JS 写在标签的书中属于结构与行为耦合，不方便维护，而把 JS 写到外部文件中可在不页面同时引用，也可利用到浏览器的缓存机制</p>
 <p>注意2：一个 <code>&lt;script&gt;</code> 标签一旦用于引入外部文件，就不能在其中编写 JS 代码了，即使写了浏览器也会忽略，但若再创建一个 <code>&lt;script&gt;</code> 标签其中的内部 JS 代码可执行</p>
 <h1 id="二、语法"><a href="#二、语法" class="headerlink" title="二、语法"></a>二、语法</h1><h2 id="1、输出与输入"><a href="#1、输出与输入" class="headerlink" title="1、输出与输入"></a>1、输出与输入</h2><p>alert(“xxxxxx”);  //控制浏览器弹出警告框</p>
-<p>document.write(“xxxx”);  //向 body 中输出内容，当要换行时不能用 document.write(“xxxx”+”\n”); 而要用 document.write(“xxxx”+”<br>“); </p>
+<p>document.write(“xxxx”);  //向 body 中输出内容，当要换行时不能用 <code>document.write(&quot;xxxx&quot;+&quot;\n&quot;);</code> 而要用 <code>document.write(&quot;xxxx&quot;+&quot;&lt;br /&gt;&quot;);</code> </p>
 <p>console.log(“xxx”);   //向控制台输出内容</p>
 <p>prompt(“提示文字”);   //用户可输入字符串，用户输入内容会以 String 类型作为函数返回值返回</p>
 <p>通过类型转换 +prompt(“提示文字”); 会把字符串转为 Number，可用于输入数字</p>
@@ -1004,7 +1004,7 @@ NaN        表示 Not A Number，也属于数字类型</code></pre>
 <p><strong>方式三：</strong>隐式类型转换，可通过一个值 <code>-0</code> 或 <code>*1</code> 或 <code>/1</code> 来将其转为 Number，隐式类型转换由浏览器自动完成，实际上它也是调用 <code>Number()</code> 函数</p>
 <p><strong>方式四：</strong>隐式类型转换，将任意数据类型使用 <code>+</code> 来将其转换为 Number，隐式类型转换由浏览器自动完成，实际上它也是调用 <code>Number()</code> 函数</p>
 <h6 id="3-转换为布尔-Boolean"><a href="#3-转换为布尔-Boolean" class="headerlink" title="3. 转换为布尔 Boolean"></a>3. 转换为布尔 Boolean</h6><p><strong>方式一：</strong>调用 <code>Boolean(变量)</code> 函数，该方法不会影响原变量，会将转换的结果返回</p>
-<p><strong>方式二：</strong>隐式类型转换，可通过为任意数据类型取两次反来将其转为 Number，隐式类型转换由浏览器自动完成，实际上它也是调用 <code>Boolean()</code> 函数</p>
+<p><strong>方式二：</strong>隐式类型转换，可通过为任意数据类型取两次反来将其转为 Boolean，隐式类型转换由浏览器自动完成，实际上它也是调用 <code>Boolean()</code> 函数</p>
 <p>对于数字 —&gt; 布尔，除了 0 和 NaN，其余都是 true</p>
 <p>对于字符串 —&gt; 布尔，除了空串，其余都是 true</p>
 <p>null 和 undefined 都会转为 false</p>
@@ -1022,7 +1022,7 @@ NaN        表示 Not A Number，也属于数字类型</code></pre>
 <p><strong>注意：JS 底层保存标识符时是采用 Unicode 编码，所以理论上所有 utf-8 中含有的内容都可以作为标识符</strong></p>
 <h2 id="4、运算符"><a href="#4、运算符" class="headerlink" title="4、运算符"></a>4、运算符</h2><h3 id="（1）二元运算符"><a href="#（1）二元运算符" class="headerlink" title="（1）二元运算符 + - * /"></a>（1）二元运算符 + - * /</h3><p>当对非 Number 类型的值进行运算时，会先将这些值转换为 Number 再运算（除了 Number 和字符串做<strong>加法</strong>以外），Number 和 字符串做减法/乘法等都是转换为 Number</p>
 <p>任何值和 NaN 做运算结果都为 NaN</p>
-<p>若对两个字符串作假发，则会把两个字符串拼接为一个字符串</p>
+<p>若对两个字符串作加法，则会把两个字符串拼接为一个字符串</p>
 <p>任何值和字符串做加法，都会先转换为字符串，然后再和字符串作拼串操作（可用于 String 强制类型转换）</p>
 <p>注意<br>    result = 1 + 2 + “3”;   //结果是“33”<br>    result = “1” + 2 + 3;   //结果是“123”</p>
 <p>任何值做 - * / 都会自动转换为 Number（可用于 Number 强制类型转换）</p>
@@ -1030,7 +1030,7 @@ NaN        表示 Not A Number，也属于数字类型</code></pre>
 <p>对于非 Number 类型的值，会将其先转换为 Number 再运算（可用于 Number 强制类型转换）</p>
 <pre><code>result = 1 + &quot;2&quot; + 3;   //结果是“123”
 result = 1 + +&quot;2&quot; + 3;   //结果是6</code></pre>
-<p>自增/减分为两种：后++（a++）或后–（a–）和前++（++a）或前–（–a），两种值不同</p>
+<p>自增/减分为两种：后<code>++</code>（<code>a++</code>）或后<code>--</code>（<code>a--</code>）和前<code>++</code>（<code>++a</code>）或前<code>--</code>（<code>--a</code>），两种值不同</p>
 <p>— <code>a++</code>和<code>a--</code>的值等于原变量的值（自增/减前的值）</p>
 <p>— <code>++a</code>和<code>--a</code>的值等于原变量新值（自增/减后的值）</p>
 <pre><code>var a = 20;
@@ -1079,7 +1079,7 @@ for(var i=0;i&lt;5;i++)&#123;
         break outer;  //此时 break 结束的是外层循环
     &#125;
 &#125;</code></pre>
-<h2 id="8、对象"><a href="#8、对象" class="headerlink" title="8、对象"></a>8、对象</h2><p>基本数据类型创建的变量都是独立的，不饿能成为一个整体</p>
+<h2 id="8、对象"><a href="#8、对象" class="headerlink" title="8、对象"></a>8、对象</h2><p>基本数据类型创建的变量都是独立的，不能成为一个整体</p>
 <p>对象不是基本数据类型，而是引用数据类型，是复合数据类型</p>
 <p>除了基本数据类型外一切都是对象，网页中看到的所有都是对象</p>
 <h3 id="（1）对象的分类"><a href="#（1）对象的分类" class="headerlink" title="（1）对象的分类"></a>（1）对象的分类</h3><p><strong>内建对象</strong></p>
@@ -1113,7 +1113,7 @@ var obj1 = createPerson(&quot;xxx&quot;,18,&quot;男&quot;); </code></pre>
 </li>
 <li><p>逐行执行函数中的代码</p>
 </li>
-<li><p>将新建的对象作为返回值返回 </p>
+<li><p>将新建的对象作为返回值返回</p>
 <p> function Person(name,age,gender){</p>
 <pre><code> this.name = name;
  this.age = age;
@@ -1168,7 +1168,7 @@ var obj1 = createPerson(&quot;xxx&quot;,18,&quot;男&quot;); </code></pre>
 <p>在全局作用域中创建的变量都会作为 window 对象的属性保存，创建的函数都会作为 window 对象的方法</p>
 <p><strong>变量声明提前：</strong>使用 var 关键字声明的变量，会在所有代码执行之前被声明（但不一定会赋值），但若声明变量时不使用 var 关键字，则变量不会被声明提前</p>
 <pre><code>console.log(a);
-var a = 123;  //改行对变量 a 的声明实际上会在最开头，只是在这一行被赋值</code></pre>
+var a = 123;  //该行对变量 a 的声明实际上会在最开头，只是在这一行被赋值</code></pre>
 <p><strong>函数声明提前：</strong>使用函数声明形式 <code>function 函数()&#123;&#125;</code> 创建的函数会在所有代码执行之前被创建，所以可以在函数声明前调用。但是使用函数表达式 <code>var 变量 = function()&#123;&#125;</code> 创建的函数不会被声明提前，所以不能在声明前调用</p>
 <h2 id="2、函数作用域"><a href="#2、函数作用域" class="headerlink" title="2、函数作用域"></a>2、函数作用域</h2><p>调用函数时创建函数作用域，函数执行完毕后，函数作用域销毁。每调用一次函数就会创建一个新的函数作用域，它们之间相互独立</p>
 <p>当在函数作用域中操作一个变量时会先在自身作用域中寻找，若有就直接使用，若没有则向上一级作用域中寻找，直到找到全局作用域，若全局作用域中依然没有找到，则会报错 ReferenceError</p>
@@ -1180,7 +1180,7 @@ function func()&#123;
     var c = 10;
 &#125;
 func();  //此时会输出 “undefined”，因为在 func 函数中var c 变量会声明提前，但是执行到 console 语句时函数作用域中的 c 变量还未被赋值</code></pre>
-<p>在函数中不适用 var 声明的变量都会成为全局变量 </p>
+<p>在函数中不使用 var 声明的变量都会成为全局变量 </p>
 <pre><code>var a = 1;
 function func()&#123;
     console.log(c);
@@ -1198,7 +1198,7 @@ func();  //此时会输出 1，因为函数中 c 没有使用 var 关键字所�
 <p>&nbsp;&nbsp;&nbsp;&nbsp;— addEventListener() 中 this 指向绑定事件的对象</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;— attachEvent() 中 this 指向 window</p>
 <h1 id="五、原型对象"><a href="#五、原型对象" class="headerlink" title="五、原型对象"></a>五、原型对象</h1><h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2><p>创建的每个函数，解析器都会向函数中添加一个属性 prototype，这个属性对应着一个原型对象</p>
-<h2 id="proto"><a href="#proto" class="headerlink" title="proto"></a><strong>proto</strong></h2><p>若函数作为普通函数调用 prototype 没有任何作用，但当以构造函数形式调用时，它所实例化的对象都会有个隐含属性指向该构造函数的原型对象，可通过 <strong>proto</strong> 来访问该属性</p>
+<h2 id="proto"><a href="#proto" class="headerlink" title="__proto__"></a><code>__proto__</code></h2><p>若函数作为普通函数调用 prototype 没有任何作用，但当以构造函数形式调用时，它所实例化的对象都会有个隐含属性指向该构造函数的原型对象，可通过 <code>__proto__</code> 来访问该属性</p>
 <h2 id="原型对象中的属性、方法"><a href="#原型对象中的属性、方法" class="headerlink" title="原型对象中的属性、方法"></a>原型对象中的属性、方法</h2><p>原型对象相当于一个公共的区域，所有同一个类的实例都可以访问到这个原型对象，可将对象中共有的内容（属性、方法）统一设置到原型对象中</p>
 <p>当访问对象的属性或方法时会先在对象自身中寻找，若有则直接使用，若没有则去原型对象中寻找</p>
 <pre><code>function Person(name,age,gender)&#123;
@@ -1215,7 +1215,7 @@ per.sayName();</code></pre>
 <p>使用 <code>&quot;属性名&quot; in 对象实例</code> 检查对象中是否含有某属性时，若对象中没有但是原型中有也会返回 true</p>
 <p>使用 <code>对象实例.hasOwnProperty(&quot;属性名&quot;)</code> 检查的是对象自身中是否含有该属性</p>
 <p>原型对象也是对象，所以它也有原型，当使用一个对象的属性或方法时，先在自身中寻找，若没有则去原型对象中寻找，若依然没有则去原型的原型中寻找，直到找到 Object 对象的原型</p>
-<p>Object 对象的原型没有原型，若在 Object 中依然没有找到，则返回 undefined。Object 的 <strong>proto</strong> 是 null</p>
+<p>Object 对象的原型没有原型，若在 Object 中依然没有找到，则返回 undefined。Object 的 <code>__proto__</code> 是 null</p>
 <p><img src="/2021/12/17/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E5%8E%9F%E5%9E%8B%E7%9A%84%E5%8E%9F%E5%9E%8B.png" alt="原型的原型"></p>
 <h2 id="修改原型对象中的方法"><a href="#修改原型对象中的方法" class="headerlink" title="修改原型对象中的方法"></a>修改原型对象中的方法</h2><p>当在页面中打印对象时实际上是输出对象的 toString() 方法的返回值，若不希望输出 [Object Object]，可为当前对象实例添加一个 toString() 方法，或者修改对象原型的 toString()方法</p>
 <pre><code>per.toString() = function()&#123; //但该方法只对当前实例有效
@@ -1225,7 +1225,7 @@ Person.prototype.toString = function()&#123;  //该方法对该对象的所有�
     return &quot;xxxx&quot;
 &#125;</code></pre>
 <h1 id="六、垃圾回收（GC）"><a href="#六、垃圾回收（GC）" class="headerlink" title="六、垃圾回收（GC）"></a>六、垃圾回收（GC）</h1><p>程序运行过程中会产生垃圾，垃圾积攒过多后会导致程序运行速度过慢</p>
-<p>垃圾：当一个对象没有任何的变量或属性对它进行引用，此时将用于无法操作该对象，这是这种对象就是一个垃圾，这种对象过多会占用大量内存空间导致程序运行变慢，须进行清理</p>
+<p>垃圾：当一个对象没有任何的变量或属性对它进行引用，此时将永远无法操作该对象，这是这种对象就是一个垃圾，这种对象过多会占用大量内存空间导致程序运行变慢，须进行清理</p>
 <p>JS 中有自动垃圾回收机制，由浏览器、JS 引擎将这些垃圾对象自动从内存中销毁，我们不需要也不能进行垃圾回收操作</p>
 <p>我们需要做的只是要将不再使用的对象设置为 null 即可</p>
 <p><img src="/2021/12/17/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.png" alt="垃圾回收"></p>
@@ -1297,12 +1297,12 @@ fun.apply(obj,[2,3]);</code></pre>
 <p><code>var 变量 = new Date();</code> 使用构造函数创建 Date 对象，会封装为当前代码执行的时间</p>
 <p><code>var 变量 = new Date(&quot;月/日/年 时:分:秒&quot;);</code> 创建指定时间的对象</p>
 <p><code>Date对象实例.getDate();</code> 获取当前日期对象的日</p>
-<p><code>Date对象实例.getDay();</code> 获取当前日期对象的星期几，会返回 0<del>6 表示周日</del>周六</p>
-<p><code>Date对象实例.getMonth();</code> 获取当前日期对象的月，会返回 0<del>11 表示1月</del>12月</p>
+<p><code>Date对象实例.getDay();</code> 获取当前日期对象的星期几，会返回 0-6 表示周日-周六</p>
+<p><code>Date对象实例.getMonth();</code> 获取当前日期对象的月，会返回 0-11 表示1月-12月</p>
 <p><code>Date对象实例.getFullYear();</code> 获取当前日期对象的年</p>
 <p><code>Date对象实例.getTime();</code> 获取当前日期对象的时间戳，时间戳指从格林威治标准时间1970年1月1日0时0分0秒到当前日期所花费的毫秒数</p>
 <pre><code>var d = new Date(&quot;1/1/1970 0:0:0&quot;);
-console.log(d.getTime());  //输出为 -28800000，因为系统使用的时背景时间，和格林威治标准时间相差八小时</code></pre>
+console.log(d.getTime());  //输出为 -28800000，因为系统使用的是北京时间，和格林威治标准时间相差八小时</code></pre>
 <p><code>Date.now();</code> 获取当前时间戳</p>
 <p>计算机底层在保存时间时使用的都是时间戳</p>
 <p>可使用时间戳测试代码的执行性能</p>
@@ -1322,7 +1322,7 @@ console.log(d.getTime());  //输出为 -28800000，因为系统使用的时背�
 <h1 id="十二、包装类"><a href="#十二、包装类" class="headerlink" title="十二、包装类"></a>十二、包装类</h1><p>JS 中提供了三个包装类将基本数据类型转换为对象：</p>
 <p><code>String()</code> 将基本数据类型字符串转换为 String 对象</p>
 <p><code>Number()</code> 将基本数据类型数字转换为 Number 对象</p>
-<p><code>Boolean()</code> 将基本数据类型字符串转换为 Boolean 对象</p>
+<p><code>Boolean()</code> 将基本数据类型布尔值转换为 Boolean 对象</p>
 <p>转换成对象后可添加属性</p>
 <p>实际应用中不会使用基本数据类型的对象，若使用基本数据类型的对象，在做比较时可能会有不可预料的结果</p>
 <p>方法和属性只能添加给对象，不能添加给基本数据类型</p>
@@ -1384,7 +1384,7 @@ var reg = /^a/;  字符串中是否以 a 开头
 var reg = /a$/;  字符串中是否以 a 结尾</code></pre>
 <h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p><code>.</code> 表示任意字符，除了换行和行结束符</p>
 <p><code>\w</code> 表示任意字母、数字、_</p>
-<p><code>\W</code> 除了字母、数字、<em>，相当于 [^A-z0-9</em>]</p>
+<p><code>\W</code> 除了字母、数字、_，相当于 <code>[^A-z0-9_]</code></p>
 <p><code>\d</code> 任意数字，相当于 [0-9_]</p>
 <p><code>\D</code> 除了数字，相当于 [^0-9_]</p>
 <p><code>\s</code> 表示空格</p>
@@ -1392,7 +1392,7 @@ var reg = /a$/;  字符串中是否以 a 结尾</code></pre>
 <p><code>\b</code> 表示单词边界，标识是个独立的单词</p>
 <p><code>\B</code> 除了单词边界</p>
 <p>正则表达式中使用 <code>\</code> 作为转义字符</p>
-<p>注意：使用构造函数时，由于它的参数是一个字符串，而 \ 是字符串中转义字符，若使用 \ 则需使用 \ 代替</p>
+<p>注意：使用构造函数时，由于它的参数是一个字符串，而 \ 是字符串中转义字符，若使用 \ 则需使用 <code>\\</code> 代替</p>
 <pre><code>var reg = /\\/;
 reg.test(&quot;b.\&quot;);  //返回 false，因为 \ 转义的是 &quot;
 reg.test(&quot;b.\\&quot;);  //返回 true
@@ -1414,7 +1414,7 @@ var reg = new RegExp(&quot;\\\\&quot;);  //相当于 var reg = /\\/;</code></pre
 <p>— 文档：整个 HTML 网页文档</p>
 <p>— 对象：网页中的每个部分都转换为一个对象</p>
 <p>— 模型：使用模型表示对象之间的关系，方便获取对象，DOM 树</p>
-<h2 id="2、节点"><a href="#2、节点" class="headerlink" title="2、节点"></a>2、节点</h2><p>节点：构成网页的组基本的组成部分（最基本单元），网页中每一部分都可称为节点（如：html 标签、属性、文本、注释、整个文档等），但它们具体类型不同，节点类型不同，则其属性和方法也不同。</p>
+<h2 id="2、节点"><a href="#2、节点" class="headerlink" title="2、节点"></a>2、节点</h2><p>节点：构成网页的最基本的组成部分（最基本单元），网页中每一部分都可称为节点（如：html 标签、属性、文本、注释、整个文档等），但它们具体类型不同，节点类型不同，则其属性和方法也不同。</p>
 <p>常用节点分为四类：</p>
 <p>— 文档节点：整个 HTML 文档</p>
 <p>— 元素节点：HTML 文档中的 HTML 标签</p>
@@ -1497,7 +1497,7 @@ document.createElement(&quot;文本内容&quot;); 可创建一个文本节点对
 <p>（1）若将 <code>&lt;script&gt;</code> 标签写到页面上边 <code>&lt;head&gt;</code> 里，在代码执行时页面还没加载，则 DOM 对象也没有加载会导致无法获取 DOM 对象</p>
 <p>（2）将 JS 代码编写到页面下部就是为了可以在页面加载完后再执行，这样性能也更好</p>
 <p>（3）将事件写在 <code>onload</code> 事件中，<code>onload</code> 事件会在整个页面加载完成后才触发，确保代码执行时所有 DOM 对象已经加载完毕，支持该事件的对象有 image，layer，window，<code>window.onload = function()&#123;xxx&#125;</code></p>
-<h2 id="4、利用-DOM-修改-CSS-样式"><a href="#4、利用-DOM-修改-CSS-样式" class="headerlink" title="4、利用 DOM 修改 CSS 样式"></a>4、利用 DOM 修改 CSS 样式</h2><h3 id="操作内联样式"><a href="#操作内联样式" class="headerlink" title="操作内联样式"></a>操作内联样式</h3><p><code>元素.style.样式名&quot;</code> 读取样式</p>
+<h2 id="4、利用-DOM-修改-CSS-样式"><a href="#4、利用-DOM-修改-CSS-样式" class="headerlink" title="4、利用 DOM 修改 CSS 样式"></a>4、利用 DOM 修改 CSS 样式</h2><h3 id="操作内联样式"><a href="#操作内联样式" class="headerlink" title="操作内联样式"></a>操作内联样式</h3><p><code>元素.style.样式名</code> 读取样式</p>
 <p><code>元素.style.样式名 = &quot;样式值&quot;</code> 设置样式，每修改一个样式，浏览器就重新渲染一次页面，这样执行的性能比较差，且要修改多个样式时不太方便</p>
 <p>通过 style 属性设置和读取的都是<strong>内联样式</strong>，无法读取样式表中的样式</p>
 <p>若 CSS 样式名中含有 <code>-</code>，这种名称在 JS 中是不合法的，如 background-color，需要将这种样式名改为驼峰命名法（去掉 -，将 - 后的字母大写）</p>
@@ -1542,7 +1542,7 @@ box1.style.backgroundColor = &quot;red&quot;;</code></pre>
 <p>设置鼠标点击元素按住拖动时保持点击的相对位置不变</p>
 <pre><code>鼠标的clientX-元素的offsetLeft
 鼠标的clientY-元素的offsetTop</code></pre>
-<h1 id="十五、事件"><a href="#十五、事件" class="headerlink" title="十五、事件"></a>十五、事件</h1><p>事件：就是文档或浏览器窗口中发生的一些特点的交互瞬间（如点击、鼠标移动、按下键盘、关闭窗口等）</p>
+<h1 id="十五、事件"><a href="#十五、事件" class="headerlink" title="十五、事件"></a>十五、事件</h1><p>事件：就是文档或浏览器窗口中发生的一些特定的交互瞬间（如点击、鼠标移动、按下键盘、关闭窗口等）</p>
 <p>JS 与 HTML 间的交互通过事件实现</p>
 <p>在事件响应函数中，响应函数给谁绑定的 this 就是谁</p>
 <h2 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h2><p>可在事件对应的属性中设置 JS 代码，当事件被触发时这些代码会执行</p>
@@ -1647,7 +1647,7 @@ btn.onclick = function()&#123;xxx&#125;</code></pre>
         box.onmouseup = null;
         box.releaseCapture &amp;&amp; box.releaseCapture();  //鼠标松开时取消对事件的捕获
     &#125;
-    return false;  //因为拖拽时浏览器默认会去搜索引擎中所有内容，这会导致拖拽功能异常，这是浏览器的默认行为，可通过 return false 来取消（但对 IE8 无效）
+    return false;  //因为拖拽时浏览器默认会去搜索引擎中搜索内容，这会导致拖拽功能异常，这是浏览器的默认行为，可通过 return false 来取消（但对 IE8 无效）
 &#125;</code></pre>
 <h2 id="滚轮事件"><a href="#滚轮事件" class="headerlink" title="滚轮事件"></a>滚轮事件</h2><p>onmousewheel 在鼠标滚轮滚动时触发（火狐不支持该属性）</p>
 <p>火狐中滚轮滚动可使用 DOMMouseScroll 来绑定滚动事件，且该事件需要通过 addEventListener() 函数来绑定</p>
@@ -1655,7 +1655,7 @@ btn.onclick = function()&#123;xxx&#125;</code></pre>
 <p>火狐中通过 event.detail 来获取滚动方向，往上为负，往下为正</p>
 <p>当 scrollHeight - scrollTop = clientHeight 时表示垂直滚动条滚动到底了</p>
 <p>当 scrollWidth - scrollLeft = clientWidth 时表示水平滚动条滚动到底了</p>
-<p>当滚轮滚动时，若浏览器由滚动条，滚动条会随之滚动，这是浏览器默认行为，可通过 return false 取消该默认行为，若使用 addEventListener() 绑定响应函数应使用 event.preventDefault() 取消默认行为(IE8 不支持preventDefault)</p>
+<p>当滚轮滚动时，若浏览器有滚动条，滚动条会随之滚动，这是浏览器默认行为，可通过 return false 取消该默认行为，若使用 addEventListener() 绑定响应函数应使用 event.preventDefault() 取消默认行为(IE8 不支持preventDefault)</p>
 <p><strong>随滚轮滚动时元素高度改变的例子：</strong></p>
 <pre><code>box.onnmousewheel = function(event)&#123;
     event = event || window.event;
@@ -1716,11 +1716,11 @@ document.onkeyup = function()&#123;
 <p>注意 IE11 中已经将微软和 IE 相关的表示去掉，所以不能通过 userAgent 识别是否是 IE 浏览器</p>
 <p>若通过 userAgent 不能判断，还可通过一些浏览器中特有的对象来判断浏览器信息，如 ActiveXObject 是 IE 独有的</p>
 <pre><code>var ua = navigator.userAgent;
-if(/firefox/i,test(ua))&#123;
+if(/firefox/i.test(ua))&#123;
     console.log(&quot;火狐&quot;);
-&#125;else if(/chrome/i,test(ua))&#123;
+&#125;else if(/chrome/i.test(ua))&#123;
     console.log(&quot;chrome&quot;);
-&#125;else if(/msie/i,test(ua))&#123;
+&#125;else if(/msie/i.test(ua))&#123;
     console.log(&quot;IE&quot;);
 &#125;else if(&quot;ActiveXObject&quot; in window)&#123;
     console.log(&quot;IE11&quot;);
@@ -1935,8 +1935,7 @@ body:hover&#123;
 <a id="more"></a>
 
 <h1 id="网页组成"><a href="#网页组成" class="headerlink" title="网页组成"></a>网页组成</h1><p>W3C标准制定网页由结构（HTML）+样式（CSS）+行为（JS）组成</p>
-<head>中包含的是网页的元数据，浏览器或搜索引擎根据这些元数据解析网页
-
+<p><code>&lt;head&gt;</code> 中包含的是网页的元数据，浏览器或搜索引擎根据这些元数据解析网页</p>
 <p>注释不能嵌套</p>
 <h1 id="一、HTML"><a href="#一、HTML" class="headerlink" title="一、HTML"></a>一、HTML</h1><h2 id="文档声明"><a href="#文档声明" class="headerlink" title="文档声明"></a>文档声明</h2><p>文档声明通过标签 <code>&lt;!doctype&gt;</code> 用于告知浏览器当前网页的版本（如HTML 4、HTML5、XHTML等），不区分大小写</p>
 <p>HTML5文档声明：<code>&lt;!doctype html&gt;</code></p>
@@ -1990,7 +1989,7 @@ body:hover&#123;
 <h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><code>&lt;img&gt;</code> 是替换元素（显示内容并非代码里写的内容，而是利用引入内容进行替换），介于块元素和行内元素之间，兼具两者特点（既能设置宽高，又不会独占一行）</p>
 <p>在 <code>&lt;img&gt;</code> 中 alt 属性默认情况不会显示，部分浏览器在图片无法加载时会显示，并且搜索引擎会根据 alt 中内容来识别图片</p>
 <p>图片一般有jpeg、jpg、gif、png、webp</p>
-<pre><code>jepg/jpg：支持颜色较丰富，不支持透明效果，不支持动图
+<pre><code>jpeg/jpg：支持颜色较丰富，不支持透明效果，不支持动图
 
 gif：支持颜色较少，支持简单透明，支持动图
 
@@ -2031,6 +2030,7 @@ base64：将图片使用base64编码，将图片转换为字符，在 src 中通
 `&lt;tbody&gt;` 主体
 `&lt;tfoot&gt;` 底部</code></pre>
 <p>在这三部分中间可添加行列 <code>&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;</code>，还可添加 <code>&lt;th&gt;</code> 表示头部单元格代替 <code>&lt;td&gt;</code> ，如 <code>&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;</code>， <code>&lt;th&gt;</code> 中的文字会加粗居中</p>
+<p>表格中通过 <code>&lt;caption&gt;&lt;/caption&gt;</code> 创建标题</p>
 <p><strong>注：若表格中没有使用 tbody 而是直接使用 tr，浏览器会自动创建一个 tbody，并将 tr 全都放到 tbody 中，因此 tr 不是 table 的子元素</strong></p>
 <h3 id="表格属性"><a href="#表格属性" class="headerlink" title="表格属性"></a>表格属性</h3><p><code>border-spacing: xxpx;</code> 指定边框间的距离</p>
 <p><code>border-collapse: collapse;</code> 设置边框的合并</p>
@@ -2115,12 +2115,14 @@ autofocus     设置表单项自动获取焦点</code></pre>
 <p>[属性名^=属性值] 选属性值以指定值开头的元素</p>
 <p>[属性名$=属性值] 选属性值以指定值结尾的元素</p>
 <p>[属性名*=属性值] 选属性值中含有某值的元素</p>
+<p>[属性名~=属性值] 选属性中可有多个值，但其中有一个为指定的值</p>
+<p>[属性名|=属性值] 选属性值以 某值 或 某值- 开头</p>
 <h3 id="5、伪类选择器"><a href="#5、伪类选择器" class="headerlink" title="5、伪类选择器"></a>5、伪类选择器</h3><p>伪类（不存在的类/特殊的类）用来描述一个元素的<strong>特殊状态</strong>，如：第一个子元素、被点击的元素、鼠标移入的元素</p>
 <h4 id="（1）子元素伪类1"><a href="#（1）子元素伪类1" class="headerlink" title="（1）子元素伪类1"></a>（1）子元素伪类1</h4><p><code>:first-child</code>  第一个子元素</p>
 <p><code>:last-child</code>  最后一个子元素</p>
 <p><code>:nth-child(第几个)</code>  选中第n个子元素，特殊值：n（子元素全选）、2n 或 even（选中偶数位的子元素）、2n+1 或 odd（选中奇数位的子元素）</p>
 <p><strong>注：以上伪类都是根据其父元素的所有子元素进行排序</strong></p>
-<h4 id="（2）子元素伪类2"><a href="#（2）子元素伪类2" class="headerlink" title="（2）子元素伪类2"></a>（2）子元素伪类2</h4><p><code>:first-of-type</code>、<code>:last-of-type</code>、<code>:nth-of-type()</code> 这三种伪类与上述功能相似，不同是这三种是在同类型子元素中排序</p>
+<h4 id="（2）子元素伪类2"><a href="#（2）子元素伪类2" class="headerlink" title="（2）子元素伪类2"></a>（2）子元素伪类2</h4><p><code>:first-of-type</code>、<code>:last-of-type</code>、<code>:nth-of-type()</code> 这三种伪类与上述功能相似，<strong>不同是这三种是在同类型子元素中排序</strong></p>
 <pre><code>如
 &lt;ul&gt;
     &lt;span&gt;xxx&lt;/span&gt;
@@ -2157,7 +2159,7 @@ div::before&#123;
     color:red;
 &#125;
 会在 &lt;div&gt; 元素前添加字符串 &#39;xxx&#39;，并且该添加的部分为红色</code></pre>
-<p>伪元素默认是一个行内元素</p>
+<p><strong>伪元素默认是一个行内元素</strong></p>
 <h2 id="样式继承"><a href="#样式继承" class="headerlink" title="样式继承"></a>样式继承</h2><p>样式继承是发生在祖先和后代之间的，为一个元素设置的样式会同时应用到其后代元素上</p>
 <p>但部分样式如背景（图片、颜色）相关、布局相关等的样式不会被继承</p>
 <h2 id="样式冲突与选择器权重"><a href="#样式冲突与选择器权重" class="headerlink" title="样式冲突与选择器权重"></a>样式冲突与选择器权重</h2><p><strong>样式冲突：</strong>当通过不同选择器，选中<strong>相同元素</strong>，并为<strong>相同样式</strong>设置不同值时，就发生了样式冲突</p>
@@ -2235,7 +2237,7 @@ border-top：10px solid red;</code></pre>
 border-radius 取值规则如下
     四个值：左上       右上        右下   左下
     三个值：左上       右上/左下    右下
-    两个值：左上/右下   右上/左下    右下
+    两个值：左上/右下   右上/左下
     一个值：四个角
 设置椭圆角 border-radius: 20px / 40px;
 设置元素为圆形 border-radius: 50%;</code></pre>
@@ -2262,7 +2264,7 @@ overflow-y（处理垂直方向溢出）
 取值有
 visible（默认值，溢出依然显示）
 hidden（裁剪溢出内容）
-scroll（生成水平和述竖直两个滚动条）
+scroll（生成水平和竖直两个滚动条）
 auto（根据需要生成滚动条）</code></pre>
 <h5 id="3-垂直外边距的重叠（折叠）：相邻的垂直方向外边距会发生重叠现象。"><a href="#3-垂直外边距的重叠（折叠）：相邻的垂直方向外边距会发生重叠现象。" class="headerlink" title="3. 垂直外边距的重叠（折叠）：相邻的垂直方向外边距会发生重叠现象。"></a>3. 垂直外边距的重叠（折叠）：相邻的垂直方向外边距会发生重叠现象。</h5><p>如上面的 div1 设置 margin-bottom:100px; 下面的 div2 设置 margin-top:100px; 则两个 div 间的距离为 100px</p>
 <p><strong>对于兄弟元素（对于开发有利，一般不需要处理）</strong></p>
@@ -2389,7 +2391,7 @@ table &#123;
     left：清除左侧浮动元素（即 float:left 的元素）对当前元素的影响
     right：清除右侧浮动元素（即 float:right 的元素）对当前元素的影响
     both：清除两侧中最大影响的那侧</code></pre>
-<p>原理：设置清除浮动以后，浏览器会自动为元素<strong>添加相应外边距</strong>，使其位置不受其他元素的影响。如 div1 在 div3 上方，给 div1 设置 float 属性后原本 div3 会上移并被 div1 覆盖住，但给 div1 设置 <code>clear:left;</code> 后浏览器会自动为 div3 添加 margin-top，值为 div1 的高度，使得 div3 还在原本的位置不会上移</p>
+<p>原理：设置清除浮动以后，浏览器会自动为元素<strong>添加相应外边距</strong>，使其位置不受其他元素的影响。如 div1 在 div3 上方，给 div1 设置 float 属性后原本 div3 会上移并被 div1 覆盖住，但给 div3 设置 <code>clear:left;</code> 后浏览器会自动为 div3 添加 margin-top，值为 div1 的高度，使得 div3 还在原本的位置不会上移</p>
 <h3 id="自定义clearfix类同时解决外边距重叠与高度塌陷"><a href="#自定义clearfix类同时解决外边距重叠与高度塌陷" class="headerlink" title="自定义clearfix类同时解决外边距重叠与高度塌陷"></a>自定义clearfix类同时解决外边距重叠与高度塌陷</h3><pre><code>通过给类 clearfix 添加属性
 .clearfix::before,.clearfix::after&#123;
     content: &#39;&#39;;
@@ -2399,7 +2401,7 @@ table &#123;
 <p>给需要解决外边距重叠与高度塌陷的父元素的 class 属性中添加 clearfix 即可使用上述样式解决问题</p>
 <h2 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h2><p>使用 position 属性设置定位</p>
 <pre><code>可选值
-    static    默认值，元素是精致的，没有开启定位
+    static    默认值，元素是静止的，没有开启定位
     relative  开启元素的相对定位
     absolute  开启元素的绝对定位
     fixed     开启元素的固定定位
@@ -2542,7 +2544,7 @@ display: inline-flex;  设置为行内弹性容器，不会独占一行</code></
 <h4 id="相关属性-1"><a href="#相关属性-1" class="headerlink" title="相关属性"></a>相关属性</h4><p>1、flex-grow 指定弹性元素的伸展系数，即指定当父元素有多余空间时子元素如何伸展，父元素的剩余空间会按照比例进行分配</p>
 <pre><code>flex-grow:0;  子元素不伸展
 flex-grow:1或2或3等;</code></pre>
-<p>2、flex-shrink 指定弹性元素的收缩系数，即指定当父元素中空间不足以容纳所有子元素时，如何对子元素进行收缩。缩减缩少是根据缩减系数和元素大小来计算</p>
+<p>2、flex-shrink 指定弹性元素的收缩系数，即指定当父元素中空间不足以容纳所有子元素时，如何对子元素进行收缩。缩减多少是根据缩减系数和元素大小来计算</p>
 <pre><code>flex-shrink: 1;  默认值，等比例收缩
 flex-shrink: 0;  当为 0 时不会收缩，子元素可能会超过父元素
 flex-shrink: 2或3等;  可是其他整数</code></pre>
@@ -2571,12 +2573,12 @@ flex-shrink: 2或3等;  可是其他整数</code></pre>
     monospace  等宽字体（有利于上下行对其）
     cursice    草书字体
     fantasy    虚幻字体
-以上只是指定字体的类别，浏览器会自动使用该类别下的字体，指定类别后具体用那种字体由浏览器决定</code></pre>
+以上只是指定字体的类别，浏览器会自动使用该类别下的字体，指定类别后具体用哪种字体由浏览器决定</code></pre>
 <p>font-family 可同时指定多个字体，多个字体间用 <code>,</code> 隔开，字体生效时优先使用第一个，第一个无法使用则使用第二个，以此类推</p>
 <p>4、font-face 可将服务器中的字体直接提供给用户使用，</p>
 <pre><code>@font-face&#123;
     font-family:&#39;myfont&#39;; //这里是指给字体起的名字，而非字体类别
-    src:url(&#39;./xxx/xxx.ttf&#39;) format(&quot;truetyp&quot;),
+    src:url(&#39;./xxx/xxx.ttf&#39;) format(&quot;truetype&quot;),
         url(&#39;./xxx/xxx.ttf&#39;); //服务器中字体的路径,format()不是必须
 &#125;
 font-family:myfont;</code></pre>
@@ -2700,12 +2702,12 @@ background-clip 要写在 background-origin 后</code></pre>
 <h4 id="雪碧图特点"><a href="#雪碧图特点" class="headerlink" title="雪碧图特点"></a>雪碧图特点</h4><p>一次性将多个图片加载到页面中，降低请求的次数，加快访问速度，提升用户体验</p>
 <h3 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h3><p>渐变的特质是图片，不是颜色，其很多特点和 background-image 相似，而非 background-color，通过 background-image 设置</p>
 <h4 id="线性渐变"><a href="#线性渐变" class="headerlink" title="线性渐变"></a>线性渐变</h4><pre><code>线性渐变1
-linear-gradient(渐变方向,开始的颜色 正颜色开始位置,中间颜色2 正颜色开始位置,中间颜色n，结束的颜色)
+linear-gradient(渐变方向,开始的颜色 正颜色开始位置,中间颜色2 正颜色开始位置,中间颜色n,结束的颜色)
 渐变方向可为 to left、to right、to bottom、to top、to top left、xxxdeg（deg表示度数）、xxturn（转多少圈，如.5）等，也可省略，默认是180deg/to bottom
 颜色开始位置也可省略
 如
 background-image: linear-gradient(red 50px,yellow 100px); //红色向黄色从上往下渐变，红色从 50px 开始，上面也自动填充为红色，黄色从 100px 开始
-background-image: linear-gradient(to right，red,yellow); //红色向黄色从左往右渐变
+background-image: linear-gradient(to right,red,yellow); //红色向黄色从左往右渐变
 
 线性渐变2
 repeating-linear-gradient(渐变方向,开始的颜色 开始颜色的位置,结束的颜色 结束颜色的位置)
@@ -2750,7 +2752,7 @@ background-image: radial-gradient(ellipse,red,yellow);</code></pre>
 <pre><code>transition: height 0.3s;  //当元素高度发生变化时需要 0.3s 进行切换，但变化前后的高度不能有 auto 值
 transition: all 0.3s;  //当元素样式发生变化时所有变化的样式需要 0.3s 进行切换
 transition: 2s margin-left 1s cubic-bezier(.24,.95,.82,-0.88);</code></pre>
-<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><p><strong>动画与过渡的异同：</strong>动画和过渡类似，都可以实现动态效果，但是过渡需在某个属性发生变化时才会出发，而动画可自动出发动态效果</p>
+<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><p><strong>动画与过渡的异同：</strong>动画和过渡类似，都可以实现动态效果，但是过渡需在某个属性发生变化时才会触发，而动画可自动触发动态效果</p>
 <p>设置动画效果，需先设置关键帧，关键帧设置了动画执行的每一个步骤</p>
 <pre><code>元素选择器&#123;
     animation-name:动画名；//对当前元素生效的关键帧名字
@@ -2762,7 +2764,7 @@ transition: 2s margin-left 1s cubic-bezier(.24,.95,.82,-0.88);</code></pre>
          normal（默认值）表示从 from 向 to 运行，每次都是这样
         reverse 表示从 to 向 from 执行，每次都是这样
         alternate 从 from 向 to 开始，重复执行时动画反向执行
-        alternate-reverse 从 to 向 from 开始，重复执行时动画方向执行
+        alternate-reverse 从 to 向 from 开始，重复执行时动画反向执行
     animation-play-state //设置动画的执行状态，
         running 动画执行
         paused  动画暂停
@@ -2785,7 +2787,7 @@ transition: 2s margin-left 1s cubic-bezier(.24,.95,.82,-0.88);</code></pre>
 &#125;</code></pre>
 <p>动画属性简写 <code>animation</code> 可同时设置动画相关所有属性，无顺序要求，但若要写延迟，则持续时间要写在延迟时间之前</p>
 <h2 id="变形平移"><a href="#变形平移" class="headerlink" title="变形平移"></a>变形平移</h2><p>transform 用来设置元素的变形效果</p>
-<p>注意变形不会影响页面布局，即元素改变位置但对其他元素产生影响，不会挤走其他元素，同时也没脱离文档流</p>
+<p>注意变形不会影响页面布局，即元素改变位置但不对其他元素产生影响，不会挤走其他元素，同时也没脱离文档流</p>
 <h3 id="1、平移"><a href="#1、平移" class="headerlink" title="1、平移"></a>1、平移</h3><pre><code>translateX(xxx) 沿着 x 轴方向平移，可设置像素或百分比
 translateY(xxx) 沿着 y 轴方向平移，可设置像素或百分比
 translateZ(xxx) 沿着 z 轴方向平移，可设置像素或百分比
@@ -2799,7 +2801,7 @@ scale(xxx) 双方向缩放
 scaleZ(xxx) z轴方向缩放，对立体元素才会看到效果</code></pre>
 <p>z轴平移属于立体效果（近大远小），默认情况下网页不支持透视，若需要看见效果必须要设置网页的视距</p>
 <pre><code>html&#123;
-    perspective: 800px;  //设置当前王阿耶视距（人眼与网页的距离），一般为 800-1200px
+    perspective: 800px;  //设置当前网页视距（人眼与网页的距离），一般为 800-1200px
 &#125;</code></pre>
 <p>元素变形默认是 2D 效果，若要 3D 变形效果需设置 <code>transform-style:preserve-3d</code> 搭配 <code>transform</code></p>
 <p><code>backface-visibility</code> 可设置旋转后背面效果，可选值：visible、<br>hidden</p>
@@ -2922,7 +2924,7 @@ html&#123;
 <p>3、样式加载</p>
 <p>当使用外部样式表时，浏览器第一次加载完该 css 文件或后会保存在浏览器的缓存中，下一个页面加载同一 css 文件时无需向服务器请求，直接在浏览器缓存中读取</p>
 <p>4、雪碧图</p>
-<p>浏览器加载外部资源（如图片）是按需加载，用则加载，不用则步加载，可通过雪碧图一次性将多个图片加载到页面中，降低请求的次数，加快访问速度，提升用户体验</p>
+<p>浏览器加载外部资源（如图片）是按需加载，用则加载，不用则不加载，可通过雪碧图一次性将多个图片加载到页面中，降低请求的次数，加快访问速度，提升用户体验</p>
 <p>5、<code>text-indent</code> 用于设置文字缩进，可用于文字隐藏，这样可以在设置一些标题供浏览器搜索但不在页面中显示</p>
 <p>6、加快加载速度</p>
 <p>为了使项目上线时加载速度尽量快，需删除代码中的注释以及无用的换行等，可通过在 VSCode 中安装插件 JS &amp; CSS Minifier，选中要压缩的文件，按 F1，并输入 <code>Minify:Document</code>，则该插件会对文件进行压缩生成 <code>xxx.min.css</code> 或 <code>xxx.min.js</code> 文件，在 html 代码中 <link> 引入时换成压缩后的文件</p>
@@ -3001,7 +3003,8 @@ html&#123;
 <pre><code>&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</code></pre>
 <p><code>&lt;body&gt;</code> 里当浏览器不支持 js 时 noscript 中的元素会被渲染</p>
 <pre><code>&lt;noscript&gt;xxxxx&lt;/noscript&gt;</code></pre>
-</head>]]></content>
+<p>13、请将类为”left”的div元素和类为”right”的div元素在同一行上向左浮动，且清除父级div元素内部的浮动：给父级设置 <code>display:inline-block</code> 或 <code>overflow:hidden</code> 或 <code>height:子元素高度;clear:both;</code></p>
+]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -3190,9 +3193,9 @@ fun.test()</code></pre>
 <pre><code>function Fn()&#123;&#125;    //定义构造函数，内部语句：this.prototype = &#123;&#125;，this 指函数对象
 Fn.prototype       //显式原型属性
 
-var fn = new Fn()  //内部语句：this.proto__ = Fn.prototype，this 指 fn
+var fn = new Fn()  //内部语句：this.__proto__ = Fn.prototype，this 指 fn
 fn.__proto__       //隐式原型属性
-Fn.prototype === fn.__proto  //true
+Fn.prototype === fn.__proto__  //true
 
 Fn.prototype.test = function()&#123;&#125;
 fn.test()</code></pre>
@@ -3268,8 +3271,8 @@ Function.prototype.b = function()&#123;&#125;
 var f1 = new Foo()
 f1.a()  //不报错
 f1.b()  //报错
-F.a()   //不报错
-F.b()   //不报错</code></pre>
+Foo.a()   //不报错
+Foo.b()   //不报错</code></pre>
 <p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/instanceof1.png" alt="instanceof1"></p>
 <h2 id="2、执行上下文与执行上下文栈"><a href="#2、执行上下文与执行上下文栈" class="headerlink" title="2、执行上下文与执行上下文栈"></a>2、执行上下文与执行上下文栈</h2><h3 id="变量提升与函数提升"><a href="#变量提升与函数提升" class="headerlink" title="变量提升与函数提升"></a>变量提升与函数提升</h3><p>变量声明提升：通过 var 定义的变量，在定义语句之前就可以访问到，只是值为 undefined</p>
 <p>函数声明提升：<strong>通过 function 声明的函数</strong>，在声明语句之前就可以直接调用，值为函数对象</p>
@@ -3345,14 +3348,14 @@ function foo(i)&#123;
     console.log(&#39;fe:&#39;+i)
 &#125;
 console.log(&#39;ge:&#39;+i)</code></pre>
-<p>代码依次输出 gb:undefined、fb:1、fb:2、fb:3、fb:3、fb:2、fb:1、ge:1，整个过程中产生了 5 个执行上下文</p>
+<p>代码依次输出 gb:undefined、fb:1、fb:2、fb:3、fe:3、fe:2、fe:1、ge:1，整个过程中产生了 5 个执行上下文</p>
 <p>3</p>
 <pre><code>function a()&#123;&#125;
 var a
 console.log(typeof a)  //输出 &#39;function&#39;</code></pre>
 <p>先执行变量提升，再执行函数提升</p>
 <p>4</p>
-<pre><code>if(!(b in window))&#123;  //此处判断为 true
+<pre><code>if(!(b in window))&#123;  //此处判断为 !true 即 false
     var b = 1
 &#125;
 console.log(b)   //输出 undefined</code></pre>
@@ -3439,7 +3442,7 @@ for(var i = 0,length = btns.length; i &lt; length; i++)&#123;
 <p>上述代码可正常实现功能</p>
 <pre><code>var btns = document.getElementsByTagName(&#39;button&#39;)
 for(var i = 0,length = btns.length; i &lt; length; i++)&#123;
-    （function(i)&#123;
+    (function(i)&#123;
         var btn = btns[i]
         btn.onclick = function()&#123;
             alert(&#39;第&#39;+(i+1)+&#39;个&#39;)
@@ -3518,8 +3521,8 @@ showDelay(&#39;xxx&#39;,2000)</code></pre>
 &#125;
 fn1()  //此时 fn1 内部的对象 fn2、fn3 都成为垃圾对象，局部变量也不存在了
 var f = fn1()  //fn1 执行完后 fn2 就不存在了，闭包中只有 a，fn3 本身也不存在，但 fn3 不成为垃圾对象，因为 f 指向了 fn3
-f()  //输出 3
-f()  //输出 4</code></pre>
+f()  //输出 1
+f()  //输出 0</code></pre>
 <p>总结：函数执行完后，函数内部声明的局部变量一般不存在，只有存在于闭包中的变量才可能存在（前提是闭包中的函数对象没有成为垃圾对象，被引用的局部变量才存在）</p>
 <p>在函数外部不能直接访问函数内部的局部变量，但可以通过闭包让外部操作它</p>
 <h3 id="闭包的生命周期"><a href="#闭包的生命周期" class="headerlink" title="闭包的生命周期"></a>闭包的生命周期</h3><p>产生：在嵌套内部<strong>函数定义执行完</strong>时就产生了（不是在调用时）</p>
@@ -4105,7 +4108,7 @@ $(&#39;div&#39;).removeClass(&#39;xxx&#39;)</code></pre>
 <h3 id="attr-和-prop-的区别"><a href="#attr-和-prop-的区别" class="headerlink" title="attr 和 prop 的区别"></a>attr 和 prop 的区别</h3><p>（1）prop 多用在标签的固有属性、布尔值属性上，如 a 标签的 href，class，selected，checked 等</p>
 <p>（2）attr 多用在自定义属性上</p>
 <p>（3）jQuery 中用 attr 获取布尔值属性，且布尔值属性在标签体内没有定义的时候会得到 undefined</p>
-<h2 id="4、ajax"><a href="#4、ajax" class="headerlink" title="4、ajax"></a>4、ajax</h2><h1 id="三、jQuery-对象"><a href="#三、jQuery-对象" class="headerlink" title="三、jQuery 对象"></a>三、jQuery 对象</h1><h2 id="1、CSS"><a href="#1、CSS" class="headerlink" title="1、CSS"></a>1、CSS</h2><h3 id="设置-style-样式"><a href="#设置-style-样式" class="headerlink" title="设置 style 样式"></a>设置 style 样式</h3><p><code>jQuery对象.css(&#39;属性&#39;)</code> 或 <code>jQuery对象.css(&#39;属性&#39;,&#39;值&#39;)</code> 或 <code>jQuery对象.css(&#123;多个样式对&#125;)</code>：读写样式，返回的仍然是当前的 jQuery 对象，方法最后返回的是 this</p>
+<h1 id="三、jQuery-对象"><a href="#三、jQuery-对象" class="headerlink" title="三、jQuery 对象"></a>三、jQuery 对象</h1><h2 id="1、CSS"><a href="#1、CSS" class="headerlink" title="1、CSS"></a>1、CSS</h2><h3 id="设置-style-样式"><a href="#设置-style-样式" class="headerlink" title="设置 style 样式"></a>设置 style 样式</h3><p><code>jQuery对象.css(&#39;属性&#39;)</code> 或 <code>jQuery对象.css(&#39;属性&#39;,&#39;值&#39;)</code> 或 <code>jQuery对象.css(&#123;多个样式对&#125;)</code>：读写样式，返回的仍然是当前的 jQuery 对象，方法最后返回的是 this</p>
 <h3 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h3><p><code>offset()</code>：获取相对于页面左上角的位置，返回的对象包含 top 和 left 两个整数，该方法只对可见元素有效，（读）</p>
 <p><code>offset(&#123;top:xx,left:xx&#125;)</code>：设置相对于页面左上角的位置（写）</p>
 <p><code>position()</code>：获取相对于父元素左上角的位置，返回的对象包含 top 和 left 两个整数，（只能读）</p>
@@ -4155,7 +4158,7 @@ $(&#39;#btn&#39;).click = function()&#123;
 $lis.first().css(&#39;background&#39;,&#39;red&#39;)  //相当于 $lis[0].style.background = &#39;red&#39;
 $lis.filter(&#39;[title=hello]&#39;)  //title 属性为 hello 的 li
 $lis.not(&#39;[title=hello]&#39;)  //title 属性不为 hello 的 li
-$lis.filter(&#39;[title][title!=hello]&#39;) //有 title 属性且title 属性不为 hello，相当于 $lis.filter(&#39;[title]).filter(&#39;[title!=hello])&#39;
+$lis.filter(&#39;[title][title!=hello]&#39;) //有 title 属性且title 属性不为 hello，相当于 $lis.filter(&#39;[title]&#39;).filter(&#39;[title!=hello]&#39;)
 $lis.has(&#39;span&#39;) //有 span 子标签的 li</code></pre>
 <h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p><code>children(&#39;条件&#39;)</code> 查找子元素（直接子元素，而非后代） </p>
 <p><code>find(&#39;条件&#39;)</code> 查找后代元素</p>
@@ -5767,7 +5770,7 @@ let diff = [...new Set(arr)].filter(item =&gt; !(new Set(arr1).has(item)));</cod
 <p>clear() 清空集合中，返回 undefined</p>
 <p>使用 iterator 遍历返回的结果每个元素是个数组 [键,值]</p>
 <h2 id="16、class-类"><a href="#16、class-类" class="headerlink" title="16、class 类"></a>16、class 类</h2><p>ES6 提供了更接近传统语言的写法，引入了 Class（类）作为对象的模板。通过 class 关键字可以定义类</p>
-<p>基本上 ES6 的 class 可以看作只是一个语法糖，它绝对部分功能 ES5 都能做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已</p>
+<p>基本上 ES6 的 class 可以看作只是一个语法糖，它绝大部分功能 ES5 都能做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已</p>
 <p>class 声明类</p>
 <p>constructor 定义构造函数初始化</p>
 <p>extends 继承父类</p>
@@ -5814,7 +5817,7 @@ nokia.change();  //不报错</code></pre>
 &#125;
 let nokia = new Phone();
 conosle.log(nokia.name);  //输出 undefined
-console.log(Phone.size);  //输出 手机</code></pre>
+console.log(Phone.name);  //输出 手机</code></pre>
 <h3 id="class-类对象继承"><a href="#class-类对象继承" class="headerlink" title="class 类对象继承"></a>class 类对象继承</h3><p>ES5 中使用原型链 + 借用构造函数的组合继承，可参考之前的<a href="https://beingjay.com/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/#more">博客中 3.2 部分</a></p>
 <p>在 ES6 的 class 中使用 extends 继承父类</p>
 <pre><code>//父类
@@ -6179,9 +6182,9 @@ console.log(result.groups.text); //标签文本</code></pre>
 //正向断言：提取789
 const reg = /\d+(?=啦)/;  //通过789后边跟着 “啦” 判断
 const result = reg.exec(str);</code></pre>
-<p>正向断言：根据当前匹配的前边的内容来判断匹配的内容是否合法</p>
+<p>反向断言：根据当前匹配的前边的内容来判断匹配的内容是否合法</p>
 <pre><code>let str = &#39;JS12345哈哈哈789啦啦啦&#39;
-//正向断言：提取789
+//反向断言：提取789
 const reg = /(?&lt;=哈)\d+/;  //通过789前边跟着 “哈” 判断
 const result = reg.exec(str);</code></pre>
 <h3 id="dotAll-模式"><a href="#dotAll-模式" class="headerlink" title="dotAll 模式"></a>dotAll 模式</h3><p>dot即 <code>.</code>，<code>.</code> 是元字符，表示除换行符以外的任意单个字符</p>
@@ -6322,7 +6325,7 @@ main(&#123;
         host:&#39;192.168.1.100&#39;
         username: &#39;root&#39;
     &#125;,
-    cahce: &#123;
+    cache: &#123;
         host:&#39;192.168.1.200&#39;
         username: &#39;admin&#39;
     &#125;
@@ -7728,14 +7731,14 @@ git hash-object -w test.txt</code></pre>
 <pre><code>git update-index --add --cacheinfo 100644 d670460aaaaaaaaaaaaabbbbbbbbbbcccccccccc test.txt
 git write-tree</code></pre>
 <p>其中文件模式<br>    100644 表示这是个普通文件<br>    100755 表示一个可执行文件<br>    120000 表示一个符号链接</p>
-<p>–add 选项：因为此前该文件并不在暂存区中，首次添加需要 –add</p>
-<p>–cacheinfo 选项：因为将要添加的文件位于 Git 数据库中，而不是位于当前目录下，所以需要 –cacheinfo</p>
+<p><code>--add</code> 选项：因为此前该文件并不在暂存区中，首次添加需要 <code>--add</code></p>
+<p><code>--cacheinfo</code> 选项：因为将要添加的文件位于 Git 数据库中，而不是位于当前目录下，所以需要 <code>--cacheinfo</code></p>
 <p>（2）新增 new.txt 将 new.txt 和 test.txt 文件的第二个版本塞入暂存区，并通过 write-tree 命令生成树对象并存入版本库</p>
 <pre><code>echo &#39;new file&#39; &gt; new.txt
 git update-index --cacheinfo 10064 d670460aaaaaaaaaaaaabbbbbbbbbbcccccccccc test.txt 此时会覆盖原先暂存区中的test.txt
 git update-index --add new.txt 该命令完成两步（1）生成 git 对象存入版本库（2）将 new.txt 文件放入暂存区（执行类似上条命令，但需要加 --add，因为该文件首次加入暂存区）</code></pre>
 <p>（3）将第一个树对象加入第二个树对象，使其称为新的树对象</p>
-<pre><code>git rea-tree --prefix=bak 第一个树对象的哈希值
+<pre><code>git read-tree --prefix=bak 第一个树对象的哈希值
 git write-tree</code></pre>
 <p>read-tree 命令可以把树对象读入暂存区</p>
 <p>最终树对象结构如下</p>
@@ -7781,7 +7784,7 @@ index：文件保存暂存区信息</code></pre>
 <p>该命令相当于底层命令中的 <code>git hash-object -w 文件名</code>（修改了多少个工作目录中的文件此命令就要被执行多少次）和 <code>git update-index ...</code></p>
 <h3 id="提交更新（将暂存区提交到版本库）"><a href="#提交更新（将暂存区提交到版本库）" class="headerlink" title="提交更新（将暂存区提交到版本库）"></a>提交更新（将暂存区提交到版本库）</h3><p>方式一：</p>
 <pre><code>git commit</code></pre>
-<p>这种方式会启动文本编辑器一遍输入提交注释，默认的注释是最后一次 git status 的输出</p>
+<p>这种方式会启动文本编辑器以便输入提交注释，默认的注释是最后一次 git status 的输出</p>
 <p>方式二：</p>
 <pre><code>git commit -m &quot;注释&quot;</code></pre>
 <p>执行上述两种命令进行提交，不会清空暂存区</p>
@@ -7851,7 +7854,7 @@ git status</code></pre>
 <pre><code>如在分支test中新增文件但未跟踪（没有 add）或 add 了但没有 commit，此时切回 master，该文件依然存在
 
 若在分支test中修改文件但没有 add 或 add 了但没有 commit，此时 Git 就不让切换分支</code></pre>
-<p>注意：分支切换回改变工作目录中的文件，在切换分支时，一定要注意工作目录里的文件会被改变，若是切换到一个较旧的分支，工作目录回恢复到该分支最后一次提交时的样子，若 Git 不饿能干净利落完成这个任务将禁止切换分支</p>
+<p>注意：分支切换回改变工作目录中的文件，在切换分支时，一定要注意工作目录里的文件会被改变，若是切换到一个较旧的分支，工作目录会恢复到该分支最后一次提交时的样子，若 Git 不能干净利落完成这个任务将禁止切换分支</p>
 <p><strong>每次在切换分支前，提交一下当前分支</strong></p>
 <p>允许切换分支的情况：</p>
 <pre><code>（1）分支上所有内容处于已提交状态
@@ -7881,8 +7884,8 @@ git config --global alias.st status</code></pre>
 <h3 id="分支模式"><a href="#分支模式" class="headerlink" title="分支模式"></a>分支模式</h3><p>长期分支（即 master）</p>
 <p>特性分支（如 dev、topic功能分支）</p>
 <h3 id="分支原理"><a href="#分支原理" class="headerlink" title="分支原理"></a>分支原理</h3><p>.git/refs 目录中保存了分支及其对应的提交对象</p>
-<h4 id="HEAD-引用"><a href="#HEAD-引用" class="headerlink" title="HEAD 引用"></a>HEAD 引用</h4><p>当运行类似于 <code>git branch 分支并</code> 这样的命令时，Git 会取得当前所在分支最新提交对应的哈希值，并将其加入你想要创建的任何新分支中</p>
-<p><strong>当执行 <code>git branch 分支并</code> 时 Git 如何直到最新提交的哈希值呢？</strong></p>
+<h4 id="HEAD-引用"><a href="#HEAD-引用" class="headerlink" title="HEAD 引用"></a>HEAD 引用</h4><p>当运行类似于 <code>git branch 分支名</code> 这样的命令时，Git 会取得当前所在分支最新提交对应的哈希值，并将其加入你想要创建的任何新分支中</p>
+<p><strong>当执行 <code>git branch 分支名</code> 时 Git 如何直到最新提交的哈希值呢？</strong></p>
 <p>答：通过 HEAD 文件，HEAD 文件是一个符号引用（symbolic reference），指向目前所在的分支，所谓符号引用意味着它不像普通引用那样包含一个 SHA-1 值，它是一个指向其他引用的指针</p>
 <h2 id="7、Git-存储"><a href="#7、Git-存储" class="headerlink" title="7、Git 存储"></a>7、Git 存储</h2><p>若工作一半需要切换分支，但原工作分支上不想创建一次提交，此时可以使用 <code>git stash</code> 命令</p>
 <p><code>git stash</code> 会将未完成的修改保存到一个栈上，可在任何时候通过 <code>git stash apply</code> 重新应用这些改动</p>
@@ -7910,7 +7913,7 @@ git commit --amend</code></pre>
 git reset --soft 上一次提交对象哈希值</code></pre>
 <p>上述指令与 checkout 所作的改变 HEAD 自身不同（HEAD 移动，分支不动），reset 是移动 HEAD 指向的分支</p>
 <p>该命令只动 HEAD（带着分支一起移动），工作区和暂存区不变</p>
-<p>本质上是撤销上一次 git commit 命令。运行 git commit 命令时 Git 会创建一个新的提交，并移动 HEAD 所指向的分支来使其指向该提交。当 reset 会 HEAD~（HEAD 的父结点）时，其实就是把该分支移动会原来的位置，不会改变索引和工作目录，此后可更新索引并再次运行 git commit 命令来完成 git commit –amend 索要做的事</p>
+<p>本质上是撤销上一次 git commit 命令。运行 git commit 命令时 Git 会创建一个新的提交，并移动 HEAD 所指向的分支来使其指向该提交。当 reset 回 HEAD~（HEAD 的父结点）时，其实就是把该分支移动回原来的位置，不会改变索引和工作目录，此后可更新索引并再次运行 git commit 命令来完成 git commit –amend 所要做的事</p>
 <p>HEAD~ 表示上一次 HEAD</p>
 <p><code>git reset --soft HEAD~</code> 相当于 –amend</p>
 <p>注意 <code>git reset --soft 提交对象哈希值</code> 可前进到回退之前的版本，这个哈希值可以通过 <code>git reflog</code> 查看</p>
@@ -7964,14 +7967,14 @@ git reset --soft 上一次提交对象哈希值</code></pre>
 <h3 id="列出标签"><a href="#列出标签" class="headerlink" title="列出标签"></a>列出标签</h3><pre><code>git tag
 git -l &#39;v1.2.3*&#39; 会列出 v1.2.3 开头的标签</code></pre>
 <h3 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h3><p>Git 使用两种主要类型的标签：轻量标签和附注标签</p>
-<p>轻量标签像是一个不会改变的分支，它只是一个特点提交的引用，轻量标签如下</p>
+<p>轻量标签像是一个不会改变的分支，它只是一个特定提交的引用，轻量标签如下</p>
 <pre><code>git tag v1.2
 git tag v1.2 提交对象哈希值</code></pre>
 <p>附注标签是存储在 Git 数据库中的一个完整对象，它可以有哈希值，其中包含打标签者的名字、邮箱、日期时间、标签信息。附注标签如下</p>
 <pre><code>git tag -a v1.2
 git tag -a v1.2 提交对象哈希值
 git tag -a v1.2 提交对象哈希值 -m &quot;注释&quot;</code></pre>
-<h3 id="查看特点标签"><a href="#查看特点标签" class="headerlink" title="查看特点标签"></a>查看特点标签</h3><pre><code>git show 标签名</code></pre>
+<h3 id="查看特定标签"><a href="#查看特定标签" class="headerlink" title="查看特定标签"></a>查看特定标签</h3><pre><code>git show 标签名</code></pre>
 <p>git show 可显示任意类型对象（git 对象、树对象、提交对象、tag 对象）</p>
 <h3 id="远程标签"><a href="#远程标签" class="headerlink" title="远程标签"></a>远程标签</h3><p>默认情况下，git push 命令不会传送标签到远程仓库服务器上，创建完标签后必须显式推送标签到共享服务器上</p>
 <pre><code>git push origin [标签名]</code></pre>
@@ -7983,10 +7986,10 @@ git tag -a v1.2 提交对象哈希值 -m &quot;注释&quot;</code></pre>
 <h3 id="检出标签"><a href="#检出标签" class="headerlink" title="检出标签"></a>检出标签</h3><p>查看某个标签所指向的文件版本并创建新分支指向它：</p>
 <pre><code>git checkout 标签名
 git checkout -b 分支名</code></pre>
-<p>虽说这回使仓库处于 “分离头指针（detached HEAD）” 状态（即 HEAD 并没有指向哪个分支，而是指向了标签对应的提交版本），在该状态下，若做某些更改并提交，标签不会发生变化，但新提交将不属于任何分支，并将无法访问，除非访问确切的提交对象哈希值，因此若需要进行更改，如修复旧版本的错误，通常要创建一个新分支</p>
+<p>虽说这会使仓库处于 “分离头指针（detached HEAD）” 状态（即 HEAD 并没有指向哪个分支，而是指向了标签对应的提交版本），在该状态下，若做某些更改并提交，标签不会发生变化，但新提交将不属于任何分支，并将无法访问，除非访问确切的提交对象哈希值，因此若需要进行更改，如修复旧版本的错误，通常要创建一个新分支</p>
 <h1 id="三、Git-命令整理"><a href="#三、Git-命令整理" class="headerlink" title="三、Git 命令整理"></a>三、Git 命令整理</h1><h2 id="1、Git-底层命令"><a href="#1、Git-底层命令" class="headerlink" title="1、Git 底层命令"></a>1、Git 底层命令</h2><p><strong>git 对象</strong></p>
 <pre><code>git hash-object -w 文件路径
-上次一个 key(hash值):val(压缩后的文件内容)存到 .git/objects</code></pre>
+上传一个 key(hash值):val(压缩后的文件内容)存到 .git/objects</code></pre>
 <p><strong>tree 对象</strong></p>
 <pre><code>git update-index --add --cacheinfo 文件模式 哈希值 文件名
 往暂存区添加一条记录（让 git 对象对应上文件名）存到 .git/index
@@ -8080,7 +8083,7 @@ git reset --hard 提交对象哈希值：用对应提交对象内容重置 HEAD 
 <p>三部曲和后悔药其实是一一对应的</p>
 <p><strong>路径 reset</strong></p>
 <pre><code>所有的路径 reset 都要省略第一步
-第一步是重置 HEAD 内容（HEAD 本质指向一个分支，分支的本质是个提交对象，提交对象指向爱过你一个树对象，树对象可能指向多个 git 对象，一个 git 对象代表一个文件）
+第一步是重置 HEAD 内容（HEAD 本质指向一个分支，分支的本质是个提交对象，提交对象指向一个树对象，树对象可能指向多个 git 对象，一个 git 对象代表一个文件）
 HEAD 可代表一系列文件的状态
 
 git reset [--mixed] 提交对象哈希值 文件
@@ -8100,10 +8103,9 @@ git checkout -- 文件
 重置工作目录</code></pre>
 <h1 id="四、Git-特点"><a href="#四、Git-特点" class="headerlink" title="四、Git  特点"></a>四、Git  特点</h1><h2 id="（1）直接记录快照，而非差异比较"><a href="#（1）直接记录快照，而非差异比较" class="headerlink" title="（1）直接记录快照，而非差异比较"></a>（1）直接记录快照，而非差异比较</h2><p>Git 和其他版本控制系统的主要差别在于 Git 只关心数据的整体是否发生变化，而大多数其他系统（如 CVS、Subversion、Perforce、Bazaar 等）则只关心文件内容的具体差异，这类系统每次记录哪些文件做了更新以及更新了哪些行什么内容</p>
 <h2 id="（2）近乎所有操作都是本地执行"><a href="#（2）近乎所有操作都是本地执行" class="headerlink" title="（2）近乎所有操作都是本地执行"></a>（2）近乎所有操作都是本地执行</h2><p>Git 中绝大多数操作都只需要访问本地文件和资源，不用连网。但若使用 CVCS 的话几乎所有操作都需连网，因为 Git 在本地磁盘上保存着所有当前项目的历史更新，所以处理起来速度飞快</p>
-<h2 id="（3）时可保持数据完整性"><a href="#（3）时可保持数据完整性" class="headerlink" title="（3）时可保持数据完整性"></a>（3）时可保持数据完整性</h2><p>在保存到 Git 之前，所有数据都要进行内容的校验和计算，并将此结果作为数据的唯一标识和索引。索引在文件传输时变得不完整或磁盘苏宁坏导致文件数据缺失，Git 都能立即察觉、</p>
+<h2 id="（3）时刻保持数据完整性"><a href="#（3）时刻保持数据完整性" class="headerlink" title="（3）时刻保持数据完整性"></a>（3）时刻保持数据完整性</h2><p>在保存到 Git 之前，所有数据都要进行内容的校验和计算，并将此结果作为数据的唯一标识和索引。索引在文件传输时变得不完整或磁盘损坏导致文件数据缺失，Git 都能立即察觉、</p>
 <p>Git 使用 SHA-1 算法计算数据的校验，通过对文件内容或目录结构计算出一个 SHA-1 哈希值作为指纹字符串，由 40 个十六进制字符组成。Git 的工作完全依赖于这类指纹字符串</p>
-<p>##（4）多数操作仅添加数据</p>
-<p>因为任何一种不可逆的操作，如删除数据，都会使回退或重现历史版本变得困难重重。</p>
+<h2 id="（4）多数操作仅添加数据"><a href="#（4）多数操作仅添加数据" class="headerlink" title="（4）多数操作仅添加数据"></a>（4）多数操作仅添加数据</h2><p>因为任何一种不可逆的操作，如删除数据，都会使回退或重现历史版本变得困难重重。</p>
 <p>在 VCS 中若还未提交更新就有可能丢失或混淆一些修改内容，但在 Git 里一旦提交快照后就完全不用担心丢失数据</p>
 <h2 id="（5）文件的三种状态"><a href="#（5）文件的三种状态" class="headerlink" title="（5）文件的三种状态"></a>（5）文件的三种状态</h2><p>对于任何一个文件，在 Git 内部只有三种状态（Git 外的状态就是一个普通文件）：</p>
 <p>已提交（committed）：表示该文件已经被安全保存在本地数据库中</p>
@@ -8115,7 +8117,7 @@ git checkout -- 文件
 <p>2、保存到暂存区，对暂存区做快照</p>
 <p>暂存区只不过是个简单的文件，也叫索引文件，一般都放在 Git 目录中</p>
 <p>3、提交更新，将保存在暂存区的文件快照永久转储到本地数据库（Git 目录）中</p>
-<p>可以从文件所处问之判断状态：</p>
+<p>可以从文件所处位置判断状态：</p>
 <p>—若是 Git 目录中保存着的特定版本文件，就属于已提交状态</p>
 <p>— 若做了修改并已放入暂存区，就属于已暂存状态</p>
 <p>— 若自上次取出后，做了修改但还没放到暂存区，就是已修改状态</p>
@@ -8320,8 +8322,8 @@ git pull</code></pre>
 <p>特点：能让代码本地调试运行的环境</p>
 <h4 id="production"><a href="#production" class="headerlink" title="production"></a>production</h4><p>production 会将 process.env.NODE_ENV 的值设置为 production，启用 FlagDependencyUsagePlugin、FlagIncludedChunksPlugin、ModuleConcatenationPlugin、NoEmitOnErrorsPlugin、OccurenceOrderPlugin、SideEffectsFlagPlugin、UglifyJsPlugin/TerserPlugin（压缩 js 代码）</p>
 <p>特点：能让代码优化上线运行的环境</p>
-<h4 id="开发环境和生产环境的异同"><a href="#开发环境和生产环境的异同" class="headerlink" title="开发环境和生产环境的异同"></a>开发环境和生产环境的异同</h4><p>生产环境和开发环境能将 ES6 模块化编译称浏览器能识别的模块化</p>
-<p>生产环境生产的打包文件压缩了 js 代码，而开发环境没有，因此生产环境打包后生成的文件较小</p>
+<h4 id="开发环境和生产环境的异同"><a href="#开发环境和生产环境的异同" class="headerlink" title="开发环境和生产环境的异同"></a>开发环境和生产环境的异同</h4><p>生产环境和开发环境能将 ES6 模块化编译成浏览器能识别的模块化</p>
+<p>生产环境生成的打包文件压缩了 js 代码，而开发环境没有，因此生产环境打包后生成的文件较小</p>
 <h2 id="2、使用-Webpack"><a href="#2、使用-Webpack" class="headerlink" title="2、使用 Webpack"></a>2、使用 Webpack</h2><p>新建项目文件夹，在文件夹下使用命令 <code>npm init</code> 初始化生成 package.json 文件</p>
 <p>全局安装 webpack 和 webpack-cli <code>npm i webpack webpack-cli -g</code></p>
 <p>本地安装 webpack 和 webpack-cli <code>npm i webpack webpack-cli -D</code></p>
@@ -8954,7 +8956,7 @@ module.exports = &#123;
             &#125;,
             //处理其他资源
             &#123;
-                exclude:/\.(css|js|html|less|jpg|png|gif)/,
+                exclude:/\.(css|js|html|less|jpg|png|gif)$/,
                 loader:&#39;file-loader&#39;,
                 options:&#123;
                     name:&#39;[hash:10].[ext]&#39;,
@@ -9736,14 +9738,14 @@ cache: &#123;
 <p>（4）进入 ts 文件所在目录，使用 tsc 对 ts 文件进行编译</p>
 <pre><code>tsc xxx.ts</code></pre>
 <h1 id="四、TypeScript-类型"><a href="#四、TypeScript-类型" class="headerlink" title="四、TypeScript 类型"></a>四、TypeScript 类型</h1><h2 id="类型声明"><a href="#类型声明" class="headerlink" title="类型声明"></a>类型声明</h2><p>类型声明是 TS 非常重要的一个特点</p>
-<p>通过类型声明可指定 TS 中变量（参数<br>形参）的类型</p>
+<p>通过类型声明可指定 TS 中变量（参数/形参）的类型</p>
 <p>指定类型后，当为变量复制时，TS 编译器会自动检查值是否符合类型声明，符合则赋值，否则报错</p>
 <p>语法：</p>
 <pre><code>let 变量: 类型;
 let 变量: 类型 = 值;
 (形参: 类型, 形参: 类型, ...) =&gt; 返回值类型
 function fn(参数: 类型, 参数: 类型): 返回值类型&#123;...&#125;
-fn(参数: 赋值, 参数: 赋4值)</code></pre>
+fn(参数: 赋值, 参数: 赋值)</code></pre>
 <h2 id="自动类型判断"><a href="#自动类型判断" class="headerlink" title="自动类型判断"></a>自动类型判断</h2><p>TS 拥有自动类型判断机制</p>
 <p>当对变量的声明和赋值是同时进行的，TS 编译器会自动判断变量的类型，所以若变量的声明和赋值同时进行的，可省略类型声明</p>
 <h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><p>number：任意数字</p>
@@ -9783,9 +9785,9 @@ s = &lt;string&gt;e;  //类型断言的另一种写法</code></pre>
 <p>object：任意的 JS 对象，<code>&#123;&#125;</code> 用来指定对象中可以包含哪些属性，在属性后加上？，<code>属性？</code>表示属性是可选的；</p>
 <pre><code>let a: object;
 let b: &#123;name: string&#125;;  //只能有个 name 属性
-let c: &#123;name: tring, age?: number&#125;; //必须有 name 属性，age 属性可有可无
+let c: &#123;name: string, age?: number&#125;; //必须有 name 属性，age 属性可有可无
 let d: &#123;name: string, [propName: string]: any&#125;;  //对象中需要有 name 属性，其他属性不一定，[propName: string]: any 表示任意类型的属性
-let k:&#123;name: string&#125; &amp; &#123;age: number&#125;; //对象需要同时有 name 和 age 属性</code></pre>
+let k: &#123;name: string&#125; &amp; &#123;age: number&#125;; //对象需要同时有 name 和 age 属性</code></pre>
 <p>array：任意 JS 数组，方式一 <code>类型[]</code>，方式二 <code>Array&lt;类型&gt;</code></p>
 <pre><code>let e: string[]; //字符串数组
 let g: Array&lt;number&gt;; //数字数组，相当于 let g: number[];</code></pre>
@@ -10358,7 +10360,7 @@ switch()&#123;case:xxx&#125;</code></pre>
 <p>若 A 类继承了 B 类，且 A 类中写了构造器，则 A 类构造器中的 super 是必须调用的</p>
 <p>类中的方法默认开启了局部的严格模式，所以方法中的　this　为　undefined</p>
 <p>且在外部通过　const x = 实例对象.方法，然后　x()　进行调用此时依然不是通过实例对象调用，而是直接调用，因此调用的方法中的　this　不是实例对象</p>
-<p>类中可以直接写复制语句　｀a：１｀，相当于给实例对象自身上添加一个属性　a　值为　１</p>
+<p>类中可以直接写赋值语句　｀a：１｀，相当于给实例对象自身上添加一个属性　a　值为　１</p>
 <p>类中箭头函数中没有this，但若使用this不报错，而是去外部找this</p>
 <h4 id="创建类式组件"><a href="#创建类式组件" class="headerlink" title="创建类式组件"></a>创建类式组件</h4><pre><code>&lt;body&gt;
     &lt;div id=&quot;test&quot;&gt;&lt;/div&gt;
@@ -10382,7 +10384,7 @@ switch()&#123;case:xxx&#125;</code></pre>
 <p>— 2.发现组件是使用类定义的，随后 new 出来该类的实例，并通过该实例调用到原型上的 render 方法</p>
 <p>— 3.将 render 返回的虚拟 DOM 转为真实 DOM，随后呈现在页面中</p>
 <h2 id="组件实例（用类定义的组件）的三大核心属性"><a href="#组件实例（用类定义的组件）的三大核心属性" class="headerlink" title="组件实例（用类定义的组件）的三大核心属性"></a>组件实例（用类定义的组件）的三大核心属性</h2><h3 id="1、state"><a href="#1、state" class="headerlink" title="1、state"></a>1、state</h3><p>state 是组件实例对象最重要的属性，值是对象，可包含多个 key-value 的组合</p>
-<p>组件被称为“状态机”，通过更新组件的 state 来更新对应的页面显式（重新渲染组件）</p>
+<p>组件被称为“状态机”，通过更新组件的 state 来更新对应的页面显示（重新渲染组件）</p>
 <p>注意：（1）组件中 render 方法中的 this　为组件实例对象</p>
 <p>（2）组件自定义的方法中　this　为　undefined　如何解决？</p>
 <pre><code>a）强制绑定 this：通过函数对象的 bind（）
@@ -10606,7 +10608,7 @@ ReactDOM.render(&lt;Person &#123;...p&#125;/&gt;, document.getElementById(&#39;t
     //2.渲染组件到页面
     ReactDOM.render(&lt;Weather/&gt;, document.getElementById(&#39;test&#39;))
 &lt;/script&gt; </code></pre>
-<p>注意：若 ref 回调函数是以内联函数的方式定义，在更新过程中（第二次触发 render() 开始）它会被执行两次，第一次闯入参数 null，第二次才传入 DOM 元素，因为每次渲染时会创建一个新的函数实例，所以 React 会传入 null 清空旧的 ref 再设置新的</p>
+<p>注意：若 ref 回调函数是以内联函数的方式定义，在更新过程中（第二次触发 render() 开始）它会被执行两次，第一次传入参数 null，第二次才传入 DOM 元素，因为每次渲染时会创建一个新的函数实例，所以 React 会传入 null 清空旧的 ref 再设置新的</p>
 <p>通过 ref 回调函数定义或 class 的绑定函数的方式可避免上述问题，但大多数情况下它是无关紧要的，可以使用内联方式</p>
 <pre><code>&lt;script type=&quot;text/babel&quot;&gt;
     //1.创建类式组件
@@ -11044,7 +11046,7 @@ render()&#123;
     &#123;id:3,name:&#39;c&#39;,age:20&#125;
     &#123;id:1,name:&#39;a&#39;,age:18&#125;
     &#123;id:2,name:&#39;b&#39;,age:18&#125;
-初始的虚拟 DOM
+更新后的虚拟 DOM
     &lt;li key=0&gt;c---20&lt;input type=&quot;text&quot;/&gt;&lt;/li&gt;
     &lt;li key=1&gt;b---19&lt;input type=&quot;text&quot;/&gt;&lt;/li&gt;
     &lt;li key=2&gt;a---18&lt;input type=&quot;text&quot;/&gt;&lt;/li&gt;</code></pre>
@@ -11060,7 +11062,7 @@ render()&#123;
     &#123;id:3,name:&#39;c&#39;,age:20&#125;
     &#123;id:1,name:&#39;a&#39;,age:18&#125;
     &#123;id:2,name:&#39;b&#39;,age:18&#125;
-初始的虚拟 DOM
+更新后的虚拟 DOM
     &lt;li key=30&gt;c---20&lt;input type=&quot;text&quot;/&gt;&lt;/li&gt;
     &lt;li key=1&gt;b---19&lt;input type=&quot;text&quot;/&gt;&lt;/li&gt;
     &lt;li key=2&gt;a---18&lt;input type=&quot;text&quot;/&gt;&lt;/li&gt;</code></pre>
@@ -11232,7 +11234,7 @@ componentWillUnmount()&#123;
         history.replace(path)
     &#125;
     function back()&#123;
-        history.gBack()
+        history.goBack()
     &#125;
     function forward()&#123;
         history.goForward()
@@ -11985,7 +11987,7 @@ export deffault clss Demo extends Component&#123;
 或
 &lt;&gt;&lt;/&gt;</code></pre>
 <p><code>&lt;Fragment&gt;</code> 可以添加 key 属性，用于遍历</p>
-<p>可以不用必须有一个真实的 DOM 跟标签了，而 <code>&lt;&gt;</code> 空标签里不能添加任何属性</p>
+<p>可以不用必须有一个真实的 DOM 根标签了，而 <code>&lt;&gt;</code> 空标签里不能添加任何属性</p>
 <h2 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h2><p>Context 是一种组件间通信方式，常用于【祖组件】与【后代组件】间的通信</p>
 <p>使用：</p>
 <p>（1）在祖孙组件都能访问到的地方创建 Context 容器对象</p>
@@ -12007,13 +12009,13 @@ this.context  //读取 context 中的value 数据
         &#125;
     &#125;
 &lt;/xxxContext.Consumer&gt;</code></pre>
-<p>注意：在应用开发中一般不用 context，一般都用它的封装 react 插件（react-redux 中的 Pr ovider）</p>
+<p>注意：在应用开发中一般不用 context，一般都用它的封装 react 插件（react-redux 中的 Provider）</p>
 <p>例子：A 组件是 B 组件的父组件，B 是 C 的父组件，要让 C 不通过 B，直接拿到 A 的数据</p>
 <pre><code>import React, &#123; Component &#125; from &#39;react&#39;
 
 //创建 Context 对象
 const MyContext = React.createContext()
-const &#123;Provider,Consumer&#125; = MyProvider
+const &#123;Provider,Consumer&#125; = MyContext
 
 export default class A extends Component&#123;
     state = &#123;username:&#39;xx&#39;,age:18&#125;
@@ -12220,7 +12222,7 @@ import &#123;NavLink,useRoutes&#125; from &#39;react-router-dom&#39;
 import routes from &#39;./routes&#39;
 export default function App()&#123;
     //根据路由表生产对应的路由规则
-    const element useRoutes(routes)
+    const element = useRoutes(routes)
     return (
         &lt;div&gt;
             &#123;element&#125;
@@ -12461,10 +12463,10 @@ console.log(data)  //也能输出 1</code></pre>
 <a id="more"></a>
 
 <h2 id="Vue-特点"><a href="#Vue-特点" class="headerlink" title="Vue 特点"></a>Vue 特点</h2><p>（1）采用<strong>组件化</strong>模式，提高代码复用率、且让代码更好维护（.vue 文件中包含 html、css、js）</p>
-<p>（2）<strong>声明式编码</strong>，让编码人员无需直接操作 DOM 提高开发效率（如原生js中命令式编码需要 forEach 遍历、document.getElementById 获取 DOM 元素，而声明式编码中只需 <li v-for> 即可）</li></p>
+<p>（2）<strong>声明式编码</strong>，让编码人员无需直接操作 DOM 提高开发效率（如原生js中命令式编码需要 forEach 遍历、document.getElementById 获取 DOM 元素，而声明式编码中只需 <code>&lt;li v-for&gt;</code> 即可）</p>
 <p>（3）使用<strong>虚拟 DOM</strong> + 优秀的 <strong>Diff 算法</strong>，尽量复用 DOM 节点</p>
 <p>（4）遵循 MVVM 模式</p>
-<p>（5）编码简介，体积小，运行效率高，适合移动/PC端开发</p>
+<p>（5）编码简化，体积小，运行效率高，适合移动/PC端开发</p>
 <p>（6）它本身只关注 UI，也可以引入其他第三方库开发项目</p>
 <h2 id="创建-Vue-的基础"><a href="#创建-Vue-的基础" class="headerlink" title="创建 Vue 的基础"></a>创建 Vue 的基础</h2><p>（1）想让 Vue 工作，就必须创建一个 Vue 实例，且要传入一个配置对象</p>
 <p>（2）root 容器里的代码依然符合 html 规范，只不过混入了一些特殊的 Vue 语法，如 <code>&#123;&#123;表达式或vue的data中的数据&#125;&#125;</code></p>
@@ -12482,7 +12484,7 @@ console.log(data)  //也能输出 1</code></pre>
 &lt;script type=&quot;text/javascript&quot;&gt;
     const x = new Vue(&#123;
         el:&#39;#root&#39;, //el 用于指定当前 Vue 实例为哪个容器入伍，值通常为 css 选择器字符串，这里 &#39;#root&#39; 也可用 document.getElementById(&#39;root&#39;)
-        data:&#123;  //data 中用于存储数据，数据供 el 指定的容器去使用，值这里暂时携程一个对象
+        data:&#123;  //data 中用于存储数据，数据供 el 指定的容器去使用，值这里暂时写成一个对象
             name:&#39;xxx&#39;
         &#125;
     &#125;)
@@ -12542,7 +12544,7 @@ const vm = new Vue(&#123;
 <h2 id="数据代理"><a href="#数据代理" class="headerlink" title="数据代理"></a>数据代理</h2><h3 id="数据代理的基础知识"><a href="#数据代理的基础知识" class="headerlink" title="数据代理的基础知识"></a>数据代理的基础知识</h3><p>Object.defineProperty(对象,’属性名’,{配置项}) 方法给一个对象添加/定义一个属性名（ES 6 的语法）</p>
 <p>通过该方法添加的属性默认是不能被枚举的（即不能被遍历，如 Object.keys(对象) 不能获取到那个属性），且添加的属性不可被修改、删除</p>
 <p>通过添加配置 enumerable:true 后可被枚举</p>
-<p>通过添加配置 writable:true 后可被枚举</p>
+<p>通过添加配置 writable:true 后可被修改</p>
 <p>通过添加配置 configurable:true  后可被删除</p>
 <pre><code>let person = &#123;
     name:&#39;xx&#39;,
@@ -12586,7 +12588,7 @@ Object.defineProperty(obj2,&#39;x&#39;,&#123;
 <p>修改 vm 中属性时：ViewModel 中属性 —setter —&gt; data 中的属性</p>
 <p><img src="/2022/02/25/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E4%BB%A3%E7%90%86.png" alt="数据代理"></p>
 <p>上图中后边的橙色和紫色线就是 Vue 做的数据代理</p>
-<p>Vue 把 data 中数据放到 vm 的 _data 属性中，即 vm._data = data（所以直接 vm.data 是 undefined），但这时要在模板（即视图 View 中显示数据需要 <code>&#123;&#123;_data.name&#125;&#125;</code>），通过数据代理把数据放到 vm 上，这里还会做数据代理，就可以通过 <code>&#123;&#123;name&#125;&#125;</code> 来获取使用数据</p>
+<p>Vue 把 data 中数据放到 vm 的 _data 属性中，即 vm._data = data（所以直接 vm.data 是 undefined），但这时要在模板（即视图 View ）中显示数据需要 <code>&#123;&#123;_data.name&#125;&#125;</code>，通过数据代理把数据放到 vm 上，这里还会做数据代理，就可以通过 <code>&#123;&#123;name&#125;&#125;</code> 来获取使用数据</p>
 <h4 id="Vue-中数据代理的好处"><a href="#Vue-中数据代理的好处" class="headerlink" title="Vue 中数据代理的好处"></a>Vue 中数据代理的好处</h4><p>更加方便地操作 data 中数据</p>
 <h4 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h4><p>通过 Object.defineProperty 把 data 对象中所有属性添加到 vm 上</p>
 <p>为每个添加到 vm 上的属性都指定一个 getter/setter</p>
@@ -12629,7 +12631,7 @@ Object.defineProperty(obj2,&#39;x&#39;,&#123;
     &#125;)
 &lt;/script&gt;</code></pre>
 <p>注意：受 Vue 管理的函数最好都写成普通函数，不要写箭头函数，因为 this 的问题</p>
-<h3 id="事件修饰符"><a href="#事件修饰符" class="headerlink" title="事件修饰符"></a>事件修饰符</h3><p>p revent：阻止默认事件，如 <code>&lt;a href=&quot;http://www.xxx.com&quot; @click.prevent=&quot;xxx&quot;&gt;</code> 这样点击后不会跳转，相当于在事件回调函数中写 event.preventDefault()</p>
+<h3 id="事件修饰符"><a href="#事件修饰符" class="headerlink" title="事件修饰符"></a>事件修饰符</h3><p>prevent：阻止默认事件，如 <code>&lt;a href=&quot;http://www.xxx.com&quot; @click.prevent=&quot;xxx&quot;&gt;</code> 这样点击后不会跳转，相当于在事件回调函数中写 event.preventDefault()</p>
 <p>stop：给子元素添加，阻止事件冒泡，相当于在事件回调函数中写 event.stopPropagation()</p>
 <p>once：事件只触发一次</p>
 <p>capture：给父元素添加，使用事件的捕获模式，事件触发时是先捕获后冒泡所以子元素事件先响应后响应父元素事件，而给父元素添加 .capture 使得事件在捕获阶段就开始处理，即先响应父元素事件后响应子元素事件</p>
@@ -12695,16 +12697,16 @@ computed:&#123;
 <pre><code>watch:&#123;
     isHot:&#123;
         immedeiate:true, //为 true 时使得初始化时让 handler 调用以下，默认时 false
-        handler(newValue.oldValue)&#123; //当 isHot 发生改变时 handler 函数被调用
-            console.log(newValue.oldValue)
+        handler(newValue,oldValue)&#123; //当 isHot 发生改变时 handler 函数被调用
+            console.log(newValue,oldValue)
         &#125;
     &#125;
 &#125;</code></pre>
 <p>方式二：通过 vm.$watch 监视</p>
 <pre><code>vm.$watch(&#39;isHot&#39;,&#123;
     immedeiate:true, //为 true 时使得初始化时让 handler 调用以下，默认时 false
-    handler(newValue.oldValue)&#123; //当 isHot 发生改变时 handler 函数被调用
-        console.log(newValue.oldValue)
+    handler(newValue,oldValue)&#123; //当 isHot 发生改变时 handler 函数被调用
+        console.log(newValue,oldValue)
     &#125;
 &#125;)</code></pre>
 <h3 id="深度监视"><a href="#深度监视" class="headerlink" title="深度监视"></a>深度监视</h3><p>Vue 中 watch 默认不会监视对象内部值的改变（只监视一层）</p>
@@ -12732,13 +12734,13 @@ watch:&#123;
 &#125;</code></pre>
 <h3 id="监视的简写"><a href="#监视的简写" class="headerlink" title="监视的简写"></a>监视的简写</h3><p>当 watch 配置项中只有 handler 时才能简写，使用简写就不能配置 immedeiate 和 deep 了</p>
 <pre><code>watch:&#123;
-    isHot(newValue.oldValue)&#123;
-        console.log(newValue.oldValue,this) //这里 this 是 vm 对象，这里不能写箭头函数，若写箭头函数则 this 是 window
+    isHot(newValue,oldValue)&#123;
+        console.log(newValue,oldValue,this) //这里 this 是 vm 对象，这里不能写箭头函数，若写箭头函数则 this 是 window
     &#125;
 &#125;
 
-vm.$watch(&#39;isHot&#39;,function(newValue.oldValue)&#123;
-        console.log(newValue.oldValue,this) //这里 this 是 vm 对象，这里不能写箭头函数，若写箭头函数则 this 是 window
+vm.$watch(&#39;isHot&#39;,function(newValue,oldValue)&#123;
+        console.log(newValue,oldValue,this) //这里 this 是 vm 对象，这里不能写箭头函数，若写箭头函数则 this 是 window
     &#125;
 &#125;)</code></pre>
 <h2 id="对比-computed-和-watch"><a href="#对比-computed-和-watch" class="headerlink" title="对比 computed 和 watch"></a>对比 computed 和 watch</h2><h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p>（1）computed 能完成的功能 watch 都可以完成</p>
@@ -12810,10 +12812,8 @@ v-show 实现时其实调整的是 display 属性，当不渲染时节点还在<
 <p>遍历字符串时 <code>v-for=&quot;(char,index) in 字符串&quot;</code></p>
 <p>遍历对象时 <code>v-for=&quot;(number,index) in 数字&quot;</code></p>
 <pre><code>&lt;ul&gt;
-    &lt;li v-for=&quot;(p,index) in persons&quot; :key=&quot;p.id&quot;</code></pre>
-<blockquote>
-</blockquote>
-<pre><code>        &#123;&#123;p.name&#125;&#125;,&#123;&#123;p.age&#125;&#125;
+    &lt;li v-for=&quot;(p,index) in persons&quot; :key=&quot;p.id&quot;&gt;
+        &#123;&#123;p.name&#125;&#125;,&#123;&#123;p.age&#125;&#125;
     &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 <p>注意：key 会在虚拟 DOM 中出现，在真实 DOM 中没有</p>
@@ -12992,11 +12992,11 @@ methods:&#123;
 使用过滤器：&#123;&#123;数据名 | 过滤器名&#125;&#125; 或 v-bind:属性 = &quot;数据名 | 过滤器名&quot;</code></pre>
 <p>过滤器也可以接收额外参数、多个过滤器也可以串联</p>
 <p>注意：过滤后并没有改变原本的数据，而是产生新的对应的数据</p>
-<pre><code>&lt;h2&gt;&#123;&#123;time | timeFormater&#125;&#125;&lt;/h2&gt;
+<pre><code>&lt;h2&gt;&#123;&#123;time|timeFormater&#125;&#125;&lt;/h2&gt;
 这里会把 time 作为参数传给 timeFormater，得到返回值后替换掉 &#123;&#123;&#125;&#125; 中的内容
-	<h2>&#123;&#123;time | timeFormater('YYYY_MM_DD')&#125;&#125;&lt;/h2&gt;
-&lt;h2&gt;&#123;&#123;time | timeFormater('YYYY_MM_DD') | mySlice&#125;&#125;&lt;/h2&gt;
-这里会把 time 作为参数传给 timeFormater，得到返回值作为参数传给 mySlice ，得到返回值后替换掉 &#123;&#123;&#125;&#125; 中的内容
+	<h2>&#123;&#123;time|timeFormater('YYYY_MM_DD')&#125;&#125;&lt;/h2&gt;
+&lt;h2&gt;&#123;&#123;time|timeFormater('YYYY_MM_DD')|mySlice&#125;&#125;&lt;/h2&gt;
+这里会把 time 作为参数传给 timeFormater，得到返回值作为参数传给 mySlice，得到返回值后替换掉 &#123;&#123;&#125;&#125; 中的内容
 	局部过滤器：在 vm 实例对象中定义过滤器
 	filters:&#123;
 		timeFormater(value,str='YYYY年MM月DD日 HH:mm:ss')&#123;
@@ -13011,6 +13011,7 @@ methods:&#123;
 	Vue.filter('mySlice1',function(value)&#123;
 		return value.slice(0,4)
 	&#125;)
+
 
 ## 内置指令
 
@@ -13045,7 +13046,7 @@ data:&#123;
 <pre><code>（1）在网站上动态渲染任意 html 是非常危险的，容易导致 XSS（冒充用户值守，即盗走用户的 cookie 就可以冒充用户）攻击
 （2）一定要在可信的内容上使用 v-html，永远不用用在用户提交的内容上</code></pre>
 <h3 id="v-cloak"><a href="#v-cloak" class="headerlink" title="v-cloak"></a>v-cloak</h3><p>v-cloak 指令没有值，本质是一个特殊属性，Vue 实例创建完毕并接管容器后会删掉 v-loak 属性</p>
-<p>使用 css 配置 v-vloak 可解决网速慢时页面展示出 <code>&#123;&#123;xxx&#125;&#125;</code> 的问题</p>
+<p>使用 css 配置 v-cloak 可解决网速慢时页面展示出 <code>&#123;&#123;xxx&#125;&#125;</code> 的问题</p>
 <pre><code>&lt;head&gt;
     &lt;style&gt;
         [v-cloak]&#123;
@@ -13210,7 +13211,8 @@ Vue.directive(&#39;fbind&#39;,&#123;
 <p>备注：使用 template 可以配置组件结构</p>
 <h4 id="注册组件"><a href="#注册组件" class="headerlink" title="注册组件"></a>注册组件</h4><p>（1）局部注册：靠 new Vue 的时候传入 components 选项</p>
 <p>（2）全局注册：靠 Vue.component(‘组件名’,组件)</p>
-<h4 id="编写组件标签"><a href="#编写组件标签" class="headerlink" title="编写组件标签"></a>编写组件标签</h4><p>如<br>    <school></school></p>
+<h4 id="编写组件标签"><a href="#编写组件标签" class="headerlink" title="编写组件标签"></a>编写组件标签</h4><p>如</p>
+<pre><code>&lt;school&gt;&lt;/school&gt;</code></pre>
 <h2 id="非单文件组件"><a href="#非单文件组件" class="headerlink" title="非单文件组件"></a>非单文件组件</h2><p>非单文件组件即一个文件中包含有 n 个组件</p>
 <pre><code>&lt;div id=&quot;root&quot;&gt;
     &lt;school&gt;&lt;/school&gt;
@@ -13351,7 +13353,7 @@ const father = Vue.extend(&#123;
 
 通过 this.$refs.xxx 来获取，相当于原生中 document.getElementById(&#39;xxx&#39;)</code></pre>
 <h2 id="props-配置"><a href="#props-配置" class="headerlink" title="props 配置"></a>props 配置</h2><p>props 让组件接收外部传来的数据</p>
-<p>props 是只读的，Vue 底层会监测对 props 值的修改，若进行了修改聚会发出警告</p>
+<p>props 是只读的，Vue 底层会监测对 props 值的修改，若进行了修改就会发出警告</p>
 <p>若确实需要修改，则需赋值 props 的内容到 data 中（Vue 底层实现时先接收到 props 数据后定义 data，若有重名也是 props 优先级高于 data，虽然这不允许控制台会报错），如在 data 中定义 <code>name:this.name</code>，后者的 name 就是 props 接收到的 name，然后去修改 data 中的数据</p>
 <p><strong>传递数据：</strong></p>
 <p>在父组件中使用子组件</p>
@@ -13462,7 +13464,7 @@ Vue.use(plugins,1,2,3)</code></pre>
 在子组件中
 props:[&#39;收到的参数名&#39;]
 this.收到的参数名(xxx) //调用父组件函数来给父组件传数据</code></pre>
-<p>通过父组件给自组件绑定一个自定义事件实现子给父传递数据（第一种写法，使用 @ 或 v-on）</p>
+<p>通过父组件给子组件绑定一个自定义事件实现子给父传递数据（第一种写法，使用 @ 或 v-on）</p>
 <pre><code>在父组件中绑定自定义事件
 &lt;子组件 @自定义事件名=&quot;父组件中的函数&quot;/&gt;
 //若想只触发一次:
@@ -13471,7 +13473,7 @@ this.收到的参数名(xxx) //调用父组件函数来给父组件传数据</co
 
 在子组件中触发自定义事件
 this.$emit(&#39;父组件自定义的事件名&#39;,数据) //作为点击等事件的回调函数使用，就会触发父组件中自定义的事件从而执行父组件中的函数</code></pre>
-<p>通过父组件给自组件绑定一个自定义事件实现子给父传递数据（第二种写法，使用 ref）</p>
+<p>通过父组件给子组件绑定一个自定义事件实现子给父传递数据（第二种写法，使用 ref）</p>
 <pre><code>在父组件中绑定自定义事件
 &lt;子组件 ref=&quot;子组件别名&quot;/&gt;
 mounted()&#123;
@@ -13696,7 +13698,7 @@ h1&#123;
 <p>在 main.js 文件中</p>
 <pre><code>import vueResource from &#39;vue-resource&#39;
 Vue.use(vueResource)  //使用 vue-resource 插件库后 vm 和 vc 上都会出现 $http</code></pre>
-<p>在组件代码中使用 vue-resource，用法和 axois 相同</p>
+<p>在组件代码中使用 vue-resource，用法和 axios 相同</p>
 <pre><code>this.$http.get(&#39;url地址&#39;).then(
     response=&gt;&#123;...&#125;,
     error=&gt;&#123;...&#125;
@@ -13755,15 +13757,15 @@ data()&#123;
 
 &lt;子组件&gt;
     &lt;template scope=&quot;&#123;data1&#125;&quot;&gt;
-        &lt;h2&gt;&#123;&#123;data1
-		
-	
-
-	<子组件>
-		<template slot-scope="&#123;data1&#125;">
-			<h2>&#123;&#123;data1&#125;&#125;&lt;/h2&gt;
+        &lt;h2&gt;&#123;&#123;data1&#125;&#125;&lt;/h2&gt;
     &lt;/template&gt;
-&lt;/子组件&gt;</h2></template></子组件></code></pre>
+&lt;/子组件&gt;
+
+&lt;子组件&gt;
+    &lt;template slot-scope=&quot;&#123;data1&#125;&quot;&gt;
+        &lt;h2&gt;&#123;&#123;data1&#125;&#125;&lt;/h2&gt;
+    &lt;/template&gt;
+&lt;/子组件&gt;</code></pre>
 <h1 id="五、组件间通信"><a href="#五、组件间通信" class="headerlink" title="五、组件间通信"></a>五、组件间通信</h1><p>（1）父子组件：props</p>
 <p>父传子数据</p>
 <pre><code>父组件中
@@ -14503,7 +14505,7 @@ const p = new Proxy(person,&#123;  //让 p 映射 person，对 p 进行操作能
     &#125;
 &#125;)
 p.sex = &#39;女&#39; //给 person 添加 sex 属性</code></pre>
-<p>MDN 文档中描述的 <a href="https://developer.mozilia.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a> 与 <a href="https://developer.mozilia.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect">Reflect</a></p>
+<p>MDN 文档中描述的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a> 与 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect">Reflect</a></p>
 <p><strong>Vue3 中的添加、删除、修改对象或数组元素：</strong></p>
 <pre><code>let person = reactive(&#123;
     name:&#39;xxx&#39;,
@@ -14877,9 +14879,597 @@ for(...)&#123;...&#125;</code></pre>
 <p>如原本 xxx DOM 元素的 v-show 为 false，即不在页面上显示，在某函数中将 v-show 改为 true 并获取该 DOM 元素焦点，但是 Vue 会在函数执行完后才会重新解析模板重新渲染，所以函数中对 DOM 元素获取焦点的操作无效，因为那时页面中并没有相应 DOM 元素，因此可以借助 $nextTick 的回调使得当 v-show 改为 true 页面重新渲染， DOM 元素出现在页面中后再执行对它获取焦点的操作</p>
 <p>当然 $nextTick 也可以通过利用不指定时间定时器来代替该函数</p>
 <pre><code>setTimeout(()=&gt;&#123;...&#125;)</code></pre>
-<p>##其他</p>
-<p>插值语法中可以展示 data、props、computed 中的数据</p>
+<h2 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h2><p>插值语法中可以展示 data、props、computed 中的数据</p>
 <p>Vue3 + TS 相关笔记可参考<a href="https://24kcs.github.io/vue3_study/00_%E8%AF%BE%E7%A8%8B%E4%BB%8B%E7%BB%8D.html">尚硅谷的课程笔记</a></p>
+<p>Vue 中数据代理、数据劫持、计算属性的原理都用到 Object.defineproperty</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Promise学习笔记</title>
+    <url>/2022/03/14/Promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="一、一些基础知识"><a href="#一、一些基础知识" class="headerlink" title="一、一些基础知识"></a>一、一些基础知识</h1><a id="more"></a>
+
+<h2 id="两种类型的回调函数"><a href="#两种类型的回调函数" class="headerlink" title="两种类型的回调函数"></a>两种类型的回调函数</h2><h3 id="同步回调"><a href="#同步回调" class="headerlink" title="同步回调"></a>同步回调</h3><p>同步回调立即执行，完全执行完了才结束，不会放入回调队列中</p>
+<p>如数组遍历相关的回调函数、Promise 的 excutor 函数</p>
+<pre><code>const arr = [1,2,3]
+arr.forEach(item=&gt;&#123;
+    console.log(item)
+&#125;)
+console.log(&#39;forEach之后才输出&#39;)
+输出：1 2 3 forEach之后才输出</code></pre>
+<h3 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h3><p>异步回调不会立即执行，会放入回调队列中将来执行</p>
+<p>如定时器回调、ajax 回调、Promise 的成功/失败回调</p>
+<h2 id="js-的-Error-处理"><a href="#js-的-Error-处理" class="headerlink" title="js 的 Error 处理"></a>js 的 Error 处理</h2><h3 id="错误类型-常见的内置错误"><a href="#错误类型-常见的内置错误" class="headerlink" title="错误类型/常见的内置错误"></a>错误类型/常见的内置错误</h3><p>Error：所有错误的父类型</p>
+<p>ReferenceError：引用的变量不存在，如 a is not defined</p>
+<p>TypeError：数据类型不正确的错误，如 Cannot read property ‘xxx’ of undefined 或 xx.xxx is not a function</p>
+<p>RangeError：数据值不在其所允许的范围内，如 递归中没有 return，则 RangeError:Maximun call stack size exceeded</p>
+<p>SyntaxError：语法错误</p>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p>捕获错误：try{…}catch(error){…}</p>
+<p>抛出错误：throw new Error(‘xxx’)</p>
+<pre><code>function func()&#123;
+    if(...)&#123;
+    &#125;else&#123;
+        throw new Error(&#39;出错&#39;) //这里只抛出错误，具体要怎么处理是在控制台输出还是弹窗由下一级处理
+    &#125;
+&#125;
+try&#123;
+    func()
+&#125;catch(error)&#123;
+    console.log(error.message) //这里捕获错误在控制台输出
+&#125;</code></pre>
+<h2 id="错误对象"><a href="#错误对象" class="headerlink" title="错误对象"></a>错误对象</h2><p>message 属性：错误相关信息</p>
+<p>stack 属性：函数调用栈记录信息</p>
+<h1 id="二、Promise"><a href="#二、Promise" class="headerlink" title="二、Promise"></a>二、Promise</h1><p>Promise 是 ES6 引入的异步编程的新的解决方案，旧的解决方案是使用回调函数</p>
+<p>Promise 是个构造函数，Promise 对象用来封装一个异步操作（如 fs 文件操作、数据库操作、ajax、定时器）并可以获取其成功或失败的结果值</p>
+<p>Promise 最大的好处是可以解决回调地狱问题，并在指定回调和错误处理方面更灵活</p>
+<h2 id="promise-的状态改变"><a href="#promise-的状态改变" class="headerlink" title="promise 的状态改变"></a>promise 的状态改变</h2><p>（1）pending 变为 resolved</p>
+<p>（2）pending 变为 rejected</p>
+<p>注意：只有上面这 2 中情况，且一个 promise 对象只能改变一次状态</p>
+<p>无论变为成功或失败，都会有一个结果数据（value 或 reason）</p>
+<h2 id="promise运行流程"><a href="#promise运行流程" class="headerlink" title="promise运行流程"></a>promise运行流程</h2><p><img src="/2022/03/14/Promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/promise%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.jpg" alt="promise运行流程"></p>
+<h2 id="为什么使用-Promise"><a href="#为什么使用-Promise" class="headerlink" title="为什么使用 Promise"></a>为什么使用 Promise</h2><h3 id="（1）指定回调函数的方式更灵活"><a href="#（1）指定回调函数的方式更灵活" class="headerlink" title="（1）指定回调函数的方式更灵活"></a>（1）指定回调函数的方式更灵活</h3><p>旧的使用回调函数必须在启动异步任务前指定</p>
+<p>promise：启动异步任务（只要 new 创建了 promise 对象就启动了异步任务） =&gt; 返回 promise 对象 =&gt; 给 promise 对象绑定回调函数（甚至可以在异步任务结束后指定/多个）</p>
+<h3 id="（2）支持链式调用，可以解决回调地狱问题"><a href="#（2）支持链式调用，可以解决回调地狱问题" class="headerlink" title="（2）支持链式调用，可以解决回调地狱问题"></a>（2）支持链式调用，可以解决回调地狱问题</h3><p>回调地狱：回调函数嵌套调用，外部回调函数异步执行的结果是嵌套的回调函数执行的条件</p>
+<p>回调地狱不便于阅读，也不便于异常处理</p>
+<p>解决方案：promise 链式调用，还可异常传透链式调用出错了会找到最后一个 catch 处理异常</p>
+<p>终极解决方案：async / await</p>
+<h2 id="使用-Promise"><a href="#使用-Promise" class="headerlink" title="使用 Promise"></a>使用 Promise</h2><h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><p>（1）Promise 构造函数 <code>Promise(excutor)&#123;&#125;</code></p>
+<pre><code>excutor 函数：执行器 (resolve,reject)=&gt;&#123;&#125;
+resolve 函数：内部定义成功时调用的函数 value =&gt; &#123;&#125;
+reject 函数：内部定义失败时调用的函数 reason =&gt; &#123;&#125;</code></pre>
+<p>注意：excutor 会在 Promise 内部立即<strong>同步回调</strong>，异步操作在执行器中执行，then 也是<strong>同步执行</strong>的，但 then 里的回调函数异步执行</p>
+<p>（2）<code>Promise.protorype.then</code> 方法 <code>(onResolved,onRejected)=&gt;&#123;&#125;</code></p>
+<pre><code>onResolved 函数：成功的回调函数 (value) =&gt; &#123;&#125;
+onRejected 函数：失败的回调函数 (reason) =&gt; &#123;&#125;</code></pre>
+<p>注意：指定用于得到成功 value 的成功回调和用于得到失败 reason 的失败回调返回一个新的 promise 对象</p>
+<p>（3）<code>Promise.protorype.catch</code> 方法 <code>(onRejected)=&gt;&#123;&#125;</code></p>
+<pre><code>onRejected 函数：失败的回调函数 (reason) =&gt; &#123;&#125;</code></pre>
+<p>注意：是 then() 的语法糖，相当于 then(undefined,onRejected)</p>
+<p>（4）<code>Promise.resolve</code> 方法 <code>(value)=&gt;&#123;&#125;</code></p>
+<pre><code>value 是成功的数据或 promise 对象
+
+如 const p = Promise.resolve(1) //返回一个成功值为 1 的 promise 对象
+p.then(value=&gt;&#123;console.log(value)&#125;)</code></pre>
+<p>注意：该方法返回一个成功/失败的 promise 对象，返回一个成功/失败的 promise 对象的简洁语法</p>
+<p>（5）<code>Promise.reject</code> 方法 <code>(reason)=&gt;&#123;&#125;</code></p>
+<pre><code>如 const p = Promise.reject(1) //返回一个失败值为 1 的 promise 对象
+p.catch(reason=&gt;&#123;console.log(reason)&#125;)</code></pre>
+<p>注意：该方法返回一个失败的 promise 对象</p>
+<p>（6）<code>Promise.all</code> 方法 <code>(promises)=&gt;&#123;&#125;</code></p>
+<pre><code>promises 包含 n 个 promise 的数组
+
+如 const pAll = Promise.all([p1,p2,p3])
+pAll.then(
+    value=&gt;&#123;...&#125;,
+    reason=&gt;&#123;...&#125;
+)</code></pre>
+<p>注意：该方法返回一个新的 promise，只有所有的 promise 都成功才成功，只要有一个失败了就直接失败</p>
+<p>（7）<code>Promise.race</code> 方法 <code>(promises)=&gt;&#123;&#125;</code></p>
+<pre><code>promises 包含 n 个 promise 的数组
+
+如 const pAll = Promise.race([p1,p2,p3])
+pAll.then(
+    value=&gt;&#123;...&#125;,
+    reason=&gt;&#123;...&#125;
+)</code></pre>
+<p>注意：该方法返回一个新的 promise 对象，第一个完成的 promise 的结果状态就是最终的结果状态</p>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><pre><code>new Promise((resolve,reject)=&gt;&#123;    //执行器函数，里面执行异步操作任务
+    setTimeout(()=&gt;&#123;
+        if(...)&#123;
+            resolve(&#39;成功&#39;)
+        &#125; else&#123;
+            reject(&#39;失败&#39;)
+        &#125;
+    &#125;,1000)
+&#125;)
+p.then(
+    value=&gt;&#123;  //接收成功的 value 数据 onResolved
+        console.log(value)
+    &#125;,
+    reason=&gt;&#123; //接收失败的 reason 数据 onRejected
+        console.log(reason)
+    &#125;
+)</code></pre>
+<h2 id="如何改变-promise-状态"><a href="#如何改变-promise-状态" class="headerlink" title="如何改变 promise 状态"></a>如何改变 promise 状态</h2><p>（1）resolve(value)：若当前是 pendding 就变为 resolved</p>
+<p>（2）reject(reason)：若当前是 pendding 就变为 rejected</p>
+<p>（3）抛出异常：若当前是 pendding 就变为 rejected</p>
+<h2 id="一个-promise-指定多个成功-失败回调函数（如多次对一个-Promise-对象调用-then），都会调用吗"><a href="#一个-promise-指定多个成功-失败回调函数（如多次对一个-Promise-对象调用-then），都会调用吗" class="headerlink" title="一个 promise 指定多个成功/失败回调函数（如多次对一个 Promise 对象调用 then），都会调用吗"></a>一个 promise 指定多个成功/失败回调函数（如多次对一个 Promise 对象调用 then），都会调用吗</h2><p>当 promise 改变对应状态时都会调用</p>
+<h2 id="改变-promise-状态和指定回调函数谁先谁后？"><a href="#改变-promise-状态和指定回调函数谁先谁后？" class="headerlink" title="改变 promise 状态和指定回调函数谁先谁后？"></a>改变 promise 状态和指定回调函数谁先谁后？</h2><p>（1）都有可能，正常情况下（执行器中是异步任务，resolve()/reject() 在异步任务中）先指定回调再改变状态同时执行回调函数，也可以先改变状态再指定回调</p>
+<p>（2）如何先改状态再指定回调</p>
+<pre><code>1）再执行器中直接调用 resolve()/reject()
+2）延迟更长时间才调用 then()</code></pre>
+<p>（3）什么时候才能得到数据？</p>
+<pre><code>1）若先指定回调，当状态发生改变时，回调函数就会调用，得到数据
+2）若先改变状态，当指定回调时，回调函数就会调用，得到数据</code></pre>
+<p>如先指定回调再改变状态</p>
+<pre><code>new Promise((resolve,reject)=&gt;&#123;
+    setTimeout(()=&gt;&#123;
+        resolve(1) //后改变状态同时指定数据，异步执行回调函数
+    &#125;,100)
+&#125;).then( //先指定回调函数，保存当前指定的回调函数
+    value =&gt; &#123;&#125;,
+    reason =&gt;&#123;&#125;
+)</code></pre>
+<p>先改变状态再指定回调1</p>
+<pre><code>new Promise((resolve,reject)=&gt;&#123;
+    resolve(1)  //先改状态同时指定数据
+&#125;).then( //后指定回调函数，异步执行回调函数
+    value =&gt; &#123;&#125;,
+    reason =&gt;&#123;&#125;
+)</code></pre>
+<p>先改变状态再指定回调2</p>
+<pre><code>const p = new Promise((resolve,reject)=&gt;&#123;
+    setTimeout(()=&gt;&#123;
+        resolve(1)   //先改状态同时指定数据
+    &#125;,100)
+&#125;)
+setTimeout(()=&gt;&#123;
+    p.then(  //后指定回调函数
+        value =&gt; &#123;&#125;,
+        reason =&gt;&#123;&#125;
+    )
+&#125;,110)</code></pre>
+<h2 id="promise-then-返回的新-promise-的结果状态由什么决定？"><a href="#promise-then-返回的新-promise-的结果状态由什么决定？" class="headerlink" title="promise.then() 返回的新 promise 的结果状态由什么决定？"></a>promise.then() 返回的新 promise 的结果状态由什么决定？</h2><p>简单表达：由 then() 指定的回调函数执行结果决定</p>
+<p>详细表达：</p>
+<pre><code>（1）若抛出异常，新 promise 变为 rejected，reason 为抛出的异常
+（2）若返回非 promise 的任意值，新 promise 变为 resolved，value 为返回的值
+（3）若返回的是另一个新 promise，此 promise 的结果就会成为新 promise 的结果</code></pre>
+<p>如</p>
+<pre><code>new Promise((resolve,reject)=&gt;&#123;
+    resolve(1)
+&#125;).then(
+    value =&gt; &#123;
+        console.log(&#39;onResolved1&#39;,value)
+    &#125;,
+    reason =&gt;&#123;
+        console.log(&#39;onRejected1&#39;,reason)
+    &#125;
+)
+.then(
+    value =&gt; &#123;
+        console.log(&#39;onResolved2&#39;,value)
+    &#125;,
+    reason =&gt;&#123;
+        console.log(&#39;onRejected2&#39;,reason)
+    &#125;
+)</code></pre>
+<p>上述代码输出：onResolved1 1 onResolved2 undefined</p>
+<pre><code>new Promise((resolve,reject)=&gt;&#123;
+    reject(1)
+&#125;).then(
+    value =&gt; &#123;
+        console.log(&#39;onResolved1&#39;,value)
+    &#125;,
+    reason =&gt;&#123;
+        console.log(&#39;onRejected1&#39;,reason)
+    &#125;
+)
+.then(
+    value =&gt; &#123;
+        console.log(&#39;onResolved2&#39;,value)
+    &#125;,
+    reason =&gt;&#123;
+        console.log(&#39;onRejected2&#39;,reason)
+    &#125;
+)</code></pre>
+<p>上述代码输出：onRejected1 1 onResolved2 undefined</p>
+<h2 id="promise-如何串联多个操作任务？"><a href="#promise-如何串联多个操作任务？" class="headerlink" title="promise 如何串联多个操作任务？"></a>promise 如何串联多个操作任务？</h2><p>（1）promise 的 then() 返回一个新的 promise，可以看成 then() 的链式调用</p>
+<p>（2）通过 then 的链式调用串联多个同步/异步任务，其中异步任务要包在一个 promise 里</p>
+<h2 id="promise-异常传-穿透"><a href="#promise-异常传-穿透" class="headerlink" title="promise 异常传/穿透"></a>promise 异常传/穿透</h2><p>（1）当使用 promise 的 then 链式调用时，可在最后指定失败的回调</p>
+<p>当 then 中没有对失败时 reason 的处理时相当于默认执行 <code>reason =&gt; &#123;throw reason&#125;</code></p>
+<p>（2）前面任何操作出了异常，都会传到最后失败的回调中处理</p>
+<h2 id="中断-promise-链"><a href="#中断-promise-链" class="headerlink" title="中断 promise 链"></a>中断 promise 链</h2><p>当使用 promise 的 then 链式调用时，在中间中断，不再调用后面的回调函数</p>
+<p>办法：在回调函数中返回一个 pendding 状态的 promise 对象</p>
+<pre><code>return new Promise(()=&gt;&#123;&#125;)</code></pre>
+<h1 id="三、自定义-Promise"><a href="#三、自定义-Promise" class="headerlink" title="三、自定义 Promise"></a>三、自定义 Promise</h1><pre><code>(function(window)&#123;
+    function Promise(excutor)&#123;
+        const self = this //将当前 promise 保存起来，否则调用 resolve 函数中的 this 为 window
+        self.status = &#39;pending&#39;
+        self.data = undefined //用于存储结果数据
+        self.callbacks = [] //每个元素：&#123;onResolved()&#123;&#125;,onRejected()&#123;&#125;&#125;
+        function resolve(value)&#123;
+            if(self.status !== &#39;pending&#39;)&#123;return &#125;
+            self.status = &#39;resolved&#39;
+            self.data = value
+            //
+            if(self.callbacks.length&gt;0)&#123;
+                setTimeout(()=&gt;&#123; //放入队列中执行所有成功的回调
+                        self.callbacks.forEach(callbacksObj =&gt; &#123;
+                        callbacksObj.onResolved(value)
+                    &#125;)
+                &#125;)
+            &#125;
+        &#125;
+        function reject(reason)&#123;
+            if(self.status !== &#39;pending&#39;)&#123;return &#125;
+            self.status = &#39;rejected&#39;
+            self.data = reason
+            //
+            if(self.callbacks.length&gt;0)&#123;
+                setTimeout(()=&gt;&#123; //放入队列中执行所有失败的回调
+                        self.callbacks.forEach(callbacksObj =&gt; &#123;
+                        callbacksObj.onRejected(reason)
+                    &#125;)
+                &#125;)
+            &#125;
+        &#125;
+        //立即同步执行 excutor
+        try&#123;
+            excutor(resolve,reject)
+        &#125;catch(error)&#123; //若执行器抛出异常，promise 对象变为 rejected 状态
+            reject(error)
+        &#125;
+    &#125;
+    //Promise 原型对象的 then，指定成功或失败的回调函数，返回新的 promise 对象
+    Promise.prototype.then = function(onResolved,onRejected)&#123;
+        onResolved = typeof onResolved === &#39;function&#39; ? onResolved : value =&gt; value //向后传递成功的 value
+        onRejected = typeof onRejected === &#39;function&#39; ? onRejected : reason =&gt; &#123;throw reason&#125; //指定默认的失败回调（实现错误/异常传透的关键点）
+        const self = this
+        return new Promise((resolve,reject)=&gt;&#123;
+            function handle(callback)&#123; //调用指定的回调函数处理，并根据执行结果改变 return 的 promise 的状态
+                try&#123;
+                    const result = callback(self.data)
+                    if(result instanceof Promise)&#123;
+                        result.then( //只有 .then 才能获取到 result 的结果
+                            value =&gt;resolve(value),
+                            reason =&gt; reject(reason)
+                        )
+                        //或简写为 result.then(resolve,reject)
+                    &#125;else&#123;
+                        resolve(result)
+                    &#125;
+                &#125;catch(error)&#123;
+                    reject(error)
+                &#125;
+            &#125;
+            if(self.status === &#39;pending&#39;)&#123;
+                //当前为 pending 状态，将回调函数保存起来，保存的函数里会取调用所保存函数来改变 promise 状态
+                self.callbacks.push(&#123;
+                    onResolved(value)&#123; //这里能接收个 value，但没用
+                        handle(onResolved)
+                    &#125;,
+                    onRejected(reason)&#123;
+                        handle(onRejected)
+                    &#125;,
+                &#125;)
+            &#125;else if(self.status === &#39;resolved&#39;)&#123;
+                //当前是 resolved 状态，异步执行 onResolve 并改变 return 的 promise 状态
+                setTimeout(()=&gt;&#123;
+                    handle(onResolved)
+                &#125;)
+            &#125;else&#123;
+                setTimeout(()=&gt;&#123;
+                    handle(onRejected)
+                &#125;)
+            &#125;
+        &#125;)
+
+    &#125;
+    //Promise 原型对象的 catch，指定失败的回调函数，返回新的 promise 对象
+    Promise.prototype.catch = function(onRejected)&#123;
+        return this.then(undefined,onRejected)
+    &#125;
+    //Promise 函数对象的 resolve 方法，返回一个指定结果的 promise
+    Promise.resolve = function(value)&#123;
+        return new Promise((resolve,reject)=&gt;&#123;
+            if(value instanceof Promise)&#123;
+                value.then(resolve,reject)
+            &#125;else&#123;
+                resolve(value)
+            &#125;
+        &#125;)
+    &#125;
+    //Promise 函数对象的 reject 方法，返回一个指定 reason 的失败的 promise
+    Promise.reject = function(reason)&#123;
+        return new Promise((resolve,reject)=&gt;&#123;
+            reject(reason)
+        &#125;)
+    &#125;
+    //Promise 函数对象的 all 方法，返回一个 promise，只有当所有 promise 都成功时才成功，否则只要有一个失败就失败
+    Promise.all = function(promises)&#123;
+        const values = new Array(promises.length) //保存所有成功 value 的数组
+        let resolvedCount = 0 //保存成功 promise 的数量
+        return new Promise((resolve,reject)=&gt;&#123;
+            //遍历获取每个 promise 的结果
+            promises.forEach((p,index)=&gt;&#123;
+                Promise.resolve(p).then( //Promise.resolve(p)是处理传入的数组中包含的纯数字
+                    value=&gt;&#123;
+                        resolvedCount++
+                        values[index] = value
+                        if(resolvedCount === promises.length)&#123;
+                            resolve(values)
+                        &#125;
+                    &#125;,
+                    reason =&gt; &#123;
+                        reject(reason)
+                    &#125;
+                )
+            &#125;)
+        &#125;)
+    &#125;
+    //Promise 函数对象的 race 方法，返回一个 promise，其结果由第一个完成（注意不是指位置上的第一个）的 promise 决定
+    Promise.race = function(promises)&#123;
+        return new Promise((resolve,reject)=&gt;&#123;
+            promises.forEach((p,index)=&gt;&#123;
+                Promise.resolve(p).then(
+                    value =&gt; &#123;
+                        resolve(value)
+                    &#125;,
+                    reason =&gt; &#123;
+                        reject(reason)
+                    &#125;
+                )
+            &#125;)
+        &#125;)
+    &#125;
+    window.Promise = Promise
+&#125;)(window)</code></pre>
+<h2 id="自定义-Promise-的其他方法"><a href="#自定义-Promise-的其他方法" class="headerlink" title="自定义 Promise 的其他方法"></a>自定义 Promise 的其他方法</h2><p>Promise 的 resolveDelay 和 rejectDelay，都返回一个 Promise 对象，它们在指定的时间后才确定结果</p>
+<pre><code>Promise.resolveDelay = function(value,time)&#123;
+    return new Promise((resolve,reject)=&gt;&#123;
+        setTimeout(()=&gt;&#123;
+            if(value instanceof Promise)&#123;
+                value.then(resolve,reject)
+            &#125;else&#123;
+                resolve(value)
+            &#125;
+        &#125;,time)
+    &#125;)
+&#125;
+
+Promise.rejectDelay = function(reason,time)&#123;
+    const self = this
+    return new Promise((resolve,reject)=&gt;&#123;
+        setTimeout(()=&gt;&#123;
+            reject(reason)
+        &#125;,time)
+    &#125;)
+&#125;</code></pre>
+<h2 id="Promise-的-class-版本"><a href="#Promise-的-class-版本" class="headerlink" title="Promise 的 class 版本"></a>Promise 的 class 版本</h2><pre><code>(function(window)&#123;
+    class Promise&#123;
+        constructor(excutor)&#123;
+            const self = this //将当前 promise 保存起来，否则调用 resolve 函数中的 this 为 window
+            self.status = &#39;pending&#39;
+            self.data = undefined //用于存储结果数据
+            self.callbacks = [] //每个元素：&#123;onResolved()&#123;&#125;,onRejected()&#123;&#125;&#125;
+            function resolve(value)&#123;
+                if(self.status !== &#39;pending&#39;)&#123;return &#125;
+                self.status = &#39;resolved&#39;
+                self.data = value
+                //
+                if(self.callbacks.length&gt;0)&#123;
+                    setTimeout(()=&gt;&#123; //放入队列中执行所有成功的回调
+                            self.callbacks.forEach(callbacksObj =&gt; &#123;
+                            callbacksObj.onResolved(value)
+                        &#125;)
+                    &#125;)
+                &#125;
+            &#125;
+            function reject(reason)&#123;
+                if(self.status !== &#39;pending&#39;)&#123;return &#125;
+                self.status = &#39;rejected&#39;
+                self.data = reason
+                //
+                if(self.callbacks.length&gt;0)&#123;
+                    setTimeout(()=&gt;&#123; //放入队列中执行所有失败的回调
+                            self.callbacks.forEach(callbacksObj =&gt; &#123;
+                            callbacksObj.onRejected(reason)
+                        &#125;)
+                    &#125;)
+                &#125;
+            &#125;
+            //立即同步执行 excutor
+            try&#123;
+                excutor(resolve,reject)
+            &#125;catch(error)&#123; //若执行器抛出异常，promise 对象变为 rejected 状态
+                reject(error)
+            &#125;
+        &#125;
+        //Promise 原型对象的 then，指定成功或失败的回调函数，返回新的 promise 对象
+        then(onResolved,onRejected)&#123;
+            onResolved = typeof onResolved === &#39;function&#39; ? onResolved : value =&gt; value //向后传递成功的 value
+            onRejected = typeof onRejected === &#39;function&#39; ? onRejected : reason =&gt; &#123;throw reason&#125; //指定默认的失败回调（实现错误/异常传透的关键点）
+            const self = this
+            return new Promise((resolve,reject)=&gt;&#123;
+                function handle(callback)&#123; //调用指定的回调函数处理，并根据执行结果改变 return 的 promise 的状态
+                    try&#123;
+                        const result = callback(self.data)
+                        if(result instanceof Promise)&#123;
+                            result.then( //只有 .then 才能获取到 result 的结果
+                                value =&gt;resolve(value),
+                                reason =&gt; reject(reason)
+                            )
+                            //或简写为 result.then(resolve,reject)
+                        &#125;else&#123;
+                            resolve(result)
+                        &#125;
+                    &#125;catch(error)&#123;
+                        reject(error)
+                    &#125;
+                &#125;
+                if(self.status === &#39;pending&#39;)&#123;
+                    //当前为 pending 状态，将回调函数保存起来，保存的函数里会取调用所保存函数来改变 promise 状态
+                    self.callbacks.push(&#123;
+                        onResolved(value)&#123; //这里能接收个 value，但没用
+                            handle(onResolved)
+                        &#125;,
+                        onRejected(reason)&#123;
+                            handle(onRejected)
+                        &#125;,
+                    &#125;)
+                &#125;else if(self.status === &#39;resolved&#39;)&#123;
+                    //当前是 resolved 状态，异步执行 onResolve 并改变 return 的 promise 状态
+                    setTimeout(()=&gt;&#123;
+                        handle(onResolved)
+                    &#125;)
+                &#125;else&#123;
+                    setTimeout(()=&gt;&#123;
+                        handle(onRejected)
+                    &#125;)
+                &#125;
+            &#125;)
+
+        &#125;
+        //Promise 原型对象的 catch，指定失败的回调函数，返回新的 promise 对象
+        catch(onRejected)&#123;
+            return this.then(undefined,onRejected)
+        &#125;
+        //Promise 函数对象的 resolve 方法，返回一个指定结果的 promise
+        static resolve = function(value)&#123;
+            return new Promise((resolve,reject)=&gt;&#123;
+                if(value instanceof Promise)&#123;
+                    value.then(resolve,reject)
+                &#125;else&#123;
+                    resolve(value)
+                &#125;
+            &#125;)
+        &#125;
+        //Promise 函数对象的 reject 方法，返回一个指定 reason 的失败的 promise
+        static reject = function(reason)&#123;
+            return new Promise((resolve,reject)=&gt;&#123;
+                reject(reason)
+            &#125;)
+        &#125;
+        //Promise 函数对象的 all 方法，返回一个 promise，只有当所有 promise 都成功时才成功，否则只要有一个失败就失败
+        static all = function(promises)&#123;
+            const values = new Array(promises.length) //保存所有成功 value 的数组
+            let resolvedCount = 0 //保存成功 promise 的数量
+            return new Promise((resolve,reject)=&gt;&#123;
+                //遍历获取每个 promise 的结果
+                promises.forEach((p,index)=&gt;&#123;
+                    Promise.resolve(p).then( //Promise.resolve(p)是处理传入的数组中包含的纯数字
+                        value=&gt;&#123;
+                            resolvedCount++
+                            values[index] = value
+                            if(resolvedCount === promises.length)&#123;
+                                resolve(values)
+                            &#125;
+                        &#125;,
+                        reason =&gt; &#123;
+                            reject(reason)
+                        &#125;
+                    )
+                &#125;)
+            &#125;)
+        &#125;
+        //Promise 函数对象的 race 方法，返回一个 promise，其结果由第一个完成（注意不是指位置上的第一个）的 promise 决定
+        static race = function(promises)&#123;
+            return new Promise((resolve,reject)=&gt;&#123;
+                promises.forEach((p,index)=&gt;&#123;
+                    Promise.resolve(p).then(
+                        value =&gt; &#123;
+                            resolve(value)
+                        &#125;,
+                        reason =&gt; &#123;
+                            reject(reason)
+                        &#125;
+                    )
+                &#125;)
+            &#125;)
+        &#125;
+    &#125;
+    window.Promise = Promise
+&#125;)(window)</code></pre>
+<h1 id="四、async-与-await"><a href="#四、async-与-await" class="headerlink" title="四、async 与 await"></a>四、async 与 await</h1><h2 id="async"><a href="#async" class="headerlink" title="async"></a>async</h2><p>async 函数返回值为 promise 对象</p>
+<p>promise 对象的结果由 async 函数执行的返回值决定</p>
+<h2 id="await-表达式"><a href="#await-表达式" class="headerlink" title="await 表达式"></a>await 表达式</h2><p>await 右侧的表达式一般为 promise 对象，但也可以是其他的值，若为其他值则返回该值本身</p>
+<p>若表达式为 promise 对象，await 返回的是 promise 成功的值，若返回的 promise 失败，就会抛出异常，要得到失败的结果要用 try…catch</p>
+<pre><code>function fun()&#123;
+    return new Promise((resolve,reject)=&gt;&#123;
+        reject(1)
+    &#125;)
+&#125;
+async function fun1()&#123;
+    try&#123;
+        const value = await fun()
+    &#125;catch(error)&#123;
+        console.log(&#39;得到失败的结果&#39;,value)
+    &#125;
+&#125;</code></pre>
+<p>await 必须写在 async 函数中</p>
+<h1 id="五、JS-异步之宏队列与微队列"><a href="#五、JS-异步之宏队列与微队列" class="headerlink" title="五、JS 异步之宏队列与微队列"></a>五、JS 异步之宏队列与微队列</h1><p>JS 中用来存储执行回调函数的队列包含 2 个不同特定的列队</p>
+<p>宏队列：保存待执行的宏任务（一些回调函数），如定时器回调、DOM 事件回调、ajax 回调</p>
+<p>微队列：保存待执行的微任务（一些回调函数），如 promise 的回调（如 then 等）、MutationObserver 的回调</p>
+<p>JS 执行时会区别这 2 个队列</p>
+<pre><code>（1）JS 引擎首先必须先执行所有的初始化同步任务代码
+（2）每次准备取出每个宏任务执行前，都要将所有的微任务一个个取出来执行</code></pre>
+<p><img src="/2022/03/14/Promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AE%8F%E9%98%9F%E5%88%97%E5%BE%AE%E9%98%9F%E5%88%97.jpg" alt="宏队列微队列"></p>
+<p>例子1</p>
+<pre><code>const first = () =&gt; (new Promise((resolve,reject)=&gt;&#123;
+    console.log(3)
+    let p = new Promise((resolve,reject)=&gt;&#123;
+        console.log(7)
+        setTimeout(()=&gt;&#123;
+            console.log(5)
+            resolve(6)
+        &#125;,0)
+        resolve(1)
+    &#125;)
+    resolve(2)
+    p.then((arg)=&gt;&#123;
+        console.log(arg)
+    &#125;)
+&#125;))
+first().then((arg)=&gt;&#123;
+    console.log(arg)
+&#125;)
+console.log(4)</code></pre>
+<p>上述代码输出：3 7 4 1 2 5</p>
+<p>例子2</p>
+<pre><code>setTimeout(()=&gt;&#123;
+    console.log(0)
+&#125;,0)
+new Promise((resolve,reject)=&gt;&#123;
+    console.log(1)
+    resolve()
+&#125;).then(()=&gt;&#123;
+    console.log(2)
+    new Promise((resolve,reject)=&gt;&#123;
+        console.log(3)
+        resolve()
+    &#125;).then(()=&gt;&#123;
+        console.log(4)
+    &#125;).then(()=&gt;&#123;
+        console.log(5)
+    &#125;)
+&#125;).then(()=&gt;&#123;
+    console.log(6)
+&#125;)
+new Promise((resolve,reject)=&gt;&#123;
+    console.log(7)
+    resolve()
+&#125;).then(()=&gt;&#123;
+    console.log(8)
+&#125;)</code></pre>
+<p>宏队列：【0】</p>
+<p>微队列：【2，8，4，6，5】</p>
+<p>上述代码输出：1 7 2 3 8 4 6 5 0</p>
+<p>注意：<strong>链式调用的 .then 何时放入微队列取决于链的上一个 then 啥时候执行</strong>，如轮到 4 执行后 5 才放入微队列，2 下一长串结束后 6 才放入微队列</p>
+<p>注意：<strong>里层的多个链式调用 then 只要有一个放入队列后外层的 then 就可以放入队列</strong></p>
+<p>4 放入微队列后后面的 then 就执行了，只是 then 里的 5 等 4 执行了采访如微队列，这样即使 5 还没放入微队列，但 6 上面的 then 都执行完了，所以 6 可以放入微队列</p>
 ]]></content>
       <categories>
         <category>前端</category>

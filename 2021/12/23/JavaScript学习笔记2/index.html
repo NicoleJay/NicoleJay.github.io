@@ -43,7 +43,7 @@
 <meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%A8%A1%E5%9E%8B.png">
 <meta property="og:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/webworker.png">
 <meta property="article:published_time" content="2021-12-23T13:45:31.000Z">
-<meta property="article:modified_time" content="2022-01-16T09:27:44.849Z">
+<meta property="article:modified_time" content="2022-03-09T14:01:34.705Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://nicolejay.github.io/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1.png">
@@ -214,7 +214,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -492,9 +492,9 @@ fun.test()</code></pre>
 <pre><code>function Fn()&#123;&#125;    //定义构造函数，内部语句：this.prototype = &#123;&#125;，this 指函数对象
 Fn.prototype       //显式原型属性
 
-var fn = new Fn()  //内部语句：this.proto__ = Fn.prototype，this 指 fn
+var fn = new Fn()  //内部语句：this.__proto__ = Fn.prototype，this 指 fn
 fn.__proto__       //隐式原型属性
-Fn.prototype === fn.__proto  //true
+Fn.prototype === fn.__proto__  //true
 
 Fn.prototype.test = function()&#123;&#125;
 fn.test()</code></pre>
@@ -570,8 +570,8 @@ Function.prototype.b = function()&#123;&#125;
 var f1 = new Foo()
 f1.a()  //不报错
 f1.b()  //报错
-F.a()   //不报错
-F.b()   //不报错</code></pre>
+Foo.a()   //不报错
+Foo.b()   //不报错</code></pre>
 <p><img src="/2021/12/23/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/instanceof1.png" alt="instanceof1"></p>
 <h2 id="2、执行上下文与执行上下文栈"><a href="#2、执行上下文与执行上下文栈" class="headerlink" title="2、执行上下文与执行上下文栈"></a>2、执行上下文与执行上下文栈</h2><h3 id="变量提升与函数提升"><a href="#变量提升与函数提升" class="headerlink" title="变量提升与函数提升"></a>变量提升与函数提升</h3><p>变量声明提升：通过 var 定义的变量，在定义语句之前就可以访问到，只是值为 undefined</p>
 <p>函数声明提升：<strong>通过 function 声明的函数</strong>，在声明语句之前就可以直接调用，值为函数对象</p>
@@ -647,14 +647,14 @@ function foo(i)&#123;
     console.log(&#39;fe:&#39;+i)
 &#125;
 console.log(&#39;ge:&#39;+i)</code></pre>
-<p>代码依次输出 gb:undefined、fb:1、fb:2、fb:3、fb:3、fb:2、fb:1、ge:1，整个过程中产生了 5 个执行上下文</p>
+<p>代码依次输出 gb:undefined、fb:1、fb:2、fb:3、fe:3、fe:2、fe:1、ge:1，整个过程中产生了 5 个执行上下文</p>
 <p>3</p>
 <pre><code>function a()&#123;&#125;
 var a
 console.log(typeof a)  //输出 &#39;function&#39;</code></pre>
 <p>先执行变量提升，再执行函数提升</p>
 <p>4</p>
-<pre><code>if(!(b in window))&#123;  //此处判断为 true
+<pre><code>if(!(b in window))&#123;  //此处判断为 !true 即 false
     var b = 1
 &#125;
 console.log(b)   //输出 undefined</code></pre>
@@ -741,7 +741,7 @@ for(var i = 0,length = btns.length; i &lt; length; i++)&#123;
 <p>上述代码可正常实现功能</p>
 <pre><code>var btns = document.getElementsByTagName(&#39;button&#39;)
 for(var i = 0,length = btns.length; i &lt; length; i++)&#123;
-    （function(i)&#123;
+    (function(i)&#123;
         var btn = btns[i]
         btn.onclick = function()&#123;
             alert(&#39;第&#39;+(i+1)+&#39;个&#39;)
@@ -820,8 +820,8 @@ showDelay(&#39;xxx&#39;,2000)</code></pre>
 &#125;
 fn1()  //此时 fn1 内部的对象 fn2、fn3 都成为垃圾对象，局部变量也不存在了
 var f = fn1()  //fn1 执行完后 fn2 就不存在了，闭包中只有 a，fn3 本身也不存在，但 fn3 不成为垃圾对象，因为 f 指向了 fn3
-f()  //输出 3
-f()  //输出 4</code></pre>
+f()  //输出 1
+f()  //输出 0</code></pre>
 <p>总结：函数执行完后，函数内部声明的局部变量一般不存在，只有存在于闭包中的变量才可能存在（前提是闭包中的函数对象没有成为垃圾对象，被引用的局部变量才存在）</p>
 <p>在函数外部不能直接访问函数内部的局部变量，但可以通过闭包让外部操作它</p>
 <h3 id="闭包的生命周期"><a href="#闭包的生命周期" class="headerlink" title="闭包的生命周期"></a>闭包的生命周期</h3><p>产生：在嵌套内部<strong>函数定义执行完</strong>时就产生了（不是在调用时）</p>

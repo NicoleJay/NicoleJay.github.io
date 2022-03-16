@@ -31,7 +31,7 @@
 <meta property="og:description" content="网页特点优点：（1）无需安装（2）无需更新（3）跨平台">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-08T06:39:38.000Z">
-<meta property="article:modified_time" content="2022-03-01T04:32:51.961Z">
+<meta property="article:modified_time" content="2022-03-09T04:20:27.956Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
 
@@ -201,7 +201,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -302,8 +302,7 @@
 <a id="more"></a>
 
 <h1 id="网页组成"><a href="#网页组成" class="headerlink" title="网页组成"></a>网页组成</h1><p>W3C标准制定网页由结构（HTML）+样式（CSS）+行为（JS）组成</p>
-<head>中包含的是网页的元数据，浏览器或搜索引擎根据这些元数据解析网页
-
+<p><code>&lt;head&gt;</code> 中包含的是网页的元数据，浏览器或搜索引擎根据这些元数据解析网页</p>
 <p>注释不能嵌套</p>
 <h1 id="一、HTML"><a href="#一、HTML" class="headerlink" title="一、HTML"></a>一、HTML</h1><h2 id="文档声明"><a href="#文档声明" class="headerlink" title="文档声明"></a>文档声明</h2><p>文档声明通过标签 <code>&lt;!doctype&gt;</code> 用于告知浏览器当前网页的版本（如HTML 4、HTML5、XHTML等），不区分大小写</p>
 <p>HTML5文档声明：<code>&lt;!doctype html&gt;</code></p>
@@ -357,7 +356,7 @@
 <h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><code>&lt;img&gt;</code> 是替换元素（显示内容并非代码里写的内容，而是利用引入内容进行替换），介于块元素和行内元素之间，兼具两者特点（既能设置宽高，又不会独占一行）</p>
 <p>在 <code>&lt;img&gt;</code> 中 alt 属性默认情况不会显示，部分浏览器在图片无法加载时会显示，并且搜索引擎会根据 alt 中内容来识别图片</p>
 <p>图片一般有jpeg、jpg、gif、png、webp</p>
-<pre><code>jepg/jpg：支持颜色较丰富，不支持透明效果，不支持动图
+<pre><code>jpeg/jpg：支持颜色较丰富，不支持透明效果，不支持动图
 
 gif：支持颜色较少，支持简单透明，支持动图
 
@@ -398,6 +397,7 @@ base64：将图片使用base64编码，将图片转换为字符，在 src 中通
 `&lt;tbody&gt;` 主体
 `&lt;tfoot&gt;` 底部</code></pre>
 <p>在这三部分中间可添加行列 <code>&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;</code>，还可添加 <code>&lt;th&gt;</code> 表示头部单元格代替 <code>&lt;td&gt;</code> ，如 <code>&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;</code>， <code>&lt;th&gt;</code> 中的文字会加粗居中</p>
+<p>表格中通过 <code>&lt;caption&gt;&lt;/caption&gt;</code> 创建标题</p>
 <p><strong>注：若表格中没有使用 tbody 而是直接使用 tr，浏览器会自动创建一个 tbody，并将 tr 全都放到 tbody 中，因此 tr 不是 table 的子元素</strong></p>
 <h3 id="表格属性"><a href="#表格属性" class="headerlink" title="表格属性"></a>表格属性</h3><p><code>border-spacing: xxpx;</code> 指定边框间的距离</p>
 <p><code>border-collapse: collapse;</code> 设置边框的合并</p>
@@ -482,12 +482,14 @@ autofocus     设置表单项自动获取焦点</code></pre>
 <p>[属性名^=属性值] 选属性值以指定值开头的元素</p>
 <p>[属性名$=属性值] 选属性值以指定值结尾的元素</p>
 <p>[属性名*=属性值] 选属性值中含有某值的元素</p>
+<p>[属性名~=属性值] 选属性中可有多个值，但其中有一个为指定的值</p>
+<p>[属性名|=属性值] 选属性值以 某值 或 某值- 开头</p>
 <h3 id="5、伪类选择器"><a href="#5、伪类选择器" class="headerlink" title="5、伪类选择器"></a>5、伪类选择器</h3><p>伪类（不存在的类/特殊的类）用来描述一个元素的<strong>特殊状态</strong>，如：第一个子元素、被点击的元素、鼠标移入的元素</p>
 <h4 id="（1）子元素伪类1"><a href="#（1）子元素伪类1" class="headerlink" title="（1）子元素伪类1"></a>（1）子元素伪类1</h4><p><code>:first-child</code>  第一个子元素</p>
 <p><code>:last-child</code>  最后一个子元素</p>
 <p><code>:nth-child(第几个)</code>  选中第n个子元素，特殊值：n（子元素全选）、2n 或 even（选中偶数位的子元素）、2n+1 或 odd（选中奇数位的子元素）</p>
 <p><strong>注：以上伪类都是根据其父元素的所有子元素进行排序</strong></p>
-<h4 id="（2）子元素伪类2"><a href="#（2）子元素伪类2" class="headerlink" title="（2）子元素伪类2"></a>（2）子元素伪类2</h4><p><code>:first-of-type</code>、<code>:last-of-type</code>、<code>:nth-of-type()</code> 这三种伪类与上述功能相似，不同是这三种是在同类型子元素中排序</p>
+<h4 id="（2）子元素伪类2"><a href="#（2）子元素伪类2" class="headerlink" title="（2）子元素伪类2"></a>（2）子元素伪类2</h4><p><code>:first-of-type</code>、<code>:last-of-type</code>、<code>:nth-of-type()</code> 这三种伪类与上述功能相似，<strong>不同是这三种是在同类型子元素中排序</strong></p>
 <pre><code>如
 &lt;ul&gt;
     &lt;span&gt;xxx&lt;/span&gt;
@@ -524,7 +526,7 @@ div::before&#123;
     color:red;
 &#125;
 会在 &lt;div&gt; 元素前添加字符串 &#39;xxx&#39;，并且该添加的部分为红色</code></pre>
-<p>伪元素默认是一个行内元素</p>
+<p><strong>伪元素默认是一个行内元素</strong></p>
 <h2 id="样式继承"><a href="#样式继承" class="headerlink" title="样式继承"></a>样式继承</h2><p>样式继承是发生在祖先和后代之间的，为一个元素设置的样式会同时应用到其后代元素上</p>
 <p>但部分样式如背景（图片、颜色）相关、布局相关等的样式不会被继承</p>
 <h2 id="样式冲突与选择器权重"><a href="#样式冲突与选择器权重" class="headerlink" title="样式冲突与选择器权重"></a>样式冲突与选择器权重</h2><p><strong>样式冲突：</strong>当通过不同选择器，选中<strong>相同元素</strong>，并为<strong>相同样式</strong>设置不同值时，就发生了样式冲突</p>
@@ -602,7 +604,7 @@ border-top：10px solid red;</code></pre>
 border-radius 取值规则如下
     四个值：左上       右上        右下   左下
     三个值：左上       右上/左下    右下
-    两个值：左上/右下   右上/左下    右下
+    两个值：左上/右下   右上/左下
     一个值：四个角
 设置椭圆角 border-radius: 20px / 40px;
 设置元素为圆形 border-radius: 50%;</code></pre>
@@ -629,7 +631,7 @@ overflow-y（处理垂直方向溢出）
 取值有
 visible（默认值，溢出依然显示）
 hidden（裁剪溢出内容）
-scroll（生成水平和述竖直两个滚动条）
+scroll（生成水平和竖直两个滚动条）
 auto（根据需要生成滚动条）</code></pre>
 <h5 id="3-垂直外边距的重叠（折叠）：相邻的垂直方向外边距会发生重叠现象。"><a href="#3-垂直外边距的重叠（折叠）：相邻的垂直方向外边距会发生重叠现象。" class="headerlink" title="3. 垂直外边距的重叠（折叠）：相邻的垂直方向外边距会发生重叠现象。"></a>3. 垂直外边距的重叠（折叠）：相邻的垂直方向外边距会发生重叠现象。</h5><p>如上面的 div1 设置 margin-bottom:100px; 下面的 div2 设置 margin-top:100px; 则两个 div 间的距离为 100px</p>
 <p><strong>对于兄弟元素（对于开发有利，一般不需要处理）</strong></p>
@@ -756,7 +758,7 @@ table &#123;
     left：清除左侧浮动元素（即 float:left 的元素）对当前元素的影响
     right：清除右侧浮动元素（即 float:right 的元素）对当前元素的影响
     both：清除两侧中最大影响的那侧</code></pre>
-<p>原理：设置清除浮动以后，浏览器会自动为元素<strong>添加相应外边距</strong>，使其位置不受其他元素的影响。如 div1 在 div3 上方，给 div1 设置 float 属性后原本 div3 会上移并被 div1 覆盖住，但给 div1 设置 <code>clear:left;</code> 后浏览器会自动为 div3 添加 margin-top，值为 div1 的高度，使得 div3 还在原本的位置不会上移</p>
+<p>原理：设置清除浮动以后，浏览器会自动为元素<strong>添加相应外边距</strong>，使其位置不受其他元素的影响。如 div1 在 div3 上方，给 div1 设置 float 属性后原本 div3 会上移并被 div1 覆盖住，但给 div3 设置 <code>clear:left;</code> 后浏览器会自动为 div3 添加 margin-top，值为 div1 的高度，使得 div3 还在原本的位置不会上移</p>
 <h3 id="自定义clearfix类同时解决外边距重叠与高度塌陷"><a href="#自定义clearfix类同时解决外边距重叠与高度塌陷" class="headerlink" title="自定义clearfix类同时解决外边距重叠与高度塌陷"></a>自定义clearfix类同时解决外边距重叠与高度塌陷</h3><pre><code>通过给类 clearfix 添加属性
 .clearfix::before,.clearfix::after&#123;
     content: &#39;&#39;;
@@ -766,7 +768,7 @@ table &#123;
 <p>给需要解决外边距重叠与高度塌陷的父元素的 class 属性中添加 clearfix 即可使用上述样式解决问题</p>
 <h2 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h2><p>使用 position 属性设置定位</p>
 <pre><code>可选值
-    static    默认值，元素是精致的，没有开启定位
+    static    默认值，元素是静止的，没有开启定位
     relative  开启元素的相对定位
     absolute  开启元素的绝对定位
     fixed     开启元素的固定定位
@@ -909,7 +911,7 @@ display: inline-flex;  设置为行内弹性容器，不会独占一行</code></
 <h4 id="相关属性-1"><a href="#相关属性-1" class="headerlink" title="相关属性"></a>相关属性</h4><p>1、flex-grow 指定弹性元素的伸展系数，即指定当父元素有多余空间时子元素如何伸展，父元素的剩余空间会按照比例进行分配</p>
 <pre><code>flex-grow:0;  子元素不伸展
 flex-grow:1或2或3等;</code></pre>
-<p>2、flex-shrink 指定弹性元素的收缩系数，即指定当父元素中空间不足以容纳所有子元素时，如何对子元素进行收缩。缩减缩少是根据缩减系数和元素大小来计算</p>
+<p>2、flex-shrink 指定弹性元素的收缩系数，即指定当父元素中空间不足以容纳所有子元素时，如何对子元素进行收缩。缩减多少是根据缩减系数和元素大小来计算</p>
 <pre><code>flex-shrink: 1;  默认值，等比例收缩
 flex-shrink: 0;  当为 0 时不会收缩，子元素可能会超过父元素
 flex-shrink: 2或3等;  可是其他整数</code></pre>
@@ -938,12 +940,12 @@ flex-shrink: 2或3等;  可是其他整数</code></pre>
     monospace  等宽字体（有利于上下行对其）
     cursice    草书字体
     fantasy    虚幻字体
-以上只是指定字体的类别，浏览器会自动使用该类别下的字体，指定类别后具体用那种字体由浏览器决定</code></pre>
+以上只是指定字体的类别，浏览器会自动使用该类别下的字体，指定类别后具体用哪种字体由浏览器决定</code></pre>
 <p>font-family 可同时指定多个字体，多个字体间用 <code>,</code> 隔开，字体生效时优先使用第一个，第一个无法使用则使用第二个，以此类推</p>
 <p>4、font-face 可将服务器中的字体直接提供给用户使用，</p>
 <pre><code>@font-face&#123;
     font-family:&#39;myfont&#39;; //这里是指给字体起的名字，而非字体类别
-    src:url(&#39;./xxx/xxx.ttf&#39;) format(&quot;truetyp&quot;),
+    src:url(&#39;./xxx/xxx.ttf&#39;) format(&quot;truetype&quot;),
         url(&#39;./xxx/xxx.ttf&#39;); //服务器中字体的路径,format()不是必须
 &#125;
 font-family:myfont;</code></pre>
@@ -1067,12 +1069,12 @@ background-clip 要写在 background-origin 后</code></pre>
 <h4 id="雪碧图特点"><a href="#雪碧图特点" class="headerlink" title="雪碧图特点"></a>雪碧图特点</h4><p>一次性将多个图片加载到页面中，降低请求的次数，加快访问速度，提升用户体验</p>
 <h3 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h3><p>渐变的特质是图片，不是颜色，其很多特点和 background-image 相似，而非 background-color，通过 background-image 设置</p>
 <h4 id="线性渐变"><a href="#线性渐变" class="headerlink" title="线性渐变"></a>线性渐变</h4><pre><code>线性渐变1
-linear-gradient(渐变方向,开始的颜色 正颜色开始位置,中间颜色2 正颜色开始位置,中间颜色n，结束的颜色)
+linear-gradient(渐变方向,开始的颜色 正颜色开始位置,中间颜色2 正颜色开始位置,中间颜色n,结束的颜色)
 渐变方向可为 to left、to right、to bottom、to top、to top left、xxxdeg（deg表示度数）、xxturn（转多少圈，如.5）等，也可省略，默认是180deg/to bottom
 颜色开始位置也可省略
 如
 background-image: linear-gradient(red 50px,yellow 100px); //红色向黄色从上往下渐变，红色从 50px 开始，上面也自动填充为红色，黄色从 100px 开始
-background-image: linear-gradient(to right，red,yellow); //红色向黄色从左往右渐变
+background-image: linear-gradient(to right,red,yellow); //红色向黄色从左往右渐变
 
 线性渐变2
 repeating-linear-gradient(渐变方向,开始的颜色 开始颜色的位置,结束的颜色 结束颜色的位置)
@@ -1117,7 +1119,7 @@ background-image: radial-gradient(ellipse,red,yellow);</code></pre>
 <pre><code>transition: height 0.3s;  //当元素高度发生变化时需要 0.3s 进行切换，但变化前后的高度不能有 auto 值
 transition: all 0.3s;  //当元素样式发生变化时所有变化的样式需要 0.3s 进行切换
 transition: 2s margin-left 1s cubic-bezier(.24,.95,.82,-0.88);</code></pre>
-<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><p><strong>动画与过渡的异同：</strong>动画和过渡类似，都可以实现动态效果，但是过渡需在某个属性发生变化时才会出发，而动画可自动出发动态效果</p>
+<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><p><strong>动画与过渡的异同：</strong>动画和过渡类似，都可以实现动态效果，但是过渡需在某个属性发生变化时才会触发，而动画可自动触发动态效果</p>
 <p>设置动画效果，需先设置关键帧，关键帧设置了动画执行的每一个步骤</p>
 <pre><code>元素选择器&#123;
     animation-name:动画名；//对当前元素生效的关键帧名字
@@ -1129,7 +1131,7 @@ transition: 2s margin-left 1s cubic-bezier(.24,.95,.82,-0.88);</code></pre>
          normal（默认值）表示从 from 向 to 运行，每次都是这样
         reverse 表示从 to 向 from 执行，每次都是这样
         alternate 从 from 向 to 开始，重复执行时动画反向执行
-        alternate-reverse 从 to 向 from 开始，重复执行时动画方向执行
+        alternate-reverse 从 to 向 from 开始，重复执行时动画反向执行
     animation-play-state //设置动画的执行状态，
         running 动画执行
         paused  动画暂停
@@ -1152,7 +1154,7 @@ transition: 2s margin-left 1s cubic-bezier(.24,.95,.82,-0.88);</code></pre>
 &#125;</code></pre>
 <p>动画属性简写 <code>animation</code> 可同时设置动画相关所有属性，无顺序要求，但若要写延迟，则持续时间要写在延迟时间之前</p>
 <h2 id="变形平移"><a href="#变形平移" class="headerlink" title="变形平移"></a>变形平移</h2><p>transform 用来设置元素的变形效果</p>
-<p>注意变形不会影响页面布局，即元素改变位置但对其他元素产生影响，不会挤走其他元素，同时也没脱离文档流</p>
+<p>注意变形不会影响页面布局，即元素改变位置但不对其他元素产生影响，不会挤走其他元素，同时也没脱离文档流</p>
 <h3 id="1、平移"><a href="#1、平移" class="headerlink" title="1、平移"></a>1、平移</h3><pre><code>translateX(xxx) 沿着 x 轴方向平移，可设置像素或百分比
 translateY(xxx) 沿着 y 轴方向平移，可设置像素或百分比
 translateZ(xxx) 沿着 z 轴方向平移，可设置像素或百分比
@@ -1166,7 +1168,7 @@ scale(xxx) 双方向缩放
 scaleZ(xxx) z轴方向缩放，对立体元素才会看到效果</code></pre>
 <p>z轴平移属于立体效果（近大远小），默认情况下网页不支持透视，若需要看见效果必须要设置网页的视距</p>
 <pre><code>html&#123;
-    perspective: 800px;  //设置当前王阿耶视距（人眼与网页的距离），一般为 800-1200px
+    perspective: 800px;  //设置当前网页视距（人眼与网页的距离），一般为 800-1200px
 &#125;</code></pre>
 <p>元素变形默认是 2D 效果，若要 3D 变形效果需设置 <code>transform-style:preserve-3d</code> 搭配 <code>transform</code></p>
 <p><code>backface-visibility</code> 可设置旋转后背面效果，可选值：visible、<br>hidden</p>
@@ -1289,7 +1291,7 @@ html&#123;
 <p>3、样式加载</p>
 <p>当使用外部样式表时，浏览器第一次加载完该 css 文件或后会保存在浏览器的缓存中，下一个页面加载同一 css 文件时无需向服务器请求，直接在浏览器缓存中读取</p>
 <p>4、雪碧图</p>
-<p>浏览器加载外部资源（如图片）是按需加载，用则加载，不用则步加载，可通过雪碧图一次性将多个图片加载到页面中，降低请求的次数，加快访问速度，提升用户体验</p>
+<p>浏览器加载外部资源（如图片）是按需加载，用则加载，不用则不加载，可通过雪碧图一次性将多个图片加载到页面中，降低请求的次数，加快访问速度，提升用户体验</p>
 <p>5、<code>text-indent</code> 用于设置文字缩进，可用于文字隐藏，这样可以在设置一些标题供浏览器搜索但不在页面中显示</p>
 <p>6、加快加载速度</p>
 <p>为了使项目上线时加载速度尽量快，需删除代码中的注释以及无用的换行等，可通过在 VSCode 中安装插件 JS &amp; CSS Minifier，选中要压缩的文件，按 F1，并输入 <code>Minify:Document</code>，则该插件会对文件进行压缩生成 <code>xxx.min.css</code> 或 <code>xxx.min.js</code> 文件，在 html 代码中 <link> 引入时换成压缩后的文件</p>
@@ -1368,7 +1370,8 @@ html&#123;
 <pre><code>&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</code></pre>
 <p><code>&lt;body&gt;</code> 里当浏览器不支持 js 时 noscript 中的元素会被渲染</p>
 <pre><code>&lt;noscript&gt;xxxxx&lt;/noscript&gt;</code></pre>
-</head>
+<p>13、请将类为”left”的div元素和类为”right”的div元素在同一行上向左浮动，且清除父级div元素内部的浮动：给父级设置 <code>display:inline-block</code> 或 <code>overflow:hidden</code> 或 <code>height:子元素高度;clear:both;</code></p>
+
     </div>
 
     

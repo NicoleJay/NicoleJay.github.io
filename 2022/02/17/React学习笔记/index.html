@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://nicolejay.github.io/2022/02/17/React%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/redux%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png">
 <meta property="og:image" content="http://nicolejay.github.io/2022/02/17/React%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/react-redux%E6%A8%A1%E5%9E%8B%E5%9B%BE.png">
 <meta property="article:published_time" content="2022-02-17T12:16:08.000Z">
-<meta property="article:modified_time" content="2022-02-25T12:57:39.497Z">
+<meta property="article:modified_time" content="2022-03-12T13:43:46.622Z">
 <meta property="article:author" content="NicoleJay">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://nicolejay.github.io/2022/02/17/React%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%97%A7%E7%89%88%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -439,7 +439,7 @@ switch()&#123;case:xxx&#125;</code></pre>
 <p>若 A 类继承了 B 类，且 A 类中写了构造器，则 A 类构造器中的 super 是必须调用的</p>
 <p>类中的方法默认开启了局部的严格模式，所以方法中的　this　为　undefined</p>
 <p>且在外部通过　const x = 实例对象.方法，然后　x()　进行调用此时依然不是通过实例对象调用，而是直接调用，因此调用的方法中的　this　不是实例对象</p>
-<p>类中可以直接写复制语句　｀a：１｀，相当于给实例对象自身上添加一个属性　a　值为　１</p>
+<p>类中可以直接写赋值语句　｀a：１｀，相当于给实例对象自身上添加一个属性　a　值为　１</p>
 <p>类中箭头函数中没有this，但若使用this不报错，而是去外部找this</p>
 <h4 id="创建类式组件"><a href="#创建类式组件" class="headerlink" title="创建类式组件"></a>创建类式组件</h4><pre><code>&lt;body&gt;
     &lt;div id=&quot;test&quot;&gt;&lt;/div&gt;
@@ -463,7 +463,7 @@ switch()&#123;case:xxx&#125;</code></pre>
 <p>— 2.发现组件是使用类定义的，随后 new 出来该类的实例，并通过该实例调用到原型上的 render 方法</p>
 <p>— 3.将 render 返回的虚拟 DOM 转为真实 DOM，随后呈现在页面中</p>
 <h2 id="组件实例（用类定义的组件）的三大核心属性"><a href="#组件实例（用类定义的组件）的三大核心属性" class="headerlink" title="组件实例（用类定义的组件）的三大核心属性"></a>组件实例（用类定义的组件）的三大核心属性</h2><h3 id="1、state"><a href="#1、state" class="headerlink" title="1、state"></a>1、state</h3><p>state 是组件实例对象最重要的属性，值是对象，可包含多个 key-value 的组合</p>
-<p>组件被称为“状态机”，通过更新组件的 state 来更新对应的页面显式（重新渲染组件）</p>
+<p>组件被称为“状态机”，通过更新组件的 state 来更新对应的页面显示（重新渲染组件）</p>
 <p>注意：（1）组件中 render 方法中的 this　为组件实例对象</p>
 <p>（2）组件自定义的方法中　this　为　undefined　如何解决？</p>
 <pre><code>a）强制绑定 this：通过函数对象的 bind（）
@@ -687,7 +687,7 @@ ReactDOM.render(&lt;Person &#123;...p&#125;/&gt;, document.getElementById(&#39;t
     //2.渲染组件到页面
     ReactDOM.render(&lt;Weather/&gt;, document.getElementById(&#39;test&#39;))
 &lt;/script&gt; </code></pre>
-<p>注意：若 ref 回调函数是以内联函数的方式定义，在更新过程中（第二次触发 render() 开始）它会被执行两次，第一次闯入参数 null，第二次才传入 DOM 元素，因为每次渲染时会创建一个新的函数实例，所以 React 会传入 null 清空旧的 ref 再设置新的</p>
+<p>注意：若 ref 回调函数是以内联函数的方式定义，在更新过程中（第二次触发 render() 开始）它会被执行两次，第一次传入参数 null，第二次才传入 DOM 元素，因为每次渲染时会创建一个新的函数实例，所以 React 会传入 null 清空旧的 ref 再设置新的</p>
 <p>通过 ref 回调函数定义或 class 的绑定函数的方式可避免上述问题，但大多数情况下它是无关紧要的，可以使用内联方式</p>
 <pre><code>&lt;script type=&quot;text/babel&quot;&gt;
     //1.创建类式组件
@@ -1125,7 +1125,7 @@ render()&#123;
     &#123;id:3,name:&#39;c&#39;,age:20&#125;
     &#123;id:1,name:&#39;a&#39;,age:18&#125;
     &#123;id:2,name:&#39;b&#39;,age:18&#125;
-初始的虚拟 DOM
+更新后的虚拟 DOM
     &lt;li key=0&gt;c---20&lt;input type=&quot;text&quot;/&gt;&lt;/li&gt;
     &lt;li key=1&gt;b---19&lt;input type=&quot;text&quot;/&gt;&lt;/li&gt;
     &lt;li key=2&gt;a---18&lt;input type=&quot;text&quot;/&gt;&lt;/li&gt;</code></pre>
@@ -1141,7 +1141,7 @@ render()&#123;
     &#123;id:3,name:&#39;c&#39;,age:20&#125;
     &#123;id:1,name:&#39;a&#39;,age:18&#125;
     &#123;id:2,name:&#39;b&#39;,age:18&#125;
-初始的虚拟 DOM
+更新后的虚拟 DOM
     &lt;li key=30&gt;c---20&lt;input type=&quot;text&quot;/&gt;&lt;/li&gt;
     &lt;li key=1&gt;b---19&lt;input type=&quot;text&quot;/&gt;&lt;/li&gt;
     &lt;li key=2&gt;a---18&lt;input type=&quot;text&quot;/&gt;&lt;/li&gt;</code></pre>
@@ -1313,7 +1313,7 @@ componentWillUnmount()&#123;
         history.replace(path)
     &#125;
     function back()&#123;
-        history.gBack()
+        history.goBack()
     &#125;
     function forward()&#123;
         history.goForward()
@@ -2066,7 +2066,7 @@ export deffault clss Demo extends Component&#123;
 或
 &lt;&gt;&lt;/&gt;</code></pre>
 <p><code>&lt;Fragment&gt;</code> 可以添加 key 属性，用于遍历</p>
-<p>可以不用必须有一个真实的 DOM 跟标签了，而 <code>&lt;&gt;</code> 空标签里不能添加任何属性</p>
+<p>可以不用必须有一个真实的 DOM 根标签了，而 <code>&lt;&gt;</code> 空标签里不能添加任何属性</p>
 <h2 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h2><p>Context 是一种组件间通信方式，常用于【祖组件】与【后代组件】间的通信</p>
 <p>使用：</p>
 <p>（1）在祖孙组件都能访问到的地方创建 Context 容器对象</p>
@@ -2088,13 +2088,13 @@ this.context  //读取 context 中的value 数据
         &#125;
     &#125;
 &lt;/xxxContext.Consumer&gt;</code></pre>
-<p>注意：在应用开发中一般不用 context，一般都用它的封装 react 插件（react-redux 中的 Pr ovider）</p>
+<p>注意：在应用开发中一般不用 context，一般都用它的封装 react 插件（react-redux 中的 Provider）</p>
 <p>例子：A 组件是 B 组件的父组件，B 是 C 的父组件，要让 C 不通过 B，直接拿到 A 的数据</p>
 <pre><code>import React, &#123; Component &#125; from &#39;react&#39;
 
 //创建 Context 对象
 const MyContext = React.createContext()
-const &#123;Provider,Consumer&#125; = MyProvider
+const &#123;Provider,Consumer&#125; = MyContext
 
 export default class A extends Component&#123;
     state = &#123;username:&#39;xx&#39;,age:18&#125;
@@ -2301,7 +2301,7 @@ import &#123;NavLink,useRoutes&#125; from &#39;react-router-dom&#39;
 import routes from &#39;./routes&#39;
 export default function App()&#123;
     //根据路由表生产对应的路由规则
-    const element useRoutes(routes)
+    const element = useRoutes(routes)
     return (
         &lt;div&gt;
             &#123;element&#125;

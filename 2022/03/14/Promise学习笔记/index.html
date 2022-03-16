@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nicolejay.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="一、一些基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Promise学习笔记">
+<meta property="og:url" content="http://nicolejay.github.io/2022/03/14/Promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="X 的笔记">
+<meta property="og:description" content="一、一些基础知识">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://nicolejay.github.io/2022/03/14/Promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/promise%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.jpg">
+<meta property="og:image" content="http://nicolejay.github.io/2022/03/14/Promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AE%8F%E9%98%9F%E5%88%97%E5%BE%AE%E9%98%9F%E5%88%97.jpg">
+<meta property="article:published_time" content="2022-03-14T03:52:31.000Z">
+<meta property="article:modified_time" content="2022-03-14T16:36:22.335Z">
+<meta property="article:author" content="NicoleJay">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://nicolejay.github.io/2022/03/14/Promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/promise%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.jpg">
+
+
+<link rel="canonical" href="http://nicolejay.github.io/2022/03/14/Promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>Promise学习笔记 | X 的笔记</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+  <a target="_blank" rel="noopener" href="https://github.com/NicoleJay" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">X 的笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">一、一些基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">两种类型的回调函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E5%9B%9E%E8%B0%83"><span class="nav-number">1.1.1.</span> <span class="nav-text">同步回调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E5%9B%9E%E8%B0%83"><span class="nav-number">1.1.2.</span> <span class="nav-text">异步回调</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js-%E7%9A%84-Error-%E5%A4%84%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">js 的 Error 处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E7%B1%BB%E5%9E%8B-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%86%85%E7%BD%AE%E9%94%99%E8%AF%AF"><span class="nav-number">1.2.1.</span> <span class="nav-text">错误类型&#x2F;常见的内置错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.4.</span> <span class="nav-text">错误对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Promise"><span class="nav-number">2.</span> <span class="nav-text">二、Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#promise-%E7%9A%84%E7%8A%B6%E6%80%81%E6%94%B9%E5%8F%98"><span class="nav-number">2.1.</span> <span class="nav-text">promise 的状态改变</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#promise%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">promise运行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8-Promise"><span class="nav-number">2.3.</span> <span class="nav-text">为什么使用 Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E6%8C%87%E5%AE%9A%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9B%B4%E7%81%B5%E6%B4%BB"><span class="nav-number">2.3.1.</span> <span class="nav-text">（1）指定回调函数的方式更灵活</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%94%AF%E6%8C%81%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8%EF%BC%8C%E5%8F%AF%E4%BB%A5%E8%A7%A3%E5%86%B3%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1%E9%97%AE%E9%A2%98"><span class="nav-number">2.3.2.</span> <span class="nav-text">（2）支持链式调用，可以解决回调地狱问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Promise"><span class="nav-number">2.4.</span> <span class="nav-text">使用 Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#API"><span class="nav-number">2.4.1.</span> <span class="nav-text">API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.4.2.</span> <span class="nav-text">基本使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%94%B9%E5%8F%98-promise-%E7%8A%B6%E6%80%81"><span class="nav-number">2.5.</span> <span class="nav-text">如何改变 promise 状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA-promise-%E6%8C%87%E5%AE%9A%E5%A4%9A%E4%B8%AA%E6%88%90%E5%8A%9F-%E5%A4%B1%E8%B4%A5%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%EF%BC%88%E5%A6%82%E5%A4%9A%E6%AC%A1%E5%AF%B9%E4%B8%80%E4%B8%AA-Promise-%E5%AF%B9%E8%B1%A1%E8%B0%83%E7%94%A8-then%EF%BC%89%EF%BC%8C%E9%83%BD%E4%BC%9A%E8%B0%83%E7%94%A8%E5%90%97"><span class="nav-number">2.6.</span> <span class="nav-text">一个 promise 指定多个成功&#x2F;失败回调函数（如多次对一个 Promise 对象调用 then），都会调用吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E5%8F%98-promise-%E7%8A%B6%E6%80%81%E5%92%8C%E6%8C%87%E5%AE%9A%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%9F"><span class="nav-number">2.7.</span> <span class="nav-text">改变 promise 状态和指定回调函数谁先谁后？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#promise-then-%E8%BF%94%E5%9B%9E%E7%9A%84%E6%96%B0-promise-%E7%9A%84%E7%BB%93%E6%9E%9C%E7%8A%B6%E6%80%81%E7%94%B1%E4%BB%80%E4%B9%88%E5%86%B3%E5%AE%9A%EF%BC%9F"><span class="nav-number">2.8.</span> <span class="nav-text">promise.then() 返回的新 promise 的结果状态由什么决定？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#promise-%E5%A6%82%E4%BD%95%E4%B8%B2%E8%81%94%E5%A4%9A%E4%B8%AA%E6%93%8D%E4%BD%9C%E4%BB%BB%E5%8A%A1%EF%BC%9F"><span class="nav-number">2.9.</span> <span class="nav-text">promise 如何串联多个操作任务？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#promise-%E5%BC%82%E5%B8%B8%E4%BC%A0-%E7%A9%BF%E9%80%8F"><span class="nav-number">2.10.</span> <span class="nav-text">promise 异常传&#x2F;穿透</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD-promise-%E9%93%BE"><span class="nav-number">2.11.</span> <span class="nav-text">中断 promise 链</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89-Promise"><span class="nav-number">3.</span> <span class="nav-text">三、自定义 Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-Promise-%E7%9A%84%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">自定义 Promise 的其他方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-%E7%9A%84-class-%E7%89%88%E6%9C%AC"><span class="nav-number">3.2.</span> <span class="nav-text">Promise 的 class 版本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81async-%E4%B8%8E-await"><span class="nav-number">4.</span> <span class="nav-text">四、async 与 await</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#async"><span class="nav-number">4.1.</span> <span class="nav-text">async</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#await-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">4.2.</span> <span class="nav-text">await 表达式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81JS-%E5%BC%82%E6%AD%A5%E4%B9%8B%E5%AE%8F%E9%98%9F%E5%88%97%E4%B8%8E%E5%BE%AE%E9%98%9F%E5%88%97"><span class="nav-number">5.</span> <span class="nav-text">五、JS 异步之宏队列与微队列</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="NicoleJay"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">NicoleJay</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/NicoleJay" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NicoleJay" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://nicolejay.github.io/2022/03/14/Promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="NicoleJay">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X 的笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Promise学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-03-14 11:52:31" itemprop="dateCreated datePublished" datetime="2022-03-14T11:52:31+08:00">2022-03-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="一、一些基础知识"><a href="#一、一些基础知识" class="headerlink" title="一、一些基础知识"></a>一、一些基础知识</h1><a id="more"></a>
+
+<h2 id="两种类型的回调函数"><a href="#两种类型的回调函数" class="headerlink" title="两种类型的回调函数"></a>两种类型的回调函数</h2><h3 id="同步回调"><a href="#同步回调" class="headerlink" title="同步回调"></a>同步回调</h3><p>同步回调立即执行，完全执行完了才结束，不会放入回调队列中</p>
+<p>如数组遍历相关的回调函数、Promise 的 excutor 函数</p>
+<pre><code>const arr = [1,2,3]
+arr.forEach(item=&gt;&#123;
+    console.log(item)
+&#125;)
+console.log(&#39;forEach之后才输出&#39;)
+输出：1 2 3 forEach之后才输出</code></pre>
+<h3 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h3><p>异步回调不会立即执行，会放入回调队列中将来执行</p>
+<p>如定时器回调、ajax 回调、Promise 的成功/失败回调</p>
+<h2 id="js-的-Error-处理"><a href="#js-的-Error-处理" class="headerlink" title="js 的 Error 处理"></a>js 的 Error 处理</h2><h3 id="错误类型-常见的内置错误"><a href="#错误类型-常见的内置错误" class="headerlink" title="错误类型/常见的内置错误"></a>错误类型/常见的内置错误</h3><p>Error：所有错误的父类型</p>
+<p>ReferenceError：引用的变量不存在，如 a is not defined</p>
+<p>TypeError：数据类型不正确的错误，如 Cannot read property ‘xxx’ of undefined 或 xx.xxx is not a function</p>
+<p>RangeError：数据值不在其所允许的范围内，如 递归中没有 return，则 RangeError:Maximun call stack size exceeded</p>
+<p>SyntaxError：语法错误</p>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p>捕获错误：try{…}catch(error){…}</p>
+<p>抛出错误：throw new Error(‘xxx’)</p>
+<pre><code>function func()&#123;
+    if(...)&#123;
+    &#125;else&#123;
+        throw new Error(&#39;出错&#39;) //这里只抛出错误，具体要怎么处理是在控制台输出还是弹窗由下一级处理
+    &#125;
+&#125;
+try&#123;
+    func()
+&#125;catch(error)&#123;
+    console.log(error.message) //这里捕获错误在控制台输出
+&#125;</code></pre>
+<h2 id="错误对象"><a href="#错误对象" class="headerlink" title="错误对象"></a>错误对象</h2><p>message 属性：错误相关信息</p>
+<p>stack 属性：函数调用栈记录信息</p>
+<h1 id="二、Promise"><a href="#二、Promise" class="headerlink" title="二、Promise"></a>二、Promise</h1><p>Promise 是 ES6 引入的异步编程的新的解决方案，旧的解决方案是使用回调函数</p>
+<p>Promise 是个构造函数，Promise 对象用来封装一个异步操作（如 fs 文件操作、数据库操作、ajax、定时器）并可以获取其成功或失败的结果值</p>
+<p>Promise 最大的好处是可以解决回调地狱问题，并在指定回调和错误处理方面更灵活</p>
+<h2 id="promise-的状态改变"><a href="#promise-的状态改变" class="headerlink" title="promise 的状态改变"></a>promise 的状态改变</h2><p>（1）pending 变为 resolved</p>
+<p>（2）pending 变为 rejected</p>
+<p>注意：只有上面这 2 中情况，且一个 promise 对象只能改变一次状态</p>
+<p>无论变为成功或失败，都会有一个结果数据（value 或 reason）</p>
+<h2 id="promise运行流程"><a href="#promise运行流程" class="headerlink" title="promise运行流程"></a>promise运行流程</h2><p><img src="/2022/03/14/Promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/promise%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B.jpg" alt="promise运行流程"></p>
+<h2 id="为什么使用-Promise"><a href="#为什么使用-Promise" class="headerlink" title="为什么使用 Promise"></a>为什么使用 Promise</h2><h3 id="（1）指定回调函数的方式更灵活"><a href="#（1）指定回调函数的方式更灵活" class="headerlink" title="（1）指定回调函数的方式更灵活"></a>（1）指定回调函数的方式更灵活</h3><p>旧的使用回调函数必须在启动异步任务前指定</p>
+<p>promise：启动异步任务（只要 new 创建了 promise 对象就启动了异步任务） =&gt; 返回 promise 对象 =&gt; 给 promise 对象绑定回调函数（甚至可以在异步任务结束后指定/多个）</p>
+<h3 id="（2）支持链式调用，可以解决回调地狱问题"><a href="#（2）支持链式调用，可以解决回调地狱问题" class="headerlink" title="（2）支持链式调用，可以解决回调地狱问题"></a>（2）支持链式调用，可以解决回调地狱问题</h3><p>回调地狱：回调函数嵌套调用，外部回调函数异步执行的结果是嵌套的回调函数执行的条件</p>
+<p>回调地狱不便于阅读，也不便于异常处理</p>
+<p>解决方案：promise 链式调用，还可异常传透链式调用出错了会找到最后一个 catch 处理异常</p>
+<p>终极解决方案：async / await</p>
+<h2 id="使用-Promise"><a href="#使用-Promise" class="headerlink" title="使用 Promise"></a>使用 Promise</h2><h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><p>（1）Promise 构造函数 <code>Promise(excutor)&#123;&#125;</code></p>
+<pre><code>excutor 函数：执行器 (resolve,reject)=&gt;&#123;&#125;
+resolve 函数：内部定义成功时调用的函数 value =&gt; &#123;&#125;
+reject 函数：内部定义失败时调用的函数 reason =&gt; &#123;&#125;</code></pre>
+<p>注意：excutor 会在 Promise 内部立即<strong>同步回调</strong>，异步操作在执行器中执行，then 也是<strong>同步执行</strong>的，但 then 里的回调函数异步执行</p>
+<p>（2）<code>Promise.protorype.then</code> 方法 <code>(onResolved,onRejected)=&gt;&#123;&#125;</code></p>
+<pre><code>onResolved 函数：成功的回调函数 (value) =&gt; &#123;&#125;
+onRejected 函数：失败的回调函数 (reason) =&gt; &#123;&#125;</code></pre>
+<p>注意：指定用于得到成功 value 的成功回调和用于得到失败 reason 的失败回调返回一个新的 promise 对象</p>
+<p>（3）<code>Promise.protorype.catch</code> 方法 <code>(onRejected)=&gt;&#123;&#125;</code></p>
+<pre><code>onRejected 函数：失败的回调函数 (reason) =&gt; &#123;&#125;</code></pre>
+<p>注意：是 then() 的语法糖，相当于 then(undefined,onRejected)</p>
+<p>（4）<code>Promise.resolve</code> 方法 <code>(value)=&gt;&#123;&#125;</code></p>
+<pre><code>value 是成功的数据或 promise 对象
+
+如 const p = Promise.resolve(1) //返回一个成功值为 1 的 promise 对象
+p.then(value=&gt;&#123;console.log(value)&#125;)</code></pre>
+<p>注意：该方法返回一个成功/失败的 promise 对象，返回一个成功/失败的 promise 对象的简洁语法</p>
+<p>（5）<code>Promise.reject</code> 方法 <code>(reason)=&gt;&#123;&#125;</code></p>
+<pre><code>如 const p = Promise.reject(1) //返回一个失败值为 1 的 promise 对象
+p.catch(reason=&gt;&#123;console.log(reason)&#125;)</code></pre>
+<p>注意：该方法返回一个失败的 promise 对象</p>
+<p>（6）<code>Promise.all</code> 方法 <code>(promises)=&gt;&#123;&#125;</code></p>
+<pre><code>promises 包含 n 个 promise 的数组
+
+如 const pAll = Promise.all([p1,p2,p3])
+pAll.then(
+    value=&gt;&#123;...&#125;,
+    reason=&gt;&#123;...&#125;
+)</code></pre>
+<p>注意：该方法返回一个新的 promise，只有所有的 promise 都成功才成功，只要有一个失败了就直接失败</p>
+<p>（7）<code>Promise.race</code> 方法 <code>(promises)=&gt;&#123;&#125;</code></p>
+<pre><code>promises 包含 n 个 promise 的数组
+
+如 const pAll = Promise.race([p1,p2,p3])
+pAll.then(
+    value=&gt;&#123;...&#125;,
+    reason=&gt;&#123;...&#125;
+)</code></pre>
+<p>注意：该方法返回一个新的 promise 对象，第一个完成的 promise 的结果状态就是最终的结果状态</p>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><pre><code>new Promise((resolve,reject)=&gt;&#123;    //执行器函数，里面执行异步操作任务
+    setTimeout(()=&gt;&#123;
+        if(...)&#123;
+            resolve(&#39;成功&#39;)
+        &#125; else&#123;
+            reject(&#39;失败&#39;)
+        &#125;
+    &#125;,1000)
+&#125;)
+p.then(
+    value=&gt;&#123;  //接收成功的 value 数据 onResolved
+        console.log(value)
+    &#125;,
+    reason=&gt;&#123; //接收失败的 reason 数据 onRejected
+        console.log(reason)
+    &#125;
+)</code></pre>
+<h2 id="如何改变-promise-状态"><a href="#如何改变-promise-状态" class="headerlink" title="如何改变 promise 状态"></a>如何改变 promise 状态</h2><p>（1）resolve(value)：若当前是 pendding 就变为 resolved</p>
+<p>（2）reject(reason)：若当前是 pendding 就变为 rejected</p>
+<p>（3）抛出异常：若当前是 pendding 就变为 rejected</p>
+<h2 id="一个-promise-指定多个成功-失败回调函数（如多次对一个-Promise-对象调用-then），都会调用吗"><a href="#一个-promise-指定多个成功-失败回调函数（如多次对一个-Promise-对象调用-then），都会调用吗" class="headerlink" title="一个 promise 指定多个成功/失败回调函数（如多次对一个 Promise 对象调用 then），都会调用吗"></a>一个 promise 指定多个成功/失败回调函数（如多次对一个 Promise 对象调用 then），都会调用吗</h2><p>当 promise 改变对应状态时都会调用</p>
+<h2 id="改变-promise-状态和指定回调函数谁先谁后？"><a href="#改变-promise-状态和指定回调函数谁先谁后？" class="headerlink" title="改变 promise 状态和指定回调函数谁先谁后？"></a>改变 promise 状态和指定回调函数谁先谁后？</h2><p>（1）都有可能，正常情况下（执行器中是异步任务，resolve()/reject() 在异步任务中）先指定回调再改变状态同时执行回调函数，也可以先改变状态再指定回调</p>
+<p>（2）如何先改状态再指定回调</p>
+<pre><code>1）再执行器中直接调用 resolve()/reject()
+2）延迟更长时间才调用 then()</code></pre>
+<p>（3）什么时候才能得到数据？</p>
+<pre><code>1）若先指定回调，当状态发生改变时，回调函数就会调用，得到数据
+2）若先改变状态，当指定回调时，回调函数就会调用，得到数据</code></pre>
+<p>如先指定回调再改变状态</p>
+<pre><code>new Promise((resolve,reject)=&gt;&#123;
+    setTimeout(()=&gt;&#123;
+        resolve(1) //后改变状态同时指定数据，异步执行回调函数
+    &#125;,100)
+&#125;).then( //先指定回调函数，保存当前指定的回调函数
+    value =&gt; &#123;&#125;,
+    reason =&gt;&#123;&#125;
+)</code></pre>
+<p>先改变状态再指定回调1</p>
+<pre><code>new Promise((resolve,reject)=&gt;&#123;
+    resolve(1)  //先改状态同时指定数据
+&#125;).then( //后指定回调函数，异步执行回调函数
+    value =&gt; &#123;&#125;,
+    reason =&gt;&#123;&#125;
+)</code></pre>
+<p>先改变状态再指定回调2</p>
+<pre><code>const p = new Promise((resolve,reject)=&gt;&#123;
+    setTimeout(()=&gt;&#123;
+        resolve(1)   //先改状态同时指定数据
+    &#125;,100)
+&#125;)
+setTimeout(()=&gt;&#123;
+    p.then(  //后指定回调函数
+        value =&gt; &#123;&#125;,
+        reason =&gt;&#123;&#125;
+    )
+&#125;,110)</code></pre>
+<h2 id="promise-then-返回的新-promise-的结果状态由什么决定？"><a href="#promise-then-返回的新-promise-的结果状态由什么决定？" class="headerlink" title="promise.then() 返回的新 promise 的结果状态由什么决定？"></a>promise.then() 返回的新 promise 的结果状态由什么决定？</h2><p>简单表达：由 then() 指定的回调函数执行结果决定</p>
+<p>详细表达：</p>
+<pre><code>（1）若抛出异常，新 promise 变为 rejected，reason 为抛出的异常
+（2）若返回非 promise 的任意值，新 promise 变为 resolved，value 为返回的值
+（3）若返回的是另一个新 promise，此 promise 的结果就会成为新 promise 的结果</code></pre>
+<p>如</p>
+<pre><code>new Promise((resolve,reject)=&gt;&#123;
+    resolve(1)
+&#125;).then(
+    value =&gt; &#123;
+        console.log(&#39;onResolved1&#39;,value)
+    &#125;,
+    reason =&gt;&#123;
+        console.log(&#39;onRejected1&#39;,reason)
+    &#125;
+)
+.then(
+    value =&gt; &#123;
+        console.log(&#39;onResolved2&#39;,value)
+    &#125;,
+    reason =&gt;&#123;
+        console.log(&#39;onRejected2&#39;,reason)
+    &#125;
+)</code></pre>
+<p>上述代码输出：onResolved1 1 onResolved2 undefined</p>
+<pre><code>new Promise((resolve,reject)=&gt;&#123;
+    reject(1)
+&#125;).then(
+    value =&gt; &#123;
+        console.log(&#39;onResolved1&#39;,value)
+    &#125;,
+    reason =&gt;&#123;
+        console.log(&#39;onRejected1&#39;,reason)
+    &#125;
+)
+.then(
+    value =&gt; &#123;
+        console.log(&#39;onResolved2&#39;,value)
+    &#125;,
+    reason =&gt;&#123;
+        console.log(&#39;onRejected2&#39;,reason)
+    &#125;
+)</code></pre>
+<p>上述代码输出：onRejected1 1 onResolved2 undefined</p>
+<h2 id="promise-如何串联多个操作任务？"><a href="#promise-如何串联多个操作任务？" class="headerlink" title="promise 如何串联多个操作任务？"></a>promise 如何串联多个操作任务？</h2><p>（1）promise 的 then() 返回一个新的 promise，可以看成 then() 的链式调用</p>
+<p>（2）通过 then 的链式调用串联多个同步/异步任务，其中异步任务要包在一个 promise 里</p>
+<h2 id="promise-异常传-穿透"><a href="#promise-异常传-穿透" class="headerlink" title="promise 异常传/穿透"></a>promise 异常传/穿透</h2><p>（1）当使用 promise 的 then 链式调用时，可在最后指定失败的回调</p>
+<p>当 then 中没有对失败时 reason 的处理时相当于默认执行 <code>reason =&gt; &#123;throw reason&#125;</code></p>
+<p>（2）前面任何操作出了异常，都会传到最后失败的回调中处理</p>
+<h2 id="中断-promise-链"><a href="#中断-promise-链" class="headerlink" title="中断 promise 链"></a>中断 promise 链</h2><p>当使用 promise 的 then 链式调用时，在中间中断，不再调用后面的回调函数</p>
+<p>办法：在回调函数中返回一个 pendding 状态的 promise 对象</p>
+<pre><code>return new Promise(()=&gt;&#123;&#125;)</code></pre>
+<h1 id="三、自定义-Promise"><a href="#三、自定义-Promise" class="headerlink" title="三、自定义 Promise"></a>三、自定义 Promise</h1><pre><code>(function(window)&#123;
+    function Promise(excutor)&#123;
+        const self = this //将当前 promise 保存起来，否则调用 resolve 函数中的 this 为 window
+        self.status = &#39;pending&#39;
+        self.data = undefined //用于存储结果数据
+        self.callbacks = [] //每个元素：&#123;onResolved()&#123;&#125;,onRejected()&#123;&#125;&#125;
+        function resolve(value)&#123;
+            if(self.status !== &#39;pending&#39;)&#123;return &#125;
+            self.status = &#39;resolved&#39;
+            self.data = value
+            //
+            if(self.callbacks.length&gt;0)&#123;
+                setTimeout(()=&gt;&#123; //放入队列中执行所有成功的回调
+                        self.callbacks.forEach(callbacksObj =&gt; &#123;
+                        callbacksObj.onResolved(value)
+                    &#125;)
+                &#125;)
+            &#125;
+        &#125;
+        function reject(reason)&#123;
+            if(self.status !== &#39;pending&#39;)&#123;return &#125;
+            self.status = &#39;rejected&#39;
+            self.data = reason
+            //
+            if(self.callbacks.length&gt;0)&#123;
+                setTimeout(()=&gt;&#123; //放入队列中执行所有失败的回调
+                        self.callbacks.forEach(callbacksObj =&gt; &#123;
+                        callbacksObj.onRejected(reason)
+                    &#125;)
+                &#125;)
+            &#125;
+        &#125;
+        //立即同步执行 excutor
+        try&#123;
+            excutor(resolve,reject)
+        &#125;catch(error)&#123; //若执行器抛出异常，promise 对象变为 rejected 状态
+            reject(error)
+        &#125;
+    &#125;
+    //Promise 原型对象的 then，指定成功或失败的回调函数，返回新的 promise 对象
+    Promise.prototype.then = function(onResolved,onRejected)&#123;
+        onResolved = typeof onResolved === &#39;function&#39; ? onResolved : value =&gt; value //向后传递成功的 value
+        onRejected = typeof onRejected === &#39;function&#39; ? onRejected : reason =&gt; &#123;throw reason&#125; //指定默认的失败回调（实现错误/异常传透的关键点）
+        const self = this
+        return new Promise((resolve,reject)=&gt;&#123;
+            function handle(callback)&#123; //调用指定的回调函数处理，并根据执行结果改变 return 的 promise 的状态
+                try&#123;
+                    const result = callback(self.data)
+                    if(result instanceof Promise)&#123;
+                        result.then( //只有 .then 才能获取到 result 的结果
+                            value =&gt;resolve(value),
+                            reason =&gt; reject(reason)
+                        )
+                        //或简写为 result.then(resolve,reject)
+                    &#125;else&#123;
+                        resolve(result)
+                    &#125;
+                &#125;catch(error)&#123;
+                    reject(error)
+                &#125;
+            &#125;
+            if(self.status === &#39;pending&#39;)&#123;
+                //当前为 pending 状态，将回调函数保存起来，保存的函数里会取调用所保存函数来改变 promise 状态
+                self.callbacks.push(&#123;
+                    onResolved(value)&#123; //这里能接收个 value，但没用
+                        handle(onResolved)
+                    &#125;,
+                    onRejected(reason)&#123;
+                        handle(onRejected)
+                    &#125;,
+                &#125;)
+            &#125;else if(self.status === &#39;resolved&#39;)&#123;
+                //当前是 resolved 状态，异步执行 onResolve 并改变 return 的 promise 状态
+                setTimeout(()=&gt;&#123;
+                    handle(onResolved)
+                &#125;)
+            &#125;else&#123;
+                setTimeout(()=&gt;&#123;
+                    handle(onRejected)
+                &#125;)
+            &#125;
+        &#125;)
+
+    &#125;
+    //Promise 原型对象的 catch，指定失败的回调函数，返回新的 promise 对象
+    Promise.prototype.catch = function(onRejected)&#123;
+        return this.then(undefined,onRejected)
+    &#125;
+    //Promise 函数对象的 resolve 方法，返回一个指定结果的 promise
+    Promise.resolve = function(value)&#123;
+        return new Promise((resolve,reject)=&gt;&#123;
+            if(value instanceof Promise)&#123;
+                value.then(resolve,reject)
+            &#125;else&#123;
+                resolve(value)
+            &#125;
+        &#125;)
+    &#125;
+    //Promise 函数对象的 reject 方法，返回一个指定 reason 的失败的 promise
+    Promise.reject = function(reason)&#123;
+        return new Promise((resolve,reject)=&gt;&#123;
+            reject(reason)
+        &#125;)
+    &#125;
+    //Promise 函数对象的 all 方法，返回一个 promise，只有当所有 promise 都成功时才成功，否则只要有一个失败就失败
+    Promise.all = function(promises)&#123;
+        const values = new Array(promises.length) //保存所有成功 value 的数组
+        let resolvedCount = 0 //保存成功 promise 的数量
+        return new Promise((resolve,reject)=&gt;&#123;
+            //遍历获取每个 promise 的结果
+            promises.forEach((p,index)=&gt;&#123;
+                Promise.resolve(p).then( //Promise.resolve(p)是处理传入的数组中包含的纯数字
+                    value=&gt;&#123;
+                        resolvedCount++
+                        values[index] = value
+                        if(resolvedCount === promises.length)&#123;
+                            resolve(values)
+                        &#125;
+                    &#125;,
+                    reason =&gt; &#123;
+                        reject(reason)
+                    &#125;
+                )
+            &#125;)
+        &#125;)
+    &#125;
+    //Promise 函数对象的 race 方法，返回一个 promise，其结果由第一个完成（注意不是指位置上的第一个）的 promise 决定
+    Promise.race = function(promises)&#123;
+        return new Promise((resolve,reject)=&gt;&#123;
+            promises.forEach((p,index)=&gt;&#123;
+                Promise.resolve(p).then(
+                    value =&gt; &#123;
+                        resolve(value)
+                    &#125;,
+                    reason =&gt; &#123;
+                        reject(reason)
+                    &#125;
+                )
+            &#125;)
+        &#125;)
+    &#125;
+    window.Promise = Promise
+&#125;)(window)</code></pre>
+<h2 id="自定义-Promise-的其他方法"><a href="#自定义-Promise-的其他方法" class="headerlink" title="自定义 Promise 的其他方法"></a>自定义 Promise 的其他方法</h2><p>Promise 的 resolveDelay 和 rejectDelay，都返回一个 Promise 对象，它们在指定的时间后才确定结果</p>
+<pre><code>Promise.resolveDelay = function(value,time)&#123;
+    return new Promise((resolve,reject)=&gt;&#123;
+        setTimeout(()=&gt;&#123;
+            if(value instanceof Promise)&#123;
+                value.then(resolve,reject)
+            &#125;else&#123;
+                resolve(value)
+            &#125;
+        &#125;,time)
+    &#125;)
+&#125;
+
+Promise.rejectDelay = function(reason,time)&#123;
+    const self = this
+    return new Promise((resolve,reject)=&gt;&#123;
+        setTimeout(()=&gt;&#123;
+            reject(reason)
+        &#125;,time)
+    &#125;)
+&#125;</code></pre>
+<h2 id="Promise-的-class-版本"><a href="#Promise-的-class-版本" class="headerlink" title="Promise 的 class 版本"></a>Promise 的 class 版本</h2><pre><code>(function(window)&#123;
+    class Promise&#123;
+        constructor(excutor)&#123;
+            const self = this //将当前 promise 保存起来，否则调用 resolve 函数中的 this 为 window
+            self.status = &#39;pending&#39;
+            self.data = undefined //用于存储结果数据
+            self.callbacks = [] //每个元素：&#123;onResolved()&#123;&#125;,onRejected()&#123;&#125;&#125;
+            function resolve(value)&#123;
+                if(self.status !== &#39;pending&#39;)&#123;return &#125;
+                self.status = &#39;resolved&#39;
+                self.data = value
+                //
+                if(self.callbacks.length&gt;0)&#123;
+                    setTimeout(()=&gt;&#123; //放入队列中执行所有成功的回调
+                            self.callbacks.forEach(callbacksObj =&gt; &#123;
+                            callbacksObj.onResolved(value)
+                        &#125;)
+                    &#125;)
+                &#125;
+            &#125;
+            function reject(reason)&#123;
+                if(self.status !== &#39;pending&#39;)&#123;return &#125;
+                self.status = &#39;rejected&#39;
+                self.data = reason
+                //
+                if(self.callbacks.length&gt;0)&#123;
+                    setTimeout(()=&gt;&#123; //放入队列中执行所有失败的回调
+                            self.callbacks.forEach(callbacksObj =&gt; &#123;
+                            callbacksObj.onRejected(reason)
+                        &#125;)
+                    &#125;)
+                &#125;
+            &#125;
+            //立即同步执行 excutor
+            try&#123;
+                excutor(resolve,reject)
+            &#125;catch(error)&#123; //若执行器抛出异常，promise 对象变为 rejected 状态
+                reject(error)
+            &#125;
+        &#125;
+        //Promise 原型对象的 then，指定成功或失败的回调函数，返回新的 promise 对象
+        then(onResolved,onRejected)&#123;
+            onResolved = typeof onResolved === &#39;function&#39; ? onResolved : value =&gt; value //向后传递成功的 value
+            onRejected = typeof onRejected === &#39;function&#39; ? onRejected : reason =&gt; &#123;throw reason&#125; //指定默认的失败回调（实现错误/异常传透的关键点）
+            const self = this
+            return new Promise((resolve,reject)=&gt;&#123;
+                function handle(callback)&#123; //调用指定的回调函数处理，并根据执行结果改变 return 的 promise 的状态
+                    try&#123;
+                        const result = callback(self.data)
+                        if(result instanceof Promise)&#123;
+                            result.then( //只有 .then 才能获取到 result 的结果
+                                value =&gt;resolve(value),
+                                reason =&gt; reject(reason)
+                            )
+                            //或简写为 result.then(resolve,reject)
+                        &#125;else&#123;
+                            resolve(result)
+                        &#125;
+                    &#125;catch(error)&#123;
+                        reject(error)
+                    &#125;
+                &#125;
+                if(self.status === &#39;pending&#39;)&#123;
+                    //当前为 pending 状态，将回调函数保存起来，保存的函数里会取调用所保存函数来改变 promise 状态
+                    self.callbacks.push(&#123;
+                        onResolved(value)&#123; //这里能接收个 value，但没用
+                            handle(onResolved)
+                        &#125;,
+                        onRejected(reason)&#123;
+                            handle(onRejected)
+                        &#125;,
+                    &#125;)
+                &#125;else if(self.status === &#39;resolved&#39;)&#123;
+                    //当前是 resolved 状态，异步执行 onResolve 并改变 return 的 promise 状态
+                    setTimeout(()=&gt;&#123;
+                        handle(onResolved)
+                    &#125;)
+                &#125;else&#123;
+                    setTimeout(()=&gt;&#123;
+                        handle(onRejected)
+                    &#125;)
+                &#125;
+            &#125;)
+
+        &#125;
+        //Promise 原型对象的 catch，指定失败的回调函数，返回新的 promise 对象
+        catch(onRejected)&#123;
+            return this.then(undefined,onRejected)
+        &#125;
+        //Promise 函数对象的 resolve 方法，返回一个指定结果的 promise
+        static resolve = function(value)&#123;
+            return new Promise((resolve,reject)=&gt;&#123;
+                if(value instanceof Promise)&#123;
+                    value.then(resolve,reject)
+                &#125;else&#123;
+                    resolve(value)
+                &#125;
+            &#125;)
+        &#125;
+        //Promise 函数对象的 reject 方法，返回一个指定 reason 的失败的 promise
+        static reject = function(reason)&#123;
+            return new Promise((resolve,reject)=&gt;&#123;
+                reject(reason)
+            &#125;)
+        &#125;
+        //Promise 函数对象的 all 方法，返回一个 promise，只有当所有 promise 都成功时才成功，否则只要有一个失败就失败
+        static all = function(promises)&#123;
+            const values = new Array(promises.length) //保存所有成功 value 的数组
+            let resolvedCount = 0 //保存成功 promise 的数量
+            return new Promise((resolve,reject)=&gt;&#123;
+                //遍历获取每个 promise 的结果
+                promises.forEach((p,index)=&gt;&#123;
+                    Promise.resolve(p).then( //Promise.resolve(p)是处理传入的数组中包含的纯数字
+                        value=&gt;&#123;
+                            resolvedCount++
+                            values[index] = value
+                            if(resolvedCount === promises.length)&#123;
+                                resolve(values)
+                            &#125;
+                        &#125;,
+                        reason =&gt; &#123;
+                            reject(reason)
+                        &#125;
+                    )
+                &#125;)
+            &#125;)
+        &#125;
+        //Promise 函数对象的 race 方法，返回一个 promise，其结果由第一个完成（注意不是指位置上的第一个）的 promise 决定
+        static race = function(promises)&#123;
+            return new Promise((resolve,reject)=&gt;&#123;
+                promises.forEach((p,index)=&gt;&#123;
+                    Promise.resolve(p).then(
+                        value =&gt; &#123;
+                            resolve(value)
+                        &#125;,
+                        reason =&gt; &#123;
+                            reject(reason)
+                        &#125;
+                    )
+                &#125;)
+            &#125;)
+        &#125;
+    &#125;
+    window.Promise = Promise
+&#125;)(window)</code></pre>
+<h1 id="四、async-与-await"><a href="#四、async-与-await" class="headerlink" title="四、async 与 await"></a>四、async 与 await</h1><h2 id="async"><a href="#async" class="headerlink" title="async"></a>async</h2><p>async 函数返回值为 promise 对象</p>
+<p>promise 对象的结果由 async 函数执行的返回值决定</p>
+<h2 id="await-表达式"><a href="#await-表达式" class="headerlink" title="await 表达式"></a>await 表达式</h2><p>await 右侧的表达式一般为 promise 对象，但也可以是其他的值，若为其他值则返回该值本身</p>
+<p>若表达式为 promise 对象，await 返回的是 promise 成功的值，若返回的 promise 失败，就会抛出异常，要得到失败的结果要用 try…catch</p>
+<pre><code>function fun()&#123;
+    return new Promise((resolve,reject)=&gt;&#123;
+        reject(1)
+    &#125;)
+&#125;
+async function fun1()&#123;
+    try&#123;
+        const value = await fun()
+    &#125;catch(error)&#123;
+        console.log(&#39;得到失败的结果&#39;,value)
+    &#125;
+&#125;</code></pre>
+<p>await 必须写在 async 函数中</p>
+<h1 id="五、JS-异步之宏队列与微队列"><a href="#五、JS-异步之宏队列与微队列" class="headerlink" title="五、JS 异步之宏队列与微队列"></a>五、JS 异步之宏队列与微队列</h1><p>JS 中用来存储执行回调函数的队列包含 2 个不同特定的列队</p>
+<p>宏队列：保存待执行的宏任务（一些回调函数），如定时器回调、DOM 事件回调、ajax 回调</p>
+<p>微队列：保存待执行的微任务（一些回调函数），如 promise 的回调（如 then 等）、MutationObserver 的回调</p>
+<p>JS 执行时会区别这 2 个队列</p>
+<pre><code>（1）JS 引擎首先必须先执行所有的初始化同步任务代码
+（2）每次准备取出每个宏任务执行前，都要将所有的微任务一个个取出来执行</code></pre>
+<p><img src="/2022/03/14/Promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%AE%8F%E9%98%9F%E5%88%97%E5%BE%AE%E9%98%9F%E5%88%97.jpg" alt="宏队列微队列"></p>
+<p>例子1</p>
+<pre><code>const first = () =&gt; (new Promise((resolve,reject)=&gt;&#123;
+    console.log(3)
+    let p = new Promise((resolve,reject)=&gt;&#123;
+        console.log(7)
+        setTimeout(()=&gt;&#123;
+            console.log(5)
+            resolve(6)
+        &#125;,0)
+        resolve(1)
+    &#125;)
+    resolve(2)
+    p.then((arg)=&gt;&#123;
+        console.log(arg)
+    &#125;)
+&#125;))
+first().then((arg)=&gt;&#123;
+    console.log(arg)
+&#125;)
+console.log(4)</code></pre>
+<p>上述代码输出：3 7 4 1 2 5</p>
+<p>例子2</p>
+<pre><code>setTimeout(()=&gt;&#123;
+    console.log(0)
+&#125;,0)
+new Promise((resolve,reject)=&gt;&#123;
+    console.log(1)
+    resolve()
+&#125;).then(()=&gt;&#123;
+    console.log(2)
+    new Promise((resolve,reject)=&gt;&#123;
+        console.log(3)
+        resolve()
+    &#125;).then(()=&gt;&#123;
+        console.log(4)
+    &#125;).then(()=&gt;&#123;
+        console.log(5)
+    &#125;)
+&#125;).then(()=&gt;&#123;
+    console.log(6)
+&#125;)
+new Promise((resolve,reject)=&gt;&#123;
+    console.log(7)
+    resolve()
+&#125;).then(()=&gt;&#123;
+    console.log(8)
+&#125;)</code></pre>
+<p>宏队列：【0】</p>
+<p>微队列：【2，8，4，6，5】</p>
+<p>上述代码输出：1 7 2 3 8 4 6 5 0</p>
+<p>注意：<strong>链式调用的 .then 何时放入微队列取决于链的上一个 then 啥时候执行</strong>，如轮到 4 执行后 5 才放入微队列，2 下一长串结束后 6 才放入微队列</p>
+<p>注意：<strong>里层的多个链式调用 then 只要有一个放入队列后外层的 then 就可以放入队列</strong></p>
+<p>4 放入微队列后后面的 then 就执行了，只是 then 里的 5 等 4 执行了采访如微队列，这样即使 5 还没放入微队列，但 6 上面的 then 都执行完了，所以 6 可以放入微队列</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/25/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Vue学习笔记">
+                  <i class="fa fa-chevron-left"></i> Vue学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NicoleJay</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
